@@ -76,6 +76,24 @@ Branch : main / (root)<br>
 </li>
 </ol>
 
+<h2>アセット(CSS / JS / 画像 / その他ファイル)について (※重要)</h2>
+HTML文書以外のアセットは、パスの指定が異なるため注意が必要。
+
+<h3>画像およびバイナリファイル</h3>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/GitHub/Host_Web_Pages/05.png" alt=""><br>
+通常のWebサイトと異なり、画像や音声、動画などのバイナリファイル(BLOB)は<b>格納先が強制的に変更される</b>。
+<br>
+https://raw.githubusercontent.com/[ユーザ名]/[リポジトリ名]/[ブランチ名]/[リポジトリルートからの相対パス]<br>
+または<br>
+https://github.com/[ユーザ名]/[リポジトリ名]/blob/[ブランチ名]/[リポジトリルートからの相対パス]?raw=true<br>
+の形式(直接パス)で指定する。
+
+<h3>スタイルシート(CSS)、スクリプトファイル(JS)</h3>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/GitHub/Host_Web_Pages/06.png" alt=""><br>
+CSSおよびJSは<b>ルートディレクトリに配置する必要がある</b>。
+(ルートディレクトリ下の他のディレクトリに配置した場合、パスの指定が正しくても動作しない。)<br>
+BLOBと異なり、base からの間接パスとして指定が可能である。
+
 <h2>URLの指定について</h2>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/GitHub/Host_Web_Pages/04.png" alt=""><br>
 通常のWebサイトと同様、index.html はディレクトリ名のみでアクセス可能。<br>
