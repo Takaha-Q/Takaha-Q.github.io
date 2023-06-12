@@ -72,13 +72,13 @@ VBAではエラーへの対処を <b>On Error</b> ステートメントを用い
 これはオブジェクト指向言語における例外処理に類似するが、本来の例外機構と比較して機能は限定されている。<br>
 
 <h3>エラー処理の意義</h3>
-<img src="_Img/MS Excel/VBA_Error_Handling/01.png"><br>
+<img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/MS Excel/VBA_Error_Handling/01.png"><br>
 エラー処理を実装せずにプログラムを実行してエラーが発生した場合、<br>
 エラーはシステムによって捕捉され、上図のようなダイアログが表示されてプログラムの実行は停止される。<br>
 エラー処理を実装することで、発生したエラーをプログラムが主体的に捕捉、適切に処理したうえでプログラムの実行を継続させることができる。<br>
 
 <h2>エラー処理の類型</h2>
-<img src="_Img/MS Excel/VBA_Error_Handling/02.png"><br>
+<img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/MS Excel/VBA_Error_Handling/02.png"><br>
 <b>On Error</b> ステートメントをプログラム中に記述すると、<b>ステートメントの直後からプロシージャの末尾まで</b>の範囲内で発生したエラーを捕捉する。<br>
 (別の On Error ステートメントがプロシージャ中に存在しない場合)<br>
 エラーを捕捉した場合の処置は、主に以下の二つに大別される。
@@ -186,7 +186,7 @@ VBAではエラーへの対処を <b>On Error</b> ステートメントを用い
 という流れとなる。<br>
 
 <h2>On Error を複数記述</h2>
-<img src="_Img/MS Excel/VBA_Error_Handling/03.png"><br>
+<img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/MS Excel/VBA_Error_Handling/03.png"><br>
 <b>On Error GoTo 0</b> を記述すると、その行以降はエラーの監視範囲外となる。<br>
 即ち、<b>On Error GoTo 0</b> の直前で、それより上にある On Error ステートメントの有効範囲は終了し、次行以降に別の On Error ステートメントを記述することができる。<br>
 これにより、エラーの発生個所ごとに異なるエラー処理を実装することができる。

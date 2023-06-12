@@ -94,7 +94,7 @@ StreamWriter は<b>スレッドセーフではなく、マルチスレッドで�
 StreamWriter は IDisposable インタフェースを実装しており、役目を終えた場合は明示的に Dispose() を呼び出すか、上記コードのように using ブロックを用いる必要がある。<br>
 
 <h2>書き込み動作のイメージ</h2>
-<img src="_Img/dotNET/StreamWriter/01.png" alt=""><br>
+<img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/dotNET/StreamWriter/01.png" alt=""><br>
 通常、StreamWriter に書き込まれた内容はバッファに保持され、バッファをフラッシュしない限りはファイルへの反映はなされない。<br>
 Flush() 、Close() または Dispose() を行うことでバッファがフラッシュされる。<br>
 AutoFlush プロパティを true に設定すると、Flush() を明示的に呼び出さなくてもバッファへの書き込みが行われるごとに自動的にフラッシュを行うようにできる。<br>

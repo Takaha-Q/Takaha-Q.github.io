@@ -56,7 +56,7 @@ body
 コントロールを参照する際に、コントロール名(絶対値)ではなく相対値を用いることができる。
 
 <h2>RelativeSource の指定(XAML)</h2>
-<img src="_Img/MSVS_DotNet_CSharp/WPF_RelativeSource/03.png"><br>
+<img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/MSVS_DotNet_CSharp/WPF_RelativeSource/03.png"><br>
 依存関係プロパティ DependencyProp の値を、参照したオブジェクトのプロパティに同期させる場合を考える。<br>
 (依存関係プロパティに関しては<a href="TIPS/Windows Presentation Foundation(WPF)/依存関係プロパティ.html">ここ</a>を参照。)<br>
 対象のオブジェクトを RelativeSource で指定し、プロパティを Path で指定した Binding を構成することで<br>
@@ -67,7 +67,7 @@ Binding の Mode は別に存在するため、混同に注意。
 <h2>RelativeSource の類型</h2>
 <h3>先祖のプロパティを参照 : Mode = FindAncestor</h3>
 (XAML)<br>
-<img src="_Img/MSVS_DotNet_CSharp/WPF_RelativeSource/01.png"><br>
+<img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/MSVS_DotNet_CSharp/WPF_RelativeSource/01.png"><br>
 ここでは、Border の Width (幅)プロパティを、親要素 Canvas の ActualWidth (現在幅)に揃えようとしている。<br>
 RelativeSource を FindAncestor (先祖を探す)、対象となる先祖の型 (AncestorType) を Canvas としているため、<br>
 先祖を辿り、最初に見つかった Canvas がバインド先となる。また、AncestorLevel で、「何番目に見つかった先祖か」を指定することもできる。<br>
@@ -88,7 +88,7 @@ RelativeSource={RelativeSource <b class="red">                  </b> AncestorTyp
 
 <h3>自身のプロパティを参照 : Mode = Self</h3>
 (XAML)<br>
-<img src="_Img/MSVS_DotNet_CSharp/WPF_RelativeSource/02.png"><br>
+<img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/MSVS_DotNet_CSharp/WPF_RelativeSource/02.png"><br>
 ここでは、Border の Height (高さ)プロパティを、自身の ActualWidth (現在幅)に揃えることで、コントロールを正方形にしようとしている。
 
 <h3>直前の要素のプロパティを参照 : Mode = PreviousData</h3>

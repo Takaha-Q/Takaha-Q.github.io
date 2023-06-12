@@ -77,12 +77,12 @@ C++における例外処理の原則は以下の通りである。
 </ol>
 
 <h2>基本的な例</h2>
-<img src="_Img/CPP/exception_handling/exception_handling_01.png" alt="画像"><br>
+<img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/CPP/exception_handling/exception_handling_01.png" alt="画像"><br>
 
 <h2>例外の投げなおし</h2>
 try ブロックで発生した例外を処理した後、さらに外側に例外を投げることができる。<br>
 当然、try ブロックは(コールスタック全体で)ネストしている必要がある。<br>
-<img src="_Img/CPP/exception_handling/exception_handling_02.png" alt="画像"><br>
+<img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/CPP/exception_handling/exception_handling_02.png" alt="画像"><br>
 
 ここで、キャッチした例外を投げなおす場合は、throw 句<b>のみ</b>を記述する。
 <div class="code">
@@ -106,7 +106,7 @@ try ブロックで発生した例外を処理した後、さらに外側に例�
 この時、括弧内を空にすると、一切の例外を外部に投げられなくなる。<br>
 (実使用上、例外の型を限定することはあまり有用とは言えない。空括弧により例外を一切送出しない旨を明示するケースが大半。)<br>
 <br>
-<img src="_Img/CPP/exception_handling/exception_handling_03.png" alt="画像"><br>
+<img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/CPP/exception_handling/exception_handling_03.png" alt="画像"><br>
 <br>
 この throw() (空括弧)による例外送出禁止指定は、C++11以降では非推奨となっている古い記法である。<br>
 C++11以降では、例外を送出しない(または、する可能性がある)ことを明確化するためには、以下に挙げる <b>noexcept</b> 句が推奨される。<br>
