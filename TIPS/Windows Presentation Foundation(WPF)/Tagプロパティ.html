@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<!-- --------------------------------------
+head
+--------------------------------------- -->
+<head>
+<meta content="text/html" charset="utf-8" http-equiv="Content-Type" />
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="_Assets/CSS/Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="_Assets/MakeTitle.js" type="text/javascript"></script>
+<!-- 目次表示 -->
+<script src="_Assets/MakeToc_L.js" type="text/javascript"></script>
+
+
+
+</head>
+
+<!-- --------------------------------------
+body
+--------------------------------------- -->
+<body>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典・関連ページ -->
+<h5>出典 :</h5>
+<a href="https://docs.microsoft.com/ja-jp/dotnet/api/system.windows.frameworkelement.tag?view=windowsdesktop-6.0%23system-windows-frameworkelement-tag">FrameworkElement.Tag プロパティ (System.Windows) | Microsoft Docs</a><br>
+<a href="http://blog.pionet.co.jp/experience/archives/2118">» [WPF] Buttonの処理を一箇所にまとめる　技術ブログ</a>
+
+<h5>関連 :</h5>
+<a href="TIPS/Windows Presentation Foundation(WPF)/リソースとスタイル.html">リソースとスタイル</a><br>
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>FrameworkElement.Tag プロパティ</h2>
+ユーザ定義の任意のオブジェクト値を格納することができる。<br>
+
+<h2>応用 : Button に Tag を付与し、イベントハンドラを共通化する</h2>
+
+<br>
+(XAML)
+<div class="xaml">
+&lt;Button Tag="AAA" Click="Button_Click"/&gt;
+&lt;Button Tag="BBB" Click="Button_Click"/&gt;
+&lt;Button Tag="CCC" Click="Button_Click"/&gt;
+&lt;Button Tag="DDD" Click="Button_Click"/&gt;
+</div>
+
+スタイルを用いることで、より簡潔な記述でイベントハンドラを共通化できる。<br>
+詳細は<a href="TIPS/Windows Presentation Foundation(WPF)/リソースとスタイル.html">リンク先</a>を参照。<br>
+
+(コードビハインド)
+<div class="code">
+<cmt>// 共通のクリックイベントハンドラ</cmt>
+<kwd>private void</kwd> Button_Click(<kwd>object</kwd> sender, RoutedEventArgs e)
+{
+    <cmt>// 押されたボタンの取得</cmt>
+    <knw>Button</knw> button = (<knw>Button</knw>)sender;
+
+    <cmt>// ボタンに設定されたタグによって処理を振り分け</cmt>
+    <kwd>switch</kwd> (button.Tag.ToString())
+    {
+        <kwd>case</kwd> "AAA":
+            :
+            <kwd>break</kwd>;
+
+        <kwd>case</kwd> "BBB":
+            :
+            <kwd>break</kwd>;
+
+        <kwd>case</kwd> "CCC":
+            :
+            <kwd>break</kwd>;
+
+        <kwd>case</kwd> "DDD":
+            :
+            <kwd>break</kwd>;
+
+        <kwd>default</kwd>:
+            <kwd>break</kwd>;
+    }
+}
+</div>
+
+Button に Tag を設定することで、Tag によって押されたボタンを特定したり、押されたボタンに紐づく情報を取得するといったことができるため、<br>
+イベントハンドラを集約することができる。<br>
+但し、XAML上では文字列形式でしか値を設定することができないため、異なる形式で用いる場合は工夫が必要。
+
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<!-- --------------------------------------
+head
+--------------------------------------- -->
+<head>
+<meta content="text/html" charset="utf-8" http-equiv="Content-Type" />
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="_Assets/CSS/Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="_Assets/MakeTitle.js" type="text/javascript"></script>
+<!-- 目次表示 -->
+<script src="_Assets/MakeToc_L.js" type="text/javascript"></script>
+
+
+
+</head>
+
+<!-- --------------------------------------
+body
+--------------------------------------- -->
+<body>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+<!-- 出典・関連ページ -->
+
+<h5>出典 :</h5>
+<a href="https://www.premium-tsubu-hero.net/visual-studio-create-installer/">Visual Studioでインストーラを作成する – プログラマーやめました</a>
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+
+<hr>
+
+<!-- 本文ここから -->
+<h2>Installer Projectを用いたインストーラ―作成</h2>
+<h3>準備 : Installer Projectのインストール</h3>
+<ol>
+    <li>Visual Studioを開き、「拡張機能」>「拡張機能の管理」をクリックする。<br><img src="_Img/MSVS/Installer/01.png" alt=""></li>
+    <li>「拡張機能の管理」画面で「オンライン」を選択後、検索欄に「Installer Project」と入力し、<br>
+        表示された「Microsoft Visual Studio Installer Project」の「ダウンロード」をクリックする。<br><img src="_Img/MSVS/Installer/02.png" alt=""></li>
+    <li>「拡張機能の管理」画面を閉じ、Visual Studioを閉じる。(Visual Studioが動作しているとインストールが進行しない。)</li>
+    <li>インストーラーが起動するので、「Modify」をクリックする。<br><img src="_Img/MSVS/Installer/03.png" alt=""></li>
+    <li>インストール完了。<br><img src="_Img/MSVS/Installer/04.png" alt=""></li>
+</ol>
+
+<h3>インストーラープロジェクトの作成</h3>
+<ol>
+    <li>Visual Studioでプロジェクト「Setup Project」を新規作成する。<br><img src="_Img/MSVS/Installer/05.png" alt=""></li>
+    <li>プロジェクトが作成される。<br><img src="_Img/MSVS/Installer/06.png" alt=""></li>
+</ol>
+
+<h3>展開するファイルの追加</h3>
+<ol>
+    <li>「Application Folder」を右クリック、「Add」>「ファイル」を選択する。<br><img src="_Img/MSVS/Installer/07.png" alt=""></li>
+    <li>対象となるファイルを選択(複数可)し、「開く」をクリックする。</li>
+    <li>選択したファイルが出力対象として追加される。<br>
+        (ここではショートカットに使用するアイコンを含めている。)<br>
+        <img src="_Img/MSVS/Installer/08.png" alt=""></li>
+
+</ol>
+
+<h3>デスクトップショートカットの追加</h3>
+<ol>
+    <li>「User's Desktop」を選択後右ペインで右クリック、リンク先に設定したいファイルを右クリック、「新しいショートカットの作成」を選択する。<br><img src="_Img/MSVS/Installer/10.png" alt=""></li>
+    <li>リンク先(ここでは Application Folder > ELP_Console.exe )を選択し、「OK」をクリックする。<br><img src="_Img/MSVS/Installer/11.png" alt=""></li>
+    <li>作成されたショートカットを選択し、F4キーでプロパティを開く。「(Name)」(表示名)を適宜変更し、「Icon」のプルダウンから「(Browse...)」を選択する。<br><img src="_Img/MSVS/Installer/12.png" alt=""></li>
+    <li>「Browse...」をクリックする。<br><img src="_Img/MSVS/Installer/13.png" alt=""></li>
+    <li>アイコンとして使用するファイルを選択し、「OK」をクリックする。再度「OK」をクリックして決定。<br><img src="_Img/MSVS/Installer/14.png" alt=""></li>
+</ol>
+
+<h3>プログラムメニューショートカットの追加</h3>
+「User's Programs Menu」に対して行う。手順は「User's Desktop」と同様。
+
+<h3>発行情報の編集</h3>
+「ソリューション エクスプローラー」上でインストーラ―プロジェクトを選択、F4キーでプロパティを開き、各項目を適宜変更する。<br>
+以下、主要な項目を抜粋。これ以外の項目は通常は変更不要。
+
+<table>
+    <tr class="row1">
+        <td class="col1">項目</td>
+        <td>説明</td>
+    </tr>
+    <tr><td class="col1">AddRemoveProgramsIcon</td><td>「プログラムのアンインストールまたは変更」(コントロール パネル)に表示されるアイコン</td></tr>
+    <tr><td class="col1">Author</td><td>発行者</td></tr>
+    <tr><td class="col1">Manufacturer</td><td>製造者</td></tr>
+    <tr><td class="col1">ProductCode</td><td>製品識別子(自動生成)</td></tr>
+    <tr><td class="col1">ProductName</td><td>製品名(インストールするソフトウェア名)</td></tr>
+    <tr><td class="col1">TargetPlatform</td><td>ターゲットとするプラットフォーム(動作環境)<br>⇒ x86 / x64 / ほか</td></tr>
+    <tr><td class="col1">Title</td><td>インストーラの名称</td></tr>
+    <tr><td class="col1">UpgaredeCode</td><td>バージョン識別子(自動生成)</td></tr>
+    <tr><td class="col1">Version</td><td>バージョン番号</td></tr>
+</table>
+
+上記のうち、ProductCode はバージョンを除いた製品情報、UpgaredeCode はバージョンを含めた情報を基に自動生成される。<br>
+このため、バージョンを更新した際には UpgaredeCode を更新するかの問い合わせが発生する。
+
+<h3>ビルドおよびその他の操作</h3>
+プロジェクトの右クリックメニューからビルド(およびリビルド)が実行できる。<br>
+右クリックメニューからは他にも以下の操作が実行可能。「インストール」、「アンインストール」はインストーラ―の動作を確認するのに便利である。<br>
+
+<table>
+    <tr class="row1">
+        <td class="col1">項目</td>
+        <td>説明</td>
+    </tr>
+    <tr><td class="col1">View</td>
+        <td>詳細な情報の表示、および編集<br>カスタム動作やUIの追加が行える</td></tr>
+    <tr><td class="col1">Add</td><td>インストール対象の追加</td></tr>
+    <tr><td class="col1">インストール</td><td>ビルドで作成したインストーラ―を実行</td></tr>
+    <tr><td class="col1">アンインストール</td><td>「インストール」実行前の状態に戻す</td></tr>
+    <tr><td class="col1">プロパティ</td><td>ビルド設定(F4キーで開くプロパティとは異なる)</td></tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<!-- --------------------------------------
+head
+--------------------------------------- -->
+<head>
+<meta content="text/html" charset="utf-8" http-equiv="Content-Type" />
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="_Assets/CSS/Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="_Assets/MakeTitle.js" type="text/javascript"></script>
+<!-- 目次表示 -->
+<script src="_Assets/MakeToc_L.js" type="text/javascript"></script>
+
+
+
+</head>
+
+<!-- --------------------------------------
+body
+--------------------------------------- -->
+<body>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典・関連ページ -->
+<h5>出典 :</h5>
+<a href="https://noro-san.com/word-url-link/">Wordで作成した資料をPDFへ保存したらURLがリンクされていなかった時の原因と対処方法 - のろさん.com</a>
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>Word文書をPDF化する際の注意点</h2>
+Word文書をPDF化する際に、"Microsoft Print to PDF"を用いると、文書内にハイパーリンクを記述していても、変換後はリンクとして機能しない。<br>
+リンクを有効にしたままPDF化をする場合は、「ファイル」画面にて「エクスポート」>「PDF/XPS ドキュメントの作成」>「PDF/XPS の作成」を選択する。<br>
+(他のMicrosoft Office文書も恐らく共通)<br>
+<img src="_Img/MS Word/Pdf_Hyperlink/01.png" alt=""><br>
+
+ファイル保存ダイアログが表示されるので、「オプション」をクリックする。<br>
+<img src="_Img/MS Word/Pdf_Hyperlink/02.png" alt=""><br>
+
+「印刷対象外の情報を含める」>「次を使用してブックマークを作成」にチェックを入れ、「OK」をクリックする。<br>
+<img src="_Img/MS Word/Pdf_Hyperlink/03.png" alt=""><br>
+
+ファイル保存ダイアログで「発行」」をクリックすると、リンク情報が保持されたPDFが作成される。
+
+</body>
+</html>

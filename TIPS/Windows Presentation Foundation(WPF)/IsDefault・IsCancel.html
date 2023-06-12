@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<!-- --------------------------------------
+head
+--------------------------------------- -->
+<head>
+<meta content="text/html" charset="utf-8" http-equiv="Content-Type" />
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="_Assets/CSS/Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="_Assets/MakeTitle.js" type="text/javascript"></script>
+<!-- 目次表示 -->
+<script src="_Assets/MakeToc_L.js" type="text/javascript"></script>
+
+
+
+</head>
+
+<!-- --------------------------------------
+body
+--------------------------------------- -->
+<body>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典・関連ページ -->
+<h5>出典 :</h5>
+
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>IsDefault / IsCancel プロパティ</h2>
+Button のプロパティで、その Button が存在する Window における初期フォーカスとEscキー押下時の動作を規定する。<br>
+WinForm における DefaultButton / CancelButton と同等の機能であるが、Form (Window) ではなく Button に対して設定する点で異なる。
+
+<h3>IsDefault</h3>
+IsDefault == true に設定された Button は、Window が開いた際に初期フォーカスを得る。<br>
+即ち、他にフォーカスを移動していなければ、Enter キー押下でクリックイベントが発生する。
+
+<h3>IsCancel</h3>
+IsCancel == true に設定された Button は Esc キー押下でクリックイベントが発生する。<br>
+<b>ウィンドウを閉じるためのボタンに割り当てることが前提となっており、<br>
+クリックイベントが発生すると、ハンドラ内に Close() が記述されていない場合でもハンドラ終了時にウィンドウが閉じる。</b>
+
+</body>
+</html>
