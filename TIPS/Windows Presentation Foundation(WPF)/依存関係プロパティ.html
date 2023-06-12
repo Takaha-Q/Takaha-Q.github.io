@@ -11,13 +11,13 @@ head
 <base href="https://takaha-q.github.io/">
 
 <!-- スタイルシート -->
-<link rel="stylesheet" href="_Assets/CSS/Sytle001.css" type="text/css">
+<link rel="stylesheet" href="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Assets/CSS/Sytle001.css?raw=true" type="text/css">
 
 <!-- スクリプト -->
 <!-- タイトル表示 -->
-<script src="_Assets/MakeTitle.js" type="text/javascript"></script>
+<script src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Assets/MakeTitle.js?raw=true" type="text/javascript"></script>
 <!-- 目次表示 -->
-<script src="_Assets/MakeToc_L.js" type="text/javascript"></script>
+<script src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Assets/MakeToc_L.js?raw=true" type="text/javascript"></script>
 
 
 
@@ -56,7 +56,7 @@ body
 コントロールの既存プロパティはすべて依存関係プロパティとして実装されているため、そのままデータバインディングのターゲットとすることができる。<br>
 
 <h3>原則</h3>
-<img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/MSVS_DotNet_CSharp/WPF_DependencyProp/03.png" alt=""><br>
+<img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/MSVS_DotNet_CSharp/WPF_DependencyProp/03.png?raw=true" alt=""><br>
 
 依存関係プロパティは通常 <b>DependencyProperty.Register()</b> メソッドを用いて登録を行う。<br>
 上記コードにおける MyNameProperty が依存関係プロパティである。ここで、第1引数( DependencyProperty.Name の値となる)が "MyName" となっているが、<br>
@@ -71,7 +71,7 @@ Visual Studioでは <b>propdp</b> スニペットを用いることで、雛型�
 明示的に DependencyObject を継承する必要はない。
 
 <h2>実装例</h2>
-<img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/MSVS_DotNet_CSharp/WPF_DependencyProp/04.png" alt=""><br>
+<img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/MSVS_DotNet_CSharp/WPF_DependencyProp/04.png?raw=true" alt=""><br>
 ユーザーコントロール NumericUpDown をウィンドウ CommTestWindow から参照する場合を考える。<br>
 ウィンドウ(XAML)からはコントロールのプロパティ MinValue 、MaxValue を参照しているように見えるがこれは別名で、<br>
 実際の参照先は依存関係プロパティ MinValueProperty 、MaxValueProperty である。<br>
