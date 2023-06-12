@@ -11,13 +11,13 @@ head
 <base href="https://takaha-q.github.io/">
 
 <!-- スタイルシート -->
-<link rel="stylesheet" href="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Assets/CSS/Sytle001.css?raw=true" type="text/css">
+<link rel="stylesheet" href="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Assets/CSS/Sytle001.css" type="text/css">
 
 <!-- スクリプト -->
 <!-- タイトル表示 -->
-<script src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Assets/MakeTitle.js?raw=true" type="text/javascript"></script>
+<script src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Assets/MakeTitle.js" type="text/javascript"></script>
 <!-- 目次表示 -->
-<script src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Assets/MakeToc_L.js?raw=true" type="text/javascript"></script>
+<script src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Assets/MakeToc_L.js" type="text/javascript"></script>
 
 
 
@@ -48,37 +48,37 @@ body
 <h2>Installer Projectを用いたインストーラ―作成</h2>
 <h3>準備 : Installer Projectのインストール</h3>
 <ol>
-    <li>Visual Studioを開き、「拡張機能」>「拡張機能の管理」をクリックする。<br><img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/MSVS/Installer/01.png?raw=true" alt=""></li>
+    <li>Visual Studioを開き、「拡張機能」>「拡張機能の管理」をクリックする。<br><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Installer/01.png" alt=""></li>
     <li>「拡張機能の管理」画面で「オンライン」を選択後、検索欄に「Installer Project」と入力し、<br>
-        表示された「Microsoft Visual Studio Installer Project」の「ダウンロード」をクリックする。<br><img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/MSVS/Installer/02.png?raw=true" alt=""></li>
+        表示された「Microsoft Visual Studio Installer Project」の「ダウンロード」をクリックする。<br><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Installer/02.png" alt=""></li>
     <li>「拡張機能の管理」画面を閉じ、Visual Studioを閉じる。(Visual Studioが動作しているとインストールが進行しない。)</li>
-    <li>インストーラーが起動するので、「Modify」をクリックする。<br><img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/MSVS/Installer/03.png?raw=true" alt=""></li>
-    <li>インストール完了。<br><img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/MSVS/Installer/04.png?raw=true" alt=""></li>
+    <li>インストーラーが起動するので、「Modify」をクリックする。<br><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Installer/03.png" alt=""></li>
+    <li>インストール完了。<br><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Installer/04.png" alt=""></li>
 </ol>
 
 <h3>インストーラープロジェクトの作成</h3>
 <ol>
-    <li>Visual Studioでプロジェクト「Setup Project」を新規作成する。<br><img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/MSVS/Installer/05.png?raw=true" alt=""></li>
-    <li>プロジェクトが作成される。<br><img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/MSVS/Installer/06.png?raw=true" alt=""></li>
+    <li>Visual Studioでプロジェクト「Setup Project」を新規作成する。<br><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Installer/05.png" alt=""></li>
+    <li>プロジェクトが作成される。<br><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Installer/06.png" alt=""></li>
 </ol>
 
 <h3>展開するファイルの追加</h3>
 <ol>
-    <li>「Application Folder」を右クリック、「Add」>「ファイル」を選択する。<br><img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/MSVS/Installer/07.png?raw=true" alt=""></li>
+    <li>「Application Folder」を右クリック、「Add」>「ファイル」を選択する。<br><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Installer/07.png" alt=""></li>
     <li>対象となるファイルを選択(複数可)し、「開く」をクリックする。</li>
     <li>選択したファイルが出力対象として追加される。<br>
         (ここではショートカットに使用するアイコンを含めている。)<br>
-        <img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/MSVS/Installer/08.png?raw=true" alt=""></li>
+        <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Installer/08.png" alt=""></li>
 
 </ol>
 
 <h3>デスクトップショートカットの追加</h3>
 <ol>
-    <li>「User's Desktop」を選択後右ペインで右クリック、リンク先に設定したいファイルを右クリック、「新しいショートカットの作成」を選択する。<br><img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/MSVS/Installer/10.png?raw=true" alt=""></li>
-    <li>リンク先(ここでは Application Folder > ELP_Console.exe )を選択し、「OK」をクリックする。<br><img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/MSVS/Installer/11.png?raw=true" alt=""></li>
-    <li>作成されたショートカットを選択し、F4キーでプロパティを開く。「(Name)」(表示名)を適宜変更し、「Icon」のプルダウンから「(Browse...)」を選択する。<br><img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/MSVS/Installer/12.png?raw=true" alt=""></li>
-    <li>「Browse...」をクリックする。<br><img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/MSVS/Installer/13.png?raw=true" alt=""></li>
-    <li>アイコンとして使用するファイルを選択し、「OK」をクリックする。再度「OK」をクリックして決定。<br><img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/MSVS/Installer/14.png?raw=true" alt=""></li>
+    <li>「User's Desktop」を選択後右ペインで右クリック、リンク先に設定したいファイルを右クリック、「新しいショートカットの作成」を選択する。<br><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Installer/10.png" alt=""></li>
+    <li>リンク先(ここでは Application Folder > ELP_Console.exe )を選択し、「OK」をクリックする。<br><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Installer/11.png" alt=""></li>
+    <li>作成されたショートカットを選択し、F4キーでプロパティを開く。「(Name)」(表示名)を適宜変更し、「Icon」のプルダウンから「(Browse...)」を選択する。<br><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Installer/12.png" alt=""></li>
+    <li>「Browse...」をクリックする。<br><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Installer/13.png" alt=""></li>
+    <li>アイコンとして使用するファイルを選択し、「OK」をクリックする。再度「OK」をクリックして決定。<br><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Installer/14.png" alt=""></li>
 </ol>
 
 <h3>プログラムメニューショートカットの追加</h3>

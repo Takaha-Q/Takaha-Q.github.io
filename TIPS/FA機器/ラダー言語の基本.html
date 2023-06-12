@@ -11,13 +11,13 @@ head
 <base href="https://takaha-q.github.io/">
 
 <!-- スタイルシート -->
-<link rel="stylesheet" href="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Assets/CSS/Sytle001.css?raw=true" type="text/css">
+<link rel="stylesheet" href="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Assets/CSS/Sytle001.css" type="text/css">
 
 <!-- スクリプト -->
 <!-- タイトル表示 -->
-<script src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Assets/MakeTitle.js?raw=true" type="text/javascript"></script>
+<script src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Assets/MakeTitle.js" type="text/javascript"></script>
 <!-- 目次表示 -->
-<script src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Assets/MakeToc_L.js?raw=true" type="text/javascript"></script>
+<script src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Assets/MakeToc_L.js" type="text/javascript"></script>
 
 
 
@@ -54,20 +54,20 @@ body
 
 <h3>成り立ち</h3>
 元々、論理回路を表現するに当たっては、実際の素子を模した部品図を線で結んだ「実体配線図」を用いていた。<br>
-<img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/FA/ladder_logic_basics/01.png?raw=true"><br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/FA/ladder_logic_basics/01.png"><br>
 <br>
 これは実際の回路をイメージしやすい反面、回路が大規模・複雑になると表現が煩雑となる。<br>
 このため、標準化された「シーケンス回路図」が用いられるようになった。<br>
 これは各機器を規格に準拠したシンボル記号に置き換えたものである。<br>
-<img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/FA/ladder_logic_basics/02.png?raw=true"><br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/FA/ladder_logic_basics/02.png"><br>
 <br>
 ラダー図は、このシーケンス回路図をPLCの制御に適するよう整備したものである。<br>
-<img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/FA/ladder_logic_basics/03.png?raw=true"><br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/FA/ladder_logic_basics/03.png"><br>
 <br>
 
 <h2>原則</h2>
-<img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/FA/ladder_logic_basics/04.png?raw=true"><br>
-<img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/FA/ladder_logic_basics/05.png?raw=true"><br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/FA/ladder_logic_basics/04.png"><br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/FA/ladder_logic_basics/05.png"><br>
 電源の両極に相当する制御母線の間に、素子を配置する。ここで左の母線は入力端、右は出力端であり、信号は左から右に流れるものとする。<br>
 (これはシーケンス回路図と同様)<br>
 また、ラダー図の1行(これは一つの閉回路に相当)を「ラング」と呼び、あるラングの出力をそれ以降のラングの入力として用いることができる。<br>
@@ -78,43 +78,43 @@ END命令を除き、各ラングは原則一つの出力をもつ。一つの�
 
 <h2>回路素子</h2>
 <h3>A接点</h3>
-<img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/FA/ladder_logic_basics/06.png?raw=true"><br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/FA/ladder_logic_basics/06.png"><br>
 操作されない間は開いており、操作されると閉じる接点(ノーマリーオープン、ノーマリーオフ)。<br>
 
 <h3>B接点</h3>
-<img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/FA/ladder_logic_basics/07.png?raw=true"><br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/FA/ladder_logic_basics/07.png"><br>
 A接点とは逆に、操作されない間は閉じており、操作されると開く接点(ノーマリークローズ、ノーマリーオン)。<br>
 
 <h3>出力</h3>
-<img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/FA/ladder_logic_basics/08.png?raw=true"><br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/FA/ladder_logic_basics/08.png"><br>
 自身につながる入力がオンとなった結果、オンとなる素子(ランプなどに相当)。各ラングの処理結果を表す。<br>
 この出力(あるラングでの処理結果)を、後段のラングの入力として用いることも可能(リレーとして振る舞う)。<br>
 (図では、A接点0.00がオンされる ⇒ 出力1.00がオンされる ⇒ A接点1.00がオンされる(前段の結果を反映) ⇒ 出力1.01がオンされる となる)<br>
 
 <h2>応用</h2>
 <h3>AND回路</h3>
-<img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/FA/ladder_logic_basics/09.png?raw=true"><br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/FA/ladder_logic_basics/09.png"><br>
 複数ある入力の<b>すべてが</b>オンにならないと、オンとならない回路。<br>
 複数の接点を<b>直列に</b>配置することで実現できる。
 
 <h3>OR回路</h3>
-<img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/FA/ladder_logic_basics/10.png?raw=true"><br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/FA/ladder_logic_basics/10.png"><br>
 複数ある入力の<b>いずれかが</b>オンになることで、オンとなる回路。<br>
 複数の接点を<b>並列に</b>配置することで実現できる。
 
 <h3>自己保持回路</h3>
-<img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/FA/ladder_logic_basics/11.png?raw=true"><br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/FA/ladder_logic_basics/11.png"><br>
 接点は通常、操作されている間のみオン(またはオフ)しており、操作をやめるとオフ(またはオン)に復帰する(モメンタリ動作)。<br>
 操作をやめても操作されたときの状態を保持する(オルタネート動作)回路を自己保持回路と呼ぶ。<br>
 
 <h4>自己保持回路の動作</h4>
-<img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/FA/ladder_logic_basics/12.png?raw=true"><br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/FA/ladder_logic_basics/12.png"><br>
 出力(1.00)を<b>自身の入力</b>として用いる。<br>
 A接点0.00をオンすることで出力がオンされるため、0.00をオフにしても出力状態を保持できる。<br>
 <br>
 しかし、これだけでは一度回路がオンしてしまうと、オフにする手段が存在しない。<br>
 ⇒ 回路をオフにできるリセット入力(B接点)を追加する。<br>
-<img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/FA/ladder_logic_basics/13.png?raw=true"><br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/FA/ladder_logic_basics/13.png"><br>
 B接点0.01(リセット入力)をANDで追加する。リセット操作を行うと回路の出力がオフになり、保持が切れる。<br>
 
 <h4>内部補助リレー</h4>

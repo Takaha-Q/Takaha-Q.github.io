@@ -11,13 +11,13 @@ head
 <base href="https://takaha-q.github.io/">
 
 <!-- スタイルシート -->
-<link rel="stylesheet" href="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Assets/CSS/Sytle001.css?raw=true" type="text/css">
+<link rel="stylesheet" href="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Assets/CSS/Sytle001.css" type="text/css">
 
 <!-- スクリプト -->
 <!-- タイトル表示 -->
-<script src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Assets/MakeTitle.js?raw=true" type="text/javascript"></script>
+<script src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Assets/MakeTitle.js" type="text/javascript"></script>
 <!-- 目次表示 -->
-<script src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Assets/MakeToc_L.js?raw=true" type="text/javascript"></script>
+<script src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Assets/MakeToc_L.js" type="text/javascript"></script>
 
 
 
@@ -96,12 +96,12 @@ C#のアプリケーションは <b>Main()</b> メソッドから開始される
 <ol>
     <li>
         「ソリューション エクスプローラー」上で <b>App.xaml</b> を選択、右クリックし「プロパティ」を開く。<br>
-        <img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/MSVS_DotNet_CSharp/WPF_EntryPoint/01.png?raw=true">
+        <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_EntryPoint/01.png">
     </li>
     <li>
         「ビルド アクション」を「<b>ApplicationDefinition(アプリケーション定義)</b>」から「<b>Page(ページ)</b>」に変更すると、<br>
         Main() メソッドが自動生成されなくなる。<br>
-        <img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/MSVS_DotNet_CSharp/WPF_EntryPoint/02.png?raw=true"><br>
+        <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_EntryPoint/02.png"><br>
     </li>
     <li>
         <b>App.xaml.cs</b>を開き、Main() メソッドを追加する。
@@ -128,7 +128,7 @@ C#のアプリケーションは <b>Main()</b> メソッドから開始される
 </ol>
 
 <h3>上記手順が失敗する場合</h3>
-<img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/MSVS_DotNet_CSharp/WPF_EntryPoint/04.png?raw=true"><br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_EntryPoint/04.png"><br>
 環境の設定によっては上図のエラーが表示され、App.xaml のプロパティが変更できないことがある。<br>
 (エラーが発生した場合、そのまま App.xaml がプロジェクトから除外される。)<br>
 これは、App.xaml の「ビルド アクション」のデフォルトが「アプリケーション定義」となっているため。<br>
@@ -137,7 +137,7 @@ C#のアプリケーションは <b>Main()</b> メソッドから開始される
     <li>プロジェクトファイル(CSPROJ)を編集モードで開く。<br/>
     (ソリューションエクスプローラーからは、プロジェクトファイルを右クリックし「プロジェクト ファイルの編集」を選択する。)</li>
     <li> PropertyGroup タグ内に、以下の通りに EnableDefaultApplicationDefinition の記述を追加する。<br>
-        <img src="https://github.com/Takaha-Q/Takaha-Q.github.io/blob/main/_Img/MSVS_DotNet_CSharp/WPF_EntryPoint/05.png?raw=true">
+        <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_EntryPoint/05.png">
     </li>
     <li>
         プロジェクトをクリーンする。
