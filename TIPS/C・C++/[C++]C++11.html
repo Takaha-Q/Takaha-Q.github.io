@@ -44,13 +44,14 @@ body
 
 <h5>関連 :</h5>
 <a href="TIPS/C%E3%83%BBC%2B%2B/[C]C99.html">[C]C99</a><br>
-<a href="TIPS/C%E3%83%BBC%2B%2B/[C%2B%2B%EF%BC%8FSTL%EF%BC%8F%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A]%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A.html">[C++／STL／コンテナ]コンテナ</a><br>
-<a href="TIPS/C%E3%83%BBC%2B%2B/[C%2B%2B%EF%BC%8FSTL%EF%BC%8F%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A]%E3%82%A4%E3%83%86%E3%83%AC%E3%83%BC%E3%82%BF.html">[C++／STL／コンテナ]イテレータ</a><br>
-<a href="TIPS/C%E3%83%BBC%2B%2B/[C%2B%2B]%E5%9E%8B%E6%8E%A8%E8%AB%96.html">[C++]型推論</a><br>
+<a href="TIPS/C%E3%83%BBC%2B%2B/[C%2B%2B%EF%BC%8FSTL%EF%BC%8F%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A]%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A.html">[STL]コンテナ</a><br>
+<a href="TIPS/C%E3%83%BBC%2B%2B/[C%2B%2B%EF%BC%8FSTL%EF%BC%8F%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A]%E3%82%A4%E3%83%86%E3%83%AC%E3%83%BC%E3%82%BF.html">[STL]イテレータ</a><br>
+<a href="TIPS/C%E3%83%BBC%2B%2B/[C%2B%2B]%E5%9E%8B%E6%8E%A8%E8%AB%96.html">型推論</a><br>
 <a href="TIPS/ソフトウェア開発一般/%E7%84%A1%E5%90%8D%E9%96%A2%E6%95%B0%E3%81%A8%E3%83%A9%E3%83%A0%E3%83%80%E5%BC%8F.html">無名関数とラムダ式</a><br>
-<a href="TIPS/C%E3%83%BBC%2B%2B/[C%2B%2B]%E3%82%B9%E3%83%9E%E3%83%BC%E3%83%88%E3%83%9D%E3%82%A4%E3%83%B3%E3%82%BF.html">[C++]スマートポインタ</a><br>
-<a href="TIPS/C・C%2B%2B/[C%2B%2B]委譲コンストラクタと継承コンストラクタ.html">[C++]委譲コンストラクタと継承コンストラクタ</a><br>
-<a href="TIPS/C・C%2B%2B/[C%2B%2B]typedefとusing.html">[C++]typedefとusing</a><br>
+<a href="TIPS/C%E3%83%BBC%2B%2B/[C%2B%2B]%E3%82%B9%E3%83%9E%E3%83%BC%E3%83%88%E3%83%9D%E3%82%A4%E3%83%B3%E3%82%BF.html">スマートポインタ</a><br>
+<a href="TIPS/C・C%2B%2B/[C%2B%2B]委譲コンストラクタと継承コンストラクタ.html">委譲コンストラクタと継承コンストラクタ</a><br>
+<a href="TIPS/C・C%2B%2B/[C%2B%2B]typedefとusing.html">typedefとusing</a><br>
+<a href="TIPS/C・C%2B%2B/[C%2B%2B]デフォルトメンバ初期化子.html">デフォルトメンバ初期化子</a><br>
 
 <!-- 目次 -->
 <h5>目次 :</h5>
@@ -156,14 +157,20 @@ CSequenceClass someVar(i_er);
 
 <!-- ～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～ -->
 
-<h2>型推論</h2>
-C++03やCでは、変数の型は明示的に指定せねばならず、テンプレートやメタプログラミングとの相性が良くなかった。<br>
-C++11では<b>型推論</b>が導入され、この制約が軽減されている。<br>
-詳細は<a href="TIPS/C%E3%83%BBC%2B%2B/[C%2B%2B]%E5%9E%8B%E6%8E%A8%E8%AB%96.html">[C++]型推論</a>を参照。
+<h2>デフォルトメンバ初期化子</h2>
+メンバ変数を宣言時に初期化することが可能。コンストラクタの記述を省略できる。<br>
+詳細は<a href="TIPS/C・C%2B%2B/[C%2B%2B]デフォルトメンバ初期化子.html">デフォルトメンバ初期化子</a>を参照。
 
 <!-- ～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～ -->
 
-<h2>範囲に基づく for ループ</h2>
+<h2>型推論</h2>
+C++03(およびC)では変数の型は明示的に指定せねばならず、テンプレートやメタプログラミングとの相性が良くなかった。<br>
+C++11では<b>型推論</b>が導入され、この制約が軽減されている。<br>
+詳細は<a href="TIPS/C%E3%83%BBC%2B%2B/[C%2B%2B]%E5%9E%8B%E6%8E%A8%E8%AB%96.html">型推論</a>を参照。
+
+<!-- ～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～ -->
+
+<h2>範囲に基づく for ループ(範囲ベース for)</h2>
 C#やJavaには、コンテナの最初から最後までを走査できる foreach 文が存在している。<br>
 C++11にも同様の機能が追加され、for 文の別構文により、コンテナを簡単に走査することができる。<br>
 <p class="code">
