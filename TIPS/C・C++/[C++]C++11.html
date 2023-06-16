@@ -52,6 +52,7 @@ body
 <a href="TIPS/C・C%2B%2B/[C%2B%2B]委譲コンストラクタと継承コンストラクタ.html">委譲コンストラクタと継承コンストラクタ</a><br>
 <a href="TIPS/C・C%2B%2B/[C%2B%2B]typedefとusing.html">typedefとusing</a><br>
 <a href="TIPS/C・C%2B%2B/[C%2B%2B]デフォルトメンバ初期化子.html">デフォルトメンバ初期化子</a><br>
+<a href="TIPS/C・C%2B%2B/[C%2B%2B]範囲ベースfor.html">範囲ベースfor</a><br>
 
 <!-- 目次 -->
 <h5>目次 :</h5>
@@ -170,19 +171,9 @@ C++11では<b>型推論</b>が導入され、この制約が軽減されてい�
 
 <!-- ～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～ -->
 
-<h2>範囲に基づく for ループ(範囲ベース for)</h2>
-C#やJavaには、コンテナの最初から最後までを走査できる foreach 文が存在している。<br>
-C++11にも同様の機能が追加され、for 文の別構文により、コンテナを簡単に走査することができる。<br>
-<p class="code">
-<kwd>int</kwd> my_array[<ltr>5</ltr>] = {<ltr>1</ltr>, <ltr>2</ltr>, <ltr>3</ltr>, <ltr>4</ltr>, <ltr>5</ltr>};
-<cmt>// my_array を先頭から末尾まで走査</cmt>
-<kwd>for</kwd> (<kwd>int</kwd>&amp; x : my_array) 
-{
-    x *= <ltr>2</ltr>;
-}
-<cmt>// 実行結果 : {2, 4, 6, 8, 10}</cmt>
-</p>
-Cスタイルの配列に限らず、初期化リスト、STLで定義されるコンテナおよび、イテレータ begin() 、end() を有するあらゆる型に用いることができる。<br>
+<h2>範囲に基づく for ループ(範囲ベースfor)</h2>
+C#やJavaの foreach と同様、for 文の別構文により、コンテナを簡単に走査することができる。<br>
+詳細は<a href="TIPS/C・C%2B%2B/[C%2B%2B]範囲ベースfor.html">範囲ベースfor</a>を参照。
 
 <!-- ～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～ -->
 
