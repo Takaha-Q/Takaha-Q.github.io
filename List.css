@@ -60,19 +60,19 @@ ul li:before {
 }
 
 ul li:before {
-  background-image:     url(https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/disc.png);
+  background-image:     url(https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_sample.png);
 }
 
 ul ul li:before {
-  background-image:     url(https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/circle.png);
+  background-image:     url(https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_circle.png);
 }
 
 ul ul ul li:before {
-  background-image:     url(https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/disc.png);
+  background-image:     url(https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_disc.png);
 }
 
 ul ul ul ul li:before {
-  background-image:     url(https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/circle.png);
+  background-image:     url(https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_circle.png);
 }
 
 /* 目次(<div id="toc">) */
