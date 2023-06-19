@@ -52,27 +52,11 @@ ul li {
 
 /* (行頭文字) */
 ul li:before {
-  content:              '';
   display:              inline-block;
   height:               1em;
   width:                1em;
+  color:                #996666;
   background-size:      contain;
-}
-
-ul li:before {
-  background-image:     url(_disc.png);
-}
-
-ul ul li:before {
-  background-image:     url(_circle.png);
-}
-
-ul ul ul li:before {
-  background-image:     url(_disc.png);
-}
-
-ul ul ul ul li:before {
-  background-image:     url(_circle.png);
 }
 
 /* 目次(<div id="toc">) */
