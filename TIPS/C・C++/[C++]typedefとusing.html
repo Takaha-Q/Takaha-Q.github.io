@@ -36,21 +36,12 @@ body
 
 <!-- 出典・関連ページ -->
 <h5>出典 :</h5>
-<a href="
-https://cpprefjp.github.io/lang/cpp11/alias_templates.html
-">
-エイリアステンプレート - cpprefjp C++日本語リファレンス
-</a><br>
-
-<a href="
-https://qiita.com/Linda_pp/items/44a67c64c14cba00eef1
-">
-typedef は C++11 ではオワコン - Qiita
-</a><br>
+<a href="https://cpprefjp.github.io/lang/cpp11/alias_templates.html">エイリアステンプレート - cpprefjp C++日本語リファレンス</a><br>
+<a href="https://qiita.com/Linda_pp/items/44a67c64c14cba00eef1">typedef は C++11 ではオワコン - Qiita</a><br>
 
 <h5>関連 :</h5>
+<a href="TIPS/C・C%2B%2B/[C++]名前空間(namespace)">名前空間</a><br>
 <a href="TIPS/C・C%2B%2B/[C%2B%2B]C%2B%2B11.html">[C++]C++11</a><br>
-
 
 <!-- 目次 -->
 <h5>目次 :</h5>
@@ -68,7 +59,8 @@ C++03(およびC)では、既存の型に別名(エイリアス)を付ける際�
 C++11以降では同様に <b>using</b> (型エイリアス)を用いて別名を付与することができる。<br>
 typedef は、テンプレートを作ることができないという欠点があるが、using ではこの問題が解消されている。<br>
 
-<h2>基本の書式</h2>
+<h2>型エイリアスの類型</h2>
+<h3>基本形</h3>
 既存の型 <b class="dgreen">oldtype</b> に別名 <b class="red">newtype</b> を付与する場合。<br>
 using では <b>=</b> (代入演算子)が必要な点に注意。
 
@@ -83,7 +75,7 @@ using では <b>=</b> (代入演算子)が必要な点に注意。
 </tr>
 </table>
 
-<h2>関数ポインタ型への別名付与</h2>
+<h3>関数ポインタ型への別名付与</h3>
 別名として <b class="red">FuncAlias</b> を付与する場合。<br>
 
 <table>
@@ -99,7 +91,7 @@ using では <b>=</b> (代入演算子)が必要な点に注意。
 
 using は表記が幾分簡潔となる。
 
-<h2>テンプレートへの別名付与</h2>
+<h3>テンプレートへの別名付与</h3>
 typedef では、<b>未知の型をテンプレート引数に含む汎用型</b>に対して別名を付与することができない。<br>
 <b>using では可能であり、typedef に対する利点となっている。</b><br>
 
@@ -125,6 +117,9 @@ typedef では、<b>未知の型をテンプレート引数に含む汎用型</b
 <kwd>typedef</kwd> SomeType2&lt;Another&gt; TypeAlias;                    <cmt>//&lt; typedef による別名付与 ⇒ NG</cmt>
 <kwd>using</kwd> TypeAlias = SomeType2&lt;Another&gt;;                    <cmt>//&lt; using   による別名付与 ⇒ OK</cmt>
 </p>
+
+<h2>名前空間の使用(取り込み)</h2>
+名前空間を使用する際に using を用いる。詳細は<a href="TIPS/C・C%2B%2B/[C++]名前空間(namespace)">ここ</a>を参照。
 
 </body>
 </html>
