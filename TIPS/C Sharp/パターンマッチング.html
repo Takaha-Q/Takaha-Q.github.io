@@ -1,77 +1,46 @@
 <!DOCTYPE html>
-
-<html lang="ja">
-<!-- --------------------------------------
-head
---------------------------------------- -->
-<head>
-<meta content="text/html" charset="utf-8" http-equiv="Content-Type" />
-
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
-
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
-
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
-
-
-
-</head>
-
-<!-- --------------------------------------
-body
---------------------------------------- -->
-<body>
-
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
-
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-
 <!-- 出典・関連ページ -->
 <h5>出典 :</h5>
 <a href="https://learn.microsoft.com/ja-jp/dotnet/csharp/fundamentals/tutorials/safely-cast-using-pattern-matching-is-and-as-operators">パターン マッチング、is 演算子、as 演算子を使用して安全にキャストする方法 | Microsoft Learn</a><br>
-
 <h5>関連 :</h5>
 <a href="TIPS/C Sharp/型キャストとas・is.html">型キャストとas・is</a><br>
 <a href="TIPS/C Sharp/switch式.html">switch式</a><br>
-
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
-
 <hr>
-
 <!-- 本文ここから -->
-
 <h2>パターンマッチングとは</h2>
 入力式が特定のパターンにマッチしているかを検査することができる構文。C#7.0で導入された。<br>
 <a href="TIPS/C Sharp/型キャストとas・is.html">is 式</a>、<a href="TIPS/C Sharp/switch式.html">switch 式</a>、および switch ステートメントで使用できる。<br>
 尚、「正規表現(パターンマッチング)」とは異なる。
-
 <h2>破棄パターン</h2>
 _ (アンダースコア)で表現される「破棄パターン」は null を含む任意の式に一致する。( switch ステートメントにおける defalt に相当。)<br>
 破棄パターンを用いることで、すべての入力式を処理することができる。具体例は後述。<br>
 破棄パターンは switch 式でのみ用いることができ、is 式、switch ステートメントでは使用できない。
-
 <h2>宣言パターン・型パターン</h2>
 「宣言パターン」では入力式が指定された型と互換性があるかをチェックすることができる。<br>
 新しいローカル変数を宣言でき、宣言パターンが入力式に合致すると、変換された式の結果がその変数に代入される。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/CSharp/Patternmatching/01.png" alt=""><br>
-
 型チェックのみで変数への代入が不要な場合は変数名の代わりに _ (アンダースコア)を使用できるが、C#9.0以降は _ を省略できる(「型パターン」)。
 <div class="code">
 <cmt>// 抽象クラス Vehicle と Vehicle を継承する Car , Truck</cmt>
 <kwd>public abstract class</kwd> Vehicle {}
 <kwd>public class</kwd> Car : Vehicle {}
 <kwd>public class</kwd> Truck : Vehicle {}
-
 <kwd>public static class</kwd> TollCalculator
 {
     <cmt>// 宣言パターンによる比較</cmt>
@@ -82,7 +51,6 @@ _ (アンダースコア)で表現される「破棄パターン」は null を�
         <kwd>null</kwd>    =&gt; <kwd>throw new</kwd> ArgumentNullException(nameof(vehicle)),                            <cmt>//&lt; vehicle is <kwd>null</kwd></cmt>
         _       =&gt; <kwd>throw new</kwd> ArgumentException("Unknown type of a vehicle", nameof(vehicle)),   <cmt>//&lt; それ以外 (破棄パターン)</cmt>
     };
-
     <cmt>// 型パターンによる比較</cmt>
     <kwd>public static</kwd> decimal CalculateToll_New(<kwd>this</kwd> Vehicle vehicle) =&gt; vehicle <kwd>switch</kwd>
     {
@@ -93,7 +61,6 @@ _ (アンダースコア)で表現される「破棄パターン」は null を�
     };
 }
 </div>
-
 <h2>定数パターン</h2>
 入力式の結果が指定された定数と等しいかどうかをチェックできる。
 <div class="code">
@@ -107,7 +74,6 @@ _ (アンダースコア)で表現される「破棄パターン」は null を�
     _ =&gt; <kwd>throw new</kwd> <knw>Exception</knw>("適用できません"),  <cmt>//&lt; それ以外 (破棄パターン)</cmt>
 };
 </div>
-
 定数パターンでは、以下の定数式を使用できる。
 <ul>
     <li>数値リテラル(整数または浮動小数点数)</li>
@@ -118,7 +84,6 @@ _ (アンダースコア)で表現される「破棄パターン」は null を�
     <li>宣言された定数フィールドまたはローカルの名前</li>
     <li>null</li>
 </ul>
-
 <h2>リレーショナルパターン</h2>
 関係演算子( &lt; 、&gt; 、&lt;= 、&gt;= )と定数式の組み合わせで表現される条件に合致しているかをチェックできる。C#9.0以降で使用可能。
 <div class="code">
@@ -130,10 +95,8 @@ _ (アンダースコア)で表現される「破棄パターン」は null を�
     _ =&gt; "Acceptable",          <cmt>//&lt; 破棄パターン           : 上記以外</cmt>
 };
 </div>
-
 <h2>論理パターン</h2>
 パターン連結子( not 、and 、or )を使用して、条件を結合・否定できる。C#9.0以降で使用可能。<br>
-
 下記の例では、複数のパターンを and によって連結している。
 <div class="code">
 <kwd>static string</kwd> Classify(<kwd>double</kwd> measurement) =&gt; measurement <kwd>switch</kwd>
@@ -146,7 +109,6 @@ _ (アンダースコア)で表現される「破棄パターン」は null を�
     <kwd>double</kwd>.NaN =&gt; "Unknown",
 };
 </div>
-
 連結子の優先順位は not &gt; and &gt; or で、優先順位を明示するために括弧を使用できる。
 <div class="code">
 <cmt>// input が float または double のいずれかでなければ抜ける</cmt>
@@ -155,27 +117,22 @@ _ (アンダースコア)で表現される「破棄パターン」は null を�
     <kwd>return</kwd>;
 }
 </div>
-
 <h2>プロパティパターン</h2>
 入力式(オブジェクト)のプロパティまたはフィールドをチェックできる。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/CSharp/Patternmatching/02.png" alt=""><br>
-
 また、宣言・型パターンと組み合わせて型チェック、変数宣言を同時に行うことも可能。
 <div class="code">
 <knw>Console</knw>.WriteLine(TakeFive("Hello, world!"));  <cmt>// output: Hello</cmt>
 <knw>Console</knw>.WriteLine(TakeFive("Hi!"));  <cmt>// output: Hi!</cmt>
 <knw>Console</knw>.WriteLine(TakeFive(<kwd>new</kwd>[] { '1', '2', '3', '4', '5', '6', '7' }));  <cmt>// output: 12345</cmt>
 <knw>Console</knw>.WriteLine(TakeFive(<kwd>new</kwd>[] { 'a', 'b', 'c' }));  <cmt>// output: abc</cmt>
-
 <cmt>// 先頭から 5 要素を摘出する</cmt>
 <kwd>static string</kwd> TakeFive(<kwd>object</kwd> input) =&gt; input <kwd>switch</kwd>
 {
     <kwd>string</kwd> { Length: &gt;= 5 } s =&gt; s.Substring(0, 5),                                         <cmt>//&lt; input が <kwd>string</kwd> 、かつ Length &gt;= 5 ならば 先頭 5 文字を摘出</cmt>
     <kwd>string</kwd> s =&gt; s,                                                                          <cmt>//&lt; input が <kwd>string</kwd> 、かつ上記以外ならばそのまま返す</cmt>
-
     ICollection&lt;<kwd>char</kwd>&gt; { Count: &gt;= 5 } symbols =&gt; <kwd>new string</kwd>(symbols.Take(5).ToArray()),     <cmt>//&lt; input が ICollection&lt;<kwd>char</kwd>&gt; 、かつ Count &gt;= 5 ならば 先頭 5 要素を摘出し、文字列に変換</cmt>
     ICollection&lt;<kwd>char</kwd>&gt; symbols =&gt; <kwd>new string</kwd>(symbols.ToArray()),                             <cmt>//&lt; input が ICollection&lt;<kwd>char</kwd>&gt; 、かつ上記以外ならばそのまま文字列に変換</cmt>
-
     <kwd>null</kwd> =&gt; <kwd>throw new</kwd> ArgumentNullException(nameof(input)),            
     _ =&gt; <kwd>throw new</kwd> ArgumentException("Not supported input type."),
 };
@@ -186,19 +143,15 @@ C#10.0以降は「拡張プロパティパターン」として、. (ドット)�
 <div class="code">
 <kwd>public</kwd> record Point(<kwd>int</kwd> X, <kwd>int</kwd> Y);
 <kwd>public</kwd> record Segment(Point Start, Point End);
-
 <cmt>// segment.Start.Y == 0 または segment.End.Y == 0 ならば true</cmt>
 <kwd>static bool</kwd> IsAnyEndOnXAxis(Segment segment) =&gt;
     segment <kwd>is</kwd> { Start: { Y: 0 } } or { End: { Y: 0 } };
-
 <cmt>// segment.Start.Y == 0 または segment.End.Y == 0 ならば true ( IsAnyEndOnXAxis(Segment segment) と等価)</cmt>
 <kwd>static bool</kwd> IsAnyEndOnXAxis_New(Segment segment) =&gt;
     segment <kwd>is</kwd> { Start.Y: 0 } or { End.Y: 0 };
 </div>
-
 <h2>位置指定パターン</h2>
 入力式にタプル( ValueTuple )をとり、タプルの各要素に対してパターンを適用できる。<br>
-
 <div class="code">
 <kwd>static</kwd> decimal GetGroupTicketPriceDiscount( <kwd>int</kwd> groupSize, <knw>DateTime</knw> visitDate )
     =&gt; ( groupSize, visitDate.DayOfWeek ) <kwd>switch</kwd>
@@ -212,19 +165,15 @@ C#10.0以降は「拡張プロパティパターン」として、. (ドット)�
         _ =&gt; 0.0m,
     };
 </div>
-
 プロパティパターン同様、位置指定パターンも入れ子にすることができる。
-
 <h2>var パターン</h2>
 var パターンは null を含む任意の式に一致し、その結果を新しいローカル変数に代入する。
-
 <div class="code">
 <cmt>// var パターン使用 ⇒ result = SimulateDataFetch(id) となる</cmt>
 <kwd>static bool</kwd> IsAcceptable(<kwd>int</kwd> id, <kwd>int</kwd> absLimit) =&gt;
     SimulateDataFetch(id) <kwd>is var</kwd> results 
     && results.Min() &gt;= -absLimit 
     && results.Max() &lt;= absLimit;
-
 <kwd>static int</kwd>[] SimulateDataFetch(<kwd>int</kwd> id)
 {
     <kwd>var</kwd> rand = <kwd>new</kwd> Random();
@@ -234,41 +183,32 @@ var パターンは null を含む任意の式に一致し、その結果を新�
                .ToArray();
 }
 </div>    
-
 ブール式内に中間結果を保持するための一時変数を作成する場合に有用である。
-
 <h2>リストパターン</h2>
 C#11.0以降で使用可能。シーケンス(配列または List&lt;T&gt; )をパターンのシーケンスと照合する。<br>
 入力シーケンスの全要素ではなく、先頭、または末尾のみを照合する場合は .. (スライスパターン)を使用する。
-
 <div class="code">
 <kwd>int</kwd>[] numbers = { 1, 2, 3 };
-
 <cmt>// 全要素を照合</cmt>
 <knw>Console</knw>.WriteLine(numbers <kwd>is</kwd> [1, 2, 3]);  <cmt>// True</cmt>
 <knw>Console</knw>.WriteLine(numbers <kwd>is</kwd> [1, 2, 4]);  <cmt>// False</cmt>
 <knw>Console</knw>.WriteLine(numbers <kwd>is</kwd> [1, 2, 3, 4]);  <cmt>// False</cmt>
 <knw>Console</knw>.WriteLine(numbers <kwd>is</kwd> [0 or 1, &lt;= 2, &gt;= 3]);  <cmt>// True</cmt>
-
 <cmt>// 先頭を照合</cmt>
 <knw>Console</knw>.WriteLine(<kwd>new</kwd>[] { 1, 2, 3, 4, 5 } <kwd>is</kwd> [&gt; 0, &gt; 0, ..]);  <cmt>// True</cmt>
 <knw>Console</knw>.WriteLine(<kwd>new</kwd>[] { 1, 1 } <kwd>is</kwd> [_, _, ..]);  <cmt>// True</cmt>
 <knw>Console</knw>.WriteLine(<kwd>new</kwd>[] { 0, 1, 2, 3, 4 } <kwd>is</kwd> [&gt; 0, &gt; 0, ..]);  <cmt>// False</cmt>
 <knw>Console</knw>.WriteLine(<kwd>new</kwd>[] { 1 } <kwd>is</kwd> [1, 2, ..]);  <cmt>// False</cmt>
-
 <cmt>// 末尾を照合</cmt>
 <knw>Console</knw>.WriteLine(<kwd>new</kwd>[] { 1, 2, 3, 4 } <kwd>is</kwd> [.., &gt; 0, &gt; 0]);  <cmt>// True</cmt>
 <knw>Console</knw>.WriteLine(<kwd>new</kwd>[] { 2, 4 } <kwd>is</kwd> [.., &gt; 0, 2, 4]);  <cmt>// False</cmt>
 <knw>Console</knw>.WriteLine(<kwd>new</kwd>[] { 2, 4 } <kwd>is</kwd> [.., 2, 4]);  <cmt>// True</cmt>
-
 <cmt>// 先頭および末尾を照合</cmt>
 <knw>Console</knw>.WriteLine(<kwd>new</kwd>[] { 1, 2, 3, 4 } <kwd>is</kwd> [&gt;= 0, .., 2 or 4]);  <cmt>// True</cmt>
 <knw>Console</knw>.WriteLine(<kwd>new</kwd>[] { 1, 0, 0, 1 } <kwd>is</kwd> [1, 0, .., 0, 1]);  <cmt>// True</cmt>
 <knw>Console</knw>.WriteLine(<kwd>new</kwd>[] { 1, 0, 1 } <kwd>is</kwd> [1, 0, .., 0, 1]);  <cmt>// False</cmt>
 </div>
-
 また、スライスパターン中にサブパターンを入れ子にすることもできる。
-
 <div class="code">
 <kwd>void</kwd> MatchMessage(<kwd>string</kwd> message)
 {
@@ -278,24 +218,14 @@ C#11.0以降で使用可能。シーケンス(配列または List&lt;T&gt; )を
         : $"Message {message} doesn't match.";
     <knw>Console</knw>.WriteLine(result);
 }
-
 MatchMessage("aBBA");  <cmt>// output: Message aBBA matches; inner part is BB.</cmt>
 MatchMessage("apron");  <cmt>// output: Message apron doesn't match.</cmt>
-
 <kwd>void</kwd> Validate(<kwd>int</kwd>[] numbers)
 {
     <cmt>// スライスパターン中にプロパティパターンを挿入</cmt>
     <kwd>var</kwd> result = numbers <kwd>is</kwd> [&lt; 0, .. { Length: 2 or 4 }, &gt; 0] ? "valid" : "not valid";
     <knw>Console</knw>.WriteLine(result);
 }
-
 Validate(<kwd>new</kwd>[] { -1, 0, 1 });  <cmt>// output: not valid</cmt>
 Validate(<kwd>new</kwd>[] { -1, 0, 0, 1 });  <cmt>// output: valid</cmt>
 </div>
-
-</body>
-</html>
-
-
-
-

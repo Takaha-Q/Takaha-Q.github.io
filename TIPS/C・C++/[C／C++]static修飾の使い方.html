@@ -1,54 +1,27 @@
 <!DOCTYPE html>
-
-<html lang="ja">
-<!-- --------------------------------------
-head
---------------------------------------- -->
-<head>
-<meta content="text/html" charset="utf-8" http-equiv="Content-Type" />
-
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
-
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
-
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
-
-
-
-</head>
-
-<!-- --------------------------------------
-body
---------------------------------------- -->
-<body>
-
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
-
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-
 <!-- 出典・関連ページ -->
 <h5>関連 :</h5>
 <a href="TIPS/C・C%2B%2B/[C／C%2B%2B]const修飾の使い方.html">[C／C++]const修飾の使い方</a><br>
 <a href="TIPS/ソフトウェア開発一般/[オブジェクト指向]シングルトン.html">[オブジェクト指向]シングルトン</a><br>
 <a href="TIPS/C・C%2B%2B/[C%2B%2B]メンバ関数ポインタ.html">[C++]メンバ関数ポインタ</a><br>
-
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
-
 <hr>
-
 <!-- 本文ここから -->
-
-
 <h2>static修飾とは</h2>
 修飾する対象が <b>静的・永続的</b> であることを示すこと。<br>
 プログラムの開始から終了までメモリ(RAM)を占有し続けるとともに、グローバルスコープの関数・変数に適用した場合は、宣言されたファイルの外からのアクセスを制限する効果を持つ。<br>
@@ -64,14 +37,12 @@ body
 {
     :
 }
-
 <kwd>void</kwd> DoSomething_Hoge()
 {
     <cmt>// 同じファイルなのでアクセス可能</cmt>
     HogeFunc();
 }
 </p>
-
 (Fuga.c)
 <p class="code">
 <kwd>void</kwd> DoSomething_Fuga()
@@ -88,14 +59,12 @@ body
 <p class="code">
 <cmt>// 変数をstatic修飾</cmt>
 <kwd>static</kwd> <kwd>int</kwd> staticVal = <ltr>3</ltr>;
-
 <kwd>void</kwd> DoSomething_Hoge()
 {
     <cmt>// 同じファイルなのでアクセス可能</cmt>
     Func(staticVal);
 }
 </p>
-
 (Fuga.c)
 <p class="code">
 <kwd>void</kwd> DoSomething_Fuga()
@@ -104,7 +73,6 @@ body
     staticVal = <ltr>4</ltr>;
 }
 </p>
-
 <h4>const修飾との併用</h4>
 修飾された変数が不変(定数)になるとともに、 <b>ROMに配置される</b> 。<br>
  <b>⇒ RAM(スタック)の使用量を削減できる。</b> <br>
@@ -117,7 +85,6 @@ body
     printf(<ltr>"staticVal = %d\n"</ltr>, staticVal);
     ++staticVal;
 }
-
 <kwd>void</kwd> main()
 {
     Func();    <cmt>//&lt; staticVal が 3 で初期化され、インクリメントされて 4 になる</cmt>
@@ -133,7 +100,6 @@ staticVal = <ltr>5</ltr>
 </p>
 <h4>const修飾との併用</h4>
 グローバル変数と同様、定数となり bROMに配置される</b> 。<br>
-
 <h3>(C++)クラスメンバを修飾する</h3>
 関数・変数が <b>特定のインスタンスに縛られない永続的、かつ唯一のものとなる</b> 。<br>
 このため、 <b>インスタンスを生成せずに参照することができる</b> 。(参照する際はスコープ解決演算子  <b>::</b>  を用いる)<br>
@@ -146,7 +112,6 @@ staticVal = <ltr>5</ltr>
     <kwd>static</kwd> <kwd>void</kwd> DoSomething1(<kwd>int</kwd> i) { val = i; }
     <kwd>static</kwd> <kwd>void</kwd> DoSomething2(<kwd>int</kwd> i) { DoSomething1(i); }
 }
-
 <kwd>void</kwd> main()
 {
     <cmt>// CHoge の静的メンバ関数をコール</cmt>
@@ -162,6 +127,3 @@ staticVal = <ltr>5</ltr>
 静的メンバ関数は、<b>通常の関数ポインタに代入可能となる</b> 。<br>
 (逆に、静的でないメンバ関数は通常は代入できない。詳細は<a href="TIPS/C・C%2B%2B/[C%2B%2B]メンバ関数ポインタ.html">[C++]メンバ関数ポインタ</a>を参照。)<br>
 静的メンバ関数はインスタンスではなくクラスに束縛されるため、「クラスメソッド」とも呼ばれる。<br>(非静的メンバ関数はインスタンスに束縛されるため「インスタンスメソッド」と呼ばれる。)
-
-</body>
-</html>

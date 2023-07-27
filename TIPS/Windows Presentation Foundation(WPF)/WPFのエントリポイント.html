@@ -1,52 +1,26 @@
 <!DOCTYPE html>
-
-<html lang="ja">
-<!-- --------------------------------------
-head
---------------------------------------- -->
-<head>
-<meta content="text/html" charset="utf-8" http-equiv="Content-Type" />
-
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
-
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
-
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
-
-
-
-</head>
-
-<!-- --------------------------------------
-body
---------------------------------------- -->
-<body>
-
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
-
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-
 <!-- 出典・関連ページ -->
 <h5>出典 :</h5>
 <a href="https://araramistudio.jimdo.com/2018/04/06/c-%E3%81%AEwpf%E3%81%A7main%E3%83%A1%E3%82%BD%E3%83%83%E3%83%89%E3%82%92%E7%B7%A8%E9%9B%86%E3%81%99%E3%82%8B/">C#のWPFでMainメソッドを編集する - Ararami Studio</a><br>
 <a href="https://qiita.com/satodayo/items/3ad889397c7b4842ea47">.NETCore×WPFアプリのMain関数をカスタマイズする - Qiita</a>
-
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
-
 <hr>
-
 <!-- 本文ここから -->
-
 <h2>WPFのエントリポイント (C#)</h2>
 C#のアプリケーションは <b>Main()</b> メソッドから開始されるが、WPFも例外ではない。<br>
 (すべて小文字の main() ではない点に注意)<br>
@@ -55,7 +29,6 @@ C#のアプリケーションは <b>Main()</b> メソッドから開始される
 <b>App.g.cs</b> (コメントのみ改変)
 <div class="code">
 (略)
-
 <kwd>namespace</kwd> Console_ELP03 {
     
     <cmt>/// アプリケーション</cmt>
@@ -89,7 +62,6 @@ C#のアプリケーションは <b>Main()</b> メソッドから開始される
 ここで、Main() メソッドはアプリケーションの生成と起動を行っている。<br>
 また、その中で呼ばれる InitializeComponent() はスタートアップウィンドウの設定を行っている。<br>
 (このスタートアップウィンドウは App.xaml で StartUpUri として指定されたもの。)<br>
-
 <h2>Main() メソッドを編集する</h2>
 通常の用途では、アプリケーション全体の初期化はスタートアップウィンドウのコンストラクタに記述すればよいが、<br>
 スタートアップウィンドウが開く前に処理を行いたい場合は、Main() メソッドを独自に定義する。<br>
@@ -113,10 +85,8 @@ C#のアプリケーションは <b>Main()</b> メソッドから開始される
     {
         App app = <kwd>new</kwd> App();
         app.InitializeComponent();
-
         <cmt>// スプラッシュスクリーン、スタートアップウィンドウ表示</cmt>
         app.Run();
-
         <cmt>// app.Run() より後は、スタートアップウィンドウを閉じた後に実行される</cmt>
     }
 }            
@@ -126,7 +96,6 @@ C#のアプリケーションは <b>Main()</b> メソッドから開始される
         また、app.Run() 終了後はアプリケーションオブジェクトが存在しなくなるため、ウィンドウを開くことができなくなる(要調査)。
     </li>
 </ol>
-
 <h3>上記手順が失敗する場合</h3>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_EntryPoint/04.png"><br>
 環境の設定によっては上図のエラーが表示され、App.xaml のプロパティが変更できないことがある。<br>
@@ -143,10 +112,3 @@ C#のアプリケーションは <b>Main()</b> メソッドから開始される
         プロジェクトをクリーンする。
     </li>
 </ol>
-
-</body>
-</html>
-
-
-
-

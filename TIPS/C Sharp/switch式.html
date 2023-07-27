@@ -1,62 +1,34 @@
 <!DOCTYPE html>
-
-<html lang="ja">
-<!-- --------------------------------------
-head
---------------------------------------- -->
-<head>
-<meta content="text/html" charset="utf-8" http-equiv="Content-Type" />
-
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
-
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
-
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
-
-</head>
-
-<!-- --------------------------------------
-body
---------------------------------------- -->
-<body>
-
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
-
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-
 <!-- 出典・関連ページ -->
 <h5>出典 :</h5>
 <a href="https://learn.microsoft.com/ja-jp/dotnet/csharp/language-reference/operators/switch-expression">switch 式 - C# リファレンス - Microsoft Learn</a><br>
 <a href="https://learn.microsoft.com/ja-jp/dotnet/csharp/language-reference/statements/selection-statements%23the-switch-statement">選択ステートメント - C# リファレンス | Microsoft Learn</a><br>
 <a href="https://learn.microsoft.com/ja-jp/dotnet/csharp/language-reference/operators/patterns">パターン - C# リファレンス | Microsoft Learn</a>
-
 <h5>関連 :</h5>
 <a href="TIPS/C Sharp/型キャストとas・is.html">型キャストとas・is</a><br>
 <a href="TIPS/C Sharp/パターンマッチング.html">パターンマッチング</a>
-
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
-
 <hr>
-
 <!-- 本文ここから -->
-
 <h2>switch 式とは</h2>
 C#8.0で追加された、入力値に応じて出力値を選択できる構文。switch - case 節を用いるよりも記述を簡略化でき、かつ選択を網羅的にできる。
-
 <h2>switch - case 節との比較</h2>
-
 <h3>switch - case 節による実装</h3>
-
 <div class="code">
     <kwd>public static</kwd> Orientation ToOrientation( Direction direction )
     {
@@ -64,29 +36,22 @@ C#8.0で追加された、入力値に応じて出力値を選択できる構文
         {
             <kwd>case</kwd> Direction.Up:
                 <kwd>return</kwd> Orientation.North;
-
             <kwd>case</kwd> Direction.Right:
                 <kwd>return</kwd> Orientation.East;
-
             <kwd>case</kwd> Direction.Down:
                 <kwd>return</kwd> Orientation.South;
-
             <kwd>case</kwd> Direction.Left:
                 <kwd>return</kwd> Orientation.West;
-
             <kwd>default</kwd>:
                 <kwd>throw new</kwd> ArgumentOutOfRangeException(nameof(direction), $"Not expected direction value: {direction}");
         }
     }
 </div>
-
 ここでは入力値( direction )に応じて戻り値( Orientation )の選択を行っている。<br>
 この実装は、関数が値を戻すことが構造的に保証されていない。このため、一部の開発環境では警告が出ることがある。<br>
 ( case / default を変更・追加する場合、return 文(または例外送出)の記述が必須となる。<br>
 論理構成上値を戻さない(かつ例外を送出しない)パスは存在しないが、将来変更が加えられた場合はその限りではない。所謂「良心に依存したコード」となっている。)
-
 <h3>switch 式による実装</h3>
-
 <div class="code">
     <kwd>public static</kwd> Orientation ToOrientation( Direction direction ) => direction <kwd>switch</kwd>
     {
@@ -97,12 +62,10 @@ C#8.0で追加された、入力値に応じて出力値を選択できる構文
         _ => <kwd>throw new</kwd> ArgumentOutOfRangeException(nameof(direction), $"Not expected direction value: {direction}"),
     };
 </div>
-
 先頭行の direction switch から最終行の } (ブレース)までが switch 式である。<br>
 ここでは switch 式の値を戻り値としており、direction の値によらず switch 式の評価結果はひとつの型( Orientation )に固定される。<br>
 このため関数が値を戻す(または例外を送出する)ことが構造的に保証された堅牢なコードとなっている。<br>
 また switch - case 節を用いる場合と比べ、記述は簡素となる。
-
 <h2>switch 式の構成</h2>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/CSharp/Switch_Formura/01.png" alt=""><br>
 通常、switch 式は複数の「アーム」( switch ステートメントにおける case 節に相当)で構成され、各アームは条件判定を行う「パターン」と、パターンに合致した際に swtich 式の評価値となる「式」からなる。<br>
@@ -111,9 +74,7 @@ C#8.0で追加された、入力値に応じて出力値を選択できる構文
 ケースガードは when キーワードと、それに続くブール式として指定する。<br>
 switch 式の入力値がいずれのアームにおけるパターン(およびケースガード)にも合致しない場合、switch 式の評価値が決定できないことから実行時エラーとなる。<br>
 入力値が確実に処理されるようにするには、「破棄パターン」( switch ステートメントにおける default 節に相当)を用いたアームを指定する。
-
 <h2>具体例</h2>
-
 <div class="code">
 <kwd>private void</kwd> Button_Click( <kwd>object</kwd> sender, RoutedEventArgs e )
 {
@@ -126,18 +87,15 @@ switch 式の入力値がいずれのアームにおけるパターン(および
         <knw>Button</knw> { Tag: "InkSys_2" } b                => ( "#2", "開始", SUPPLYFORINKSYS_2_ON  ),  <cmt>//< 4) インクシステム#2 オフ ⇒ オン</cmt>
         _ => <kwd>throw new</kwd> <knw>Exception</knw>( "規定されていない動作です。" ),                               <cmt>//< 5) 上記以外</cmt>
     };
-
     <cmt>// 問い合わせ表示、「はい」押下時以外は抜ける</cmt>
     <kwd>if</kwd>( MessageBoxFunc.ShowYesNoMsgBox( $"インクシステム{tgt}へのインク供給を{ope}します。\nよろしいですか？" ) != MessageBoxFunc.E_Result.Yes )
     {
         <kwd>return</kwd>;
     }
-
     <cmt>// コマンド発行</cmt>
     MainControl.DoPostRequestToPlc( cmd );
 }
 </div>
-
 上記は、Button の Click ハンドラ内で、Tag プロパティと状態変数の値に応じて値を振り分ける例である。<br>
 switch 式は、sender が Button 型でかつ Tag が○○であれば、Button 型変数 b に Button 型に変換した sender を格納、さらに when 以降の条件に当てはまる場合に => の右辺を返却する。<br>
 (ここで、変数 b は when 句で用いることができる。ここではいずれのアームでも b を用いていないため、b を省略しても問題は無い。)<br>
@@ -154,6 +112,3 @@ switch 式は、sender が Button 型でかつ Tag が○○であれば、Butto
 (即ちアーム(2)は、when 句を記述する必要が無い。)<br>
 このようにして、上段のアームでより限定的な判断を行い、該当しないもの( else / default )を下段で捕捉することが可能である。<br>
 (<b>このため破棄パターン( _ : アンダースコア)は最下段に記述しなければならない。</b>)
-
-</body>
-</html>

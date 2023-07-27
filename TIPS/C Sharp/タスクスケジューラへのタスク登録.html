@@ -1,62 +1,34 @@
 <!DOCTYPE html>
-
-<html lang="ja">
-<!-- --------------------------------------
-head
---------------------------------------- -->
-<head>
-<meta content="text/html" charset="utf-8" http-equiv="Content-Type" />
-
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
-
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
-
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
-
-</head>
-
-<!-- --------------------------------------
-body
---------------------------------------- -->
-<body>
-
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
-
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-
 <!-- 出典・関連ページ -->
 <h5>関連 :</h5>
 <a href="TIPS/Windows/タスクスケジューラ.html">タスクスケジューラ</a><br>
 <a href="TIPS/Microsoft Visual Studio・.Net/[Visual C%23]アプリケーションを常に管理者権限で実行(マニフェスト).html">[Visual C#]アプリケーションを常に管理者権限で実行(マニフェスト)</a><br>
-
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
-
 <hr>
-
 <!-- 本文ここから -->
-
 <h2>C# .Netからのタスクスケジューラ操作</h2>
 C# .Netアプリケーションから、タスクスケジューラを操作(タスクの登録など)することが可能。
-
 <h2>注意が必要な点</h2>
 作成したアプリケーションからタスクを登録する場合、実行時に管理者権限が必要となる。<br>
 (管理者権限なしで実行した場合、登録する時点でエラーとなる。)<br>
 管理者権限の付与手順は、<a href="TIPS/Microsoft Visual Studio・.Net/[Visual C%23]アプリケーションを常に管理者権限で実行(マニフェスト).html">ここ</a>を参照。
-
 <h2>サンプルコード</h2>
-
 下記コードは一例。詳細は要調査。
-
 <h3>関数 ( RegistTask() ) 定義</h3>
 <p class="code">
 <cmt>// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = -
@@ -83,21 +55,17 @@ C# .Netアプリケーションから、タスクスケジューラを操作(タ
 {
     ITaskService taskservice = <kwd>null</kwd>;
     ITaskFolder rootfolder = <kwd>null</kwd>;
-
     <kwd>try</kwd>
     {
         <cmt>// TaskServiceを生成して接続する
         // 接続時の User, Domain, Password を必要に応じて設定する</cmt>
         taskservice = <kwd>new</kwd> TaskScheduler.TaskScheduler();
         taskservice.Connect(<kwd>null</kwd>, <kwd>null</kwd>, <kwd>null</kwd>, <kwd>null</kwd>);
-
         <cmt>// タスクの格納先、タスク名を指定</cmt>
         rootfolder = taskservice.GetFolder(<ltr>"\\"</ltr>);
         <kwd>var</kwd> path = <ltr>$@"\{folderName}\{taskName}"</ltr>;
-
         <cmt>// 新規登録用のタスクを定義</cmt>
         ITaskDefinition taskDefinition = taskservice.NewTask(<ltr>0</ltr>);
-
         <cmt>// 設定に使うもろもろ</cmt>
         IRegistrationInfo registrationInfo = taskDefinition.RegistrationInfo;
         IActionCollection actionCollection = taskDefinition.Actions;
@@ -106,26 +74,20 @@ C# .Netアプリケーションから、タスクスケジューラを操作(タ
         ITimeTrigger timeTrigger = (ITimeTrigger)triggerCollection.Create(_TASK_TRIGGER_TYPE2.TASK_TRIGGER_TIME);
         ITaskSettings taskSettings = taskDefinition.Settings;
         IPrincipal principal = taskDefinition.Principal;
-
         <cmt>// タスクの作成者と概要</cmt>
         registrationInfo.Author = author;
         registrationInfo.Description = description;
-
         <cmt>// タスクの実行時に使うユーザアカウント</cmt>
         principal.UserId = <ltr>$@"{Environment.UserDomainName}\{Environment.UserName}"</ltr>;
-
         <cmt>// ユーザがログオンしているかどうかにかかわらず実行
         // 最上位特権で実行する</cmt>
         principal.LogonType = _TASK_LOGON_TYPE.TASK_LOGON_S4U;
         principal.RunLevel = _TASK_RUNLEVEL.TASK_RUNLEVEL_HIGHEST;
-
         <cmt>// トリガー条件(開始時刻、間隔、有効)</cmt>
         timeTrigger.StartBoundary = execTime.ToString(<ltr>"yyyy-MM-ddTHH:mm:ss"</ltr>);
         timeTrigger.Repetition.Interval = <kwd>null</kwd>;     <cmt>//< 繰り返しなし</cmt>
         timeTrigger.Enabled = <kwd>true</kwd>;
-
         execAction.Path = execFile;
-
         <cmt>// 登録</cmt>
         rootfolder.RegisterTaskDefinition(path,
                                           taskDefinition,
@@ -134,7 +96,6 @@ C# .Netアプリケーションから、タスクスケジューラを操作(タ
                                           <kwd>null</kwd>,
                                           _TASK_LOGON_TYPE.TASK_LOGON_NONE,
                                           <kwd>null</kwd>);
-
         <cmt>// 正常終了</cmt>
         <kwd>return true</kwd>;
     }
@@ -157,7 +118,6 @@ C# .Netアプリケーションから、タスクスケジューラを操作(タ
     }
 }
 </p>
-
 <h3>関数呼び出しと登録イメージ</h3>
 <p class="code">
 <cmt>// C:\Somewhere\sample.exe を</cmt>
@@ -169,9 +129,4 @@ RegistTask( "ユーザタスク",                          <cmt>//&lt; <red>登�
             "Solid Snake",                           <cmt>//&lt; <black>作成者</black></cmt>
             "俺は未来のために銃を握っている" );      <cmt>//&lt; <black>説明</black></cmt>
 </p>
-
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/TaskScheduler_with_CSharp/cs_task_scheduler_04.png"><br>
-</body>
-</html>
-
-

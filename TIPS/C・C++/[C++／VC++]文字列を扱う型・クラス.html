@@ -1,54 +1,27 @@
 <!DOCTYPE html>
-
-<html lang="ja">
-<!-- --------------------------------------
-head
---------------------------------------- -->
-<head>
-<meta content="text/html" charset="utf-8" http-equiv="Content-Type" />
-
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
-
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
-
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
-
-
-
-</head>
-
-<!-- --------------------------------------
-body
---------------------------------------- -->
-<body>
-
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
-
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-
 <!-- 出典・関連ページ -->
 <h5>出典 :</h5>
 <a href="https://qiita.com/tadnakam/items/99d7c40670fb3649875d">「Visual C++ 文字列 まとめ」 - Qiita</a><br>
 <a href="https://qiita.com/tadnakam/items/d4d01850490a09af590c">「Visual Studio 2017 Visual C++ COM 文字列 BSTR と CComBSTR」 - Qiita</a><br>
 <a href="http://vllv.us/Junk/_T/">_T("")マクロだのL""マクロだのLPCTSTRだのの世界一詳しい解説</a><br>
-
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
-
 <hr>
-
 <!-- 本文ここから -->
-
-
 <h2>型一覧</h2>
 <table>
 <tr class="row1"><td>型名</td><td>格納対象</td><td>概要</td><td>備考</td></tr>
@@ -62,7 +35,6 @@ body
 <tr><td>CComBSTR</td><td>ワイド文字(Unicode)</td><td>ATLにおける文字列処理クラス<br>BSTR のラッパー(ヘルパー)</td><td>MFC非依存<br>文字列(BSTR)処理のためのメソッドを多数備える</td></tr>
 </table>
 ※ Visual C++ におけるワイド文字(Unicode)はUTF-16を指す<br>
-
 <h2>Visual C++ におけるエイリアス・マクロ</h2>
 <table>
 <tr class="row1"><td>シンボル</td><td>表現対象<br>(マルチバイト環境下 :<br>_UNICODE 定義なし)</td><td>表現対象<br>(ワイド文字環境下 :<br>_UNICODE 定義あり)</td><td>備考</td></tr>
@@ -79,7 +51,3 @@ body
 <tr><td>LPCSTR</td><td>const char*</td><td>←</td><td></td></tr>
 <tr><td>LPCWSTR</td><td>(コンパイルエラー)</td><td>const WCHAR*</td><td></td></tr>
 <tr><td>LPCTSTR</td><td>LPCSTR</td><td>LPCWSTR</td><td></td></tr>
-</body>
-</html>
-
-

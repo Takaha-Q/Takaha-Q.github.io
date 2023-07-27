@@ -1,39 +1,17 @@
 <!DOCTYPE html>
-
-<html lang="ja">
-<!-- --------------------------------------
-head
---------------------------------------- -->
-<head>
-<meta content="text/html" charset="utf-8" http-equiv="Content-Type" />
-
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
-
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
-
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
-
-
-
-</head>
-
-<!-- --------------------------------------
-body
---------------------------------------- -->
-<body>
-
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
-
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-
 <!-- 出典・関連ページ -->
 <h5>出典 :</h5>
 <a href="https://kaworu.jpn.org/cpp/POD">POD - C++入門</a><br>
@@ -44,20 +22,14 @@ body
 <a href="https://cpprefjp.github.io/reference/type_traits/is_pod.html">is_pod - cpprefjp C++日本語リファレンス</a><br>
 <a href="https://qiita.com/SaitoAtsushi/items/6b8cf84bf13146ae8b33">POD 型のデフォルト初期化 - Qiita</a><br>
 <a href="https://tu3.jp/01004">C++98 C++03 の POD - つーさのくーかん</a><br>
-
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
-
 <hr>
-
 <!-- 本文ここから -->
-
-
 <h2>Plain Old Data (POD)とは</h2>
 <b>C言語の構造体、または共用体と互換性のある</b> オブジェクトレイアウト(型)のこと。<br>
 データが宣言通りの順序で並ぶことが保証されるため、C言語とのデータ共有に用いることができ、memcpy() 、memset() でコピー、初期化できる。
-
 <h2>PODである条件</h2>
 <h3>C++03</h3>
 <ul>
@@ -73,10 +45,8 @@ body
 <li>staticでない non-POD型の構造体・共用体(とその配列)をメンバを持たない</li>
 <li>staticでない 参照 を持たない</li>
 </ul>
-
 <h3>C++11</h3>
 C++11(以降)では条件がC++03よりも緩和されている。<br>
-
 <ul>
 <li>trivial である</li>
 <li>デフォルトコンストラクタを持ち、かつ、非 trivial なデフォルトコンストラクタを持たない</li>
@@ -94,7 +64,6 @@ C++11(以降)では条件がC++03よりも緩和されている。<br>
 <li>一つ目に定義された非静的データメンバと同じ型の基底クラスを持たない</li>
 <li>非静的データメンバを持つ基底クラスを持たない。もしくは、導出クラスが非静的データメンバを持たず、高々一つの基底クラスしか非静的データメンバを持たない。これはつまり、クラス階層において非静的データメンバを持ってよいクラスは一つだけである、ということである</li>
 </ul>
-
 ここで、コンストラクタ、デストラクタ、演算子が trivial である、とは<br>
 <ul>
 <li>ユーザ定義 (user-provided) ではない</li>
@@ -107,20 +76,17 @@ C++03ではすべての非静的 (non-static) メンバが public である必�
 <b>std::is_pod&lt;&gt;</b> を用いることで確認できる。<br>
 <p class="code">
 <kwd>#include</kwd> &lt;type_traits&gt;
-
 <cmt>// POD型</cmt>
 <kwd>class</kwd> C_Hoge
 {
     :
 };
-
 <cmt>// non-POD型</cmt>
 <kwd>class</kwd> C_Fuga
 {
     <cmt>// non-trivial なデフォルトコンストラクタ</cmt>
     C_Fuga() {}
 };
-
 <kwd>void</kwd> main()
 {
     std::cout &lt;&lt; std::boolalpha;    <cmt>//&lt; bool を英字で出力</cmt>
@@ -134,8 +100,3 @@ C++03ではすべての非静的 (non-static) メンバが public である必�
 <kwd>false</kwd>
 </p>
 <br>
-</body>
-</html>
-
-
-

@@ -1,65 +1,36 @@
 <!DOCTYPE html>
-
-<html lang="ja">
-<!-- --------------------------------------
-head
---------------------------------------- -->
-<head>
-<meta content="text/html" charset="utf-8" http-equiv="Content-Type" />
-
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
-
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
-
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
-
-
-
-</head>
-
-<!-- --------------------------------------
-body
---------------------------------------- -->
-<body>
-
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
-
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-
 <!-- 出典・関連ページ -->
 <h5>出典 :</h5>
 <a href="https://hensa40.cutegirl.jp/archives/7471">[C#/VB.NET] DateTimePickerで時間だけを入力できるようにする – 偏差値40プログラマー</a><br>
-
 <h5>関連 :</h5>
 <a href="TIPS/dotNET/DateTime%20と%20TimeSpan.html">[.Net]DateTime と TimeSpan</a>
-
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
-
 <hr>
-
 <!-- 本文ここから -->
-
 <h2>DateTimePicker とは</h2>
 日時を選択、入力するためのコントロール。<br>
 Value プロパティには選択した日時( DateTime 型)が反映される。<br>
 デフォルトでは、日付を選択できるカレンダーが表示される。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/DotNet_Datetime_Timespan/dotnet_datetime_and_timespan_01.png"><br>
-
 <h2>表示形式、選択方式の指定</h2>
 <h3>表示形式</h3>
 [表示]<b>Format</b> 、[動作]<b>CustomFormat</b> プロパティで表示形式を指定する。<br>
 Format == Custom 時のみ CustomFormat の値が有効となる。
-
 <table>
     <tr class="row1">
         <td class="col1">Format の値</td>   
@@ -104,10 +75,8 @@ Format == Custom 時のみ CustomFormat の値が有効となる。
         <td>13:08</td>                  
     </tr>
 </table>
-
 <h3>選択方式</h3>
 [表示]<b>ShowUpDown</b> プロパティで選択方式を指定する。<br>
-
 <table>
     <tr class="row1">
         <td class="col1">ShowUpDown の値</td>   
@@ -122,10 +91,4 @@ Format == Custom 時のみ CustomFormat の値が有効となる。
         <td>ドロップダウンカレンダーで選択</td>         
     </tr>
 </table>
-
 時刻のみを取り出す場合、カレンダー表示は不要なため ShowUpDown = true とする。
-
-</body>
-</html>
-
-

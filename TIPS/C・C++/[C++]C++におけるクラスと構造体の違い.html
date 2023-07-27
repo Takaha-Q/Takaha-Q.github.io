@@ -1,51 +1,25 @@
 <!DOCTYPE html>
-
-<html lang="ja">
-<!-- --------------------------------------
-head
---------------------------------------- -->
-<head>
-<meta content="text/html" charset="utf-8" http-equiv="Content-Type" />
-
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
-
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
-
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
-
-
-
-</head>
-
-<!-- --------------------------------------
-body
---------------------------------------- -->
-<body>
-
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
-
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-
 <!-- 出典・関連ページ -->
 <h5>出典 :</h5>
 <a href="https://qiita.com/pink_bangbi/items/e25302df7f4ba7fa0db4">C++ における class と struct の違い - Qiita</a><br>
-
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
-
 <hr>
-
 <!-- 本文ここから -->
-
 <h2>クラス(class)と構造体(struct)の差異</h2>
 C++がCのスーパーセットとして発祥したことから、C++における構造体がCと同様に「変数のみを定義できる」という誤解も多いが、<br>
 実際は <b>構造体にもメンバ関数(メソッド)を定義できる</b> 。<br>
@@ -54,14 +28,11 @@ C++がCのスーパーセットとして発祥したことから、C++におけ�
 <li>クラス : デフォルトのアクセス指定が <b>private</b></li>
 <li>構造体 : デフォルトのアクセス指定が <b>public</b></li>
 </ul>
-
 <h2>CとC++での構造体の差異</h2>
 反面、CとC++では構造体の実装に微妙な差異がある。
-
 <h3>C</h3>
 構造体定義の際には struct キーワードに続いて「タグ」を指定できる(型定義を同時に行う場合は省略可能)。<br>
 「型名」を定義する際は typedef が必要。<br>
-
 <p class="code">
 <cmt>// 構造体を定義後、別名を割り当てる</cmt>
 <kwd>struct</kwd> tagSt_Hoge1                    <cmt>//&lt; tagSt_Hoge1 はタグであり、型名ではない</cmt>
@@ -69,26 +40,21 @@ C++がCのスーパーセットとして発祥したことから、C++におけ�
     U1 m_u1_Val;
 };
 <kwd>typedef</kwd> <kwd>struct</kwd> tagSt_Hoge1 St_Hoge1;  <cmt>//&lt; タグから型名を定義</cmt>
-
 <cmt>// 構造体と別名を同時に定義する</cmt>
 <kwd>typedef</kwd> <kwd>struct</kwd> tagSt_Hoge2            <cmt>//&lt; タグ tagSt_Hoge2 は省略可能</cmt>
 {
     U1 m_u1_Val;
 } St_Hoge2;
-
 <cmt>// タグを用いた変数宣言 (struct キーワードが必要)</cmt>
 <kwd>struct</kwd> tagSt_Hoge1 g_st_Hoge1_1;
 <kwd>struct</kwd> tagSt_Hoge2 g_st_Hoge2_1;
-
 <cmt>// typedef で定義した型名を用いた変数宣言</cmt>
 St_Hoge1 g_st_Hoge1_2;
 St_Hoge2 g_st_Hoge2_2;
 </p>
-
 <h3>C++</h3>
 C++における「構造体定義」は「構造体型定義」を兼ねる(<b>「タグ」が「正式な型名」となる</b>)ため、型定義に typedef を必要としない。<br>
 (C同様 typedef (または using )で別名を付与できるが、単に冗長であるだけでなく、二重管理となり混乱を生じる可能性がある。)
-
 <p class="code">
 <cmt>// クラス定義</cmt>
 <kwd>class</kwd> C_Hoge0                            <cmt>//&lt; クラス型 C_Hoge0</cmt>
@@ -98,7 +64,6 @@ C++における「構造体定義」は「構造体型定義」を兼ねる(<b>�
     C_Hoge0() {}
     GetVal() <kwd>const</kwd> { <kwd>return</kwd> m_u1_Val; }
 };
-
 <cmt>// 構造体定義</cmt>
 <kwd>struct</kwd> St_Hoge1                          <cmt>//&lt; St_Hoge1 は正規の構造体型名(タグではない)</cmt>
 {
@@ -107,24 +72,15 @@ C++における「構造体定義」は「構造体型定義」を兼ねる(<b>�
 <kwd>private</kwd>:
     U1 m_u1_Val;
 };
-
 <cmt>// 変数宣言</cmt>
 C_Hoge0 g_cl_Hoge0;            <cmt>//&lt; クラス</cmt>
 St_Hoge1 g_st_Hoge1;           <cmt>//&lt; 構造体</cmt>
 </p>
-
 <h2>どちらを用いるべきか</h2>
 クラスと構造体では前述したとおり、(デフォルトの)アクセス指定以外の差異は存在しない。<br>
 メソッドを含むオブジェクトはクラスを用いるのが一般的であるが、データのみで構成されるオブジェクトの取り扱いは見解が分かれるため、<br>
 クラスと構造体のいずれを用いるかはチームとして方針を定めておくことが望ましい。<br>
 尚、クラスと構造体のいずれを用いる場合でも、アクセス指定は明示的に行う(デフォルトを使用しない)ことで混乱を防止できる。
-
 <h2>余談</h2>
 C++では構造体と同様、共用体にもコンストラクタ・デストラクタを定義できる。<br>
 C#ではクラスと構造体の実装は異なり、クラスは参照渡し、構造体は値渡しとなる。詳細は割愛。<br>
-
-</body>
-</html>
-
-
-

@@ -1,54 +1,27 @@
 <!DOCTYPE html>
-
-<html lang="ja">
-<!-- --------------------------------------
-head
---------------------------------------- -->
-<head>
-<meta content="text/html" charset="utf-8" http-equiv="Content-Type" />
-
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
-
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
-
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
-
-
-
-</head>
-
-<!-- --------------------------------------
-body
---------------------------------------- -->
-<body>
-
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
-
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-
 <!-- 出典・関連ページ -->
 <h5>出展 :</h5>
 <a href="https://water2litter.net/rye/post/c_pdf_render/">C#でPDFを表示する（WPF）</a><br>
-
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
-
 <hr>
-
 <!-- 本文ここから -->
-
 <h2>WPFアプリケーションでPDFを表示する</h2>
 WPFにはPDFを直接表示できる標準のコントロールは存在しないため、Windows.Data.Pdf を用いて画像に変換して表示を行う。
-
 <h3>準備 : ランタイムAPIの有効化</h3>
 以下の手順でMicrosoft.Windows.SDK.Contracts のインストールを行う。<br>
 (<b>.NET 5.0以降を使用する場合は不要。</b>)
@@ -72,13 +45,11 @@ WPFにはPDFを直接表示できる標準のコントロールは存在しな�
         <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_View_PDF/04.png">
     </li>
 </ol>
-
 <h3>アプリケーションの作成例</h3>
 <h4>画面表示</h4>
 メニュー「File」>「Open」を選択するとPDFファイル(G:\マイドライブ\8.Sagawa\test.pdf)が開く。<br>
 「Next」で次のページ、「Prev」で前のページに移動する。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_View_PDF/05.png"><br>
-
 <h4>XAMLの記述 (MainWindow.xaml)</h4>
 <div class="code">
 &lt;Window x:Class=<ltr>"ELP03_UI_Proto_ZZ.MainWindow"</ltr>
@@ -104,7 +75,6 @@ WPFにはPDFを直接表示できる標準のコントロールは存在しな�
 &lt;/Grid&gt;
 &lt;/Window&gt;
 </div>
-
 <h4>コードビハインドの記述 (MainWindow.xaml.cs)</h4>
 <div class="code">
 <kwd>using</kwd> <knw>System</knw>;
@@ -122,7 +92,6 @@ WPFにはPDFを直接表示できる標準のコントロールは存在しな�
 <kwd>using</kwd> <knw>System</knw>.<knw>Windows</knw>.Navigation;
 <kwd>using</kwd> <knw>System</knw>.<knw>Windows</knw>.Shapes;
 <kwd>using</kwd> <knw>Windows</knw>.Data.Pdf;
-
 <kwd>namespace</kwd> ELP03_UI_Proto_ZZ
 {
     <cmt>/// &lt;summary&gt;</cmt>
@@ -142,11 +111,9 @@ WPFにはPDFを直接表示できる標準のコントロールは存在しな�
         <kwd>private</kwd> <knw>Windows</knw>.Data.Pdf.PdfDocument pdfDocument;
         <kwd>private</kwd> <knw>List</knw>&lt;BitmapSource&gt; pdfPages = <kwd>new</kwd> <knw>List</knw>&lt;BitmapSource&gt;();
         <kwd>private int</kwd> DisplayPageNumber = <ltr>1</ltr>;
-
         <cmt>/// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = -</cmt>
         <cmt>/// イベントハンドラ</cmt>
         <cmt>/// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = -</cmt>
-
         <cmt>/// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = -</cmt>
         <cmt>/// &lt;summary&gt;</cmt>
         <cmt>/// メニュー「Open」クリック時の処理</cmt>
@@ -159,7 +126,6 @@ WPFにはPDFを直接表示できる標準のコントロールは存在しな�
             ShowPage(DisplayPageNumber);
             txtPage.<knw>Text</knw> = <ltr>"Page "</ltr> + DisplayPageNumber.ToString();
         }
-
         <cmt>/// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = -</cmt>
         <cmt>/// &lt;summary&gt;</cmt>
         <cmt>/// メニュー「Next」クリック時の処理</cmt>
@@ -172,13 +138,11 @@ WPFにはPDFを直接表示できる標準のコントロールは存在しな�
             {
                 <kwd>return</kwd>;
             }
-
             <cmt>// ひとつ先のページを表示</cmt>
             DisplayPageNumber++;
             ShowPage(DisplayPageNumber);
             txtPage.<knw>Text</knw> = <ltr>"Page "</ltr> + DisplayPageNumber.ToString();
         }
-
         <cmt>/// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = -</cmt>
         <cmt>/// &lt;summary&gt;</cmt>
         <cmt>/// メニュー「Prev」クリック時の処理</cmt>
@@ -191,17 +155,14 @@ WPFにはPDFを直接表示できる標準のコントロールは存在しな�
             {
                 <kwd>return</kwd>;
             }
-
             <cmt>// ひとつ前のページを表示</cmt>
             DisplayPageNumber--;
             ShowPage(DisplayPageNumber);
             txtPage.<knw>Text</knw> = <ltr>"Page "</ltr> + DisplayPageNumber.ToString();
         }
-
         <cmt>/// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = -</cmt>
         <cmt>/// private メソッド</cmt>
         <cmt>/// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = -</cmt>
-
         <cmt>/// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = -</cmt>
         <cmt>/// &lt;summary&gt;</cmt>
         <cmt>/// PDFファイルの読み込み</cmt>
@@ -212,7 +173,6 @@ WPFにはPDFを直接表示できる標準のコントロールは存在しな�
             <kwd>var</kwd> file =
                 <kwd>await</kwd> <knw>Windows</knw>.Storage.StorageFile.GetFileFromPathAsync(
                     <knw>System</knw>.IO.Path.GetFullPath(@"G:\マイドライブ\<ltr>8</ltr>.Sagawa\test.pdf"));
-
             <kwd>try</kwd>
             {
                 <cmt>// ファイルからPDFドキュメントを読み込む</cmt>
@@ -221,7 +181,6 @@ WPFにはPDFを直接表示できる標準のコントロールは存在しな�
             <kwd>catch</kwd>
             {
             }
-
             <cmt>// 読み込み成功時</cmt>
             <kwd>if</kwd> (pdfDocument != <kwd>null</kwd>)
             {
@@ -230,13 +189,11 @@ WPFにはPDFを直接表示できる標準のコントロールは存在しな�
                 {
                     <kwd>using</kwd> <knw>Windows</knw>.Data.Pdf.PdfPage page = pdfDocument.GetPage(i);
                     <kwd>using var</kwd> stream = <kwd>new</kwd> <knw>Windows</knw>.Storage.Streams.InMemoryRandomAccessStream();
-
                     <cmt>// 解像度変更 96dpi ⇒ 200dpi</cmt>
                     PdfPageRenderOptions renderOptions = <kwd>new</kwd> PdfPageRenderOptions();
                     renderOptions.DestinationWidth =
                         (<kwd>uint</kwd>)<knw>Math</knw>.Round(page.Dimensions.ArtBox.Width / <ltr>96.0</ltr> * <ltr>200.0</ltr>);
                     <kwd>await</kwd> page.RenderToStreamAsync(stream, renderOptions);
-
                     PngBitmapDecoder decoder =
                         <kwd>new</kwd> PngBitmapDecoder(<knw>System</knw>.IO.WindowsRuntimeStreamExtensions.AsStream(stream), 
                                              BitmapCreateOptions.None,
@@ -246,7 +203,6 @@ WPFにはPDFを直接表示できる標準のコントロールは存在しな�
                 }
             }
         }
-
         <cmt>/// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = -</cmt>
         <cmt>/// &lt;summary&gt;</cmt>
         <cmt>/// 指定されたページを表示する</cmt>
@@ -259,17 +215,8 @@ WPFにはPDFを直接表示できる標準のコントロールは存在しな�
             {
                 <kwd>return</kwd>;
             }
-
             imgMain.Source = pdfPages[p - <ltr>1</ltr>];
         }
-
     }
 }
 </div>
-
-</body>
-</html>
-
-
-
-

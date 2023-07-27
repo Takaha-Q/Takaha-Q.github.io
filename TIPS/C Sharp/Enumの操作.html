@@ -1,39 +1,17 @@
 <!DOCTYPE html>
-
-<html lang="ja">
-<!-- --------------------------------------
-head
---------------------------------------- -->
-<head>
-<meta content="text/html" charset="utf-8" http-equiv="Content-Type" />
-
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
-
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
-
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
-
-
-
-</head>
-
-<!-- --------------------------------------
-body
---------------------------------------- -->
-<body>
-
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
-
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-
 <!-- 出典・関連ページ -->
 <h5>出典 :</h5>
 <a href="https://learn.microsoft.com/ja-jp/dotnet/csharp/language-reference/builtin-types/enum">列挙型 - C# リファレンス | Microsoft Learn</a><br>
@@ -43,18 +21,13 @@ body
 <a href="https://www.sejuku.net/blog/50547">【C#入門】enum(列挙型)の使い方総まとめ(文字列/int/foreach) | 侍エンジニアブログ</a><br>
 <a href="https://www.sejuku.net/blog/50504">【C#入門】enumの値と名前をforeachで列挙する(GetValues/GetNames) | 侍エンジニアブログ</a><br>
 <a href="https://qiita.com/stc1988/items/e6f76503ddf06fcf20b8">C#のenumでビット演算をする - Qiita</a><br>
-
 <h5>関連 :</h5>
 <a href="TIPS/C Sharp/文字列リテラル.html">文字列リテラル</a>
-
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
-
 <hr>
-
 <!-- 本文ここから -->
-
 <h2>列挙型をビットフィールド(フラグセット)として用いる</h2>
 [Flags]属性を付与することで、列挙型をフラグとして用いることができるようになる。<br>
 その際、<b>各列挙子は 0 または2のべき乗でなければならない</b>。<br>
@@ -62,7 +35,6 @@ body
 (コード例)
 <div class="code">
 <kwd>using</kwd> <knw>System</knw>;
-
 <kwd>class</kwd> Example
 {
     <cmt>// Flags 属性無しの列挙体定義</cmt>
@@ -74,7 +46,6 @@ body
         Green = 4,
         Blue  = 8,
     };
-
     <cmt>// Flags 属性つきの列挙体定義</cmt>
     [Flags]
     <kwd>enum</kwd> MultiHue : <kwd>short</kwd>
@@ -85,23 +56,18 @@ body
         Green = 4,      <cmt>//< 2 ^ 2</cmt>
         Blue  = 8,      <cmt>//< 2 ^ 3</cmt>
     };
-
     <kwd>static void</kwd> Main( )
     {
         <knw>Console</knw>.WriteLine( "SingleHue :" );
-
         <kwd>for</kwd>(<kwd>int</kwd> val = 0; val <= 16; val++ )
             <knw>Console</knw>.WriteLine( $"{val} - {( (SingleHue)val ).ToString()}" );
-
         <knw>Console</knw>.WriteLine( "" );
         <knw>Console</knw>.WriteLine( "MultiHue :" );
-
         <kwd>for</kwd>( <kwd>int</kwd> val = 0; val <= 16; val++ )
             <knw>Console</knw>.WriteLine( $"{val} - {( (MultiHue)val ).ToString()}" );
     }
 }
 </div>
-
 (出力結果)
 <div class="code">
 SingleHue :
@@ -122,7 +88,6 @@ SingleHue :
 14 - 14
 15 - 15
 16 - 16
-
 MultiHue :
 0 - None
 1 - Black
@@ -142,83 +107,63 @@ MultiHue :
 15 - Black, Red, Green, Blue    <cmt>//< 1 + 2 + 4 + 8</cmt>
 16 - 16
 </div>
-
 Flags 属性の無い SingleHue は、定義されたシンボルのみが文字列として出力されているが、<br>
 Flags 属性を付与した MultiHue は、セットされたビットに対応するシンボルすべてを出力している。<br>
-
 <h3>Enumに対するビット演算</h3>
 <div class="code">
 <cmt>// ビット論理和</cmt>
 MultiHue color = MultiHue.Black | MultiHue.Green;      <cmt>//< Black, Green</cmt>
-
 <cmt>// ビットセット</cmt>
 color |= MultiHue.Red;                                 <cmt>//< Black, Red, Green</cmt>
-
 <cmt>// ビットクリア</cmt>
 color &= ~MultiHue.Green;                              <cmt>//< Black, Red</cmt>
-
 <cmt>// フラグの確認 (HasFlag() メソッド)</cmt>
 <kwd>if</kwd> ( color.HasFlag(MultiHue.Black) )
 {
     <knw>Console</knw>.WriteLine ("Black included");
 }
-
 <cmt>// フラグの確認 (AND演算・上記と等価)</cmt>
 <kwd>if</kwd> ( color & MultiHue.Black )
 {
     <knw>Console</knw>.WriteLine ("Black included");
 }
 </div>
-
 特定のビット(フラグ)がセットされていることはAND演算、または HasFlag() メソッドにより確認できる。<br>
 但し、HasFlag() は値型(enum)を参照型(Enum)にボックス化するため、パフォーマンスへの影響が発生する。
-
 <h2>列挙子と文字列リテラル</h2>
 列挙子を複合文字列、または文字列補完に含めた場合、基となる値ではなくラベルが埋め込まれる。即ち、後述の GetName() や ToString() を行う必要が無い。<br>
 (実際は暗黙的に ToString() が実行されるため、ToString() をオーバーロードすることで出力形式を変化させることができる。)<br>
 複合文字列、文字列補完の詳細は<a href="TIPS/C Sharp/文字列リテラル.html">リンク先</a>を参照のこと。
-
 <div class="code">
 <kwd>using</kwd> <knw>System</knw>;
-
 <kwd>public class</kwd> Sample
 {
     <cmt>// 列挙型の定義</cmt>
     <kwd>enum</kwd> Colors { Red, Green, Blue, Yellow };
-
     <kwd>public static void</kwd> Main()
     {
         Colors c1 = Colors.Blue;
         Colors c2 = Colors.Red;
-
         <cmt>// 複合文字列</cmt>
         <knw>Console</knw>.WriteLine( "c1 は {0} です。", c1 );
-
         <cmt>// 文字列補完</cmt>
         <knw>Console</knw>.WriteLine( $"c2 は {c2} です。" );
-
     }
 }
-
 <cmt>// 出力結果 :</cmt>
 <cmt>// c1 は Blue です。</cmt>
 <cmt>// c2 は Red です。</cmt>
 </div>
-
 <h2>列挙子の要素名(ラベル)の取得 : GetName() / ToString()</h2>
-
 <h3>string? Enum.GetName(Type enumType, object value)</h3>
 値 value が列挙型 enumType に含まれる場合に、対応する列挙子のラベルを文字列形式で返却する。<br>
 value が enumType に含まれない場合は null を返す。
-
 <div class="code">
 <kwd>using</kwd> <knw>System</knw>;
-
 <kwd>public class</kwd> Sample
 {
     <cmt>// 列挙型の定義</cmt>
     <kwd>enum</kwd> Colors { Red, Green, Blue, Yellow };
-
     <kwd>public static void</kwd> Main()
     {
         <cmt>// 値 3 に相当するラベルを取得、画面に表示</cmt>
@@ -227,26 +172,20 @@ value が enumType に含まれない場合は null を返す。
         <knw>Console</knw>.WriteLine( $"列挙体 Colors において 3 に相当するラベルは {lbl} です。" );
     }
 }
-
 <cmt>// 出力結果 :</cmt>
 <cmt>// 列挙体 Colors において 3 に相当するラベルは Yellow です。</cmt>
 </div>
-
 <h4>注意が必要な点</h4>
 value で指定された値が複数のメンバに該当する(複数のメンバが同じ値を持つ)場合、GetName() はそのうちのいずれかを返すが、いずれのメンバが返されるかは不定である。<br>
 (尤も、値が重複するような用途は適切ではなく、特殊な場合を除いて発生しない)
-
 <h3>string? Enum.GetName&lt;TEnum&gt;(TEnum value)</h3>
 列挙値 value のラベルを文字列形式で返却する。
-
 <div class="code">
 <kwd>using</kwd> <knw>System</knw>;
-
 <kwd>public class</kwd> Sample
 {
     <cmt>// 列挙型の定義</cmt>
     <kwd>enum</kwd> Colors { Red, Green, Blue, Yellow };
-
     <kwd>public static void</kwd> Main()
     {
         <cmt>// Colors.Green のラベルを取得、画面に表示</cmt>
@@ -256,22 +195,17 @@ value で指定された値が複数のメンバに該当する(複数のメン�
         <knw>Console</knw>.WriteLine( lbl );
     }
 }
-
 <cmt>// 出力結果 :</cmt>
 <cmt>// Green</cmt>
 </div>
-
 <h3>string ToString()</h3>
 列挙値のラベルを文字列形式で返却する。
-
 <div class="code">
 <kwd>using</kwd> <knw>System</knw>;
-
 <kwd>public class</kwd> Sample
 {
     <cmt>// 列挙型の定義</cmt>
     <kwd>enum</kwd> Colors { Red, Green, Blue, Yellow };
-
     <kwd>public static void</kwd> Main()
     {
         <cmt>// Colors.Green のラベルを取得、画面に表示</cmt>
@@ -281,24 +215,19 @@ value で指定された値が複数のメンバに該当する(複数のメン�
         <knw>Console</knw>.WriteLine( lbl );
     }
 }
-
 <cmt>// 出力結果 :</cmt>
 <cmt>// Green</cmt>
 </div>
-
 <h4>Enum.GetName() との差異</h4>
 Enum.GetName() は引数で指定された値が列挙型に含まれない場合に null を返す可能性があるが、ToString() は null を返さない。null を考慮する必要が無いため、ToString() はより簡便に用いることができる。<br>
     
 <h2>値または要素名(ラベル)の集合の取得 : GetValues() / GetNames()</h2>
 Enum の静的メソッド GetValues() 、GetNames() を用いることで、引数に指定した列挙型のすべての値、またはすべてのラベルを集合として取得することができる。<br>
 これにより、列挙型に対する繰り返し処理( foreach )を行うことができる。尚、引数には列挙型の型情報( typeof(...) )を与える。<br>
-
 <h3>GetValues() : 値の抽出</h3>
-
 コード :
 <div class="code">
 <kwd>using</kwd> <knw>System</knw>;
-
 <kwd>namespace</kwd> Sample
 {
     <cmt>// 列挙型の定義</cmt>
@@ -327,23 +256,18 @@ Enum の静的メソッド GetValues() 、GetNames() を用いることで、引
     }
 }
 </div>
-
 実行結果 :
 <div class="code">
 Himurock : 0
 Kikkawa : 1
 Hotei : 2
 </div>
-
 Enum.GetValues() および Enum.GetName() の引数に typeof(E_Name) を指定している点に注意。<br>
 これは後述の Enum.GetNames() も同様である。
-
 <h3>GetNames() : ラベルの抽出</h3>
-
 コード :
 <div class="code">
 <kwd>using</kwd> <knw>System</knw>;
-
 <kwd>namespace</kwd> Sample
 {
     <cmt>// 列挙型の定義</cmt>
@@ -369,16 +293,13 @@ Enum.GetValues() および Enum.GetName() の引数に typeof(E_Name) を指定�
     }
 }
 </div>
-
 実行結果 :
 <div class="code">
 Himurock
 Kikkawa
 Hotei
 </div>
-
 Enum.GetNames() の戻り値は string[] 。
-
 <h2>指定した値が列挙体に含まれるかを確認する : IsDefined()</h2>
 指定した値が列挙型に含まれる場合に true 、そうでない場合に false を返す。
 <div class="code">
@@ -388,21 +309,17 @@ Enum.GetNames() の戻り値は string[] 。
     <cmt>// unknown(-1) が Colors のメンバに含まれていればここを通る</cmt>
 }
 </div>
-
 <h2>指定した値を列挙オブジェクトに変換する : Parse() / TryParse()</h2>
 Parse() は指定した値が列挙体に変換可能( IsDefined() == true )ならば変換を実行、変換できない場合は例外を発する。<br>
 TryParse() は変換が可能であれば変換を行うとともに true を返し、変換できなければ false を返す。<br>
 いずれも複数のオーバーロードが存在するが、ここでは代表的なもののみを紹介する。
-
 <div class="code">
 <cmt>// MultiHue に Black が含まれていれば result1 は MultiHue.Black と等価、</cmt>
 <cmt>// そうでなければ例外</cmt>
 <kwd>object</kwd> result1 = <knw>Enum</knw>.Parse(<kwd>typeof</kwd>(MultiHue), "Black");
-
 <cmt>// MultiHue に Green が含まれていれば result2 は MultiHue.Green 、</cmt>
 <cmt>// そうでなければ例外</cmt>
 MultiHue result2 = <knw>Enum</knw>.Parse&lt;MultiHue&gt;("Green");
-
 <cmt>// MultiHue に Blue が含まれていれば result3 は MultiHue.Blue と等価、</cmt>
 <cmt>// そうでなければ null となる</cmt>
 <kwd>bool</kwd> succeed =  <knw>Enum</knw>.TryParse(<kwd>typeof</kwd>(MultiHue), "Blue", <kwd>out object</kwd>? result3);
@@ -411,7 +328,6 @@ MultiHue result2 = <knw>Enum</knw>.Parse&lt;MultiHue&gt;("Green");
 <cmt>// そうでなければ MultiHue の既定値となる</cmt>
 <kwd>bool</kwd> succeed =  <knw>Enum</knw>.TryParse&lt;MultiHue&gt;("Red", <kwd>out</kwd> MultiHue result4);
 </div>
-
 <table>
   <tr class="row1">
     <td class="col1" width="165"></td>
@@ -428,7 +344,6 @@ MultiHue result2 = <knw>Enum</knw>.Parse&lt;MultiHue&gt;("Green");
     <td>TEnum 型</td>
   </tr>
 </table>
-
 <table>
     <tr>
         <th class="col1" rowspan="2" width="165"></th>
@@ -457,18 +372,3 @@ MultiHue result2 = <knw>Enum</knw>.Parse&lt;MultiHue&gt;("Green");
     </tr>
   </table>
   
-
-</body>
-</html>
-
-
-
-
-
-
-
-
-
-
-
-

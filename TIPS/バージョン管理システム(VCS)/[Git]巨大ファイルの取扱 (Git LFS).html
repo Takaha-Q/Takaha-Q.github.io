@@ -1,96 +1,60 @@
 <!DOCTYPE html>
-
-<html lang="ja">
-<!-- --------------------------------------
-head
---------------------------------------- -->
-<head>
-<meta content="text/html" charset="utf-8" http-equiv="Content-Type" />
-
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
-
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
-
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
-
-
-
-</head>
-
-<!-- --------------------------------------
-body
---------------------------------------- -->
-<body>
-
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
-
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-
 <!-- 出典・関連ページ -->
 <h5>出典 :</h5>
 <a href="https://www.atlassian.com/ja/git/tutorials/git-lfs">Git チュートリアル - Git LFS（Large File Storage）とは | Atlassian Git Tutorial</a><br>
 <a href="https://blog.katsubemakito.net/git/github-gitlfs">[GitHub] Git LFSで巨大なファイルを扱う</a><br>
-
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
-
 <hr>
-
 <!-- 本文ここから -->
-
 <h2>Gitにおける巨大ファイルの取扱</h2>
 Gitホストではファイルサイズに制約を設けていることが多く、GitHubにおいては通常、100MB以上のサイズを持つファイルをプッシュすることができない。<br>
 (因みに、推奨されているファイルサイズは50MB未満、リポジトリのサイズは1GB程度である。)<br>
 このようなサイズの大きなファイルを取り扱う為の仕組みとして、「<b>Git LFS(Large File Storage)</b>」が存在する。
-
 <h2>Git LFSの概略</h2>
 Git LFSでは、サイズの大きなファイルを専用のストレージに格納し、リポジトリには当該ファイルに紐づくインデクスファイルを配置する。<br>
 このインデクスファイルは極軽量であるため、リポジトリの圧迫を避けることができる。<br>
 ただし、Git LFSに対応するホスト(GitHub、Bitbucketなど)でしか用いることができない。
-
 <h2>Git LFSの導入</h2>
 Git本体がすでにインストールされていることを前提とする。
-
 <h3>Windows</h3>
 <ol>
-
 <li><a href="https://git-lfs.com/">Git LFS公式サイト</a>からプログラムをダウンロードし、実行する。</li>
-
 <li>コンソール(PowerShell など)を開き、以下のコマンドでGit LFSを有効化する。<br>
 (TortoiseGitなどのクライアントからでも実行可能？要調査)
 <div class="code">
 git lfs install
 </div></li>
-
 <li>ローカルリポジトリを作成(git init)する。
 <div class="code">
 git init
 </div></li>
-
 <li>LFSでの管理対象としたいファイルパターンを入力する。ワイルドカードを使用可能。<br>
 (例 : ZIPファイルを対象とする場合)
 <div class="code">
 git lfs track "*.zip"
 </div></li>
-
 <li>4. の手順を必要なだけ繰り返す。<br>
 管理対象のファイルは .gitattributes ファイルに記録されるため、 .gitattributes をステージングしておくとよい。
 <div class="code">
 git add .gitattributes
 </div></li>
-
 <li>LFS管理下に置くファイルをステージングし、コミット、プッシュを行う。</li>
 </ol>
-
 <h2>注意が必要な点</h2>
 既存のローカルリポジトリが大サイズのファイルを含んでいる場合、それらを後からLFSの管轄とすることはできない。<br>
 このため、それらを一旦リポジトリから削除し、前節の手順でLFSの管理対象に含めたうえで改めてGit管理下に置く必要がある。<br>
@@ -102,6 +66,3 @@ git add .gitattributes
 <li>転送量 : 1GB / 月</li>
 </ul>
 となっている。無料プランを使用する場合は注意が必要。詳細は<a href="https://blog.katsubemakito.net/git/github-gitlfs">出典元</a>を参照のこと。
-
-</body>
-</html>

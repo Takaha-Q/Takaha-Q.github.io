@@ -1,52 +1,26 @@
 <!DOCTYPE html>
-
-<html lang="ja">
-<!-- --------------------------------------
-head
---------------------------------------- -->
-<head>
-<meta content="text/html" charset="utf-8" http-equiv="Content-Type" />
-
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
-
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
-
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
-
-
-
-</head>
-
-<!-- --------------------------------------
-body
---------------------------------------- -->
-<body>
-
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
-
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-
 <!-- 出典・関連ページ -->
 <h5>関連 :</h5>
 <a href="TIPS/C%20Sharp/C%23からC%2B%2Bの関数をコールする.html">C#からC++の関数をコールする</a><br>
 <a href="TIPS/C%20Sharp/マーシャリング.html">マーシャリング</a><br>
-
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
-
 <hr>
-
 <!-- 本文ここから -->
-
 <ol>
 <li>
 プロジェクトを作成する。<br>
@@ -65,7 +39,6 @@ body
 library.h<br>
 <p class="code">
 <kwd>#pragma</kwd> once
-
 <kwd>extern</kwd> <ltr>"<ltr>C</ltr>"</ltr>
 {
     __declspec( dllexport ) <kwd>void</kwd> __stdcall Test();
@@ -75,7 +48,6 @@ library.cpp<br>
 <p class="code">
 <kwd>#include</kwd> &lt;iostream&gt;
 <kwd>#include</kwd> <ltr>"library.h"</ltr>
-
 <kwd>void</kwd> Test()
 {
     std::cout &lt;&lt; <ltr>"Cの関数が呼び出されました。"</ltr> &lt;&lt; std::endl;
@@ -83,8 +55,3 @@ library.cpp<br>
 </p>
 </li>
 </ol>
-</body>
-</html>
-
-
-

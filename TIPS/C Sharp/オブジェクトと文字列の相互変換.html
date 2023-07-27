@@ -1,39 +1,17 @@
 <!DOCTYPE html>
-
-<html lang="ja">
-<!-- --------------------------------------
-head
---------------------------------------- -->
-<head>
-<meta content="text/html" charset="utf-8" http-equiv="Content-Type" />
-
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
-
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
-
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
-
-
-
-</head>
-
-<!-- --------------------------------------
-body
---------------------------------------- -->
-<body>
-
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
-
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-
 <!-- 出典・関連ページ -->
 <h5>出典 :</h5>
 <a href="https://docs.microsoft.com/ja-jp/dotnet/api/system.object.tostring?view=net-6.0">Object.ToString メソッド (System) | Microsoft Docs</a><br>
@@ -41,20 +19,15 @@ body
 <a href="https://dobon.net/vb/dotnet/string/inttostring.html">書式を指定して数値を文字列に変換する - .NET Tips (VB.NET,C#...)</a><br>
 <a href="https://dobon.net/vb/dotnet/string/datetimeformat.html">日時（DateTimeオブジェクト）を文字列に変換する - .NET Tips (VB.NET,C#...)</a><br>
 <a href="https://www.sejuku.net/blog/43642">【C#入門】ToStringで数値や日付を文字列に変換する方法 | 侍エンジニアブログ</a><br>
-
 <h5>関連 :</h5>
 <a href="TIPS/dotNET/DateTime と TimeSpan.html">[.NET]DateTime と TimeSpan</a>
-
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
-
 <hr>
-
 <!-- 本文ここから -->
 <h2>オブジェクトを文字列に変換 : ToString()</h2>
 オブジェクトに対応する文字列を得るための標準的な手法として、ToString() メソッドが用意されている。<br>
-
 <h3>組み込み型に対する ToString()</h3>
 <h4>書式指定なし</h4>
 ToString() を引数(書式指定)なしでコールした場合、以下のようになる。
@@ -62,34 +35,27 @@ ToString() を引数(書式指定)なしでコールした場合、以下のよ�
 <cmt>// int型</cmt>
 <kwd>int</kwd> i = 100;
 <knw>Console</knw>.WriteLine( i.ToString() );      <cmt>//> "100"</cmt>
-
 <cmt>// long型</cmt>
 <kwd>long</kwd> l = 100L;
 <knw>Console</knw>.WriteLine( l.ToString() );      <cmt>//> "100"</cmt>
-
 <cmt>// float型</cmt>
 <kwd>float</kwd> f = 100.1F;
 <knw>Console</knw>.WriteLine( f.ToString() );      <cmt>//> "100.1"</cmt>
-
 <cmt>// double型</cmt>
 <kwd>double</kwd> d = 100.1;
 <knw>Console</knw>.WriteLine( d.ToString() );      <cmt>//> "100.1"</cmt>
-
 <cmt>// bool型</cmt>
 <kwd>bool</kwd> b = <kwd>true</kwd>;
 <knw>Console</knw>.WriteLine( b.ToString() );      <cmt>//> "True"</cmt>
 </div>
-
 <h4>書式指定あり</h4>
 ToString() の引数に書式指定文字列を指定することで、出力形式を変更できる。<br>
-
 <h5>標準書式指定文字列の例</h5>
 以下で構成される、標準書式指定文字列を指定した場合の例を記す。
 <ul>
     <li>書式指定子 : 変換後の形式を指定するアルファベット1文字。</li>
     <li>精度指定子 : 桁数を指定する数字。有効数字より先は四捨五入される。</li>
 </ul>
-
 <table>
   <tr class="row1">
     <td class="col1">書式<br>指定子</td>
@@ -97,7 +63,6 @@ ToString() の引数に書式指定文字列を指定することで、出力形
     <td>説明</td>
     <td>例</td>
   </tr>
-
   <tr>
     <td class="col1">C<br>または<br>c</td>
     <td>通貨</td>
@@ -108,7 +73,6 @@ ToString() の引数に書式指定文字列を指定することで、出力形
 (-100.5).ToString("C") = "-\101"
 (12345.5555).ToString("C2") = "\12,345.56"</td>
   </tr>
-
   <tr>
     <td class="col1">D<br>または<br>d</td>
     <td>10進整数<br>(0サプレス)</td>
@@ -120,7 +84,6 @@ ToString() の引数に書式指定文字列を指定することで、出力形
 (-12345).ToString("D6") = "-012345"
 (12345).ToString("D4") = "12345"</td>
   </tr>
-
   <tr>
     <td class="col1">E<br>または<br>e</td>
     <td>指数<br>(0サプレス)</td>
@@ -131,7 +94,6 @@ ToString() の引数に書式指定文字列を指定することで、出力形
 (-123.45).ToString("E8") = "-1.23450000E+002"
 (0.12345).ToString("E3") = "1.235E-001"</td>
   </tr>
-
   <tr>
     <td class="col1">F<br>または<br>f</td>
     <td>固定小数点</td>
@@ -142,7 +104,6 @@ ToString() の引数に書式指定文字列を指定することで、出力形
 (-123.456789).ToString("F4") = "-123.4568"
 (0.1).ToString("F6") = "0.100000"</td>
   </tr>
-
   <tr>
     <td class="col1">G<br>または<br>g</td>
     <td>一般</td>
@@ -155,7 +116,6 @@ ToString() の引数に書式指定文字列を指定することで、出力形
 (-123.456).ToString("G4") = "-123.5"
 (0.0).ToString("G4") = "0"</td>
   </tr>
-
   <tr>
     <td class="col1">N<br>または<br>n</td>
     <td>桁区切り</td>
@@ -166,7 +126,6 @@ ToString() の引数に書式指定文字列を指定することで、出力形
 (10000).ToString("N") = "10,000.00"
 (-1234.56789).ToString("n4") = "-1,234.5679"</td>
   </tr>
-
   <tr>
     <td class="col1">P<br>または<br>p</td>
     <td>パーセント</td>
@@ -180,7 +139,6 @@ ToString() の引数に書式指定文字列を指定することで、出力形
 (0.123456789).ToString("P4") = "12.3457%"
 (0.125).ToString("P0") = "13%"</td>
   </tr>
-
   <tr>
     <td class="col1">R<br>または<br>r</td>
     <td>ラウンドトリップ</td>
@@ -190,7 +148,6 @@ ToString() の引数に書式指定文字列を指定することで、出力形
     <td class="code">(123456789.123456789).ToString("R") = "123456789.12345679"
 (-123456789.123456789).ToString("R") = "-123456789.12345679"</td>
   </tr>
-
   <tr>
     <td class="col1">X<br>または<br>x</td>
     <td>16進整数</td>
@@ -202,7 +159,6 @@ ToString() の引数に書式指定文字列を指定することで、出力形
 (10).ToString("X4") = "000A"</td>
   </tr>
 </table>
-
 <h5>カスタム書式指定文字列の例</h5>
 標準の書式指定文字列以外に、以下の形式を使用できる。
   <table>
@@ -223,7 +179,6 @@ ToString() の引数に書式指定文字列を指定することで、出力形
 (123.456).ToString("00.00") = "123.46"
 (123.456).ToString("0") = "123"</td>
   </tr>
-
   <tr>
     <td class="col1">#</td>
     <td>桁<br>プレースホルダ</td>
@@ -234,7 +189,6 @@ ToString() の引数に書式指定文字列を指定することで、出力形
 (-123).ToString("#####") = "-123"
 (0.123456).ToString("#.####") = ".1235"</td>
   </tr>
-
   <tr>
     <td class="col1">.</td>
     <td>小数点</td>
@@ -243,7 +197,6 @@ ToString() の引数に書式指定文字列を指定することで、出力形
     <td class="code">(123.456).ToString("0.00") = "123.46"
 (1.23456).ToString("0.0.0") = "1.23"</td>
   </tr>
-
   <tr>
     <td class="col1">,</td>
     <td>桁区切り記号<br>および<br>数値の位取り</td>
@@ -257,7 +210,6 @@ ToString() の引数に書式指定文字列を指定することで、出力形
 (1).ToString("0,0,0") = "001"
 (1000).ToString("0,0,0") = "1,000"</td>
   </tr>
-
   <tr>
     <td class="col1">%</td>
     <td>パーセント<br>プレースホルダ</td>
@@ -266,7 +218,6 @@ ToString() の引数に書式指定文字列を指定することで、出力形
     <td class="code">(0.123456).ToString("0.00%") = "12.35%"
 (0.123456).ToString("%0.00") = "%12.35"</td>
   </tr>
-
   <tr>
     <td class="col1">‰</td>
     <td>パーミル<br>プレースホルダ</td>
@@ -275,7 +226,6 @@ ToString() の引数に書式指定文字列を指定することで、出力形
     <td class="code">(0.123456).ToString("0.00‰") = "123.46‰"
 (0.123456).ToString("‰0.00") = "‰123.46"</td>
   </tr>
-
   <tr>
     <td class="col1">E0<br>
         E+0<br>
@@ -294,14 +244,12 @@ ToString() の引数に書式指定文字列を指定することで、出力形
 (0.12345).ToString("0.00E+0") = "1.23E-1"
 (0.12345).ToString("0.00E-0") = "1.23E-1"</td>
   </tr>
-
   <tr>
     <td class="col1">\</td>
     <td>エスケープ文字</td>
     <td>書式指定子の前に付けるとリテラルとして解釈される。</td>
     <td class="code">(12.345).ToString("\\0.##\#") = "\12.35#"</td>
   </tr>
-
   <tr>
     <td class="col1">'文字列'<br>"文字列"</td>
     <td>引用符</td>
@@ -309,7 +257,6 @@ ToString() の引数に書式指定文字列を指定することで、出力形
     <td class="code">(12.345).ToString("0.##('0.##')") = "12.35(0.##)"
 (12.345).ToString("0.##(""0.##"")") = "12.35(0.##)"</td>
   </tr>
-
   <tr>
     <td class="col1">;</td>
     <td>セクション<br>区切り記号</td>
@@ -324,7 +271,6 @@ ToString() の引数に書式指定文字列を指定することで、出力形
 (-10).ToString("000;[000];Zero") = "[010]"
 (0).ToString("000;[000];Zero") = "Zero"</td>
   </tr>
-
   <tr>
     <td class="col1">その他</td>
     <td>上記以外の<br>すべての文字</td>
@@ -333,66 +279,45 @@ ToString() の引数に書式指定文字列を指定することで、出力形
 (1234).ToString("0あ0い0う0え0お0") = "0あ0い1う2え3お4"</td>
   </tr>
 </table>
-
 <h3>クラスオブジェクトに対する ToString()</h3>
 <h4>原則</h4>
 Object 型を継承する全てのクラスオブジェクトでは、引数なしの ToString() を用いることができるが、<br>
 オーバーライドを行わない場合、返されるのはオブジェクトの型の完全修飾名である。
-
 <div class="code">
 <kwd>namespace</kwd> MyNs;
-
 <kwd>public class</kwd> MyClass
 {
     :
 }
-
 <kwd>class</kwd> SomeClass
 {
     <kwd>private void</kwd> DoSomething()
     {
         MyClass ob;
-
         <knw>Console</knw>.WriteLine(ob.ToString());       <cmt>//< 名前空間を含めた "MyNs.MyClass" が表示される</cmt>
     }
 }
 </div>
-
 所望の形式の文字列を得るためにはオーバーライド(または引数を定めたオーバーロード)が必須である。
-
 <h4>例外 : DateTime</h4>
 日時を格納できる DateTime 型は、ToString() により格納している日時を文字列として出力できる。<br>
 同様に日時を取り扱う DateTimeOffset や TimeSpan も同様である。<br>
 詳細は<a href="TIPS/dotNET/DateTime と TimeSpan.html">[.NET]DateTime と TimeSpan</a>を参照のこと。
-
 <h2>文字列を数値に変換 : Parse()</h2>
 各数値型のクラスメソッド Parse() を用いることで、引数の文字列を数値に変換することが可能である。<br>
 変換に失敗した場合は例外がスローされる。
 また、TryParse() メソッドを用いることで、変換が可能かどうかを判別することができる。
-
 <div class="code">
 <cmt>// 文字列をint型に変換</cmt>
 <kwd>int</kwd> i = <kwd>int</kwd>.Parse("100");
-
 <cmt>// 文字列をlong型に変換</cmt>
 <kwd>long</kwd> l = <kwd>long</kwd>.Parse("100");
-
 <cmt>// 文字列をfloat型に変換</cmt>
 <kwd>float</kwd> f = <kwd>float</kwd>.Parse("100.1");
-
 <cmt>// 文字列をdouble型に変換</cmt>
 <kwd>double</kwd> d = <kwd>double</kwd>.Parse("100.1");
-
 <cmt>// 文字列をbool型に変換</cmt>
 <kwd>bool</kwd> b = <kwd>bool</kwd>.Parse("True");
 </div>
-
 <h2>Convert クラス</h2>
 Convert クラスには上記の ToString() や Parse() と同等のメソッドが実装されている。詳細は出典元を参照。
-
-</body>
-</html>
-
-
-
-

@@ -1,64 +1,36 @@
 <!DOCTYPE html>
-
-<html lang="ja">
-<!-- --------------------------------------
-head
---------------------------------------- -->
-<head>
-<meta content="text/html" charset="utf-8" http-equiv="Content-Type" />
-
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
-
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
-
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
-
-
-
-</head>
-
-<!-- --------------------------------------
-body
---------------------------------------- -->
-<body>
-
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
-
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-
 <!-- 出典・関連ページ -->
 <h5>関連 :</h5>
 <a href="TIPS/Windows Presentation Foundation(WPF)/ルーティングイベント.html">[WPF]ルーティングイベント</a><br>
 <a href="TIPS/dotNET/キーイベント.html">[.NET]キーイベント</a><br>
-
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
-
 <hr>
-
 <!-- 本文ここから -->
-
 <h2>WPFにおけるユーザ操作の受付</h2>
 WPFアプリケーションにおいてマウスやキーボードなどの操作を捕捉しようとしても、対象となるコントロール( = イベントセンダ)や押下したキーによっては<br>
 本来発生するはずのイベント( MouseDown 、KeyDown など)が発生しない。<br>
 その場合は、対となる Preview イベントを捕捉することで代用が可能である。<br>
-
 <h2>Preview イベントとは</h2>
 ユーザ操作によって発生するイベントのうち、本イベントに先だって発生するもの。<br>
 例えばマウスボタンを押下した場合、本イベントの MouseDown イベントの前に PreviewMouseDown イベントが発生する。<br>
 これらは<a href="TIPS/Windows Presentation Foundation(WPF)/ルーティングイベント.html">ルーティングイベント</a>として連携されており、Preview イベントにてイベント引数を「処理済み」<br>
 ( EventArgs.Handled = true )<br>
 とすることで、後続の本イベントの発生を抑制することができる。
-
 <h2>Preview イベントの例</h2>
 Preview イベントの一部を下表に記す。
 <table>
@@ -138,8 +110,3 @@ Preview イベントの一部を下表に記す。
         <td>TextInput</td>
     </tr>
 </table>
-
-</body>
-</html>
-
-

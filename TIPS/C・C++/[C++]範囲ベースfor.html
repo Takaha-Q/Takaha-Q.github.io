@@ -1,77 +1,45 @@
 <!DOCTYPE html>
-
-<html lang="ja">
-<!-- --------------------------------------
-head
---------------------------------------- -->
-<head>
-<meta content="text/html" charset="utf-8" http-equiv="Content-Type" />
-
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
-
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
-
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
-
-
-
-</head>
-
-<!-- --------------------------------------
-body
---------------------------------------- -->
-<body>
-
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
-
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-
 <!-- 出典・関連ページ -->
 <h5>出典 :</h5>
 <a href="https://qiita.com/leon-joel/items/81415c1ef355c6246280">C++11, C++14, C++17 新機能まとめ ～使いそうなものだけ - Qiita</a><br>
 <a href="http://vivi.dyndns.org/tech/cpp/range-for.html">C++11 範囲ベース for ループ 入門</a>
-
 <h5>関連 :</h5>
 <a href="TIPS/C%E3%83%BBC%2B%2B/[C++]C++11.html">C++11</a><br>
 <a href="TIPS/C%E3%83%BBC%2B%2B/[C++／STL／コンテナ]コンテナ.html">コンテナ</a><br>
 <a href="TIPS/C%E3%83%BBC%2B%2B/[C++／STL／コンテナ]イテレータ.html">イテレータ</a><br>
 <a href="TIPS/C%E3%83%BBC%2B%2B/[C++]型推論.html">型推論</a><br>
-
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
-
 <hr>
-
 <!-- 本文ここから -->
-
 <h2>範囲ベースforとは</h2>
 コンテナ(配列などの、複数個のデータを格納する集合)の最初から最後までを走査できる機能。C++11で追加された。<br>
 C#やJavaの foreach 文と同様の機能で、C++では for 文の別構文を用いる。<br>
-
 <h2>基本的な例</h2>
-
 <div class="code">
 <cmt>// 配列 ar を宣言、初期化</cmt>
 <kwd>int</kwd> ar[] = {1, 2, 3, 4};
-
 :
-
 <cmt>// ar を走査、各要素を出力</cmt>
 <kwd>for</kwd> ( <kwd>int</kwd> x : ar )
 {
     <knw>std</knw>::cout &lt;&lt; x &lt;&lt; <ltr>"/n"<ltr>;
 }
 </div>
-
 <h5>実行結果</h5>
 <div class="code">
 <cmt>1
@@ -79,7 +47,6 @@ C#やJavaの foreach 文と同様の機能で、C++では for 文の別構文を
 3
 4</cmt>
 </div>
-
 上記の例では、インデクス(添字)を用いることなく、集合の先頭から末尾までを参照している。<br>
 通常の for 文と比較すると、
 <ul>
@@ -87,93 +54,73 @@ C#やJavaの foreach 文と同様の機能で、C++では for 文の別構文を
 <li>ループ変数のインクリメントや比較(継続判定)が不要</li>
 </ul>
 で、コードが簡潔となる。
-
 <h2>コンテナ(STL)に対する適用例</h2>
-
 <h3>ベクトル( std::vector )</h3>
 <div class="code">
 <cmt>// ベクトル v を宣言、初期化</cmt>
 <knw>std</knw>::vector&lt;<kwd>int</kwd>&gt; v{1, 2, 3, 4};
-
 :
-
 <cmt>// v を走査、各要素を出力</cmt>
 <cmt>// (添字アクセス)</cmt>
 <kwd>for</kwd> ( <kwd>int</kwd> i = 0; i < (<kwd>int</kwd>)v.size(); ++i )
 {
     <knw>std</knw>::cout &lt;&lt; v[i] &lt;&lt; <ltr>"/n"</ltr>;
 }
-
 <knw>std</knw>::cout &lt;&lt; <ltr>"/n"</ltr>;
-
 <cmt>// (イテレータ)</cmt>
 <kwd>for</kwd> ( <kwd>auto</kwd> itr = v.begin(); itr != v.end(); ++itr )
 {
     <knw>std</knw>::cout &lt;&lt; *itr &lt;&lt; <ltr>"/n"</ltr>;
 }
-
 <knw>std</knw>::cout &lt;&lt; <ltr>"/n"</ltr>;
-
 <cmt>// (範囲ベースfor)</cmt>
 <kwd>for</kwd> ( <kwd>auto</kwd> x : v )
 {
     <knw>std</knw>::cout &lt;&lt; x &lt;&lt; <ltr>"/n"</ltr>;
 }
 </div>
-
 <h5>実行結果</h5>
 <div class="code">
 <cmt>1
 2
 3
 4</cmt>
-
 <cmt>1
 2
 3
 4</cmt>
-
 <cmt>1
 2
 3
 4</cmt>
 </div>
-
 上記の例では、添字、イテレータ、範囲ベースforのそれぞれでベクトルの走査を行っている。<br>
 範囲ベースforは他のいずれよりもコードが簡潔で、コレクションの全体を走査するという意図が伝わりやすい。<br>
 (特にイテレータは end() が末尾要素<b>の次</b>を指すなど慣れを要する。イテレータの詳細は<a href="TIPS/C%E3%83%BBC%2B%2B/[C++／STL／コンテナ]イテレータ.html">ここ</a>を参照。)<br>
 <br>
 また、上記の例にもあるように、要素を格納する一時変数には auto を使用できる。<br>
 これはコレクションに格納される要素の型が不明、または変化する場合に有効である。<br>
-
 <h3>マップ( std::map )</h3>
 <div class="code">
 <cmt>// マップ mp を宣言</cmt>
 <knw>std</knw>::map&lt;<knw>std</knw>::string, <kwd>int</kwd>&gt; mp;
-
 :
 <cmt>// (mp にキーと値のペアを追加)</cmt>
 :
-
 <cmt>// mp を走査、各要素のキー(x.first)、値(x.second)を出力</cmt>
 <kwd>for</kwd> ( <kwd>auto</kwd> x : mp )
 {
     <knw>std</knw>::cout &lt;&lt; x.first &lt;&lt; <ltr>"  "</ltr> &lt;&lt; x.second &lt;&lt; <ltr>"/n"</ltr>;
 }
 </div>
-
 マップ(連想配列)の要素はキーと値の組( std::pair )で、<b>first</b> でキーを、<b>second</b> で値を取得できる。<br>
 他はベクトルの場合と同様。
-
 <h2>要素の書き換え</h2>
 一時変数に <b>&amp;</b> を付与して宣言すると参照変数となり、<b>集合の要素を書き換えることが可能となる</b>。
-
 <div class="code">
 <cmt>// 配列 ar を宣言、初期化</cmt>
 <kwd>int</kwd> ar[] = {1, 2, 3, 4, 1, 6, 1, 9};
-
 :
-
 <cmt>// ar を走査</cmt>
 <cmt>// (x は参照変数)</cmt>
 <kwd>for</kwd> ( <kwd>int</kwd> &amp;x : ar )
@@ -184,13 +131,8 @@ C#やJavaの foreach 文と同様の機能で、C++では for 文の別構文を
         x = 123;
     }
 }
-
 <cmt>// ar は {  1,   2,   3,   4,   1,   6,   1,   9} から</cmt>
 <cmt>//       {123,   2,   3,   4, 123,   6, 123,   9} に変化している</cmt>
 </div>
-
 <h2>はしがき</h2>
 通常の for ループと同様、break 、continue も使用できる。
-
-</body>
-</html>

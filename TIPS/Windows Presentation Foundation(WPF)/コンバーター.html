@@ -1,77 +1,45 @@
 <!DOCTYPE html>
-
-<html lang="ja">
-<!-- --------------------------------------
-head
---------------------------------------- -->
-<head>
-<meta content="text/html" charset="utf-8" http-equiv="Content-Type" />
-
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
-
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
-
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
-
-
-
-</head>
-
-<!-- --------------------------------------
-body
---------------------------------------- -->
-<body>
-
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
-
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-
 <!-- 出典・関連ページ -->
 <h5>出典 :</h5>
 <a href="https://docs.microsoft.com/ja-jp/dotnet/desktop/wpf/data/how-to-convert-bound-data?view=netframeworkdesktop-4.8">方法: バインドされたデータを変換する - WPF .NET Framework | Microsoft Docs</a><br>
 <a href="https://qiita.com/tera1707/items/47d1f1766cbe798b0c13">[C#/WPF] コンバーターの書き方 - Qiita</a><br>
 <a href="https://atmarkit.itmedia.co.jp/ait/articles/1602/03/news032.html">WPF／UWP：ラジオボタンを双方向バインディングするには？［C#／VB］：.NET TIPS - ＠IT</a><br>
 <a href="https://threeshark3.com/bool-to-visibility/">【WPF】boolを任意のVisibilityプロパティにBindingする方法 | さんさめのC＃ブログ</a>
-
 <h5>関連 :</h5>
 <a href="TIPS\Microsoft Visual Studio・.NET\[WPF]データバインディング.html">[WPF]データバインディング</a><br>
 <a href="TIPS\Microsoft Visual Studio・.NET\[WPF]リソースとスタイル.html">[WPF]リソースとスタイル</a><br>
-
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
-
 <hr>
-
 <!-- 本文ここから -->
-
 <h2>コンバーターとは</h2>
 WPFの<a href="TIPS\Microsoft Visual Studio・.NET\[WPF]データバインディング.html">データバインディング</a>において、バインドされるデータ(ソース)と画面表示(ターゲット)との間で形式(型や書式など)を変換する機構のこと。<br>
 例えば TextBox に DateTime 型をバインドし、そのうち年、月、日のみを表示するよう変換する、といったことが可能となる。
-
 <h2>コンバーターの実装</h2>
 <h3>コードビハインド</h3>
 <b>System.Windows.Data.IValueConverter</b> インタフェースを実装する。実装が必要なメソッドは以下のふたつ。<br>
-
 <ul>
     <li>Convert() : ソースからターゲットへの変換</li>
     <li>ConvertBack() : ターゲットからソースへの変換</li>
 </ul>
-
 <div class="code">
 <kwd>using</kwd> <knw>System</knw>.Globalization;
 <kwd>using</kwd> <knw>System</knw>.<knw>Windows</knw>.Data;
-
 <kwd>namespace</kwd> _Converter;
-
 [ValueConversion(<kwd>typeof</kwd>(<knw>DateTime</knw>), <kwd>typeof</kwd>(<knw>String</knw>))]
 <kwd>public class</kwd> DateConverter : IValueConverter
 {
@@ -81,7 +49,6 @@ WPFの<a href="TIPS\Microsoft Visual Studio・.NET\[WPF]データバインディ
         <knw>DateTime</knw> date = (<knw>DateTime</knw>)value;
         <kwd>return</kwd> date.ToShortDateString();
     }
-
     <cmt>// ターゲット ⇒ ソース変換</cmt>
     <kwd>public object</kwd> ConvertBack(<kwd>object</kwd> value, Type targetType, <kwd>object</kwd> parameter, CultureInfo culture)
     {
@@ -95,57 +62,45 @@ WPFの<a href="TIPS\Microsoft Visual Studio・.NET\[WPF]データバインディ
     }
 }
 </div>
-
 <h3>XAML</h3>
 コードビハインドで作成したコンバーターをリソースとして登録することで、デザインから参照することが可能となる。
 <div class="xaml">
 &lt;Window
        xmlns:conv="clr-namespace:_Converter"&gt;
     :
-
     &lt;!-- コードビハインドで作成したコンバータ―をリソースに登録 --&gt;
     &lt;Window.Resources&gt;
         &lt;conv:DateConverter x:Key="dateConverter"/&gt;
     &lt;/Window.Resources&gt;
-
     :
-
     &lt;!-- コンバータ― dateConverter を適用 --&gt;
     &lt;TextBlock Name="StartDateDTKey" Grid.Row="2" Grid.Column="1" 
                Text="{Binding Path=StartDate,
                Converter={StaticResource dateConverter}}" 
                Style="{StaticResource textStyleTextBlock}"/&gt;
-
     :
 &lt;/Window&gt;
 </div>
-
 <h2>応用#1 : ラジオボタンを双方向バインディングする</h2>
 ラジオボタンに対応する列挙値(Enum)を取得したい場合、以下のように実装する。<br>
 PropertyChanged 、Reactive の実装は省略。
-
 <h3>コードビハインド : コンバーターの定義</h3>
-
 <div class="code">
 <kwd>using</kwd> <knw>System</knw>.Globalization;
 <kwd>using</kwd> <knw>System</knw>.<knw>Windows</knw>.Data;
-
 <kwd>namespace</kwd> _Converter;
-
 <cmt>// 列挙体の定義</cmt>
 <kwd>public enum</kwd> mode
 {
     Simple,
     Detail
 }
-
 <kwd>public class</kwd> BoolToEnumConverter : IValueConverter
 {
     <cmt>// ソース ⇒ ターゲット変換</cmt>
     <kwd>public object</kwd> Convert(<kwd>object</kwd> value, Type targetType, <kwd>object</kwd> parameter, CultureInfo culture)
     {
         <kwd>var</kwd> paramStr = parameter <kwd>as string</kwd>;
-
         <cmt>// 比較値が null または</cmt>
         <cmt>// ソース値が定義域に含まれない場合は値を更新しない</cmt>
         <kwd>if</kwd> ( paramStr <kwd>is null</kwd> ||
@@ -153,17 +108,14 @@ PropertyChanged 、Reactive の実装は省略。
         {
             <kwd>return</kwd> DependencyProperty.UnsetValue;
         }
-
         <cmt>// ソース値が比較値に一致すれば true 、</cmt>
         <cmt>// そうでなければ false を返す</cmt>
         <kwd>return</kwd> <knw>Enum</knw>.Parse( value.GetType(), paramStr ).Equals(value);
     }
-
     <cmt>// ターゲット ⇒ ソース変換</cmt>
     <kwd>public object</kwd> ConvertBack(<kwd>object</kwd> value, Type targetType, <kwd>object</kwd> parameter, CultureInfo culture)
     {
         <kwd>var</kwd> paramStr = parameter <kwd>as string</kwd>;
-
         <cmt>// 比較値が null または</cmt>
         <cmt>// ターゲット値が true でない場合は値を更新しない</cmt>
         <kwd>if</kwd>( paramStr <kwd>is null</kwd> ||
@@ -171,41 +123,31 @@ PropertyChanged 、Reactive の実装は省略。
         {
             <kwd>return</kwd> DependencyProperty.UnsetValue;
         }
-
         <kwd>return</kwd> <knw>Enum</knw>.Parse( targetType, paramStr );
     }
 }
 </div>
-
 <h3>XAML : ラジオボタンの配置、コンバーターの適用</h3>
 <div class="xaml">
 &lt;Window
        xmlns:res="clr-namespace:_Converter"&gt;
-
     :
-
     &lt;StackPanel&gt;
         &lt;StackPanel.Resources&gt;
             <cmt>&lt;!-- コンバーター宣言 --&gt;</cmt>
             &lt;res:BoolToEnumConverter x:Key="Enum" /&gt;
         &lt;/StackPanel.Resources&gt;
-
         <cmt>&lt;!-- RadioButton設置 --&gt;</cmt>
         &lt;RadioButton Margin="0,5,0,0" Content="簡易"
                      IsChecked="{Binding RadioButtonValue, Converter={StaticResource Enum}, Mode=TwoWay, ConverterParameter=Simple}" /&gt;
-
         &lt;RadioButton Margin="0,0,0,0" Content="詳細"
                      IsChecked="{Binding RadioButtonValue, Converter={StaticResource Enum}, Mode=TwoWay, ConverterParameter=Detail}" /&gt;
-
         :
-
     &lt;/StackPanel&gt;
     
     :
-
 &lt;/Window&gt;
 </div>
-
 <h3>解説</h3>
 ソース値をチェック状態に反映する場合、値は Convert() の value に格納される。<br>
 比較対象として XAML から ConvertParameter で渡した値はConvert() の parameter に格納され、value と parameter が一致する場合にチェックがオンとなる。<br>
@@ -213,24 +155,20 @@ PropertyChanged 、Reactive の実装は省略。
 チェック状態を変更した場合は ConvertBack() が呼ばれ、parameter で指定された列挙子がソース値に反映される。<br>
 ここで、「チェック状態の変更」は「チェックされた」ラジオボタンと、「チェックを外された」ラジオボタンの双方が該当するため、ConvertBack() は2回コールされる。<br>
 value が true (チェックされている)の場合のみ値の変更を行う。
-
 <h2>応用#2 : bool を指定した Visibility にバインドする</h2>
 コントロールの可視性( Visibility )を bool 値によって切り替えられるコンバーターの例を示す。<br>
 Visibility は列挙体のため bool をそのまま使用することはできない。<b>ここでは true 、false それぞれに対応する値をプロパティで指定している</b>。<br>
 即ち使用の都度変換後の値を切り替えることで、柔軟な運用が可能である。<br>
 ただし各プロパティにデフォルト値を割り当てていないため、プロパティの指定は必須である。<br>
-
 <h3>コードビハインド : コンバーターの定義</h3>
 <div class="code">
 <kwd>using</kwd> <knw>System</knw>.Globalization;
 <kwd>using</kwd> <knw>System</knw>.<knw>Windows</knw>.Data;
-
 <kwd>namespace</kwd> _Converter;
 <kwd>public class</kwd> BoolToAnyVisibilityConverter : IValueConverter
 {
     <kwd>public</kwd> Visibility? TrueTo { <kwd>get</kwd>; <kwd>set</kwd>; }     <cmt>//< ソースが true の場合に返す値</cmt>
     <kwd>public</kwd> Visibility? FalseTo { <kwd>get</kwd>; <kwd>set</kwd>; }    <cmt>//< ソースが false の場合に返す値</cmt>
-
     <cmt>// ソース ⇒ ターゲット変換</cmt>
     <kwd>public object</kwd> Convert(<kwd>object</kwd> value, Type targetType, <kwd>object</kwd> parameter, CultureInfo culture)
     {
@@ -239,20 +177,16 @@ Visibility は列挙体のため bool をそのまま使用することはでき
         {
             <kwd>throw new</kwd> InvalidOperationException($"{nameof(TrueTo)}にVisibilityが設定されていません");
         }
-
         <cmt>// FalseTo が設定されていない場合は例外</cmt>
         <kwd>if</kwd> (!FalseTo.HasValue)
         {
             <kwd>throw new</kwd> InvalidOperationException($"{nameof(FalseTo)}にVisibilityが設定されていません");
         }
-
         <cmt>// ソースが bool でない場合は値を更新しない</cmt>
         <kwd>if</kwd> (!(value <kwd>is bool</kwd> b)) { <kwd>return</kwd> DependencyProperty.UnsetValue; }
-
         <cmt>// ソース(bool)が true の場合は TrueTo 、false の場合は FalseTo を返す</cmt>
         <kwd>return</kwd> b ? TrueTo : FalseTo;
     }
-
     <cmt>// ターゲット ⇒ ソース変換 : 何もしない</cmt>
     <kwd>public object</kwd> ConvertBack(<kwd>object</kwd> value, Type targetType, <kwd>object</kwd> parameter, CultureInfo culture)
     {
@@ -260,30 +194,21 @@ Visibility は列挙体のため bool をそのまま使用することはでき
     }
 }
 </div>
-
 <h3>XAML : コンバーターの適用</h3>
 ここで TrueTo 、FalseTo に値を設定する。
 <div class="xaml">
 &lt;Window
        xmlns:res="clr-namespace:_Converter"&gt;
-
     :
-
     &lt;StackPanel&gt;
         &lt;StackPanel.Resources&gt;
             <cmt>&lt;!-- コンバーター宣言 --&gt;</cmt>
             <cmt>&lt;!-- TrueTo に Collapsed 、FalseTo に Visible を設定 --&gt;</cmt>
             &lt;res:BoolToAnyVisibilityConverter x:Key="BoolToCollapse" TrueTo="Collapsed" FalseTo="Visible"/&gt;
         &lt;/StackPanel.Resources&gt;
-
         :
-
     &lt;/StackPanel&gt;
     
     :
-
 &lt;/Window&gt;
 </div>
-
-</body>
-</html>

@@ -1,84 +1,53 @@
 <!DOCTYPE html>
-
-<html lang="ja">
-<!-- --------------------------------------
-head
---------------------------------------- -->
-<head>
-<meta content="text/html" charset="utf-8" http-equiv="Content-Type" />
-
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
-
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
-
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
-
-</head>
-
-<!-- --------------------------------------
-body
---------------------------------------- -->
-<body>
-
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
-
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-
 <!-- 出典・関連ページ -->
 <h5>出典 :</h5>
 <a href="https://docs.github.com/ja/pages">GitHub Pagesのドキュメンテーション - GitHub Docs</a><br>
-
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
-
 <hr>
-
 <!-- 本文ここから -->
-
 <h2>WebページをGitHubで公開</h2>
 GitHub Pages の機能を用いることで、WebページをGitHubでホストすることができる。<br>
 クライアントサイドスクリプトも使用可能。
-
 <h2>手順</h2>
 <ol>
 <li>新しいリポジトリを作成する。<br>
 その際、リポジトリ名を <b>[ユーザ名].github.io</b> とすると共に、公開範囲を <b>Public</b> とする必要がある。<br>
 (GitHub Premium を契約している場合を除き、プライベートリポジトリは公開できない。)<br>
-
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/GitHub/Host_Web_Pages/00.png" alt=""><br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/GitHub/Host_Web_Pages/01.png" alt=""><br>
 </li>
-
 <li>
 Settings &gt; Code and automation &gt; Pages を開き、公開元を選択後、Save を押す。<br>
 Source : Deploy from a branch<br>
 Branch : main / (root)<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/GitHub/Host_Web_Pages/02.png" alt=""><br>
 </li>
-
 <li>
 リポジトリ下にWebページを配置し、プッシュ(デプロイ)する。<br>
 即座には公開されない場合があるため、10分程度待機する。
 </li>
-
 <li>
 1. で設定したURLをWebブラウザに入力すると、ページが表示される。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/GitHub/Host_Web_Pages/03.png" alt=""><br>
 </li>
 </ol>
-
 <h2>アセット(CSS / JS / 画像 / その他ファイル)について (※重要)</h2>
 HTML文書以外のアセットは、パスの指定が異なるため注意が必要。
-
 <h3>画像およびバイナリファイル</h3>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/GitHub/Host_Web_Pages/05.png" alt=""><br>
 通常のWebサイトと異なり、画像や音声、動画などのバイナリファイル(BLOB)は<b>格納先が強制的に変更される</b>。
@@ -87,13 +56,11 @@ https://raw.githubusercontent.com/[ユーザ名]/[リポジトリ名]/[ブラン
 または<br>
 https://github.com/[ユーザ名]/[リポジトリ名]/blob/[ブランチ名]/[リポジトリルートからの相対パス]?raw=true<br>
 の形式(直接パス)で指定する。
-
 <h3>スタイルシート(CSS)、スクリプトファイル(JS)</h3>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/GitHub/Host_Web_Pages/06.png" alt=""><br>
 CSSおよびJSは<b>ルートディレクトリに配置する必要がある</b>。
 (ルートディレクトリ下の他のディレクトリに配置した場合、パスの指定が正しくても動作しない。)<br>
 BLOBと異なり、base からの間接パスとして指定が可能である。
-
 <h2>URLの指定について</h2>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/GitHub/Host_Web_Pages/04.png" alt=""><br>
 通常のWebサイトと同様、index.html はディレクトリ名のみでアクセス可能。<br>
@@ -104,6 +71,3 @@ BLOBと異なり、base からの間接パスとして指定が可能である�
 <li>README.md が存在せず、index.html が存在する ⇒ index.html が表示される</li>
 </ul>
 となる。
-
-</body>
-</html>

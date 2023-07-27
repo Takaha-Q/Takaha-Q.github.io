@@ -1,58 +1,28 @@
 <!DOCTYPE html>
-
-<html lang="ja">
-<!-- --------------------------------------
-head
---------------------------------------- -->
-<head>
-<meta content="text/html" charset="utf-8" http-equiv="Content-Type" />
-
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
-
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
-
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
-
-
-
-</head>
-
-<!-- --------------------------------------
-body
---------------------------------------- -->
-<body>
-
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
-
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-
 <!-- 出典・関連ページ -->
-
-
-
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
-
 <hr>
-
 <!-- 本文ここから -->
-
-
 <h2>例外処理(exception handling)とは</h2>
 実行時エラーを管理し、処理する機構。<br>
 エラー(例外)発生時の処理を体系的に、また集約して実装することができる。<br>
 C++に限らず、オブジェクト指向言語においては一般的な概念。<br>
 尚、例外を発行することを慣例的に「例外を投げる(throw exception)」という。<br>
-
 <h2>例外処理の原則</h2>
 C++における例外処理の原則は以下の通りである。
 <ol>
@@ -75,15 +45,12 @@ C++における例外処理の原則は以下の通りである。
     </li>
     <li value="4">システム内部で発生する例外以外に、throw 句を用いることで任意の例外を発生させる(投げる)ことができる。</li>
 </ol>
-
 <h2>基本的な例</h2>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/CPP/exception_handling/exception_handling_01.png" alt="画像"><br>
-
 <h2>例外の投げなおし</h2>
 try ブロックで発生した例外を処理した後、さらに外側に例外を投げることができる。<br>
 当然、try ブロックは(コールスタック全体で)ネストしている必要がある。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/CPP/exception_handling/exception_handling_02.png" alt="画像"><br>
-
 ここで、キャッチした例外を投げなおす場合は、throw 句<b>のみ</b>を記述する。
 <div class="code">
     <kwd>try</kwd>
@@ -99,26 +66,16 @@ try ブロックで発生した例外を処理した後、さらに外側に例�
     }
 </div>
 これにより、投げなおした時点のスタックトレース情報までを例外に含めることができる。
-
 <h2>例外送出有無の表明 ( noexcept )</h2>
 <b>noexcept</b> 句を使用することで、関数が例外を送出しない(または逆に、する可能性がある)ことを明確化することができる。<br>
 例外を送出しないことを明示すると巻き戻すためのスタックが確保されなくなるため、スタック使用量を削減することができる。<br>
-
 <p class="code">
 <cmt>// 例外を送出しない</cmt>
 <kwd>void</kwd> f() <kwd>noexcept</kwd>;
 <kwd>void</kwd> f() <kwd>noexcept</kwd>(<kwd>true</kwd>);
-
 <cmt>// 例外を送出する(可能性がある)</cmt>
 <kwd>void</kwd> f() <kwd>noexcept</kwd>(<kwd>false</kwd>);
 <kwd>void</kwd> f();
 </p>
-
 過去には、throw 句を用いて送出例外の型を制限する記法も存在したが、これはあまり有用ではないことから<br>
 C++11で非推奨となり、C++17で削除された。
-
-</body>
-</html>
-
-
-

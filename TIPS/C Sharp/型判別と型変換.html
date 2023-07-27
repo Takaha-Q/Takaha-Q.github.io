@@ -1,52 +1,27 @@
 <!DOCTYPE html>
-
-<html lang="ja">
-<!-- --------------------------------------
-head
---------------------------------------- -->
-<head>
-<meta content="text/html" charset="utf-8" http-equiv="Content-Type" />
-
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
-
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
-
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
-
-
-
-</head>
-
-<!-- --------------------------------------
-body
---------------------------------------- -->
-<body>
-
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
-
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-
 <!-- 出典・関連ページ -->
 <h5>出典 :</h5>
 <a href="https://docs.microsoft.com/ja-jp/dotnet/csharp/language-reference/operators/is">is 演算子 - C# リファレンス | Microsoft Docs</a><br>
 <a href="https://docs.microsoft.com/ja-jp/dotnet/csharp/language-reference/operators/type-testing-and-cast">型のテスト演算子とキャスト式 - C# リファレンス | Microsoft Docs</a><br>
 <a href="https://araramistudio.jimdo.com/2018/09/21/c-%E3%81%A7%E5%9E%8B%E3%82%92%E5%88%A4%E5%88%A5%E3%81%99%E3%82%8Btypeof%E3%81%A8is%E6%BC%94%E7%AE%97%E5%AD%90/">C#で型を判別するtypeofとis演算子 - Ararami Studio</a><br>
 <a href="https://araramistudio.jimdo.com/2018/09/13/c-%E3%81%A7%E3%82%AD%E3%83%A3%E3%82%B9%E3%83%88%E3%81%A8as%E6%BC%94%E7%AE%97%E5%AD%90%E3%82%92%E4%BD%BF%E3%81%84%E3%81%93%E3%81%AA%E3%81%99/">C#でキャストとas演算子を使いこなす - Ararami Studio</a>
-
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
-
 <hr>
-
 <!-- 本文ここから -->
 <h2>式の型判別</h2>
 <h3>typeof 演算子による型取得</h3>
@@ -74,7 +49,6 @@ typeof 演算子を用いることで、型から System.Type インスタンス
 </div>
 typeof 演算子と == による比較は、型が厳格に一致する場合のみ真となる。<br>
 typeof(T) (Tは任意の型)は定数式ではないため、switch - case 節で用いることはできない。
-
 <h3>is 演算子による型判別(C# 7.0以降)</h3>
 <div class="code">
 <kwd>class</kwd> Base {}
@@ -97,10 +71,8 @@ typeof(T) (Tは任意の型)は定数式ではないため、switch - case 節�
 </div>
 is 演算子を用いた場合、自身の型だけでなく基底クラスも該当すると判断される。<br>
 typeof 演算子が型をオペランドとするのに対し、is 演算子の左辺はインスタンスであることに注意。
-
 <h2>式の型変換</h2>
 型変換を行う際は、C/C++と同様のキャストと、as 演算子を用いることができるが、両者の振舞は微妙に異なる。<br>
-
 <h3>アップキャスト</h3>
 派生クラスから基底クラスへの型変換を指す。C#に限らず、基底クラスは派生クラスをラップ可能であるため、明示的なキャストを行う必要はない。
 <div class="code">
@@ -119,7 +91,6 @@ typeof 演算子が型をオペランドとするのに対し、is 演算子の�
     }
 }
 </div>
-
 <h3>ダウンキャスト</h3>
 基底クラスから派生クラスへの型変換を指す。<br>
 派生クラスのインスタンスをアップキャストした場合のみダウンキャストが可能である。<br>
@@ -143,7 +114,6 @@ typeof 演算子が型をオペランドとするのに対し、is 演算子の�
 </div>
 上記の例では a は Derived1 型のオブジェクトであるが、基底クラスの Base 型にアップキャストされている。<br>
 ダウンキャストにより Derived1 型に戻すことは可能であるが、素性の異なる Derived2 型への変換は不可能である。
-
 <div class="code">
 <kwd>class</kwd> Base {}
 <kwd>class</kwd> Derived1 : Base {}
@@ -161,7 +131,6 @@ typeof 演算子が型をオペランドとするのに対し、is 演算子の�
 }
 </div>
 上記の例では a は元々 Derived3 型のオブジェクトであるため、Derived3 型に戻すことも、1代前の基底クラス Derived1 型に変換することも可能である。
-
 <h3>as 演算子による型変換</h3>
 as 演算子はキャストと同様、右辺に指定された型への変換を試みるが、<b>変換失敗時は例外を投げるのではなく、式の評価値が null となる点が異なる</b>。<br>
 同じ型への変換を行う場合、キャストよりも as 演算子を用いたほうが高速となる。
@@ -178,7 +147,6 @@ as 演算子はキャストと同様、右辺に指定された型への変換�
             
         Derived1 b = a <kwd>as</kwd> Derived1;      <cmt>//< ダウンキャスト成功</cmt>
         Derived2 c = a <kwd>as</kwd> Derived2;      <cmt>//< ダウンキャスト失敗 ⇒ c は null となる</cmt>
-
         <cmt>// 変換失敗時の処理</cmt>
         <kwd>if</kwd> (c == <kwd>null</kwd>)
         {
@@ -187,14 +155,3 @@ as 演算子はキャストと同様、右辺に指定された型への変換�
     }
 }
 </div>
-
-</body>
-</html>
-
-
-
-
-
-
-
-

@@ -1,66 +1,37 @@
 <!DOCTYPE html>
-
-<html lang="ja">
-<!-- --------------------------------------
-head
---------------------------------------- -->
-<head>
-<meta content="text/html" charset="utf-8" http-equiv="Content-Type" />
-
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
-
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
-
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
-
-
-
-</head>
-
-<!-- --------------------------------------
-body
---------------------------------------- -->
-<body>
-
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
-
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-
 <!-- 出典・関連ページ -->
 <h5>出典 :</h5>
 <a href="https://dobon.net/vb/dotnet/file/getfolderpath.html">特殊ディレクトリのパスを取得する - .NET Tips (VB.NET,C#...)</a>
-
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
-
 <hr>
-
 <!-- 本文ここから -->
-
 <h2>特殊フォルダ(SpecialFolder)のパスを取得</h2>
 System 名前空間の Environment クラスに含まれる GetFolderPath() メソッドで、Windowsで規定される特殊フォルダの絶対パスを取得できる。<br>
 その際引数には、取得したいフォルダに対応する SpecialFolder 列挙体の値を渡す。
-
 <h5>C#でのコード例</h5>
 <div class="code">
 <cmt>// デスクトップ</cmt>
 <knw>Console</knw>.WriteLine( <knw>System</knw>.<knw>Environment</knw>.GetFolderPath( <knw>System</knw>.<knw>Environment</knw>.SpecialFolder.DesktopDirectory ) );
 <cmt>// 結果: C:\Users\<i>UserName</i>\Desktop</cmt>
 </div>
-
 <h2>SpecialFolder 列挙体の詳細</h2>
 SpecialFolder 列挙体の定義を下表に示す。ここで、<i class="blue">UserName</i> はユーザ名を表し、サインインするユーザごとに異なる。<br>
 「実際のパス」はWindows(7以降 64ビット版)におけるもの。
-
 <table>		
 <tr class="row1"><td>列挙子</td>	<td>説明</td>	<td>実際のパス</td></tr>
 <tr><td>AdminTools</td>	<td>ユーザーの管理ツールフォルダ</td>	<td>C:\Users\<i class="blue">UserName</i>\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Administrative Tools</td></tr>
@@ -111,11 +82,3 @@ SpecialFolder 列挙体の定義を下表に示す。ここで、<i class="blue"
 <tr><td>UserProfile</td>	<td>ユーザーのプロファイルフォルダ</td>	<td>C:\Users\<i class="blue">UserName</i></td></tr>
 <tr><td>Windows</td>	<td>WindowsディレクトリまたはSYSROOT</td>	<td>C:\windows</td></tr>
 </table>
-
-</body>
-</html>
-
-
-
-
-

@@ -1,49 +1,24 @@
 <!DOCTYPE html>
-
-<html lang="ja">
-<!-- --------------------------------------
-<head>
---------------------------------------- -->
-<head>
-<meta content="text/html" charset="utf-8" http-equiv="Content-Type" />
-
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
-
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
-
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
-
-
-
-</head>
-
-<!-- --------------------------------------
-<body>
---------------------------------------- -->
-<body>
-
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
-
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-
 <!-- 出典・関連ページ -->
 <h5>出典 :</h5>
 <a href="https://itlogs.net/windows-overlay-icon-order/">Windows 10でオーバーレイアイコンの優先順位を変更して表示させる方法 | 俺の開発研究所</a>
-
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
-
 <hr>
-
 <!-- 本文ここから -->
 エクスプローラー上にオーバーレイアイコンを表示するプログラムが複数存在する場合、<br>
 オーバーレイアイコンはもっとも優先度の高いもののみが表示される。<br>
@@ -51,7 +26,6 @@
    ⇒ TortoiseGitのオーバーレイを表示させたい<br>
    <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Windows/Overlay_Icon/03.png"><br>
    優先度を変更することで、オーバーレイの表示を切り替えることができる。<br>
-
 <h2>手順</h2>
 <ol>
     <li>レジストリ エディターを開く。<br>
@@ -73,11 +47,5 @@
         <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Windows/Overlay_Icon/02.png"><br>
     </li>
 </ol>
-
 <h2>注意が必要な点</h2>
 オーバーレイの優先順位は15位まで設定可能で、それより後(16位～)は設定しても無視される(アイコンが表示されない)。
-
-</body>
-</html>
-
-

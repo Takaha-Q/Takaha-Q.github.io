@@ -31,14 +31,31 @@ th, .row1, .col1, .row0, .col0 {
   padding:              6px 12px;
 }
 
+/* ヘッダ行下端罫線 */
 .row1 {
   border-bottom-style:  double;
   border-bottom-width:  4px;
 }
   
+/* ヘッダ列右端罫線 */
 .col1 {
   border-right-style:   double;
   border-right-width:   4px;
+}
+
+/* テキスト左詰め */
+.left {
+  text-align:           left;
+}
+
+/* テキスト右詰め */
+.left {
+  text-align:           right;
+}
+
+/* テキスト中央揃え */
+.left {
+  text-align:           center;
 }
 
 /* ---------------------------------- */

@@ -1,75 +1,42 @@
 <!DOCTYPE html>
-
-<html lang="ja">
-<!-- --------------------------------------
-head
---------------------------------------- -->
-<head>
-<meta content="text/html" charset="utf-8" http-equiv="Content-Type" />
-
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
-
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
-
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
-
-
-
-</head>
-
-<!-- --------------------------------------
-body
---------------------------------------- -->
-<body>
-
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
-
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-
 <!-- 出典・関連ページ -->
 <h5>出典 :</h5>
-
 <a href="https://qiita.com/hmito/items/db3b14917120b285112f">
 C++11スマートポインタ入門 - Qiita</a><br>
-
 <a href="https://programming.pc-note.net/cpp/smartpointer.html">
 スマートポインタ1(C++) - 超初心者向けプログラミング入門</a><br>
-
 <a href="https://qiita.com/kojiohta/items/596802df9cfa881ad9c4">
 C++ スマートポインタのパターン - Qiita</a><br>
-
 <a href="https://postd.cc/top-10-dumb-mistakes-avoid-c-11-smart-pointers/">
 C++11スマートポインタで避けるべき過ち Top10 | POSTD</a><br>
-
 <h5>関連 :</h5>
-
 <a href="TIPS/C%E3%83%BBC%2B%2B/[C%2B%2B]C%2B%2B11.html">[C++]C++11</a><br>
 <a href="TIPS/C%E3%83%BBC%2B%2B/[C%2B%2B]%E5%9C%B0%E8%94%B5%E3%82%A4%E3%83%B3%E3%82%B9%E3%82%BF%E3%83%B3%E3%82%B9.html">[C++]地蔵インスタンス</a><br>
 <a href="TIPS/C%E3%83%BBC%2B%2B/[C%2B%2B%EF%BC%8FSTL%EF%BC%8F%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A]%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A.html">[C++／STL／コンテナ]コンテナ</a><br>
 <a href="TIPS/ソフトウェア開発一般/[%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E6%8C%87%E5%90%91]%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AA%E3%83%83%E3%82%AF%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%20(Generic%20Programming).html">[オブジェクト指向]ジェネリックプログラミング (Generic Programming)</a><br>
-
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
-
 <hr>
-
 <!-- 本文ここから -->
-
 <h2>(広義の)スマートポインタとは</h2>
 動的メモリ(ヒープ)を安全に使用するための機構。<br>
 C/C++では確保したヒープを解放し忘れると、その分だけ使用できるメモリが減る(メモリリーク)。<br>
 スマートポインタを使用すると、スコープを抜ける際に自動的にヒープが解放されるため、解放忘れによるメモリリークの危険性が減る。<br>
 また、STLのコンテナにはヒープを使用するものがあるが、いずれもスマートポインタとして実装されているため、ヒープの解放に気を配る必要は無い。<br>
-
 <h2>C++における(狭義の)スマートポインタ</h2>
 C++では std 名前空間に、<b>auto_ptr&lt;T&gt;</b> 、<b>unique_ptr&lt;T&gt;</b> 、<b>shared_ptr&lt;T&gt;</b> 、<b>weak_ptr&lt;T&gt;</b> のスマートポインタが定義されている。<br>
 使用する際は <b>#include&lt;memory&gt;</b> が必要。
@@ -78,14 +45,12 @@ C++では std 名前空間に、<b>auto_ptr&lt;T&gt;</b> 、<b>unique_ptr&lt;T&g
 テンプレート</a>
 であるため、任意の型を指し示すポインタとして利用可能である。<br>
 いずれも T* 型のポインタを保持し、デストラクタで自身の所有するメモリを解放する。<br>
-
 <h3>注意が必要な点</h3>
 スマートポインタには<b>「所有権」</b>の概念がある。これは、<b>「そのメモリにアクセスする権利と、解放する責務」</b>を表す。<br>
 確保したメモリをスマートポインタに渡すと、スマートポインタはそのメモリの所有権を得、<br>
 所有権を保持している(スマートポインタが生存している)間はスマートポインタを介してメモリにアクセスできる。<br>
 スマートポインタが寿命を終える(スコープを抜ける)際にメモリが解放される。<br>
 逆に言えば、所有権を保持している間はメモリが解放されることは無い(明示的に解放する場合を除く)。<br>
-
 <h3>auto_ptr&lt;T&gt; (C++11以降は非推奨)</h3>
 C++03以前でも使用できる基本的なスマートポインタ。<br>
 <p class="code">
@@ -95,14 +60,12 @@ C++03以前でも使用できる基本的なスマートポインタ。<br>
 {
     <cmt>// int型のメモリを動的に確保し、その所有権をauto_ptrに委ねる</cmt>
     std::auto_ptr&lt;<kwd>int</kwd>&gt; ptr(<kwd>new</kwd> <kwd>int</kwd>(<ltr>10</ltr>));
-
     <cmt>// * 演算子で生ポインタのようにアクセスできる</cmt>
     <kwd>for</kwd>(<kwd>int</kwd> i=<ltr>0</ltr>;i&lt;<ltr>10</ltr>;++i)
     {
         *ptr+=i;
     }
     std::cout&lt;&lt;<ltr>"ptr="</ltr>&lt;&lt;*ptr&lt;&lt;std::endl;
-
     <kwd>return</kwd> <ltr>0</ltr>;
 }   <cmt>//&lt; スコープを抜ける際にメモリを解放</cmt>
 </p>
@@ -113,7 +76,6 @@ auto_ptr&lt;T&gt; には以下のような<b>深刻な問題点が存在する�
 <li>配列を保持できない</li>
 <li>deleterを指定できない</li>
 </ul>
-
 <h3>unique_ptr&lt;T&gt; (C++11以降)</h3> 
 確保したメモリに対する<b>所有権を持つスマートポインタが唯一であることを保証する</b>。以下のような特徴を持ち、auto_ptr&lt;T&gt; の欠点をカバーしている。<br>
 <ul>
@@ -125,30 +87,24 @@ auto_ptr&lt;T&gt; には以下のような<b>深刻な問題点が存在する�
 </ul>
 <b>C++11以降であれば、特殊な用途を除いて広範に用いることができる</b>。<br>
 ポインタの保持するメモリへのアクセスは、生ポインタと同様 * 演算子や -> 演算子を用いる。
-
 <h4>初期化・ムーブ</h4>
 <p class="code">
 <cmt>// コンストラクタの引数として、動的確保したメモリのアドレスを指定</cmt>
 std::unique_ptr&lt;<kwd>int</kwd>&gt; ptr(<kwd>new</kwd> <kwd>int</kwd>(<ltr>10</ltr>));
-
 <cmt>// reset() 関数を使って、後から代入することもできる</cmt>
 std::unique_ptr&lt;<kwd>int</kwd>&gt; ptr2;
 ptr2.reset(<kwd>new</kwd> <kwd>int</kwd>(<ltr>10</ltr>));
-
 <cmt>// make_unique()関数を使用した初期化(C++14以降)</cmt>
 std::unique_ptr&lt;<kwd>int</kwd>&gt; ptr3 = std::make_unique&lt;<kwd>int</kwd>&gt;(<ltr>10</ltr>);
-
 <cmt>// コピーは不可</cmt>
 std::unique_ptr&lt;<kwd>int</kwd>&gt; ptr2(ptr);   <cmt>//&lt; コピーコンストラクタによるコピー ⇒ ERROR</cmt>
 std::unique_ptr&lt;<kwd>int</kwd>&gt; ptr3;
 ptr3 = ptr;                       <cmt>//&lt; コピー代入演算子によるコピー     ⇒ ERROR</cmt>
-
 <cmt>// ムーブは可能(所有権が移動する)</cmt>
 std::unique_ptr&lt;<kwd>int</kwd>&gt; ptr4(std::move(ptr));    <cmt>//&lt; ムーブコンストラクタによるムーブ ⇒ ptr  が保持していた所有権が ptr4 に移動</cmt>
 std::unique_ptr&lt;<kwd>int</kwd>&gt; ptr5;
 ptr5 = std::move(ptr4);                       <cmt>//&lt; ムーブ代入演算子によるムーブ     ⇒ ptr4 が保持していた所有権が ptr5 に移動</cmt>
 </p>
-
 <h4>明示的なメモリの解放</h4>
 通常はデストラクタでメモリが解放されるが、明示的に開放したい場合は reset() を用いる。
 <p class="code">
@@ -157,22 +113,18 @@ std::unique_ptr&lt;<kwd>int</kwd>&gt; ptr2(<kwd>new</kwd> <kwd>int</kwd>(<ltr>10
 ptr2.reset();
 ptr2.reset(nullptr);
 </p>
-
 <h4>所有権の有無を確認</h4>
 operator bool() を用いる。所有権を持つ場合には true 、持たない場合には false が返る。
 <p class="code">
 std::unique_ptr&lt;<kwd>int</kwd>&gt; ptr;
-
 <kwd>if</kwd>(ptr)
 {
     <cmt>// (ptr == true)</cmt>
     <cmt>// 所有しているときの処理</cmt>
 }
-
 <cmt>// bool変数への代入でも、所有権の有無を取得可能</cmt>
 <kwd>bool</kwd> CanAccess=ptr;
 </p>
-
 <h4>生ポインタへの変換</h4>
 <ul>
 <li>get() : 生ポインタを得る。所有権は std::unique_ptr&lt;T&gt; が保持したまま</li>
@@ -182,26 +134,21 @@ std::unique_ptr&lt;<kwd>int</kwd>&gt; ptr;
 <cmt>// get() : ポインタの所有権は unique_ptr が保持し続ける</cmt>
 <kwd>int</kwd>* pint;
 pint = ptr<ltr>.</ltr>get();
-
 <cmt>// release() : ポインタの所有権を unique_ptr から奪う</cmt>
 pint = ptr<ltr>.</ltr>release();
 <kwd>delete</kwd> pint;
 </p>
-
 <h4>配列の保持</h4>
 unique_ptr&lt;T[]&gt; で配列を保持できる。配列型の場合、 operator[](size_t) を使用できる(通常の配列と同様にアクセスできる)。
 <p class="code">
 {
     std::unique_ptr&lt;<kwd>int</kwd>[]&gt; ptrArray(<kwd>new</kwd> <kwd>int</kwd>[<ltr>10</ltr>]);
-
     <kwd>for</kwd>(<kwd>int</kwd> i = <ltr>0</ltr>; i &lt; <ltr>10</ltr>; ++i)
     {
         ptrArray[i]=i;
     }
-
 }     <cmt>//&lt; 配列型の場合、自動的に delete[] が呼ばれる</cmt>
 </p>
-
 <h4>deleterの指定</h4>
 メモリを解放する際に、delete (または delete[] )以外を用いる必要がある場合に、解放処理を関数オブジェクトにより指定できる。<br>
 <p class="code">
@@ -214,17 +161,14 @@ unique_ptr&lt;T[]&gt; で配列を保持できる。配列型の場合、 operat
         free_int_from_sotrage(ptr_);
     }
 };
-
 <kwd>int</kwd> main()
 {
     <cmt>// テンプレート第二引数で、deleter( deleter_for_storage )を指定する</cmt>
     std::unique_ptr&lt;<kwd>int</kwd>, deleter_for_storage&gt; ptr(malloc_int_from_storage());
-
     <cmt>// delete ではなく、free_int_from_storage() が呼ばれる</cmt>
     <kwd>return</kwd> <ltr>0</ltr>;
 }
 </p>
-
 <h3>shared_ptr&lt;T&gt; (C++11以降)</h3> 
 あるメモリの所有権を独占する unique_ptr&lt;T&gt; とは異なり、メモリの所有権を複数で共有できる。<br>
 具体的には、以下のような仕組みで動作する。これはガベージコレクションに類似する。
@@ -234,14 +178,12 @@ unique_ptr&lt;T[]&gt; で配列を保持できる。配列型の場合、 operat
 <li>デストラクタや明示的解放により、カウンタがデクリメントされる</li>
 <li>カウンタがゼロとなった際に、メモリが実際に解放される</li>
 </ul>
-
 shared_ptr&lt;T&gt; は以下のような特徴を持つ。
 <ul>
 <li>コピー、ムーブともに可能</li>
 <li>内部でカウンタを保持するため、生ポインタと比較すると低速である</li>
 <li>配列を保持できる。ただし、明示的に deleter を指定する必要がある</li>
 </ul>
-
 <h4>初期化・コピー・ムーブ</h4>
 初期化の手段は unique_ptr&lt;T&gt; と同様。<br>
 shared_ptr&lt;T&gt; では所有するメモリだけでなく、カウンタも動的に確保する必要があるため、これらを同時に行える<b> make_shared&lt;T&gt;() を用いると効率が良い</b>。
@@ -251,29 +193,23 @@ shared_ptr&lt;T&gt; では所有するメモリだけでなく、カウンタも
 std::shared_ptr&lt;<kwd>int</kwd>&gt; ptr(<kwd>new</kwd> <kwd>int</kwd>(<ltr>10</ltr>));
 std::shared_ptr&lt;<kwd>int</kwd>&gt; ptr2;
 ptr2<ltr>.</ltr>reset<ltr>.</ltr><kwd>new</kwd><ltr>.</ltr><kwd>int</kwd><ltr>.</ltr><ltr>10</ltr>));
-
 <cmt>// make_shared()関数を使用した初期化 ⇒ 処理効率が高い</cmt>
 std::shared_ptr&lt;<kwd>int</kwd>&gt; ptr3 = std::make_shared&lt;<kwd>int</kwd>&gt;(<ltr>10</ltr>);
-
 <cmt>// コピー</cmt>
 std::shared_ptr&lt;<kwd>int</kwd>&gt; ptr2(ptr);   <cmt>//&lt; コピーコンストラクタによるコピー ⇒ ptr2 が新たに所有権を保持</cmt>
 std::shared_ptr&lt;<kwd>int</kwd>&gt; ptr3;
 ptr3 = ptr;                       <cmt>//&lt; コピー代入演算子によるコピー     ⇒ ptr3 が新たに所有権を保持</cmt>
-
 <cmt>// ムーブ(所有権が移動する)</cmt>
 std::shared_ptr&lt;<kwd>int</kwd>&gt; ptr4(std::move(ptr));    <cmt>//&lt; ムーブコンストラクタによるムーブ ⇒ ptr  が保持していた所有権が ptr4 に移動</cmt>
 std::shared_ptr&lt;<kwd>int</kwd>&gt; ptr5;
 ptr5 = std::move(ptr4);                       <cmt>//&lt; ムーブ代入演算子によるムーブ     ⇒ ptr4 が保持していた所有権が ptr5 に移動</cmt>
-
 <cmt>// unique_ptr&lt;T&gt; からのムーブも可能( unique_ptr&lt;T&gt; は所有権を失う)</cmt>
 std::unique_ptr&lt;<kwd>int</kwd>&gt; uptr(<kwd>new</kwd> <kwd>int</kwd>(<ltr>10</ltr>));
 std::shared_ptr&lt;<kwd>int</kwd>&gt; sptr(std::move(uptr));        <cmt>//&lt; ムーブコンストラクタによるムーブ ⇒ uptr  が保持していた所有権が sptr に移動</cmt>
-
 std::unique_ptr&lt;<kwd>int</kwd>&gt; uptr2(<kwd>new</kwd> <kwd>int</kwd>(<ltr>10</ltr>));
 std::shared_ptr&lt;<kwd>int</kwd>&gt; sptr2;
 ptr2 = std::move(uptr2);                      <cmt>//&lt; ムーブ代入演算子によるムーブ     ⇒ uptr2 が保持していた所有権が sptr2 に移動</cmt>
 </p>
-
 <h4>所有権の確認</h4>
 unique_ptr&lt;T&gt; 同様 operator bool() で所有権の有無を取得できる。<br>
 また、use_count() で自身が保持するメモリの所有権を持つ(自身を含めた)ポインタの数を、<br>
@@ -282,7 +218,6 @@ unique() で自身が保持するメモリの所有権を持つポインタが�
 <p class="code">
 ptrunique() == (ptruse_count() == <ltr>1</ltr>)
 </p>
-
 <h4>循環参照の問題</h4>
 shared_ptr&lt;int&gt; ではコピーが可能であることから、<b>循環参照</b>と呼ばれる事象が発生し得る。<br>
 循環参照が発生した場合、本来なら安全に解放されるはずのメモリが解放されず、メモリリークとなる。<br>
@@ -293,18 +228,14 @@ shared_ptr&lt;int&gt; ではコピーが可能であることから、<b>循環�
 <kwd>public</kwd>:
     std::shared_ptr&lt;hoge&gt; ptr;
 };
-
 <kwd>int</kwd> main()
 {
     std::shared_ptr&lt;hoge&gt; pHoge1 = std::make_shared&lt;hoge&gt;();    <cmt>//&lt; Hoge1</cmt>
     std::shared_ptr&lt;hoge&gt; pHoge2 = std::make_shared&lt;hoge&gt;();    <cmt>//&lt; Hoge2</cmt>
-
     <cmt>// Hoge1のメンバ変数で、pHoge2を参照する</cmt>
     pHoge1-&gt;ptr = pHoge2;
-
     <cmt>// Hoge2のメンバ変数で、pHoge1を参照する</cmt>
     pHpge2-&gt;ptr = pHoge1;
-
     <kwd>return</kwd> <ltr>0</ltr>;
 }   <cmt>//&lt; shared_ptrのディストラクタが呼ばれるのに、確保した二つのhogeが解放されない。</cmt>
 </p>
@@ -313,7 +244,6 @@ pHoge1 、pHoge2 のデストラクタが呼ばれる直前、Hoge1 の所有権
 ここで pHoge1 のデストラクタが呼ばれると、Hoge1 の所有権を放棄する。しかし Hoge2ptr が Hoge1 の所有権を保持しているため、Hoge1 のデストラクタは呼ばれない。<br>
 同様に pHoge2 のデストラクタが呼ばれても Hoge1ptr が Hoge2 の所有権を保持しているため、Hoge2 のデストラクタは呼ばれない。<br>
 即ち、Hoge1 、Hoge2 ともに解放されず、メモリリークとなる。
-
 <h3>weak_ptr&lt;T&gt; (C++11以降)</h3>
 shared_ptr&lt;int&gt; を用いることで生じ得る循環参照への対処として導入されたスマートポインタ。<br>
 前述のものと異なり、<b>メモリの所有権を持たない</b>が、<b>shared_ptr&lt;int&gt; の指すメモリを参照することができる</b>。<br>
@@ -326,49 +256,39 @@ shared_ptr&lt;int&gt; により循環参照となるコードを weak_ptr&lt;T&g
     <cmt>// shared_ptr&lt;int&gt; では循環参照となるため、weak_ptr&lt;T&gt; を用いる</cmt>
     std::weak_ptr&lt;hoge&gt; ptr;
 };
-
 <kwd>int</kwd> main()
 {
     std::shared_ptr&lt;hoge&gt; pHoge1 = std::make_shared&lt;hoge&gt;();    <cmt>//&lt; Hoge1</cmt>
     std::shared_ptr&lt;hoge&gt; pHoge2 = std::make_shared&lt;hoge&gt;();    <cmt>//&lt; Hoge2</cmt>
-
     <cmt>// Hoge1のメンバ変数で、pHoge2を参照する</cmt>
     pHoge1-&gt;ptr = pHoge2;
-
     <cmt>// Hoge2のメンバ変数で、pHoge1を参照する</cmt>
     pHpge2-&gt;ptr = pHoge1;
-
     <kwd>return</kwd> <ltr>0</ltr>;
 }
 </p>
 shared_ptr&lt;int&gt; の場合と異なり、メモリの所有権は pHoge1 と pHoge2 だけが有しているため、正しく解放される。
-
 weak_ptr&lt;T&gt; は以下のような特徴を持つ。
 <ul>
 <li>shared_ptr&lt;int&gt; が所有権を持つメモリしか管理できない</li>
 <li>コピー、ムーブともに可能(ムーブ時は参照を失う)</li>
 </ul>
-
 <h4>初期化・コピー・ムーブ</h4>
 <p class="code">
 std::shared_ptr&lt;<kwd>int</kwd>&gt; sptr = std::make_shared&lt;<kwd>int</kwd>&gt;(<ltr>10</ltr>);
-
 <cmt>// コンストラクタ、代入演算子で shared_ptr を受け取る</cmt>
 std::weak_ptr&lt;<kwd>int</kwd>&gt; wptr(sptr);
 std::weak_ptr&lt;<kwd>int</kwd>&gt; wptr2;
 wptr2 = wptr;
-
 <cmt>// コピー</cmt>
 std::weak_ptr&lt;<kwd>int</kwd>&gt; wptr3(wptr);   <cmt>//&lt; コピーコンストラクタによるコピー</cmt>
 std::weak_ptr&lt;<kwd>int</kwd>&gt; wptr4;
 wptr4 = wptr;                     <cmt>//&lt; コピー代入演算子によるコピー</cmt>
-
 <cmt>// ムーブ</cmt>
 std::weak_ptr&lt;<kwd>int</kwd>&gt; wptr5(std::move(wptr4));    <cmt>//&lt; ムーブコンストラクタによるムーブ ⇒ wptr4 は参照を失う</cmt>
 std::weak_ptr&lt;<kwd>int</kwd>&gt; wptr6;
 wptr6 = std::move(wptr5);                      <cmt>//&lt; ムーブ代入演算子によるムーブ     ⇒ wptr5 は参照を失う</cmt>
 </p>
-
 <h4>参照するメモリへのアクセス</h4>
 unique_ptr&lt;int&gt; や shared_ptr&lt;int&gt; と異なり、<b>* 演算子や -> 演算子は使用できない</b>。<br>
 参照するためにはblock()関数により、参照先である shared_ptr&lt;int&gt; を取得し、そこからアクセスする</b>。<br>
@@ -381,12 +301,10 @@ std::weak_ptr&lt;<kwd>int</kwd>&gt; wptr(sptr);
     std::shared_ptr&lt;<kwd>int</kwd>&gt; ptr = wptrlock();
 }
 </p>
-
 <h3>まとめ</h3>
 ポインタの指す対象を「所有」(解放する責任を有する)しているのか、単に「参照」しているのかによってスマートポインタの使い分けが必要となる。<br>
 また、対象のメモリが、アクセス中に解放されることが無い「安全なアクセス」か、アクセス中でも解放され得る「危険なアクセス」かも考慮する必要がある。<br>
 (スマートポインタでない)生ポインタは原則として使用せず、「安全なアクセス」による「参照」、または外部APIの利用上やむを得ない場合のみ限定的に用いる。
-
 <h4>特徴および機能一覧</h4>
 <table>
   <tr class="row1">
@@ -541,9 +459,3 @@ std::weak_ptr&lt;<kwd>int</kwd>&gt; wptr(sptr);
     <td class="centertd
   </tr>
 </table>
-
-</body>
-</html>
-
-
-

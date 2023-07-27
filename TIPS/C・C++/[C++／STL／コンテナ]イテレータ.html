@@ -1,56 +1,28 @@
 <!DOCTYPE html>
-
-<html lang="ja">
-<!-- --------------------------------------
-head
---------------------------------------- -->
-<head>
-<meta content="text/html" charset="utf-8" http-equiv="Content-Type" />
-
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
-
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
-
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
-
-
-
-</head>
-
-<!-- --------------------------------------
-body
---------------------------------------- -->
-<body>
-
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
-
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-
 <!-- 出典・関連ページ -->
 <h5>出典 :</h5>
 <a href="https://theolizer.com/cpp-school1/cpp-school1-31/">実践C++入門講座 第31回目 イテレータの仕組みと範囲ベースforの仕組み | Theolizer Technology</a><br>
-
 <h5>関連 :</h5>
 <a href="TIPS/C%E3%83%BBC%2B%2B/[C%2B%2B%EF%BC%8FSTL%EF%BC%8F%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A]%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A.html">[C++／STL／コンテナ]コンテナ</a><br>
 <a href="TIPS/C%E3%83%BBC%2B%2B/[C%2B%2B]%E5%9E%8B%E6%8E%A8%E8%AB%96.html">[C++]型推論</a><br>
-
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
-
 <hr>
-
 <!-- 本文ここから -->
-
-
 <h2>イテレータ(反復子)とは</h2>
 コンテナ(配列を含む)の各要素に対する繰り返し処理を抽象化したもの。<br>
 コンテナの各要素への参照(「参照型」とは異なる)を表し、加算すれば次の要素、減算すれば前の要素を指す。<br>
@@ -89,15 +61,8 @@ vector 、array 、およびC互換の配列は各要素が添字順にメモリ
 <tr><td>crbegin()</td><td>末尾を指す読み取り専用逆イテレータを取得する </td><td>C++11以降</td></tr>
 <tr><td>crend()</td><td>先頭の前を指す読み取り専用逆イテレータを取得する </td><td>C++11以降</td></tr>
 </table>
-
 <h2>付記</h2>
 イテレータのインクリメント・デクリメントの際、前置表記( ++it , --it )と後置表記( it++ , it-- )では結果は当然等しいが、<br>
 多くの場合(極わずかではあるが) 前置表記のほうが計算負荷が低い。<br>
 これは後置表記が、一度コピーを生成した後、コピーを変更して返す(≒リード・モディファイ・ライト)実装となっているため。<br>
 但し、2023年現在のCPUの実装では後置表記のほうが速いという説もある。
-
-</body>
-</html>
-
-
-

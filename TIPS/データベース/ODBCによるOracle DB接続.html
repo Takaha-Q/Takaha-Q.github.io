@@ -1,39 +1,17 @@
 <!DOCTYPE html>
-
-<html lang="ja">
-<!-- --------------------------------------
-head
---------------------------------------- -->
-<head>
-<meta content="text/html" charset="utf-8" http-equiv="Content-Type" />
-
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
-
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
-
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
-
-
-
-</head>
-
-<!-- --------------------------------------
-body
---------------------------------------- -->
-<body>
-
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
-
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-
 <!-- 出典・関連ページ -->
 <h5>出典 :</h5>
 <a href="
@@ -41,46 +19,36 @@ https://note.kiriukun.com/entry/20151124-oracle-instant-client-odbc
 ">
 WindowsでOracleDBにOracle Instant ClientでODBC接続する - キリウ君が読まないノート
 </a><br>
-
 <a href="
 https://ja.wikipedia.org/wiki/Open_Database_Connectivity
 ">
 Open Database Connectivity - Wikipedia
 </a><br>
-
 <a href="
 https://www.oracle.com/technetwork/jp/content/0127-1330-db-middleware-297515-ja.pdf
 ">
 Oracle DB接続ミドルウェアを理解する[PDF]
 </a><br>
-
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
-
 <hr>
-
 <!-- 本文ここから -->
-
 <h2>ODBCとは</h2>
 ODBC(Open Database Connectivity)は、関係データベース管理システム(RDBMS)にアクセスするための共通インタフェース(API)である。<br>
 アプリケーション(主にWindows)からデータベースに接続する際に用いられる。
-
 <h3>OracleとODBC</h3>
 Oracleからは、データベース接続用のミドルウェアがアプリケーションプラットフォーム(言語)に合わせて複数リリースされており、ODBCミドルウェアもその一つである。<br>
 以前はMicrosoftからもOracleに接続できるODBCドライバがリリースされていたが、現在はサポートされていない。<br>
-
 <h2>導入手順(2021.3時点)</h2>
 <h3>Oracle Instant Clientのインストール</h3>
 <h4>注意が必要な点</h4>
 ODBCミドルウェアを呼び出すアプリケーションと、ミドルウェアのアーキテクチャ(32-bit / 64-bit)を合わせる必要がある。<br>
 (OSのアーキテクチャとは必ずしも一致しない点に注意)<br>
 例えば、Excel(32-bit)から64-bitのミドルウェアは呼び出せない。
-
 <h4>ダウンロード</h4>
 「Basicパッケージ」と「ODBCパッケージ」の両方をダウンロードする。<br>
 また、実行にはVisual Studio 2017再頒布可能パッケージが必要となるため、併せてダウンロードする。<br>
-
 <table>
 	<tr class="row1 border_b_dotted">
 		<td class="col1" rowspan="3"></td>
@@ -114,14 +82,11 @@ ODBCミドルウェアを呼び出すアプリケーションと、ミドルウ�
 		<td width="16%" class="center"><a href="https://aka.ms/vs/16/release/vc_redist.x64.exe">ダウンロード</a></td>
 	</tr>
 </table>
-
 <h4>Visual Studio 再頒布可能パッケージのインストール</h4>
 ダウンロードしたVC_redist.***.exe を実行する。
-
 <h4>Oracle Instant Clientの展開</h4>
 ダウンロードしたZIPファイルを解凍し、内容物を一つのフォルダ(任意)に格納する。<br>
 ここでは、<b>C:\oracle\instantclient_19_8</b> に格納するものとする。
-
 <h4>ODBCドライバのインストール</h4>
 コマンドプロンプトを<b>管理者権限で開き</b>、
 <p class="code">
@@ -129,7 +94,6 @@ ODBCミドルウェアを呼び出すアプリケーションと、ミドルウ�
 >odbc_install.exe JA
 </p>
 を実行する。
-
 <h4>tnsnames.ora の作成</h4>
 tnsnames.ora はOracle DBへの接続情報を保持するテキストファイルである。<br>
 ここでは、<b>C:\oracle\instantclient_19_8\network\admin\</b> 下に以下の内容で作成するものとする。
@@ -138,7 +102,6 @@ tnsnames.ora はOracle DBへの接続情報を保持するテキストファイ�
 # IP             : 10.14.14.61
 # ポート番号     : 1521
 # サービス名     : p2db</cmt>
-
 PRIME2=
 (DESCRIPTION =
     (ADDRESS = (PROTOCOL = TCP)(HOST = 10.14.14.61)(PORT = 1521))
@@ -150,7 +113,6 @@ PRIME2=
 <br>
 この時点での C:\oracle\instantclient_19_8 の構成<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/DataBase/Oracle_with_ODBC/01.png"><br>
-
 <h4>環境変数の設定</h4>
 環境変数を以下のとおりに設定する。<br>
 <table>
@@ -167,7 +129,6 @@ PRIME2=
 <td>C:\oracle\instantclient_19_8\network\admin</td>
 </tr>
 </table>
-
 <h3>ODBCデータソースの設定</h3>
 <ol>
 <li>
@@ -177,38 +138,27 @@ PRIME2=
 以下、操作は共通。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/DataBase/Oracle_with_ODBC/07.png"><br>
 </li>
-
 <li>
 「ユーザー DSN」タブにて「追加」を押す。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/DataBase/Oracle_with_ODBC/02.png"><br>
 </li>
-
 <li>
 前手順でインストールした「Oracle in instantclient_19_8」を選択し、「完了」を押す。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/DataBase/Oracle_with_ODBC/03.png"><br>
 </li>
-
 <li>
 「データソース名」に任意の名称を、「TNSサービス名」に tnsnames.ora で指定したデータソース名を入力し、「接続テスト」を押す。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/DataBase/Oracle_with_ODBC/04.png"><br>
 </li>
-
 <li>
 「ユーザー名」と「パスワード」を入力し、「OK」を押す。接続に成功すると、その旨が表示される。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/DataBase/Oracle_with_ODBC/05.png"><br>
 </li>
-
 <li>
 「Oracle ODBCドライバ構成」画面に戻るので、「OK」を押す。<br>
 </li>
-
 <li>
 データソースが追加される。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/DataBase/Oracle_with_ODBC/06.png"><br>
 </li>
 </ol>
-
-</body>
-</html>
-
-

@@ -1,54 +1,27 @@
 <!DOCTYPE html>
-
-<html lang="ja">
-<!-- --------------------------------------
-head
---------------------------------------- -->
-<head>
-<meta content="text/html" charset="utf-8" http-equiv="Content-Type" />
-
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
-
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
-
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
-
-
-
-</head>
-
-<!-- --------------------------------------
-body
---------------------------------------- -->
-<body>
-
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
-
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-
 <!-- 出典・関連ページ -->
-
 <h5>関連 :</h5>
 <a href="TIPS/Microsoft Visual Studio・.NET/[WinForm]UI(コントロール)とデリゲート.html">[WinForm]UI(コントロール)とデリゲート</a><br>
 <a href="TIPS/Windows Presentation Foundation(WPF)/ウィンドウの再描画.html">[WPF]ウィンドウの再描画</a><br>
 <a href="TIPS/C Sharp/イベント処理.html">[C#]イベント処理</a>
-
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
-
 <hr>
-
 <!-- 本文ここから -->
-
 <h2>コントロールの操作に関する制約</h2>
 WPFでは、WinFormと同様に<b>コントロールに対する操作はUIスレッドから行う必要がある</b>。<br>
 UIスレッドには、各ウィンドウに関連付けられたイベントハンドラが該当する。<br>
@@ -56,15 +29,12 @@ UIスレッドには、各ウィンドウに関連付けられたイベントハ
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/UI_delegate/UiControl_and_Delegate_01.png" alt="画像"><br>
 別スレッド(ワーカースレッド)からコントロールの操作を行う場合、UIスレッドに処理を委譲する必要がある。<br>
 尚、WinFormと異なり、InvokeRequired プロパティは存在しない。
-
 <h2>処理の委譲先</h2>
 <ul>
     <li>操作対象が自身のWindow : <b>Window.Dispatcher</b></li>
     <li>操作対象が自身ではない(自身に対しても使用可) : <b>Application.Current.Dispatcher</b></li>
 </ul>
-
 <h2>ワーカースレッドからのコントロール操作</h2>
-
 <h5>(ウィンドウ : HogeWindow.cs)</h5>
 <div class="code">
 <kwd>class</kwd> HogeWindow : <knw>Window</knw>
@@ -82,7 +52,6 @@ UIスレッドには、各ウィンドウに関連付けられたイベントハ
         <cmt>// ラベルの表記を更新</cmt>
         UpdateLabel("テスト");
     }
-
     <cmt>// ラベルの表記を更新</cmt>
     <cmt>// (UIスレッド外で行われる処理)</cmt>
     <kwd>private void</kwd> UpdateLabel(string msg)
@@ -91,9 +60,7 @@ UIスレッドには、各ウィンドウに関連付けられたイベントハ
     }
 }
 </div>
-
 <h2>ワーカースレッドからのウィンドウ開閉</h2>
-
 <h5>(ウィンドウ : HogeWindow.cs)</h5>
 <div class="code">
 <kwd>class</kwd> HogeWindow : <knw>Window</knw>
@@ -128,9 +95,5 @@ UIスレッドには、各ウィンドウに関連付けられたイベントハ
     }
 }
 </div>
-
 <h2>Invoke() に関する制約</h2>
 Invoke() に渡すことのできるデリゲートは Action 型(戻り値の無いメソッド)に限定される。
-
-</body>
-</html>

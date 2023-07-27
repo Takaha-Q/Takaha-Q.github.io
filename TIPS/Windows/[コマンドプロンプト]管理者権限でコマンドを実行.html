@@ -1,58 +1,29 @@
 ﻿<!DOCTYPE html>
-
-<html lang="ja">
-<!-- --------------------------------------
-head
---------------------------------------- -->
-<head>
-<meta content="text/html" charset="utf-8" http-equiv="Content-Type" />
-
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
-
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
-
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
-
-
-
-</head>
-
-<!-- --------------------------------------
-body
---------------------------------------- -->
-<body>
-
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
-
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-
 <!-- 出典・関連ページ -->
-
-
-
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
-
 <hr>
-
 <!-- 本文ここから -->
-
 任意のバッチファイルの冒頭に以下の記述を追加することで、当該バッチファイルを管理者権限で実行できる。<br>
 <br>
 <p class="code">@echo off
 <cmt>rem 
 rem 管理者権限でコマンドを実行
 rem 
-
 rem 管理者権限で起動されたかを確認、
 rem 管理者でなければ、管理者として当該バッチを開きなおす</cmt>
 cd /d %~dp0
@@ -65,6 +36,3 @@ exit
 rem 実行したい処理を以下に記述</cmt>
 </p>
 <br>
-</body>
-</html>
-

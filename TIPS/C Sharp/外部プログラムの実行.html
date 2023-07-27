@@ -1,56 +1,30 @@
 <!DOCTYPE html>
-
-<html lang="ja">
-<!-- --------------------------------------
-head
---------------------------------------- -->
-<head>
-<meta content="text/html" charset="utf-8" http-equiv="Content-Type" />
-
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
-
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
-
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
-
-</head>
-
-<!-- --------------------------------------
-body
---------------------------------------- -->
-<body>
-
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
-
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-
 <!-- 出典・関連ページ -->
 <h5>出典 :</h5>
 <a href="https://dobon.net/vb/dotnet/process/shell.html">外部アプリケーションを起動する、ファイルを関連付けられたソフトで開く - .NET Tips (VB.NET,C#...)</a>
-
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
-
 <hr>
-
 <!-- 本文ここから -->
-
 <h2>外部プログラムの呼び出し</h2>
 Process.Start() メソッドを用いることで、外部プログラムを起動できる。
-
 <h2>コード例(同期呼び出し)</h2>
 <p class="code">
 using System.Diagnostics;
-
 <cmt>// プロセス起動情報( ProcessStartInfo )生成</cmt>
 <kwd>var</kwd> sInfo = <kwd>new</kwd> <knw>ProcessStartInfo</knw>
 {
@@ -61,7 +35,6 @@ using System.Diagnostics;
     FileName = <ltr>"git.exe"</ltr>,                       <cmt>//< 実行するプログラム名</cmt>
     Arguments = <ltr>"hogehoge"</ltr>,                     <cmt>//< 実行するプログラムに渡す引数(文字列)</cmt>
 };
-
 <cmt>// プロセス開始( Process.Start() )</cmt>
 <kwd>using</kwd> (<kwd>var</kwd> p = <knw>Process</knw>.Start(sInfo))
 {
@@ -73,17 +46,13 @@ using System.Diagnostics;
     p.Close();
 }
 </p>
-
 上記の例では、"git.exe"に引数"hogehoge"を渡して起動し、実行結果を標準出力から取得している。
-
 <h3>注意が必要な点</h3>
 標準出力から結果を取得する際、日本語などのマルチバイト文字を含んでいると文字化けを起こすことがある。<br>
 これは、<b>標準出力のエンコーディングのデフォルトがシフトJISとなっているため</b>で、<br>
 上記コードのように<b>エンコーディングをUTF-8に設定することで回避できる</b>。<br>
 ( ProcessStartInfo.StandardOutputEncoding = Encoding.UTF8 )
-
 <h2>Processクラスのメンバ(抜粋)</h2>
-
 <table>
     <tr class="row1">
         <th class="col1">種別</th>
@@ -161,8 +130,3 @@ using System.Diagnostics;
         <td></td>
     </tr>
 </table>
-
-</body>
-</html>
-
-

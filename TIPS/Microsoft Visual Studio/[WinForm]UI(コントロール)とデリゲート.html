@@ -1,51 +1,23 @@
 <!DOCTYPE html>
-
-<html lang="ja">
-<!-- --------------------------------------
-head
---------------------------------------- -->
-<head>
-<meta content="text/html" charset="utf-8" http-equiv="Content-Type" />
-
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
-
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
-
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
-
-
-
-</head>
-
-<!-- --------------------------------------
-body
---------------------------------------- -->
-<body>
-
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
-
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-
 <!-- 出典・関連ページ -->
-
-
-
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
-
 <hr>
-
 <!-- 本文ここから -->
-
 <h2>コントロールの操作に関する制約</h2>
 フォームアプリケーションなどの、コントロール(GUI)を有するアプリケーションにおいて別スレッドを起動した場合、<br>
 <b>別スレッドからは直接コントロールを操作することはできない</b>。<br>
@@ -63,6 +35,3 @@ body
 上記のコード例を InvokeRequired を用いて書き直すと以下のようになる。これによりUIスレッド、UIスレッド外を問わず、一つの関数を共用できる。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/UI_delegate/UiControl_and_Delegate_03.png" alt="画像"><br>
 UpdateLabelText() は自分自身をデリゲートとして渡している。(≒再帰呼び出し)
-
-</body>
-</html>
