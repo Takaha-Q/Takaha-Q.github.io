@@ -31,6 +31,8 @@
 <a href="TIPS/C・C%2B%2B/[C%2B%2B]デフォルトメンバ初期化子.html">デフォルトメンバ初期化子</a><br>
 <a href="TIPS/C・C%2B%2B/[C%2B%2B]範囲ベースfor.html">範囲ベースfor</a><br>
 <a href="TIPS/C・C%2B%2B/[C%2B%2B]タプル.html">タプル</a><br>
+<a href="TIPS\C・C++\[C++]一様初期化.html">一様初期化</a><br>
+
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
@@ -171,45 +173,16 @@ C++11ではコンストラクタが他の同等なコンストラクタを呼び
     <kwd>explicit</kwd> C_SomeClass (<kwd>int</kwd> iNewValue) : iValue(iNewValue) {}  <cmt>//&lt; <kwd>int</kwd> 型引数付きで呼ばれた場合、引数で iValue を初期化</cmt>
 };
 </p>
+
 <!-- ～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～ -->
-<h2>統一初期化記法</h2>
+
+<h2>一様初期化</h2>
 C++03までは、型の初期化の方法が複数存在する場合、取り違えると同じ結果にはならなかった。<br>
-C++11では「統一初期化記法(uniform initialization)」が導入され、どのようなオブジェクトでも同様の記法で初期化できるようになった。これは初期化リスト構文の拡張である。<br>
-<p class="code">
-<kwd>struct</kwd> St_BasicStruct
-{
-    <kwd>int</kwd> x;
-    <kwd>double</kwd> y;
-};
-<kwd>struct</kwd> St_AltStruct 
-{
-<kwd>public</kwd>:
-    <cmt>// コンストラクタ</cmt>
-    St_AltStruct(<kwd>int</kwd> x, <kwd>double</kwd> y) : x_(x), y_(y) {}
-  
-<kwd>private</kwd>:
-    <kwd>int</kwd> x_;
-    <kwd>double</kwd> y_;
-};
-St_BasicStruct var1 { <ltr>5</ltr>, <ltr>3.2</ltr> };
-St_AltStruct var2 { <ltr>2</ltr>, <ltr>4.3</ltr> };
-</p>
-St_BasicStruct 型の var1 と、St_AltStruct 型の var2 を、同様の記法(ブレースに初期値を列挙)で初期化している。var1 ではC形式の初期化子リストと同様に振る舞い、var2 ではコンストラクタを呼んでいる。<br>
-型推論と組み合わせて、以下のように応用できる。<br>
-<p class="code">
-<kwd>struct</kwd> St_IdString
-{
-    <kwd>std</kwd>::<kwd>string</kwd> name;
-    <kwd>int</kwd> identifier;
-};
-St_IdString get_string()
-{
-    <kwd>return</kwd> { <ltr>"SomeName"</ltr>, <ltr>4</ltr> };
-}
-</p>
-return 文にて暗黙の一時変数を統一初期化記法で初期化し、返却している。関数の戻り値は宣言から St_IdString 型であることが明白であるため、一時変数の型を明示していない。<br>
-C99における複合リテラルと同様。<br>
+C++11では「一様初期化(uniform initialization)」が導入され、どのようなオブジェクトでも同様の記法で初期化できるようになった。これは初期化リスト構文の拡張である。<br>
+詳細は<a href="TIPS\C・C++\[C++]一様初期化.html">一様初期化</a>を参照。
+
 <!-- ～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～ -->
+
 <h2>強い型付けの列挙型</h2>
 C++03までの列挙型 (enum) は型安全ではなく、型の異なる列挙型同士の値が比較できていた。<br>
 また、列挙値のスコープは、列挙体が定義されたスコープと同じとなるため、二つの異なる列挙体が、同じ名前のメンバを持つことができなかった。<br>
@@ -227,7 +200,9 @@ C++11では型安全な(クラス化された)列挙体が導入された。<br>
 この列挙型は暗黙的に整数値に変換されることは無く、整数値や他の列挙型との直接比較はできない。<br>
 <b>列挙値へのアクセスは E_Enumeration::E_VAL2 のように、スコープを明示する必要がある</b> 。(C#における列挙型と同様)<br>
 列挙値(のラベル)は型に拘束されるため、異なる列挙型で同じ名前のメンバを持つことができる。<br>
+
 <!-- ～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～ -->
+
 <h2>明示的な仮想関数オーバーライド ( override )</h2>
 C++03では、基底クラスの仮想関数をオーバーライドする際に、(タイプミスなどで)誤って意図に反する新しい仮想関数を作成してしまうことがある。<br>
 C++11では <b>override</b> キーワードが導入され、仮想関数のオーバーライドであることを明示することで解決を図ることができる。 <br>
