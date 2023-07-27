@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<h5>出典 :</h5>
+<a href="https://www.delftstack.com/ja/howto/cpp/check-cpp-version/">C++ バージョンを確認する | Delft スタック</a><br>
+<a href="https://learn.microsoft.com/ja-jp/cpp/build/reference/zc-cplusplus?view=msvc-170">/Zc:__cplusplus (更新された __cplusplus マクロの有効化) | Microsoft Learn</a>
+
+<!-- 関連ページ -->
+<h5>関連 :</h5>
+<a href="TIPS\C・C%2B%2B\[C]C99.html">C99</a><br>
+<a href="TIPS\C・C%2B%2B\[C%2B%2B]C%2B%2B11.html">C++11</a>
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>コンパイラがサポートするC/C++のバージョンを確認する</h2>
+マクロの定義値から、コンパイラがCおよびC++のどのバージョンをサポートしているかを確認することが可能である。
+
+<h3>Cのバージョン</h3>
+<b>__STDC_VERSION__</b> (標準Cバージョン)の値から判別できる。<br>
+C95 よりも前、または標準C規格に準拠していない場合は定義されていない。
+
+<ul>
+<li>199409L : C95準拠</li>
+<li>199901L : C99準拠</li>
+<li>201112L : C11準拠</li>
+</ul>
+
+<h5>サンプルコード :</h5>
+<div class="code">
+<kwd>#include</kwd> <stdio.h>
+
+<kwd>void</kwd> main(<kwd>void</kwd>)
+{
+<kwd>#ifdef</kwd> __STDC_VERSION__
+    <kwd>#if</kwd> __STDC_VERSION__ == 201112L
+        puts("C11 に準拠しています。");
+    <kwd>#elif</kwd> __STDC_VERSION__ == 199901L
+        puts("C99 に準拠しています。");
+    <kwd>#elif</kwd> __STDC_VERSION__ == 199409L
+        puts("C95 に準拠しています。");
+    <kwd>#else</kwd>
+        puts("不明な結果です。");
+    <kwd>#endif</kwd>
+<kwd>#else</kwd>
+    puts("__STDC_VERSION__ が定義されていません。");
+<kwd>#endif</kwd>
+}
+</div>
+
+<h3>C++のバージョン</h3>
+<b>__cplusplus</b> の値から判別できる。<br>
+
+<ul>
+<li>1 : C++98以前</li>
+<li>199711L : C++98準拠</li>
+<li>201103L : C++11準拠</li>
+<li>201402L : C++14準拠</li>
+<li>201703L : C++17準拠</li>
+<li>202002L : C++20準拠</li>
+</ul>
+
+<h5>サンプルコード :</h5>
+<div class="code">
+<kwd>#include</kwd><iostream>
+
+<kwd>void</kwd> main() 
+{
+    <kwd>if</kwd> (__cplusplus == 202002L)
+        <kwd>std</kwd>::cout << "C++20" << endl;
+    <kwd>else if</kwd> (__cplusplus == 201703L)
+        <kwd>std</kwd>::cout << "C++17" << endl;
+    <kwd>else if</kwd> (__cplusplus == 201402L)
+        <kwd>std</kwd>::cout << "C++14" << endl;
+    <kwd>else if</kwd> (__cplusplus == 201103L)
+        <kwd>std</kwd>::cout << "C++11" << endl;
+    <kwd>else if</kwd> (__cplusplus == 199711L)
+        <kwd>std</kwd>::cout << "C++98" << endl;
+    <kwd>else</kwd>
+        <kwd>std</kwd>::cout << "pre-standard C++" << endl;
+}
+</div>
+
+<h2>Visual Studio における __cplusplus</h2>
+オプションの指定により、__cplusplus の値が変化する。詳細は
+<a href="https://learn.microsoft.com/ja-jp/cpp/build/reference/zc-cplusplus?view=msvc-170">リンク先</a>を参照。
+
+
+
+
