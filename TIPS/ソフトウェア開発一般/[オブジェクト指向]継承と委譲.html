@@ -28,12 +28,15 @@
 <div id="toc"></div>
 <hr>
 <!-- 本文ここから -->
+
 <h2>委譲 (delegation) とは</h2>
 オブジェクト指向プログラミングにおいて、あるオブジェクトに対する操作の一部を他のオブジェクトに代替させる手法のこと。<br>
 委譲する側のオブジェクトが、委譲される側のオブジェクトの機能を呼び出す(利用する)ことを表す。<br>
 尚、「移譲」は誤り。
+
 <h2>継承と委譲の使い分け</h2>
 あるオブジェクトが別のオブジェクトの機能を用いる場合、両者の関係により、<b>継承でその機能を獲得するか、委譲でその機能を利用するか</b>の選択が必要となる。
+
 <h3>継承を用いる場合</h3>
 <p class="code">
 <cmt>// 「乗り物」クラス</cmt>
@@ -43,6 +46,7 @@
     <cmt>// 加速</cmt>
     <kwd>virtual void</kwd> Accelarate() = <ltr>0</ltr>;
 };
+
 <cmt>// 「自動車」クラス : Vehicle を継承</cmt>
 <kwd>class</kwd> Car : <kwd>public</kwd> Vehicle
 {
@@ -50,6 +54,7 @@
     <cmt>// 加速</cmt>
     <kwd>virtual void</kwd> Accelarate();
 };
+
 <cmt>// 「自動二輪車」クラス : Vehicle を継承</cmt>
 <kwd>class</kwd> MotorCycle : <kwd>public</kwd> Vehicle
 {
@@ -62,6 +67,7 @@
 これは、<b>「自動車」・「自動二輪車」が「乗り物」の範疇に含まれる "<b><red>is-a</red></b>" の関係にある</b>ことによる。<br>
 (Car <b class="red">is a</b> Vehicle. 「自動車は乗り物<b><red>(の具体例)である</red></b>」)<br>
 <b>即ち「自動車」は「乗り物」としての特性を有している必要があるため、「乗り物」を継承することでその特性を獲得する</b>。
+
 <h3>委譲を用いる場合</h3>
 <p class="code">
 <cmt>// 「エンジン」クラス</cmt>
@@ -69,21 +75,25 @@
 {
     :
 };
+
 <cmt>// 「車輪」クラス</cmt>
 <kwd>class</kwd> Wheel
 {
     :
 };
+
 <cmt>// 「自動車」クラス : Engine 、Wheel を所持</cmt>
 <kwd>class</kwd> Car
 {
 <kwd>private</kwd>:
     Engine  mEngine;          <cmt>//&lt; エンジン</cmt>
     Wheel   mWheel;           <cmt>//&lt; 車輪</cmt>
+
 <kwd>public</kwd>:
     <cmt>// 加速</cmt>
     <kwd>void</kwd> Accelarate();
 };
+
 <cmt>// 加速</cmt>
 <kwd>void</kwd> Car::Accelarate()
 {

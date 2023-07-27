@@ -22,25 +22,35 @@
 <h5>目次 :</h5>
 <div id="toc"></div>
 <hr>
+
 <!-- 本文ここから -->
+
 <h2>Stopwatchクラス (System.Diagnostics.Stopwatch)</h2>
 経過時間を計測できるストップウォッチ。
+
 <h2>基本的な使い方</h2>
+
 <div class="code">
 <kwd>using</kwd> <knw>System</knw>.<knw>Diagnostics</knw>;
+
 <kwd>public void</kwd> DoSomething()
 {
     <cmt>// ストップウォッチインスタンスの生成</cmt>
     Stopwatch sw = <kwd>new</kwd> Stopwatch();
+
     <cmt>// 計時開始</cmt>
     sw.Start();
+
     :
+
     <cmt>// 計時終了</cmt>
     sw.Stop();
+
     <cmt>// 経過時間[ミリ秒]を取得、画面に表示</cmt>
     <knw>Console</knw>.WriteLine(<ltr>$@"経過時間は {sw.ElapsedMilliseconds} ミリ秒です。"</ltr>);
 }
 </div>
+
 <h2>プロパティ</h2>
 <table>
   <tr class="row1">
@@ -69,39 +79,38 @@
     <td>動作中であれば true 、停止中であれば false</td>
   </tr>
 </table>
+
 <h2>メソッド</h2>
 主要なものを抜粋。いずれも引数は無し。
 <table>
-    <tr class="row1">
-      <td class="col1">定義名</td>
-      <td>戻り値の型</td>
-      <td>説明</td>
-    </tr>
-    <tr>
-      <td class="col1">Start()</td>
-      <td>void</td>
-      <td>計時を開始(または再開)する。</td>
-    </tr>
-    <tr>
-      <td class="col1">Stop()</td>
-      <td>void</td>
-      <td>計時を停止する。カウントはゼロにならない。</td>
-    </tr>
-    <tr>
-      <td class="col1">StartNew()</td>
-      <td>Stopwatch</td>
-      <td>新しい Stopwatch インスタンスを生成し、計時を開始する。</td>
-    </tr>
-    <tr>
-    <td class="col1">Reset()</td>
-    <td>void</td>
-    <td>計時を停止し、カウントをゼロにリセットする。</td>
-    </tr>
-    <tr>
-        <td class="col1">Restart()</td>
-        <td>void</td>
-        <td>計時を停止し、カウントをゼロにリセットして計時を開始する。</td>
-      </tr>
-    </table>
-  
-  
+	<tr class="row1">
+		<td class="col1">定義名</td>
+		<td>戻り値の型</td>
+		<td>説明</td>
+	</tr>
+	<tr>
+		<td class="col1">Start()</td>
+		<td>void</td>
+		<td>計時を開始(または再開)する。</td>
+	</tr>
+	<tr>
+		<td class="col1">Stop()</td>
+		<td>void</td>
+		<td>計時を停止する。カウントはゼロにならない。</td>
+	</tr>
+	<tr>
+		<td class="col1">StartNew()</td>
+		<td>Stopwatch</td>
+		<td>新しい Stopwatch インスタンスを生成し、計時を開始する。</td>
+	</tr>
+	<tr>
+		<td class="col1">Reset()</td>
+		<td>void</td>
+		<td>計時を停止し、カウントをゼロにリセットする。</td>
+	</tr>
+	<tr>
+		<td class="col1">Restart()</td>
+		<td>void</td>
+		<td>計時を停止し、カウントをゼロにリセットして計時を開始する。</td>
+	</tr>
+</table>

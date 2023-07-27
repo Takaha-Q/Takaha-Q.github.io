@@ -18,14 +18,17 @@
 <div id="toc"></div>
 <hr>
 <!-- 本文ここから -->
+
 <h2>プロキシサーバの設定</h2>
 Backlog上のGitにアクセスする際は、アクセス元のPCに合わせたプロキシサーバの設定が必要となる。<br>
 (おそらくSubversionも同様)<br>
+
 <h3>準備 : プロキシサーバのアドレスを確認</h3>
 コマンドプロンプトから、以下のコマンドを実行する。
 <p class="code">
 reg query "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v ProxyServer
 </p>
+
 <h3>.gitconfig を直接変更する場合</h3>
 <ol>
 	<li>
@@ -52,6 +55,7 @@ reg query "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet 
 		<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Backlog/git_access/git-access-to-backlog_04.png" alt="画像"><br>
 	</li>
 </ol>
+
 <h3>TortoiseGitの設定を変更する場合</h3>
 <ol>
     <li>

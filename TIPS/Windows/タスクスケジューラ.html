@@ -18,24 +18,30 @@
 <div id="toc"></div>
 <hr>
 <!-- 本文ここから -->
+
 <h2>タスクスケジューラの機能</h2>
 指定した処理を、別途指定した時刻や周期で自動的に実行させることができる。<br>
 コンピュータが動作していれば、ユーザがログオフしている場合でも実行可能。
+
 <h2>使い方</h2>
 <h3>タスクスケジューラの起動</h3>
 「ここに入力して検索」に「タスク」と入力すると、「タスク スケジューラ」が表示されるため開く。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Windows/Task_Scheduler/task_scheduler_01.png"><br>
+
 <h3>準備(フォルダの作成)</h3>
 必須ではないが、フォルダを作成しておくことで分類が容易となる。<br>
 「タスク スケジューラ ライブラリ」を右クリックし、「新しいフォルダー」を選択する。<br>
 ここでは「ユーザタスク」と入力する。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Windows/Task_Scheduler/task_scheduler_02.png"><br>
+
 <h3>タスクの作成</h3>
 <ol>
+
 	<li>
 		作成したフォルダ「ユーザタスク」を右クリックし、「タスクの作成」を選択する。<br>
 		<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Windows/Task_Scheduler/task_scheduler_03.png"><br>
 	</li>
+
 	<li>
 		「全般」タブの情報を入力する。
 		<ol>
@@ -44,6 +50,7 @@
 				「ユーザがログオンしているときのみ実行する」にチェックを入れる。<br>
 				<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Windows/Task_Scheduler/task_scheduler_04.png"><br>
 			</li>
+
 			<li>
 				ログオフしている間も実行可能とする場合<br>
 				「ユーザがログオンしているか同課にかかわらず実行する」にチェックを入れる。<br>
@@ -51,6 +58,7 @@
 			</li>
 		</ol>
 	</li>
+
 	<li>
 		「トリガー」タブの情報を入力する。<br>
 		<ol>
@@ -58,6 +66,7 @@
 			「トリガー」タブを選択し、「新規」をクリックする。<br>
 			<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Windows/Task_Scheduler/task_scheduler_06.png"><br>
 			</li>
+
 			<li>
 			実行契機を入力し、「OK」をクリックする。<br>
 			ここでは、2020/06/23 16:45:47 に一度だけ実行する設定とする。<br>
@@ -78,11 +87,13 @@
 			「操作」タブを選択し、「新規」をクリックする。<br>
 			<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Windows/Task_Scheduler/task_scheduler_09.png"><br>
 			</li>
+
 			<li>
 			「プログラム/スクリプト」欄に実行したいプログラム・スクリプト・バッチを入力する。<br>
 			「参照」ボタンで選択することも可能。<br>
 			<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Windows/Task_Scheduler/task_scheduler_10.png"><br>
 			</li>
+
 			<li>
 			設定した操作が表示される。<br>
 			<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Windows/Task_Scheduler/task_scheduler_11.png"><br>
@@ -95,4 +106,5 @@
 		「トリガー」に指定した契機が到来すると、操作が実行される。<br>
 			<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Windows/Task_Scheduler/task_scheduler_12.png"><br>
 	</li>
+
 </ol>

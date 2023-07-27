@@ -21,6 +21,7 @@
 <div id="toc"></div>
 <hr>
 <!-- 本文ここから -->
+
 <h2>PowerShellにおける比較演算子</h2>
 <table>
 <tr><th class="col1" rowspan="2">演算子</th><th colspan="2" rowspan="2">概要</th><th class="border_b_normal" colspan="2">他言語の<br>相当する演算子</th> <th rowspan="2">例（条件式の部分のみ）</th> </tr>       
@@ -34,6 +35,7 @@
 <tr> <td class="col1 red">-like</td> <td colspan="2">あいまい検索 (ワイルドカード)</td>  <td class="center" colspan="2"></td>  <td>$_Name <b class="red">-like</b> "*.log"</td> </tr>       
 <tr> <td class="col1 red">-match</td> <td colspan="2">正規表現検索</td>  <td class="center" colspan="2"></td>  <td>$_Name <b class="red">-match</b> "[a-z]{1,}\.log"</td> </tr>       
 </table>
+
 <h2>PowerShellにおける論理演算子</h2>
 <table>
 <tr><th class="col1" rowspan="2">演算子</th><th rowspan="2">概要</th><th class="border_b_normal" colspan="2">他言語の<br>相当する演算子</th> <th rowspan="2">例</th> </tr>       
@@ -43,9 +45,11 @@
 <tr> <td class="col1 red">-xor</td>      <td>排他的論理和(XOR)</td> <td class="center" colspan="2"></td>                   <td>(1 -eq 1) <b class="red">-xor</b> (1 -eq 2)</td> </tr>
 <tr> <td class="col1 red">-not<br>!</td> <td>否定(NOT)</td>         <td class="center">!</td><td class="center">NOT</td>   <td><b class="red">-not</b> (1 -eq 2)<br><b class="red">!</b>(1 -eq 2)</td> </tr>
 </table>
+
 <h2>単純分岐(if - elseif - else 節)</h2>
 <p class="code">
 $x = <ltr>100</ltr>
+
 <cmt># $x >= 80 の場合 : if 節</cmt>
 <kwd>if</kwd> ($x -ge 80)
 {
@@ -62,10 +66,12 @@ $x = <ltr>100</ltr>
   <kwd>Write-Output</kwd> <ltr>'変数 $x は40未満です。'</ltr>
 }
 </p>
+
 <h2>多岐分岐(switch 節)</h2>
 C系言語の switch - case 、VBの select - case 節に相当。<br>
 <p class="code">
 $x = <ltr>1</ltr>
+
 <cmt># 変数 $x の値によって分岐</cmt>
 switch($x)
 {
@@ -94,6 +100,7 @@ break を記述することで、個別のブロック(case 節に相当)を実�
 break を省略すると switch 節を継続するため、条件に適合するブロックが他にも存在する場合そちらも実行される。<br>
 <p class="code">
 $x = <ltr>1</ltr>
+
 <cmt># 変数 $x の値によって分岐</cmt>
 switch($x)
 {
@@ -120,12 +127,14 @@ switch($x)
 変数 $x は1です。
 変数 $x は1です。(わかってます)
 </p>
+
 <h2>ループ構文</h2>
 <h3>for 節</h3>
 C系言語の for 節と同様。初期条件・継続条件・増分式を for 文に記述する。
 <p class="code">
 <cmt># 配列 $ary を初期化</cmt>
 $ary = <ltr>@(100, 120, 300)</ltr>
+
 <cmt># for 節</cmt>
 <cmt># ループ制御変数として $i を使用、$i < 3 の間ブロックの実行を繰り返す</cmt>
 <kwd>for</kwd>($i = 0; $i -lt 3; $i++)
@@ -133,6 +142,7 @@ $ary = <ltr>@(100, 120, 300)</ltr>
   <cmt># 変数 $sum に $ary[$i] の値を加算</cmt>
   $sum += $ary[$i];
 }
+
 <cmt># 変数 $sum の値を出力</cmt>
 <kwd>Write-Output</kwd> $sum
 </p>
@@ -140,12 +150,14 @@ $ary = <ltr>@(100, 120, 300)</ltr>
 <p class="code">
 520
 </p>
+
 <h3>範囲ベース for</h3>
 C#などの foreach 節と同様。コレクション(集合)の全要素を順に走査して処理できる。
 <h4>foreach文を使用する場合</h4>
 <p class="code">
 <cmt># 配列 $ary を初期化</cmt>
 $ary = <ltr>@(100, 120, 300)</ltr>
+
 <cmt># foreach 節</cmt>
 <cmt># $ary[] の値を順に $dat (一時変数)に格納</cmt>
 <kwd>foreach</kwd>($dat in $ary)
@@ -153,6 +165,7 @@ $ary = <ltr>@(100, 120, 300)</ltr>
   <cmt># 変数 $sum に $dat の値を加算</cmt>
   $sum += $dat;
 }
+
 <cmt># 変数 $sum の値を出力</cmt>
 <kwd>Write-Output</kwd> $sum
 </p>
@@ -160,6 +173,7 @@ $ary = <ltr>@(100, 120, 300)</ltr>
 <p class="code">
 520
 </p>
+
 <h4>ForEach-Object コマンドレットを使用する場合</h4>
 foreach文を使用するよりもリソース消費が少ない。
 <p class="code">
@@ -181,31 +195,38 @@ foreach文を使用するよりもリソース消費が少ない。
 <p class="code">
 520
 </p>
+
 <h3>while / do ～ while 節</h3>
 C系言語の while / do ～ while 節と同様。継続条件を満たしている間、ループを繰り返す。<br>
 do ～ wihle 節は、継続条件を満たしているかに関わらず、必ず一回はループの処理を行う。<br>
+
 <h4>while 節</h4>
 <p class="code">
 $i   = <ltr>0</ltr>;
 $sum = <ltr>0</ltr>;
 $ary = <ltr>@(100, 120, 300)</ltr>
+
 <cmt># 変数 $i < 3 の間、ループを継続</cmt>
 <kwd>while</kwd>($i -lt 3)
 {
   $sum += $ary[$i];
   $i++;
 }
+
 <kwd>Write-Output</kwd> $sum
 </p>
+
 <h4>do ～ while 節</h4>
 <p class="code">
 $i   = <ltr>0</ltr>;
 $sum = <ltr>0</ltr>;
 $ary = <ltr>@(100, 120, 300)</ltr>
+
 <kwd>do</kwd>
 {
   $sum += $ary[$i];
   $i++;
 } <kwd>while</kwd>($i -lt 3) <cmt>#< 変数 $i < 3 の間、ループを継続</cmt>
+
 <kwd>Write-Output</kwd> $sum
 </p>

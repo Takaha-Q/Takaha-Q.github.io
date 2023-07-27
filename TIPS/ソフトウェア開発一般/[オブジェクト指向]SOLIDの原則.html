@@ -26,16 +26,20 @@
 <h5>目次 :</h5>
 <div id="toc"></div>
 <hr>
+
 <!-- 本文ここから -->
+
 <h2>SOLIDの原則とは</h2>
 Robert.C.Martinによって提唱された、オブジェクト指向プログラミングにおけるガイドライン。<br>
 開発者にとって読みやすく、メンテナンスが容易なプログラムを作成するための指針である。<br>
+
 <h3>S : SRP - 単一責務の原則</h3>
  <b>クラス(またはモジュール、ソフトウェアコンポーネント)が担う責務(機能)は一つにする</b> という原則。<br>
 クラスが複数の責務を担っている場合、一つの責務に対する変更が、他の責務に影響してしまう可能性がある。<br>
 このため、クラスが複数の責務を担っている場合は、 <b>責務ごとにクラスを分割し、一段階抽象的な一つの責務を担うクラスがこれらを所有する</b> 。<br>
 ⇒ 責務の階層化<br>
 <a href="TIPS/ソフトウェア開発一般/%E6%A7%8B%E9%80%A0%E5%8C%96%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0.html">モジュール強度を「機能的強度」とする設計を意味する。</a><br>
+
 <h3>O : OCP - 解放閉鎖の原則</h3>
  <b>ソフトウェアのエンティティ(クラス・モジュール・関数)は拡張に対して開き、修正に対して閉じていなければならない</b> という原則。<br>
 <p class="code">
@@ -49,6 +53,7 @@ Robert.C.Martinによって提唱された、オブジェクト指向プログ�
 <kwd>private</kwd>:
     <kwd>string</kwd> m_Name;
 }
+
 <cmt>// 鳴く</cmt>
 <kwd>void</kwd> Animal::Sound()
 {
@@ -77,6 +82,7 @@ case 節を列挙することにより関数、クラスが肥大化し、整備
     <cmt>// 鳴く(純粋仮想関数)</cmt>
     <kwd>virtual</kwd> <kwd>void</kwd> Sound() = <ltr>0</ltr>;
 }
+
 <cmt>// 「犬」クラス</cmt>
 <kwd>class</kwd> Dog : <kwd>public</kwd> Animal
 {
@@ -84,6 +90,7 @@ case 節を列挙することにより関数、クラスが肥大化し、整備
     <cmt>// 鳴く(オーバーライド)</cmt>
     <kwd>void</kwd> Sound() { cout &lt;&lt; <ltr>"わんわん"</ltr>; }
 }
+
 <cmt>// 「猫」クラス</cmt>
 <kwd>class</kwd> Cat : <kwd>public</kwd> Animal
 {
@@ -91,6 +98,7 @@ case 節を列挙することにより関数、クラスが肥大化し、整備
     <cmt>// 鳴く(オーバーライド)</cmt>
     <kwd>void</kwd> Sound() { cout &lt;&lt; <ltr>"にゃー"</ltr>; }
 }
+
 <cmt>// 「蛇」クラス</cmt>
 <kwd>class</kwd> Snake : <kwd>public</kwd> Animal
 {
@@ -102,6 +110,7 @@ case 節を列挙することにより関数、クラスが肥大化し、整備
 ここでは新しい動物(蛇)を追加する場合でも Animal クラスを変更する必要は無く、影響範囲は新たに定義する Snake クラスで閉じられる。<br>
 即ち Animal クラスは「拡張」に対して開き、「変更」に対して閉じている。<br>
 OCPが守られることで、既存の構成要素が他の構成要素の変更から全く影響を受けなくなる。<br>
+
 <h3>L : LSP - リスコフの置換原則</h3>
  <b>サブクラスは、そのスーパークラスで代用可能でなければならない</b> という原則。 <b>その逆も同様である</b> 。<br>
 <p class="code">
@@ -122,6 +131,7 @@ Sample 型の引数を取る hogehoge() 関数において、Sample 型から派
     <kwd>virtual</kwd> <kwd>void</kwd> drawSquare() = <ltr>0</ltr>;     <cmt>//&lt; 正方形を描画</cmt>
     <kwd>virtual</kwd> <kwd>void</kwd> drawRectangle() = <ltr>0</ltr>;  <cmt>//&lt; 矩形を描画</cmt>
 }
+
 <cmt>// クラス「円」</cmt>
 <kwd>class</kwd> Circle : <kwd>public</kwd> Shape
 {
@@ -130,6 +140,7 @@ Sample 型の引数を取る hogehoge() 関数において、Sample 型から派
     <kwd>void</kwd> drawSquare();                 <cmt>//&lt; 正方形を描画</cmt>
     <kwd>void</kwd> drawRectangle();              <cmt>//&lt; 矩形を描画</cmt>
 }
+
 <cmt>// クラス「正方形」</cmt>
 <kwd>class</kwd> Squqre : <kwd>public</kwd> Shape
 {
@@ -138,6 +149,7 @@ Sample 型の引数を取る hogehoge() 関数において、Sample 型から派
     <kwd>void</kwd> drawSquare();                 <cmt>//&lt; 正方形を描画</cmt>
     <kwd>void</kwd> drawRectangle();              <cmt>//&lt; 矩形を描画</cmt>
 }
+
 <cmt>// クラス「矩形」</cmt>
 <kwd>class</kwd> Rectangle : <kwd>public</kwd> Shape
 {
@@ -158,30 +170,35 @@ Circle クラスは「円」を司っているため、drawSquare() および dr
 <kwd>public</kwd>:
     <kwd>virtual</kwd> <kwd>void</kwd> drawCircle() = <ltr>0</ltr>;     <cmt>//&lt; 円を描画</cmt>
 }
+
 <cmt>// 「正方形を描画」インタフェースクラス</cmt>
 <kwd>class</kwd> DrawSquareIf
 {
 <kwd>public</kwd>:
     <kwd>virtual</kwd> <kwd>void</kwd> drawSquare() = <ltr>0</ltr>;     <cmt>//&lt; 正方形を描画</cmt>
 }
+
 <cmt>// 「矩形を描画」インタフェースクラス</cmt>
 <kwd>class</kwd> DrawRectangleIf
 {
 <kwd>public</kwd>:
     <kwd>virtual</kwd> <kwd>void</kwd> drawRectangle() = <ltr>0</ltr>;  <cmt>//&lt; 矩形を描画</cmt>
 }
+
 <cmt>// クラス「円」</cmt>
 <kwd>class</kwd> Circle : <kwd>public</kwd> DrawCircleIf
 {
 <kwd>public</kwd>:
     <kwd>void</kwd> drawCircle();                 <cmt>//&lt; 円を描画</cmt>
 }
+
 <cmt>// クラス「正方形」</cmt>
 <kwd>class</kwd> Squqre : <kwd>public</kwd> DrawSquareIf
 {
 <kwd>public</kwd>:
     <kwd>void</kwd> drawSquare();                 <cmt>//&lt; 正方形を描画</cmt>
 }
+
 <cmt>// クラス「矩形」</cmt>
 <kwd>class</kwd> Rectangle : <kwd>public</kwd> DrawRectangleIf
 {
@@ -197,18 +214,21 @@ Circle クラスは「円」を司っているため、drawSquare() および dr
 <kwd>public</kwd>:
     <kwd>virtual</kwd> <kwd>void</kwd> draw() = <ltr>0</ltr>;     <cmt>//&lt; 描画</cmt>
 }
+
 <cmt>// クラス「円」</cmt>
 <kwd>class</kwd> Circle : <kwd>public</kwd> Shape
 {
 <kwd>public</kwd>:
     <kwd>void</kwd> draw();                 <cmt>//&lt; 描画</cmt>
 }
+
 <cmt>// クラス「正方形」</cmt>
 <kwd>class</kwd> Squqre : <kwd>public</kwd> Shape
 {
 <kwd>public</kwd>:
     <kwd>void</kwd> draw();                 <cmt>//&lt; 描画</cmt>
 }
+
 <cmt>// クラス「矩形」</cmt>
 <kwd>class</kwd> Rectangle : <kwd>public</kwd> Shape
 {
@@ -225,6 +245,7 @@ Circle クラスは「円」を司っているため、drawSquare() および dr
 <li>高水準モジュールは低水準モジュールに依存してはならない。両者は抽象化に依存するべきである。</li>
 <li>抽象化は、詳細に依存してはならない。詳細は、抽象化に依存するべきである。</li>
 </ul>
+
 <p class="code">
 <kwd>class</kwd> Hoge
 {
@@ -247,6 +268,7 @@ Hoge クラスは Obj クラス(低水準モジュール・詳細・具体化)�
 <kwd>public</kwd>:
     <kwd>virtual</kwd> <kwd>void</kwd> mogo() = <ltr>0</ltr>;
 }
+
 <kwd>class</kwd> Hoge
 {
 <kwd>public</kwd>:
@@ -256,4 +278,4 @@ Hoge クラスは Obj クラス(低水準モジュール・詳細・具体化)�
     }
 }
 </p>
-Hoge は具体的な特定のクラスではなく、抽象化に依存している。このため、実際に渡されるオブジェクトの型によらず、柔軟な対応が可能となる。<br>
+Hoge は具体的な特定のクラスではなく、抽象化に依存している。このため、実際に渡されるオブジェクトの型によらず、柔軟な対応が可能となる。

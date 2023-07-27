@@ -24,7 +24,7 @@
 <div id="toc"></div>
 <hr>
 <!-- 本文ここから -->
-</table>
+
 C/C++で作成したDLLをC#でインポートし、関数をコールするための手順(ここではVisual Studio 2013を用いる)を記す。<br>
 <h2>1. ライブラリ(C++)側の操作</h2>
 ライブラリを作成する。<br>
@@ -34,6 +34,7 @@ C/C++で作成したDLLをC#でインポートし、関数をコールするた�
 Program.cs<br>
 <p class="code">
 <kwd>using</kwd> System.Runtime.InteropServices;
+
 <kwd>namespace</kwd> Application
 {
     <kwd>internal</kwd> <kwd>class</kwd> Program
@@ -42,6 +43,7 @@ Program.cs<br>
         <cmt>// Library.dll の Test() 関数を _Test() 関数に紐づける</cmt>
         [DllImport( <ltr>"Library.dll"</ltr>, EntryPoint = <ltr>"Test"</ltr>)]
         <kwd>static extern void</kwd> _Test();
+
         <kwd>static void</kwd> Main()
         {
             _Test();
@@ -49,11 +51,13 @@ Program.cs<br>
     }
 }
 </p>
+
 <h2>注意が必要な点</h2>
 <h3>データ型の差異を吸収(マーシャリング)</h3>
 C++とC#では型に互換性が無く、データをそのままの形式で渡すことができない場合が存在する。<br>
 (例 : C++の string とC#の string は互換性が無い)<br>
 このため、データの授受に当たっては、互換性のある形式に変換する必要がある。<br>
 詳細は<a href="TIPS/C%20Sharp/マーシャリング.html">マーシャリング</a>を参照。<br>
+
 <h3>ビルド環境の考慮</h3>
 64bitでビルドしたアプリケーションは64bitのDLLしかインポートできないため、プロジェクトの設定を揃える必要がある。(32bitも同様？)

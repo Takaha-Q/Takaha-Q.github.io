@@ -19,6 +19,7 @@
 <h5>目次 :</h5>
 <div id="toc"></div>
 <hr>
+
 <!-- 本文ここから -->
 <h2>Installer Projectを用いたインストーラ―作成</h2>
 <h3>準備 : Installer Projectのインストール</h3>
@@ -30,11 +31,13 @@
     <li>インストーラーが起動するので、「Modify」をクリックする。<br><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Installer/03.png" alt=""></li>
     <li>インストール完了。<br><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Installer/04.png" alt=""></li>
 </ol>
+
 <h3>インストーラープロジェクトの作成</h3>
 <ol>
     <li>Visual Studioでプロジェクト「Setup Project」を新規作成する。<br><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Installer/05.png" alt=""></li>
     <li>プロジェクトが作成される。<br><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Installer/06.png" alt=""></li>
 </ol>
+
 <h3>展開するファイルの追加</h3>
 <ol>
     <li>「Application Folder」を右クリック、「Add」>「ファイル」を選択する。<br><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Installer/07.png" alt=""></li>
@@ -42,7 +45,9 @@
     <li>選択したファイルが出力対象として追加される。<br>
         (ここではショートカットに使用するアイコンを含めている。)<br>
         <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Installer/08.png" alt=""></li>
+
 </ol>
+
 <h3>デスクトップショートカットの追加</h3>
 <ol>
     <li>「User's Desktop」を選択後右ペインで右クリック、リンク先に設定したいファイルを右クリック、「新しいショートカットの作成」を選択する。<br><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Installer/10.png" alt=""></li>
@@ -51,11 +56,14 @@
     <li>「Browse...」をクリックする。<br><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Installer/13.png" alt=""></li>
     <li>アイコンとして使用するファイルを選択し、「OK」をクリックする。再度「OK」をクリックして決定。<br><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Installer/14.png" alt=""></li>
 </ol>
+
 <h3>プログラムメニューショートカットの追加</h3>
 「User's Programs Menu」に対して行う。手順は「User's Desktop」と同様。
+
 <h3>発行情報の編集</h3>
 「ソリューション エクスプローラー」上でインストーラ―プロジェクトを選択、F4キーでプロパティを開き、各項目を適宜変更する。<br>
 以下、主要な項目を抜粋。これ以外の項目は通常は変更不要。
+
 <table>
     <tr class="row1">
         <td class="col1">項目</td>
@@ -71,11 +79,14 @@
     <tr><td class="col1">UpgaredeCode</td><td>バージョン識別子(自動生成)</td></tr>
     <tr><td class="col1">Version</td><td>バージョン番号</td></tr>
 </table>
+
 上記のうち、ProductCode はバージョンを除いた製品情報、UpgaredeCode はバージョンを含めた情報を基に自動生成される。<br>
 このため、バージョンを更新した際には UpgaredeCode を更新するかの問い合わせが発生する。
+
 <h3>ビルドおよびその他の操作</h3>
 プロジェクトの右クリックメニューからビルド(およびリビルド)が実行できる。<br>
 右クリックメニューからは他にも以下の操作が実行可能。「インストール」、「アンインストール」はインストーラ―の動作を確認するのに便利である。<br>
+
 <table>
     <tr class="row1">
         <td class="col1">項目</td>

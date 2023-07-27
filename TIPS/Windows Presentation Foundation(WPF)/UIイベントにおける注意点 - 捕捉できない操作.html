@@ -20,17 +20,21 @@
 <h5>目次 :</h5>
 <div id="toc"></div>
 <hr>
+
 <!-- 本文ここから -->
+
 <h2>WPFにおけるユーザ操作の受付</h2>
 WPFアプリケーションにおいてマウスやキーボードなどの操作を捕捉しようとしても、対象となるコントロール( = イベントセンダ)や押下したキーによっては<br>
 本来発生するはずのイベント( MouseDown 、KeyDown など)が発生しない。<br>
 その場合は、対となる Preview イベントを捕捉することで代用が可能である。<br>
+
 <h2>Preview イベントとは</h2>
 ユーザ操作によって発生するイベントのうち、本イベントに先だって発生するもの。<br>
 例えばマウスボタンを押下した場合、本イベントの MouseDown イベントの前に PreviewMouseDown イベントが発生する。<br>
 これらは<a href="TIPS/Windows Presentation Foundation(WPF)/ルーティングイベント.html">ルーティングイベント</a>として連携されており、Preview イベントにてイベント引数を「処理済み」<br>
 ( EventArgs.Handled = true )<br>
 とすることで、後続の本イベントの発生を抑制することができる。
+
 <h2>Preview イベントの例</h2>
 Preview イベントの一部を下表に記す。
 <table>

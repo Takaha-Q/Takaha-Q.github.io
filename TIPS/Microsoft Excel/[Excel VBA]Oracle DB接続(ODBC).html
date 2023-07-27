@@ -30,7 +30,7 @@ ODBCによるOracle DB接続
 <div id="toc"></div>
 <hr>
 <!-- 本文ここから -->
-<!-- ～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～ -->
+
 <h2>VBAからのOracle DB接続(ODBC使用)</h2>
 Oracle製ODBCドライバ(ここでは Instant Client 19.8)を使用してOracle DBに接続するためのサンプルコードを以下に記す。<br>
 ODBCの設定に関しては、<a href="
@@ -38,13 +38,17 @@ TIPS/データベース/ODBCによるOracle%20DB接続.html
 ">
 ODBCによるOracle DB接続
 </a> を参照のこと。
+
 <p class="code">
 <kwd>Sub</kwd> Sample_ODBC_oracle()
+
     <kwd>Const</kwd> DRIVER = <ltr>"{Oracle in instantclient_19_8}"</ltr> <cmt>' ドライバ名</cmt>
     <kwd>Const</kwd> IP = <ltr>"100.50.53.129"</ltr>                      <cmt>' 接続先のIPアドレス</cmt>
     <kwd>Const</kwd> PORT = <ltr>"1521"</ltr>                             <cmt>' ポート番号</cmt>
     <kwd>Const</kwd> NETSERVICENAME = <ltr>"p2db"</ltr>                   <cmt>' ネットサービス名</cmt>
+
     <kwd>Const</kwd> DSN = <ltr>"PRIME2"</ltr>                            <cmt>' データソース名 (tnsnames.ora で設定)</cmt>
+
     <kwd>Const</kwd> USERNAME = <ltr>"p2dbown"</ltr>                      <cmt>' ユーザー名</cmt>
     <kwd>Const</kwd> PASSWORD = <ltr>"p2dbown"</ltr>                      <cmt>' パスワード</cmt>
     
@@ -52,6 +56,7 @@ ODBCによるOracle DB接続
 <cmt>    ' 接続文字列の構成</cmt>
 <cmt>    ' (接続方法は以下のいずれかを選択する)</cmt>
     <kwd>Dim</kwd> strCon <kwd>As String</kwd>
+
 <kwd>#If</kwd> 1 <kwd>Then</kwd>
 <cmt>    ' ドライバと接続先を直接指定する場合</cmt>
     strCon = <ltr>"DRIVER="</ltr> & DRIVER
@@ -65,6 +70,7 @@ ODBCによるOracle DB接続
 <cmt>    ' (事前に tnsnames.ora でのデータソース定義が必要)</cmt>
     strCon = <ltr>"DSN="</ltr> & DSN
 <kwd>#End If</kwd>
+
     strCon = strCon & <ltr>";UID="</ltr> & USERNAME
     strCon = strCon & <ltr>";PWD="</ltr> & PASSWORD
     
@@ -74,6 +80,7 @@ ODBCによるOracle DB接続
     <kwd>Set</kwd> cn = <kwd>New</kwd> ADODB.Connection
     cn.ConnectionString = strCon
     cn.Open
+
 <cmt>    ' ---------------------------------------</cmt>
 <cmt>    ' SQL文構成</cmt>
     <kwd>Dim</kwd> strSQL <kwd>As String</kwd>
@@ -84,11 +91,14 @@ ODBCによるOracle DB接続
     <kwd>Dim</kwd> rs <kwd>As</kwd> ADODB.Recordset
     <kwd>Set</kwd> rs = <kwd>New</kwd> ADODB.Recordset
     rs.Open strSQL, cn
+
 <cmt>    ' ---------------------------------------</cmt>
 <cmt>    ' 取得したデータをワークシートに転記</cmt>
     <kwd>Dim</kwd> col <kwd>As Long</kwd>
     <kwd>Dim</kwd> row <kwd>As Long</kwd>
+
     <kwd>With</kwd> Worksheets(<ltr>"oracle_odbc"</ltr>)
+
         .Cells.Clear
     
 <cmt>        ' フィールド名</cmt>
@@ -113,6 +123,7 @@ ODBCによるOracle DB接続
     
 <kwd>End Sub</kwd>
 </p>
+
 <h3>Recordset に読み込んだデータへのアクセス</h3>
 Recordset (オブジェクト名を rs とする)のデータは、上記のようにフィールドのインデクス(0 起算)を指定するか、<br>
 またはフィールド名を直接指定することで取得できる。<br>
@@ -125,8 +136,10 @@ rs.MoveFirst で先頭のレコードまで巻き戻すことも可能。<br>
 <cmt>    ' インデクス(col)でフィールドを指定</cmt>
 <cmt>    ' col : 0 ～ rs.Fields.Count - 1</cmt>
     tempVal = rs(col).Value
+
 <cmt>    ' フィールド名("Hoge")でフィールドを指定</cmt>
     tempVal = rs.Fields("Hoge").Value
+
 <cmt>    ' 取得した値が Null であれば 0 に置換する</cmt>
     <kwd>If</kwd> IsNull(tempVal) <kwd>Then</kwd>
         Cells(1, 1).Value = 0

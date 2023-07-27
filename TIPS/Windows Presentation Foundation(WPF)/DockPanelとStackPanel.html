@@ -23,16 +23,21 @@
 <div id="toc"></div>
 <hr>
 <!-- 本文ここから -->
+
 <h2>DockPanel / StackPanel コントロール</h2>
 WPFにてレイアウトを行う際に、コントロール(子要素)を配置するための下地となるコントロール。<br>
 それぞれ子要素の配置のさせ方が異なる。<br>
+
 <h3>DockPanel</h3>
 Panelの上下左右端への配置を簡単に行える。配置の優先度は記述順となる。
+
 <h4>実装例</h4>
 <h5>XAML</h5>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_Panels/01.png">
+
 <h5>表示</h5>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_Panels/02.png">
+
 <h5>解説</h5>
 <ul><li>(1)は上端(Top)にドッキングされる。
 </li><li>(2)も同様に上端にドッキング指定されているが、先に記述された(1)が優先されるため、(1)の直下に配置される。
@@ -45,18 +50,23 @@ Panelの上下左右端への配置を簡単に行える。配置の優先度は
 <br>(プロパティ LastChildFill == "True" の場合。既定値 True のため明示的な指定は不要。)
 </li>
 </ul>
+
 <h4>LastChildFill プロパティ</h4>
 DockPanel 上で最後に配置した子要素に残りの全余白を充てる設定。<br>
 上述の例のように、大きさの決まった要素を予め配置しておき、最後に配置した要素は余白に準じた大きさとする場合に便利だが、<br>
 大きさ(Width 、Height)が無効化されるため、大きさを指定したい場合は LastChildFill = "False" とする。
+
 <h3>StackPanel</h3>
 子要素を縦一列、または横一列に並べる際に用いる。DockPanel に比べリソースの消費が少ない。<br>
 並べる方向はプロパティ Orientation で指定する。
+
 <h4>実装例 : 縦並び (Orientation = "Vertical")</h4>
 <h5>XAML</h5>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_Panels/03.png">
+
 <h5>表示</h5>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_Panels/04.png">
+
 <h5>解説</h5>
 <ul>
     <li>Orientation の既定値は "Vertical" のため、明示的に指定を行わなければ子要素は縦並びとなる。
@@ -68,11 +78,14 @@ DockPanel 上で最後に配置した子要素に残りの全余白を充てる�
         </li>
         
 </ul>
+
 <h4>実装例 : 横並び (Orientation = "Horizontal")</h4>
 <h5>XAML</h5>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_Panels/05.png">
+
 <h5>表示</h5>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_Panels/06.png">
+
 <h5>解説</h5>
 <ul>
     <li>(1)は左端に配置される。VerticalAlignment の既定値は "Stretch" で、親要素の高さがそのまま適用される。

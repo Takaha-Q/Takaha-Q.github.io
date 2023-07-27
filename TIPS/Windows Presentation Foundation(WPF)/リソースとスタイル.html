@@ -26,31 +26,38 @@
 <h5>目次 :</h5>
 <div id="toc"></div>
 <hr>
+
 <!-- 本文ここから -->
+
 <h2>概要</h2>
 リソース、スタイルはWPFにおいてコントロールの外観をカスタマイズするための機構である。<br>
 これらは一度定義すれば再利用が可能であり、デザインに統一感を持たせることが容易となる。<br>
 また、UIの設定を一元管理することで保守性も向上できる。<br>
+
 <h2>リソース</h2>
 複数のUI要素(コントロール)でひとつのオブジェクトを共有するための仕組み。<br>
 例えば背景色を指定するためのブラシをリソースとして作成しておき、複数の Button で共有するといった使い方ができる。<br>
 リソースを用いてオブジェクトを共有した場合、コントロールごとにオブジェクトを作成するよりもインスタンス生成のオーバーヘッドが削減できる。
+
 <h3>リソースの定義</h3>
 リソースは( System.Windows.FrameworkElement 型を継承する) Window 等の要素の、Resources プロパティ内に定義する。<br>
 この Resources プロパティは ResourceDictionary 型の辞書(連想配列)で、キー、値のいずれもが object 型となっている。<br>
 要素の定義(追加)の際は、キーとして使用される <b>x:Key 属性の指定が必須である</b>。
 (但し、後述の「スタイル」は TargetType を指定することで代替が可能である。)
+
 <br>(XAML)
 <div class="xaml">
 &lt;Window x:Class="WpfApplication1.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="100" Width="200"&gt;
+
     <cmt>&lt;!-- リソース(SolidColorBrush)の定義 --&gt;</cmt>
     <cmt>&lt;!-- キー(x:Key)に <b class="blue">MyBrush</b> を指定 --&gt;</cmt>
     &lt;Window.Resources&gt;
         <b>&lt;SolidColorBrush x:Key="<blue>MyBrush</blue>" Color="Blue"/&gt;</b>
     &lt;/Window.Resources&gt;
+
     &lt;StackPanel&gt;
         <cmt>&lt;!-- Button にリソースを適用 --&gt;</cmt>
         &lt;Button Content="Button 1"
@@ -58,12 +65,16 @@
         &lt;Button Content="Button 2"
                 Background="<b>{StaticResource ResourceKey=<blue>MyBrush</blue>}</b>"/&gt;
     &lt;/StackPanel&gt;
+
 &lt;/Window&gt;
 </div>
+
 ここで、"ResourceKey=" は省略可能。以下も同様。
+
 (表示)<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_Resource_Style_Template/01.png" alt=""><br>
 ふたつの Button に背景色が設定されている。このとき、生成される Brush はひとつである点に注意。
+
 <h3>リソースの参照</h3>
 リソースの参照時は、<b>StaticResource または DynamicResource マークアップ拡張を用いる</b>。<br>
 <ul>
@@ -72,61 +83,78 @@
 </ul>
 リソースの検索は、内側(子孫)から外側(祖先)に向かって行われる。<br>
 このとき、同名のキーを持つリソース・ディクショナリが存在する場合は、<b>より内側にあるリソースが優先される</b>。<br>
+
 <div class="xaml">
 &lt;Window x:Class=" WpfApplication1.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;
+
     <cmt>&lt;!-- (Window) <b class="red">Brush1</b> 、<b class="red">Brush2</b> の定義 --&gt;</cmt>
     &lt;Window.Resources&gt;
         &lt;SolidColorBrush x:Key="<b class="red">Brush1</b>" Color="Red" /&gt;
         &lt;SolidColorBrush x:Key="<b class="red">Brush2</b>" Color="Red" /&gt;
     &lt;/Window.Resources&gt;
+
     &lt;StackPanel&gt;
         <cmt>&lt;!-- (StackPanel) <b class="blue">Brush2</b> の定義 --&gt;</cmt>
         &lt;StackPanel.Resources&gt;
             &lt;SolidColorBrush x:Key="<b class="blue">Brush2</b>" Color="Blue" /&gt;
         &lt;/StackPanel.Resources&gt;
+
         &lt;Button Content="ボタン1"
                 Background="{StaticResource ResourceKey=<b class="red">Brush1</b>}"/&gt;
+
         <cmt>&lt;!-- より内側にある StackPanel の <b class="blue">Brush2</b> を参照する --&gt;</cmt>
         &lt;Button Content="ボタン2"
                 Background="{StaticResource ResourceKey=<b class="blue">Brush2</b>}"/&gt;
     &lt;/StackPanel&gt;
+
 &lt;/Window&gt;
 </div>
+
 <h3>外部リソース</h3>
 リソースは ####.Resources タグ中に直接定義する以外に、別途用意したXAMLファイル中に定義したリソースをインポートすることが可能である。<br>
 外部リソースのルート要素は <b>ResourceDictionary</b> とし、配下にリソースの各要素を定義する。<br>
+
 <br>外部リソース(Styles.xaml)
 <div class="xaml">
 <bg_lr>&lt;ResourceDictionary</bg_lr>
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;
+
     &lt;Style TargetType="Button"&gt;
         &lt;Setter Property="Background" Value="LightBlue" /&gt;
     &lt;/Style&gt;
+
 <bg_lr>&lt;/ResourceDictionary&gt;</bg_lr>
 </div>
+
 参照側では ####.Resources タグ配下に ResourceDictionary 要素を記述、Source 属性により参照先を指定する。<br>
 <br>(XAML)
 <div class="xaml">
 &lt;Window x:Class=" WpfApplication1.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;
+
     <cmt>&lt;!-- 外部リソース(Style.xaml)をインポート --&gt;</cmt>
     &lt;Window.Resources&gt;
         <bg_ly>&lt;ResourceDictionary Source="Styles.xaml"/&gt;</bg_ly>
     &lt;/Window.Resources&gt;
+
     :
+
 &lt;/Window&gt;    
 </div>
+
 <h3>注意が必要な点</h3>
 Windowsアプリケーションにおいては、アセンブリ中に画像などのバイナリファイルを埋め込むための機構が存在し、<br>
 これは同様に「リソース(アセンブリ・リソース、バイナリ・リソース)」と呼ばれ、WPFでも使用可能である。<br>
 当記事で説明している「リソース(オブジェクト・リソース)」との混同に注意すること。<br>
 以降、単に「リソース」と呼ぶ場合は後者を指すものとする。
+
 <h2>スタイル</h2>
 一連のプロパティ値を複数の要素に適用するための機構。HTMLに対するCSSに類似する。<br>
+
 <h3>基本形</h3>
 <div class="xaml">
 &lt;Style TargetType="Button"&gt;
@@ -140,12 +168,15 @@ Setter 要素の Property 、Value には対象となるプロパティ名と設
 この場合は Button 型が適用対象となり、Background 、Foreground がそれぞれ設定される。<br>
 また、EventSetter 要素を用いることでイベントおよび対応するハンドラを設定できる。<br>
 ここでは Click イベントに DoSomething() メソッドをハンドラとして割り付けている。
+
 <h3>スタイルの記述</h3>
 System.Windows.FrameworkElement 型の Style プロパティに値を設定することでも適用できるが、<br>
 リソース(先述)として定義することでスタイルの効率的な適用と再利用が可能となる。<br>
+
 <br>(XAML)
 <div class="xaml">
 &lt;StackPanel&gt;
+
     &lt;StackPanel.Resources&gt;
 <bg_lb>        <cmt>&lt;!-- x:Key なしのスタイルを定義することで、
              TargetType で指定した型すべてにスタイルを適用する --&gt;</cmt>
@@ -153,17 +184,21 @@ System.Windows.FrameworkElement 型の Style プロパティに値を設定す�
             &lt;Setter Property="Background" Value="LightBlue" /&gt;
             &lt;Setter Property="Foreground" Value="Red" /&gt;
         &lt;/Style&gt;</bg_lb>
+
 <bg_lg>        <cmt>&lt;!-- x:Key の明示 --&gt;</cmt>
         &lt;Style x:Key="MyButtonStyle" TargetType="Button"&gt;
             &lt;Setter Property="Background" Value="DarkSeaGreen" /&gt;
             &lt;Setter Property="Foreground" Value="LightPink" /&gt;
         &lt;/Style&gt;</bg_lg>
     &lt;/StackPanel.Resources&gt;
+
 <bg_lb>    <cmt>&lt;!-- スタイルの自動適用 --&gt;</cmt>
     &lt;Button Content="ボタン1" /&gt;</bg_lb>
+
 <bg_lg>    <cmt>&lt;!-- x:Key を指定して明示的にスタイルを適用 --&gt;</cmt>
     &lt;Button Style="{StaticResource ResourceKey=MyButtonStyle}"
             Content="ボタン2" /&gt;</bg_lg>
+
     <cmt>&lt;!-- スタイルを直接記述 --&gt;</cmt>
     &lt;Button Content="ボタン3"&gt;
         &lt;Button.Style&gt;
@@ -172,65 +207,88 @@ System.Windows.FrameworkElement 型の Style プロパティに値を設定す�
             &lt;/Style&gt;
         &lt;/Button.Style&gt;
     &lt;/Button&gt;
+
 &lt;/StackPanel&gt;
 </div>
+
 (表示)<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_Resource_Style_Template/02.png" alt=""><br>
+
 <h3>スタイルの適用除外</h3>
 <b>Style={x:Null}</b> とすることで、そのコントロールをスタイル自動適用の対象外とすることができる。
+
 <br>(XAML)
 <div class="xaml">
 &lt;StackPanel&gt;
+
     &lt;StackPanel.Resources&gt;
 <bg_lb>        <cmt>&lt;!-- 自動適用(デフォルト)スタイルの定義 --&gt;</cmt>
         &lt;Style TargetType="Button"&gt;
             &lt;Setter Property="Background" Value="LightBlue" /&gt;
             &lt;Setter Property="Foreground" Value="Red" /&gt;
         &lt;/Style&gt;</bg_lb>
+
 <bg_lb>    &lt;Button Content="ボタン1" /&gt;</bg_lb>
+
     &lt;Button Content="ボタン2" Style={x:Null}/&gt;
+
 <bg_lb>    &lt;Button Content="ボタン3" /&gt;</bg_lb>
+
 &lt;/StackPanel&gt;
 </div>
+
 スタイルの指定を行っていない「ボタン1」、「ボタン3」にはデフォルトスタイルが適用されるが、Style={x:Null} を指定した「ボタン2」にはデフォルトスタイルが適用されない。
+
 <h3>スタイルの継承</h3>
 スタイルは BasedOn プロパティを指定することで、他のスタイルを継承できる。<br>
 これにより、スタイルの部分的な変更が可能。<br>
+
 <br>(XAML)
 <div class="xaml">
 &lt;StackPanel Width="90"&gt;
+
     &lt;StackPanel.Resources&gt;
         &lt;Style TargetType="Button"&gt;
             &lt;Setter Property="Background" Value="LightBlue" /&gt;
             &lt;Setter Property="Foreground" Value="Red" /&gt;
         &lt;/Style&gt;
+
         <cmt>&lt;!-- 自動適用版のスタイルを基にして、新たにスタイルを作成 --&gt;</cmt>
         &lt;Style x:Key="MyButtonStyle" TargetType="Button"
                <b>BasedOn="{StaticResource ResourceKey={x:Type Button}}"</b>&gt;
             &lt;Setter Property="FontSize" Value="20" /&gt;
         &lt;/Style&gt;
     &lt;/StackPanel.Resources&gt;
+
     &lt;Button Content="ボタン1" /&gt;
+
     &lt;Button Style="{StaticResource ResourceKey=MyButtonStyle}"
             Content="ボタン2" /&gt;
+
 &lt;/StackPanel&gt;
 </div>
+
 (表示)<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_Resource_Style_Template/03.png" alt=""><br>
+
 <h3>トリガー</h3>
 特定の条件下でのみスタイルを適用したい場合、その条件をトリガーとして指定することができる。<br>
 例えば、マウスオーバー時やクリック時にボタンスタイルを変更する、といったことが可能である。
+
 <div class="xaml">
 &lt;StackPanel Width="60"&gt;
+
     &lt;StackPanel.Resources&gt;
         &lt;Style TargetType="TextBox"&gt;
             &lt;Setter Property="Background" Value="LightGray" /&gt;
+
             <cmt>&lt;!-- トリガー条件の指定 --&gt;</cmt>
             &lt;Style.Triggers&gt;
                 <cmt>&lt;!-- トリガー : マウスオーバー時 --&gt;</cmt>
                 &lt;Trigger Property="IsMouseOver" Value="True"&gt;
                     &lt;Setter Property="Background" Value="LightBlue" /&gt;
                 &lt;/Trigger&gt;
+
                 <cmt>&lt;!-- トリガー : フォーカス時 --&gt;</cmt>
                 &lt;Trigger Property="IsFocused" Value="True"&gt;
                     &lt;Setter Property="Background" Value="LightPink" /&gt;
@@ -238,10 +296,13 @@ System.Windows.FrameworkElement 型の Style プロパティに値を設定す�
             &lt;/Style.Triggers&gt;
         &lt;/Style&gt;
     &lt;/StackPanel.Resources&gt;
+
     &lt;TextBox Text="テキスト" /&gt;
+
 &lt;/StackPanel&gt;
 </div>
 上記の例では、マウスオーバー時に背景が薄青、フォーカス時に薄ピンクとなるテキストボックスが得られる。
+
 <h2>コントロール・テンプレート</h2>
 スタイルを用いることでコントロールの外観をカスタマイズできるが、これだけではカスタマイズ可能な範囲は限定されている。<br>
 Windows Formでは、大幅なカスタマイズを行う場合はコントロールを完全に自作する必要があり、「ボタンのクリック」などの機能から作り直すため負荷が大きかった。<br>

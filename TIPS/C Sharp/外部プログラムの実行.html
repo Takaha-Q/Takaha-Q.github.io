@@ -20,11 +20,14 @@
 <div id="toc"></div>
 <hr>
 <!-- 本文ここから -->
+
 <h2>外部プログラムの呼び出し</h2>
 Process.Start() メソッドを用いることで、外部プログラムを起動できる。
+
 <h2>コード例(同期呼び出し)</h2>
 <p class="code">
 using System.Diagnostics;
+
 <cmt>// プロセス起動情報( ProcessStartInfo )生成</cmt>
 <kwd>var</kwd> sInfo = <kwd>new</kwd> <knw>ProcessStartInfo</knw>
 {
@@ -35,6 +38,7 @@ using System.Diagnostics;
     FileName = <ltr>"git.exe"</ltr>,                       <cmt>//< 実行するプログラム名</cmt>
     Arguments = <ltr>"hogehoge"</ltr>,                     <cmt>//< 実行するプログラムに渡す引数(文字列)</cmt>
 };
+
 <cmt>// プロセス開始( Process.Start() )</cmt>
 <kwd>using</kwd> (<kwd>var</kwd> p = <knw>Process</knw>.Start(sInfo))
 {
@@ -46,13 +50,17 @@ using System.Diagnostics;
     p.Close();
 }
 </p>
+
 上記の例では、"git.exe"に引数"hogehoge"を渡して起動し、実行結果を標準出力から取得している。
+
 <h3>注意が必要な点</h3>
 標準出力から結果を取得する際、日本語などのマルチバイト文字を含んでいると文字化けを起こすことがある。<br>
 これは、<b>標準出力のエンコーディングのデフォルトがシフトJISとなっているため</b>で、<br>
 上記コードのように<b>エンコーディングをUTF-8に設定することで回避できる</b>。<br>
 ( ProcessStartInfo.StandardOutputEncoding = Encoding.UTF8 )
+
 <h2>Processクラスのメンバ(抜粋)</h2>
+
 <table>
     <tr class="row1">
         <th class="col1">種別</th>

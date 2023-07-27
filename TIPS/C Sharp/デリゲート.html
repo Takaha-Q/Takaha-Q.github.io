@@ -23,23 +23,29 @@
 <div id="toc"></div>
 <hr>
 <!-- 本文ここから -->
+
 <h2>デリゲート(delegate)とは</h2>
 メソッドを参照するための型のこと。「他のメソッドに処理を委譲するためのオブジェクト」という意味を持つ。<br>
 用途はC/C++の関数ポインタとほぼ共通である。
+
 <p class="code">
 <kwd>using</kwd> <knw>System</knw>;
+
 <cmt>// デリゲート型 SomeDelegate の定義</cmt>
 <cmt>// (引数 : int a / 戻り値 : void)</cmt>
 <kwd>delegate void</kwd> SomeDelegate(<kwd>int</kwd> a);
+
 <kwd>class</kwd> DelegateTest
 {
     <kwd>static void</kwd> Main()
     {
         <cmt>// SomeDelegate 型変数 a にメソッド A を代入</cmt>
         SomeDelegate a = A;
+
         a(<ltr>256</ltr>);     <cmt>// デリゲートを介してメソッドを呼び出す</cmt>
                     <cmt>// (この例では A(256) が呼ばれる)</cmt>
     }
+
     <cmt>// デリゲート変数に代入されるメソッド A</cmt>
     <kwd>static void</kwd> A(<kwd>int</kwd> n)
     {
@@ -47,14 +53,18 @@
     }
 }
 </p>
+
 <h2>デリゲートの特徴</h2>
 <h3>インスタンスメソッドの代入</h3>
 C++の関数ポインタと異なり、デリゲートにはクラスメソッド(static)だけでなく、インスタンスメソッド(non-static)を代入することができる。<br>
 (<a href="TIPS/C・C%2B%2B/[C%2B%2B]メンバ関数ポインタ.html">C++でもインスタンスメソッド(メンバ関数)の関数ポインタを作成することはできるが、手順が煩雑で制約がある</a>。)
+
 <div class="code">
 <kwd>using</kwd> <knw>System</knw>;
+
 <cmt>// メッセージを表示するデリゲート</cmt>
 <kwd>delegate void</kwd> ShowMessage();
+
 <cmt>// Person クラスの定義</cmt>
 <kwd>class</kwd> Person
 {
@@ -65,26 +75,33 @@ C++の関数ポインタと異なり、デリゲートにはクラスメソッ�
         <knw>Console</knw>.WriteLine("名前: {name}");
     }
 };
+
 <kwd>class</kwd> DelegateTest
 {
     <kwd>static void</kwd> Main()
     {
         Person p = <kwd>new</kwd> Person("John Doe");
+
         <cmt>// デリゲート変数にインスタンスメソッドを代入</cmt>
         ShowMessage show = p.ShowName;
+
         <cmt>// デリゲートを介してメソッドが呼ばれる</cmt>
         show();
     }
 }
 </div>
+
 <h3>複数のメソッドを代入(マルチキャストデリゲート)</h3>
 <span class="code">+=</span>演算子を用いることで、一つのデリゲート変数に複数のメソッドを代入できる。<br>
 この状態でデリゲート呼び出しを行うと、<b>代入されたすべてのメソッドが順次実行される</b>。<br>
 また、一つのデリゲート変数にクラスメソッドとインスタンスメソッドを混在させることも可能である。
+
 <div class="code">
 <kwd>using</kwd> <knw>System</knw>;
+
 <cmt>// メッセージを表示するデリゲート</cmt>
 <kwd>delegate void</kwd> ShowMessage();
+
 <kwd>class</kwd> DelegateTest
 {
     <kwd>static void</kwd> Main()
@@ -93,15 +110,18 @@ C++の関数ポインタと異なり、デリゲートにはクラスメソッ�
         ShowMessage a = A;
         a += B;             <cmt>//< 追加代入</cmt>
         a += C;             <cmt>//< 追加代入</cmt>
+
         <cmt>// デリゲートを介してメソッドが呼ばれる</cmt>
         <cmt>// ここでは登録順( A() ⇒ B() ⇒ C() )に呼ばれる</cmt>
         a();
     }
+
     <kwd>static void</kwd> A(){ <knw>Console</knw>.WriteLine("A が呼ばれました。"); }
     <kwd>static void</kwd> B(){ <knw>Console</knw>.WriteLine("B が呼ばれました。"); }
     <kwd>static void</kwd> C(){ <knw>Console</knw>.WriteLine("C が呼ばれました。"); }
 }
 </div>
+
 <h2>デリゲートと匿名関数</h2>
 旧い規格であるC#1.1でデリゲートを使う際は、上述したような手法で別途定義したメソッドを変数に格納する必要があった。<br>
 C#2.0以降では、デリゲートを渡すことが期待される個所に直接、名前の無いメソッド(匿名メソッド式)を記述することができるため、<br>

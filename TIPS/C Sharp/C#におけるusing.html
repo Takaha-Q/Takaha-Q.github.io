@@ -25,6 +25,7 @@
 <div id="toc"></div>
 <hr>
 <!-- 本文ここから -->
+
 <h2>C#における using の類型</h2>
 <h3>using ディレクティブ</h3>
 異なる名前空間に定義されているクラスを使用する際、ファイルの冒頭に using ディレクティブを記述することで、<br>
@@ -32,6 +33,7 @@
 <p class="code">
 <cmt>// using ディレクティブ</cmt>
 <kwd>using</kwd> <knw>System</knw>.Collections.Generic;
+
 <kwd>namespace</kwd> Test
 {
     <kwd>class</kwd> TestProgram
@@ -41,16 +43,19 @@
             <cmt>// using ディレクティブにより記述を省略できる</cmt>
             <cmt>// System.Collections.Generic.List ⇒ List</cmt>
             <knw>List</knw>&lt;<kwd>int</kwd>&gt; index;
+
             :
         }
     }   
 }
 </p>
+
 <h3>using エイリアスディレクティブ</h3>
 型に別名を付与することができる。<a href="TIPS/C・C%2B%2B/[C%2B%2B]typedefとusing.html">C++と同様</a>。
 <p class="code">
 <cmt>// using エイリアスディレクティブ</cmt>
 <kwd>using</kwd> Ints = <knw>System</knw>.Collections.Generic.<knw>List</knw>&lt;<kwd>int</kwd>&gt;;
+
 <kwd>namespace</kwd> Test
 {
     <kwd>class</kwd> TestProgram
@@ -64,6 +69,7 @@
     }   
 }
 </p>
+
 <h3>using 静的ディレクティブ</h3>
 C#6.0以降で使用可能。<br>
 通常の using ディレクティブでは省略できない静的メソッドや列挙型の列挙値は、<br>
@@ -73,6 +79,7 @@ using static ディレクティブを用いることで省略可能となる。
 <cmt>// 以下、using 静的ディレクティブ</cmt>
 <kwd>using static</kwd> <knw>System</knw>.Enum;
 <kwd>using static</kwd> Colors;
+
 <kwd>enum</kwd> Colors
 {
     Red,
@@ -81,6 +88,7 @@ using static ディレクティブを用いることで省略可能となる。
     White,
     Black,
 }
+
 <kwd>namespace</kwd> Test
 {
     <kwd>class</kwd> TestProgram
@@ -99,6 +107,7 @@ using static ディレクティブを用いることで省略可能となる。
     }   
 }
 </p>
+
 <h3>using ステートメント</h3>
 ファイルストリームなどのアンマネージドリソースを用いる場合、以下の手順が必要となる。
 <ol>
@@ -111,6 +120,7 @@ using static ディレクティブを用いることで省略可能となる。
 <b>使用できるのは IDisposable インタフェースを実装するクラスに限定される</b>。<br>
 (そうでないクラスはそもそも Dispose が不要で、実行できない。)<br>
 C++における<a href="TIPS/C・C%2B%2B/[C%2B%2B]RAIIと地蔵インスタンス.html">RAII</a>と同様、例外発生時にも有効で、例外安全なコードとなる。
+
 <p class="code">
 <kwd>namespace</kwd> Test
 {
@@ -122,12 +132,15 @@ C++における<a href="TIPS/C・C%2B%2B/[C%2B%2B]RAIIと地蔵インスタン�
             <cmt>// ⇒ スコープを抜ける際に、ストリームが破棄される</cmt>
             <kwd>using</kwd> (<knw>FileStream</knw> fs = <kwd>new</kwd> <knw>FileStream</knw>(<ltr>"hoge.txt"</ltr>, FileMode.Open, FileAccess.Read, FileShare.None))
             {   <cmt>//< fs の寿命ここから</cmt>
+
                 <knw>Console</knw>.WriteLine(fs.Length);
+
             }   <cmt>//< fs の寿命ここまで</cmt>
         }
     }   
 }
 </p>
+
 C#8.0からは変数宣言時に using をつけることでさらに簡略化できる。<br>
 (マネージドリソースと同様に扱うことができる。)
 <p class="code">

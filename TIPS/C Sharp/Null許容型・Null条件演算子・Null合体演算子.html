@@ -26,25 +26,31 @@ null合体演算子とnull条件演算子でショートコードプログラミ
 <div id="toc"></div>
 <hr>
 <!-- 本文ここから -->
+
 <h2>Null許容型</h2>
 型名を <b class="red">?</b> で修飾することで、 <b class="red">Null許容型</b>となる。 <br>
 無修飾(本来)の値の型に加え、nullを格納できるようになる。<br><br>
 <b>通常の型(int)</b>
 <p class="code">
 <kwd>int</kwd> value;
+
 <cmt>// value は int 型であるため、null を格納できない ⇒ コンパイルエラー</cmt>
 value = <kwd>null</kwd>;
 </p>
+
 <b>Null許容型(int<blue>?</blue>)</b>
 <p class="code">
 <cmt>// int を <b class="red">?</b> で修飾 ⇒ Null許容型</cmt>
 <kwd>int</kwd><b class="red">?</b> value;
+
 <cmt>// value は int 型の値に加え、null を格納できる ⇒ 正常</cmt>
 value = <kwd>null</kwd>;
 </p>
+
 <h2>Null条件演算子</h2>
 検査対象がnullでない場合はメンバにアクセスし、対象がnullの場合は<b>式全体の評価値がnullとなる</b>。<br>
 (Null条件演算子は代入式の左辺に用いることはできない？要調査。)
+
 <h3>オブジェクト</h3>
 <table>
     <tr class="row1">
@@ -62,6 +68,7 @@ value = <kwd>null</kwd>;
         <td><b>null</b></td>
     </tr>
 </table>
+
 <h3>配列</h3>
 <table>
     <tr class="row1">
@@ -79,24 +86,30 @@ value = <kwd>null</kwd>;
         <td><b>null</b></td>
     </tr>
 </table>
+
 <h2>Null合体演算子</h2>
 <b class="red">?? (Null合体演算子)</b> の左辺値がnullでなければ左辺値をそのまま、nullの場合は右辺値を返すようにできる。
 <p class="code">
 <knw>List</knw>&lt;<kwd>string</kwd>&gt; arr = <kwd>null</kwd>;
 :
+
 <cmt>// len の値 :</cmt>
 <cmt>// arr?.Count != null ⇒ arr.Count</cmt>
 <cmt>// arr?.Count == null ⇒ 0</cmt>
 <kwd>int</kwd> len = arr?.Count <b class="red">??</b> <ltr>0</ltr>;
+
 <cmt>// 以下のコードと等価</cmt>
 <kwd>int</kwd> len = (arr?.Count != <kwd>null</kwd>) ? arr.Count : <ltr>0</ltr>;
 </p>
+
 また、複合代入演算子として <b class="red">??=</b> を使用可能。<br>
 右辺値がnullでなければ右辺値をそのまま代入、nullの場合は何もしない。
 <p class="code">
 <kwd>string</kwd> temp = <knw>String</knw>.Empty;
+
 <cmt>// xxx.Name が null でなければ代入する</cmt>
 temp <b class="red">??=</b> xxx.Name;
+
 <cmt>// 以下のコードと等価</cmt>
 temp = xxx.Name <b class="red">??</b> temp;
 </p>

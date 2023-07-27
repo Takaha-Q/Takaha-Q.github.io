@@ -24,11 +24,14 @@
 <div id="toc"></div>
 <hr>
 <!-- 本文ここから -->
+
 <h2>依存関係プロパティとは</h2>
 データバインディングのターゲットに指定できるプロパティのこと。<br>
 コントロールの既存プロパティはすべて依存関係プロパティとして実装されているため、そのままデータバインディングのターゲットとすることができる。<br>
+
 <h3>原則</h3>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_DependencyProp/03.png" alt=""><br>
+
 依存関係プロパティは通常 <b>DependencyProperty.Register()</b> メソッドを用いて登録を行う。<br>
 上記コードにおける MyNameProperty が依存関係プロパティである。ここで、第1引数( DependencyProperty.Name の値となる)が "MyName" となっているが、<br>
 これはXAMLから当該プロパティを参照する際のエイリアス(別名)として機能する。<br>
@@ -40,6 +43,7 @@ Visual Studioでは <b>propdp</b> スニペットを用いることで、雛型�
 <br>
 また、コントロールは暗黙的に DependencyObject を継承しているため、依存関係プロパティを追加する場合に、<br>
 明示的に DependencyObject を継承する必要はない。
+
 <h2>実装例</h2>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_DependencyProp/04.png" alt=""><br>
 ユーザーコントロール NumericUpDown をウィンドウ CommTestWindow から参照する場合を考える。<br>

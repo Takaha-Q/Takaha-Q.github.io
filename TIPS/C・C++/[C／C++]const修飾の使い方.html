@@ -26,16 +26,20 @@
 <div id="toc"></div>
 <hr>
 <!-- 本文ここから -->
+
 <h2>const修飾とは</h2>
 修飾する対象が <b>不変</b> であることを示すこと。<br>
 「変更できない( = 変更されてはならない)」ことを明示することで、データの予期しない変更を防ぐことができるとともに、<br>
 対象が入力値としてのみ用いられることが判別しやすくなり、コードの安全性・可読性が高まる。<br>
 static修飾との混同に注意。<br>
+
 <h2>const修飾の類型</h2>
+
 <h3>ポインタを修飾する</h3>
  <b>アスタリスクより左に</b> constキーワードを置くと、 <b>当該ポインタが「指し示す先が」読み取り専用となる</b> 。<br>
 <p class="code">
 <kwd>const</kwd> <kwd>char</kwd>* p;  <cmt>/* const修飾されたポインタ変数 */</cmt>
+
 <cmt>/* 以下の処理は許容されない(コンパイルが通らない) */</cmt>
 *p = <ltr>'\<ltr>0</ltr>'</ltr>;
 p[<ltr>15</ltr>] = <ltr>0</ltr>;
@@ -52,6 +56,7 @@ TimeSpan subtract(<kwd>const</kwd> DateTime &amp;lhs, <kwd>const</kwd> DateTime 
 <p class="code">
 <cmt>/* const修飾されているため、ROMに配置される */</cmt>
 <kwd>const</kwd> <kwd>short</kwd> tbl_1[<ltr>8</ltr>] = {  <ltr>1</ltr>, <ltr>2</ltr>, <ltr>3</ltr>, <ltr>4</ltr>, <ltr>5</ltr>, <ltr>6</ltr>, <ltr>7</ltr>, <ltr>8</ltr> };
+
 <cmt>/* const修飾が無いため、RAMを使用する */</cmt>
 <kwd>short</kwd> tbl_2[<ltr>8</ltr>] = {  <ltr>1</ltr>, <ltr>2</ltr>, <ltr>3</ltr>, <ltr>4</ltr>, <ltr>5</ltr>, <ltr>6</ltr>, <ltr>7</ltr>, <ltr>8</ltr> };
 </p>
@@ -65,6 +70,7 @@ IPortOutput* <kwd>const</kwd> g_nanaseg1[<ltr>8</ltr>] = {
   &amp;g_port76, &amp;g_port77, &amp;g_port34, &amp;g_port35,
 };
 </p>
+
 <h3>メンバ変数を修飾する</h3>
 <p class="code">
 <kwd>class</kwd> Real
@@ -94,6 +100,7 @@ const修飾を用いずに記述した場合は以下のようになる。<br>
 ⇒  <b>const修飾を用いることで、生涯不変の「性質」と、変化し得る「状態」を区分できる。</b> <br>
 <br>
 コンストラクタ初期化子については<a href="TIPS/C・C%2B%2B/[C%2B%2B]コンストラクタ初期化子.html">[C++]コンストラクタ初期化子</a>を参照のこと。<br>
+
 <h3>メンバ関数を修飾する</h3>
 <p class="code">
 <kwd>class</kwd> File

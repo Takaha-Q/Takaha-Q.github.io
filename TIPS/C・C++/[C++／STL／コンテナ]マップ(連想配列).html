@@ -25,7 +25,9 @@
 <div id="toc"></div>
 <hr>
 <!-- 本文ここから -->
+
 </li>
+
 <h2>連想配列とは</h2>
 検索に使用するキーと、対応する値のペアを保持するコンテナのこと。<br>
 要素の格納順を意識する必要が無く、また <b>キーによる要素の検索が高速</b> である。<br>
@@ -60,6 +62,7 @@ at() 関数、または添え字演算子([])を使用。<br>
 <p class="code">
 <cmt>// キー OPOS_E_CLOSED に紐づく値 "クローズ中" が出力される</cmt>
 std::cout &lt;&lt; cErrorInfo.at(OPOS_E_CLOSED);
+
 <cmt>// OPOS_E_NOTCLAIMED に紐づく値が "Claim中ではない" から "ごにょごにょ" に変わる</cmt>
 cErrorInfo[OPOS_E_NOTCLAIMED] = <ltr>"ごにょごにょ"</ltr>;
 </p>

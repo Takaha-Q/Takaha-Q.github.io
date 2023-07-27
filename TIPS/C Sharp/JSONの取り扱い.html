@@ -23,6 +23,7 @@
 <div id="toc"></div>
 <hr>
 <!-- 本文ここから -->
+
 <h2>JSON - Dictionaryの相互変換</h2>
 <h3>準備 : アセンブリ System.Text.Json / System.Memory の参照追加</h3>
 <ol>
@@ -37,6 +38,7 @@
         <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/CSharp/Json/03.png">
     </li>
 </ol>
+
 <h3>Dictionary からJSONへの変更(シリアライズ)</h3>
 JsonSerializer を用いることで、string をキーに用いる Dictionary をJSONに変換できる。
 <p class="code">
@@ -49,6 +51,7 @@ JsonSerializer を用いることで、string をキーに用いる Dictionary �
             { <ltr>"Ishikawa"</ltr>, <ltr>"Kanazawa"</ltr> },
             { <ltr>"Miyagi"</ltr>  , <ltr>"Sendai"</ltr>   },
         };
+
     <cmt>// dic をJSONに変換(シリアライズ)</cmt>
     <kwd>string</kwd> jsonStr = <b>System.Text.Json.JsonSerializer.Serialize</b>(dic);
     System.Diagnostics.Debug.Print("{0}", jsonstr);
@@ -57,11 +60,13 @@ JsonSerializer を用いることで、string をキーに用いる Dictionary �
 <p class="code">
 {"Hyogo":"Kobe","Shiga":"Ohtsu","Ishikawa":"Kanazawa","Miyagi":"Sendai"}
 </p>
+
 <h3>JSONから Dictionary への変更(デシリアライズ)</h3>
 JSONを Dictionary に変換する際には、Dictionary の完全な型を与える必要がある。
 <p class="code">
     <cmt>// 元データ(JSON文字列)</cmt>
     <kwd>string</kwd> jsonStr = <ltr>@"{""Hyogo"":""Kobe"",""Shiga"":""Ohtsu"",""Ishikawa"":""Kanazawa"",""Miyagi"":""Sendai""}"</ltr>;
+
     <cmt>// dic をJSONに変換(シリアライズ)</cmt>
     <cmt>// 戻り値となる Dictionary の型を指定する</cmt>
     <kwd>var</kwd> dic = <b>System.Text.Json.JsonSerializer.Deserialize</b>&lt;Dictionary&lt;<kwd>string</kwd>, <kwd>string</kwd>&gt;&gt;(jsonStr);

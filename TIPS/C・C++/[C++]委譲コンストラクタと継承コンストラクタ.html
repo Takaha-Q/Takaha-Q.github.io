@@ -26,12 +26,16 @@
 <h5>目次 :</h5>
 <div id="toc"></div>
 <hr>
+
 <!-- 本文ここから -->
+
 </table>
+
 <h2>委譲コンストラクタ</h2>
 コンストラクタから、同じクラスの他のコンストラクタに処理を委譲する機能のこと。<br>
 コンストラクタから自身の他のコンストラクタを呼ぶことで、共通の初期化処理を一元化することができる。<br>
 C++11で追加された。
+
 <div class="code">
 <cmt>// param 構造体定義</cmt>
 <kwd>struct</kwd> Param
@@ -39,12 +43,14 @@ C++11で追加された。
     <kwd>int</kwd>         id;
     <kwd>std</kwd>::<kwd>string</kwd> name;
 }
+
 <cmt>// Hoge クラス定義</cmt>
 <kwd>class</kwd> Hoge
 {
 <kwd>private</kwd>:
     <kwd>int</kwd>         m_Id;
     <kwd>std</kwd>::<kwd>string</kwd> m_Name;
+
 <kwd>public</kwd>:
     <cmt>// コンストラクタ#1</cmt>
     X(<kwd>int</kwd> i, <kwd>const std</kwd>::<kwd>string</kwd> s)
@@ -52,6 +58,7 @@ C++11で追加された。
     {
         :
     }
+
     <cmt>// コンストラクタ#2</cmt>
     X(<kwd>const</kwd> Param& param)
         : X(param.id, param.name)       <cmt>//< コンストラクタ#1に処理を委譲</cmt>
@@ -60,9 +67,11 @@ C++11で追加された。
     }
 }
 </div>
+
 <h3>基底クラスのコンストラクタを明示的に呼び出す</h3>
 委譲コンストラクタの機能を用いることで、基底クラスのコンストラクタを明示的に指定することができる。<br>
 指定を行わなかった場合は、基底クラスのデフォルトコンストラクタ(引数なし)が呼ばれる。
+
 <div class="code">
 <cmt>// 基底クラス定義</cmt>
 <kwd>class</kwd> Base
@@ -73,12 +82,14 @@ C++11で追加された。
     {
         :
     }
+
     <cmt>// コンストラクタ(引数あり)</cmt>
     Base(<kwd>int</kwd> i, <kwd>const std</kwd>::<kwd>string</kwd> s)
     {
         :
     }
 }
+
 <cmt>// 派生クラス定義</cmt>
 <kwd>class</kwd> Derived : <kwd>public</kwd> Base
 {
@@ -91,13 +102,16 @@ C++11で追加された。
     }
 }
 </div>
+
 上記の例では、基底クラスの引数ありコンストラクタを呼ぶために、明示的な指定を行っている。<br>
 但し、このように派生クラスから基底クラスに引数をそのまま渡す場合は、後述する継承コンストラクタを用いるほうが簡便である。
+
 <h2>継承コンストラクタ</h2>
 基底クラスで定義したコンストラクタ(群)を、派生クラスでそのまま使用できるようにするための糖衣構文。C++11で導入された。<br>
 多くの場合、派生クラスは基底クラスと共通のコンストラクタを有するため、<br>
 継承コンストラクタの導入前は、派生クラスのコンストラクタに渡された引数を基底クラスに転送する必要があった。<br>
 継承コンストラクタを用いることで、この作業が不要となる。
+
 <div class="code">
     <cmt>// 基底クラス#1定義</cmt>
     <kwd>class</kwd> Base1
@@ -145,9 +159,11 @@ C++11で追加された。
 上記の例では、派生クラス Derived は using により、基底クラス Base1 、Base2 のコンストラクタを継承している。<br>
 Derived(int) や Derived(const std::string) はそのまま Base1(int) 、Base2(const std::string) を呼び出すため、<br>
 あらためて派生クラスのコンストラクタを定義する必要が無い。<br>
+
 <h3>一部を明示的に宣言</h3>
 継承コンストラクタを用いた場合でも、特定のコンストラクタのみを再定義することが可能である。<br>
 派生クラスで追加の処理を行う場合や、基底クラスの異なるコンストラクタを呼び出す場合に用いる。
+
 <div class="code">
 <cmt>// 派生クラス定義</cmt>
 <kwd>class</kwd> Derived : <kwd>public</kwd> Base1, Base2
@@ -155,6 +171,7 @@ Derived(int) や Derived(const std::string) はそのまま Base1(int) 、Base2(
 <kwd>public</kwd>:
     <kwd>using</kwd> Base1::Base1;
     <kwd>using</kwd> Base2::Base2;
+
     <cmt>// Derived::Derived(const std::string s) のみを明示的に宣言</cmt>
     Derived(<kwd>const std</kwd>::<kwd>string</kwd> s)
         : Base2::Base2(s)

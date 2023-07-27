@@ -18,6 +18,7 @@
 <div id="toc"></div>
 <hr>
 <!-- 本文ここから -->
+
 <h2>コントロールボックスの有効・無効</h2>
 フォームプロパティから「×」(閉じる)ボタン、最大化ボタン、最小化ボタンの有効・無効を切り替える。
 <table>
@@ -64,13 +65,17 @@
 		<td>最大化・最小化ボタンが<b>非表示</b>となる</td>
 	</tr>
 </table>
+
 <h3>「×」(閉じる)ボタンのみを無効化する</h3>
 プログラム上から、「×」(閉じる)ボタンのみを無効化することが可能。以下、C#におけるコード例。
+
 <p class="code">
 <cmt>// ［閉じる］ボタンを無効化するための値</cmt>
 <kwd>const uint</kwd> SC_CLOSE = 0x0000F060;
 <kwd>const uint</kwd> MF_BYCOMMAND = 0x00000000;
+
 <kwd>IntPtr hWnd</kwd> = Process.GetCurrentProcess().MainWindowHandle;
+
 <kwd>if</kwd> (hWnd != IntPtr.Zero)
 {
     <cmt>// ［閉じる］ボタンの無効化</cmt>
@@ -78,6 +83,7 @@
     RemoveMenu(hMenu, SC_CLOSE, MF_BYCOMMAND);
 }
 </p>
+
 <h2>アイコンの表示・非表示</h2>
 フォームプロパティの <b>ShowIcon</b> の値で切り替える。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/Form_Appearance/06.png" class="middle"> ⇔ <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/Form_Appearance/07.png" class="middle">

@@ -22,6 +22,7 @@
 <div id="toc"></div>
 <hr>
 <!-- 本文ここから -->
+
 <h2>static修飾とは</h2>
 修飾する対象が <b>静的・永続的</b> であることを示すこと。<br>
 プログラムの開始から終了までメモリ(RAM)を占有し続けるとともに、グローバルスコープの関数・変数に適用した場合は、宣言されたファイルの外からのアクセスを制限する効果を持つ。<br>
@@ -37,12 +38,14 @@
 {
     :
 }
+
 <kwd>void</kwd> DoSomething_Hoge()
 {
     <cmt>// 同じファイルなのでアクセス可能</cmt>
     HogeFunc();
 }
 </p>
+
 (Fuga.c)
 <p class="code">
 <kwd>void</kwd> DoSomething_Fuga()
@@ -59,12 +62,14 @@
 <p class="code">
 <cmt>// 変数をstatic修飾</cmt>
 <kwd>static</kwd> <kwd>int</kwd> staticVal = <ltr>3</ltr>;
+
 <kwd>void</kwd> DoSomething_Hoge()
 {
     <cmt>// 同じファイルなのでアクセス可能</cmt>
     Func(staticVal);
 }
 </p>
+
 (Fuga.c)
 <p class="code">
 <kwd>void</kwd> DoSomething_Fuga()
@@ -73,6 +78,7 @@
     staticVal = <ltr>4</ltr>;
 }
 </p>
+
 <h4>const修飾との併用</h4>
 修飾された変数が不変(定数)になるとともに、 <b>ROMに配置される</b> 。<br>
  <b>⇒ RAM(スタック)の使用量を削減できる。</b> <br>
@@ -85,6 +91,7 @@
     printf(<ltr>"staticVal = %d\n"</ltr>, staticVal);
     ++staticVal;
 }
+
 <kwd>void</kwd> main()
 {
     Func();    <cmt>//&lt; staticVal が 3 で初期化され、インクリメントされて 4 になる</cmt>
@@ -100,6 +107,7 @@ staticVal = <ltr>5</ltr>
 </p>
 <h4>const修飾との併用</h4>
 グローバル変数と同様、定数となり bROMに配置される</b> 。<br>
+
 <h3>(C++)クラスメンバを修飾する</h3>
 関数・変数が <b>特定のインスタンスに縛られない永続的、かつ唯一のものとなる</b> 。<br>
 このため、 <b>インスタンスを生成せずに参照することができる</b> 。(参照する際はスコープ解決演算子  <b>::</b>  を用いる)<br>
@@ -112,6 +120,7 @@ staticVal = <ltr>5</ltr>
     <kwd>static</kwd> <kwd>void</kwd> DoSomething1(<kwd>int</kwd> i) { val = i; }
     <kwd>static</kwd> <kwd>void</kwd> DoSomething2(<kwd>int</kwd> i) { DoSomething1(i); }
 }
+
 <kwd>void</kwd> main()
 {
     <cmt>// CHoge の静的メンバ関数をコール</cmt>

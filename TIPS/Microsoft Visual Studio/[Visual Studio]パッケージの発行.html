@@ -26,14 +26,17 @@
 <h5>目次 :</h5>
 <div id="toc"></div>
 <hr>
+
 <!-- 本文ここから -->
 <h2>Visual Studioによるパッケージ発行</h2>
 ビルドされたプログラムをターゲットシステムに向けて公開する機能。<br>
 ローカルまたはネットワークやに配置することが可能で、WEBアプリケーションの場合はサーバへのデプロイも行える。<br>
 その際にプログラム(EXE / DLL)を集約するなどの付随処理を行うことも可能である。
+
 <h2>手順</h2>
 <h3>発行プロファイルの作成</h3>
 デスクトップアプリケーションを指定したフォルダに配置する場合の例。
+
 <ol>
 <li>
 「ソリューション エクスプローラー」上でプロジェクトを右クリック、「発行」をクリックする。<br>
@@ -46,19 +49,23 @@
 「公開」画面で「ターゲット」>「フォルダー」を選択し、「次へ」をクリックする。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Publish/02.png" alt="">
 </li>
+
 <li>
 「特定のターゲット」>「フォルダー」を選択し、「次へ」をクリックする。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Publish/03.png" alt="">
 </li>
+
 <li>
 「フォルダーの場所」にファイルを公開したい場所を入力し、「完了」をクリックする。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Publish/04.png" alt="">
 </li>
+
 <li>
 プロファイルが作成される。<br>
 「すべての設定を表示」をクリックする。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Publish/05.png" alt="">
 </li>
+
 <li>
 各項目を必要に応じて編集し、「保存」をクリックする。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Publish/06.png" alt=""><br>
@@ -86,21 +93,28 @@
 </li>
 </ul>
 </li>
+
 </ol>
+
 <h3>発行</h3>
 「発行」ボタンをクリックすると、ビルドと公開が実行される。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Publish/07.png" alt=""><br>
+
 <h3>ファイル構成の比較</h3>
 <h5>通常のリリースビルド</h5>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Publish/08.png" alt="">
+
 <h5>公開</h5>
 付随するDLLがEXEに吸収されている。また、ReadyToRun コンパイルを有効にしているため、バイナリサイズが拡大している。<br>
 (EXEとDLLの総和より大きい。)<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Publish/09.png" alt="">
+
 <h2>発行プロファイル(pubxml)の参照</h2>
 「プロファイル設定」で指定した各項目は、pubxml ファイルに保存される。<br>
+
 <h5>例 : FolderProfile.pubxml</h5>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Publish/10.png" alt=""><br>
+
 pubxml ファイルは通常、<i><b>&lt;ProjectFolder&gt;\Properties\PublishProfiles\</b></i> フォルダに保存される。<br>
 この pubxml ファイルを用いて、コマンドラインから発行(dotnet publish)を行うことも可能である。詳細は
 <a href="TIPS/dotNET/コマンドラインでのビルド.html">[.NET]コマンドラインでのビルド</a>

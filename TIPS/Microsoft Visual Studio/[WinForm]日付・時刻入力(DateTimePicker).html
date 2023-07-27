@@ -20,17 +20,22 @@
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
+
 <hr>
+
 <!-- 本文ここから -->
+
 <h2>DateTimePicker とは</h2>
 日時を選択、入力するためのコントロール。<br>
 Value プロパティには選択した日時( DateTime 型)が反映される。<br>
 デフォルトでは、日付を選択できるカレンダーが表示される。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/DotNet_Datetime_Timespan/dotnet_datetime_and_timespan_01.png"><br>
+
 <h2>表示形式、選択方式の指定</h2>
 <h3>表示形式</h3>
 [表示]<b>Format</b> 、[動作]<b>CustomFormat</b> プロパティで表示形式を指定する。<br>
 Format == Custom 時のみ CustomFormat の値が有効となる。
+
 <table>
     <tr class="row1">
         <td class="col1">Format の値</td>   
@@ -75,8 +80,10 @@ Format == Custom 時のみ CustomFormat の値が有効となる。
         <td>13:08</td>                  
     </tr>
 </table>
+
 <h3>選択方式</h3>
 [表示]<b>ShowUpDown</b> プロパティで選択方式を指定する。<br>
+
 <table>
     <tr class="row1">
         <td class="col1">ShowUpDown の値</td>   
@@ -91,4 +98,5 @@ Format == Custom 時のみ CustomFormat の値が有効となる。
         <td>ドロップダウンカレンダーで選択</td>         
     </tr>
 </table>
+
 時刻のみを取り出す場合、カレンダー表示は不要なため ShowUpDown = true とする。

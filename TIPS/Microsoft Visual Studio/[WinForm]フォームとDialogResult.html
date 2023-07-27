@@ -19,7 +19,9 @@
 <h5>目次 :</h5>
 <div id="toc"></div>
 <hr>
+
 <!-- 本文ここから -->
+
 <h2>アプリケーションからフォームを開く</h2>
 <b>Form.Show()</b> または <b>Form.ShowDialog()</b> でフォームを開くことができる。<br>
 その際、いずれを用いるかでタスクの挙動が異なる。
@@ -27,6 +29,7 @@
     <tr class="row1">
         <td class="col1">開く際のメソッド</td>
         <td colspan="2">フォームの形態</td>
+
     </tr>
     <tr>
         <td class="col1">Form.Show()</td>
@@ -39,20 +42,26 @@
         <td>フォームを閉じるまでの間、元アプリケーションの処理が中断される</td>
     </tr>
 </table>
+
 <h3>サンプルコード : モードレス</h3>
 元アプリケーションと開かれたフォームの両タスクは並行する。<br>
 即ち、Form.Show() をコールした直後、後続行がすぐに実行される。<br>
 <p class="code">
     <cmt>// フォームインスタンス生成</cmt>
     Form_Sub form_Sub = <kwd>new</kwd> Form_Sub();
+
     <cmt>// form_Sub をモードレスダイアログとして開く</cmt>
     form_Sub.<b>Show</b>();
+
     <cmt>// form_Sub を開いた直後に、後続行が実行される</cmt>
     <cmt>// (form_Sub を閉じたかは問われない)</cmt>
     Hoge();
+
     Fuga();
+
     :
 </p>
+
 <h3>サンプルコード : モーダル</h3>
 フォームは元アプリケーションのタスク内で実行される。<br>
 即ち、Form.ShowDialog() をコール後、フォームを閉じるまで後続行は実行されない。<br>
@@ -60,15 +69,21 @@
 <p class="code">
     <cmt>// フォームインスタンス生成</cmt>
     Form_Sub form_Sub = <kwd>new</kwd> Form_Sub();
+
     <cmt>// form_Sub をモーダルダイアログとして開く</cmt>
     form_Sub.<b>ShowDialog</b>();
+
     <cmt>// form_Sub を閉じるまで後続行は実行されない</cmt>
     Hoge();
+
     Fuga();
+
     :
 </p>
+
 <h2>フォームの処理結果(DialogResult)</h2>
 フォームの処理結果を <b>DialogResult</b> プロパティ( DialogResult 型)から参照することができる。
+
 <h3>DialogResult の確定</h3>
 <p class="code">
 <kwd>public partial class</kwd> Form_Sub : Form
@@ -80,6 +95,7 @@
     {
         InitializeComponent();
     }
+
     <cmt>// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = -
     // ボタン「はい」クリック時の処理
     // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = -</cmt>
@@ -88,6 +104,7 @@
         <cmt>// プロパティ DialogResult を更新 ⇒ フォームが閉じる</cmt>
         <b>DialogResult</b> = <b>DialogResult.Yes</b>;
     }
+
     <cmt>// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = -
     // ボタン「いいえ」クリック時の処理
     // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = -</cmt>
@@ -101,19 +118,24 @@
 DialogResult プロパティの初期値は DialogResult.None 。<br>
 フォームがモーダルの場合、<b>DialogResult プロパティの値を更新すると自動的にフォームが閉じられる</b>ため、<br>
 Close() を明示的にコールする必要は無い。<br>
+
 <h3>DialogResult を元アプリケーションから参照</h3>
 <p class="code">
     <cmt>// フォームインスタンス生成</cmt>
     Form_Sub form_Sub = <kwd>new</kwd> Form_Sub();
+
     <cmt>// form_Sub をモーダルダイアログとして開く</cmt>
     form_Sub.<b>ShowDialog</b>();
+
     <cmt>// form_Sub の実行結果(DialogResult)を参照</cmt>
     <kwd>if</kwd> (form_Sub.<b>DialogResult</b> == <b>DialogResult.No</b>)
     {
         <kwd>return</kwd>;
     }
+
     :
 </p>
+
 フォームインスタンスを再利用しないのであれば、以下のように簡略化可能。<br>
 ( <b>ShowDialog() は DialogResult プロパティを戻り値として返す</b>。)
 <p class="code">
@@ -122,6 +144,7 @@ Close() を明示的にコールする必要は無い。<br>
     {
         <kwd>return</kwd>;
     }
+
     :
 </p>
 フォームの実行結果を参照する場合、<b>フォームをモーダルで開く( ShowDialog() )のが通例</b>。<br>
@@ -132,6 +155,7 @@ if 文では DialogResult の初期値( DialogResult.None )を参考すること
 モードレスダイアログの DialogResult を参照するには、元アプリからのポーリングや、<br>
 フォームからイベントを発行する(フォームが閉じられたことを通知する)などの機構を用意する必要があるが、ここでは詳細は割愛する。<br>
 (余談ながら、Show() の戻り値は void 型である。)
+
 <h2>DialogResult 型の取りうる値(一例)</h2>
 <table>
 <tr><td>DialogResult.None</td><td>結果が設定されていない状態(デフォルト)</td></tr>

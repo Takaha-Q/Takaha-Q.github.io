@@ -21,9 +21,11 @@
 <hr>
 <!-- 本文ここから -->
 デバッグ(またはリリース)ビルドでのみ有効な(コンパイルされる)コードを記述する際の手順。
+
 <h2>準備</h2>
 プロジェクトのプロパティを開き、「ビルド」タブから <b>DEBUG / TRACE</b> 定数の定義の有無を切り替える。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/CSharp_DebugCode/CSharp_DebugCode_01.png">
+
 <h2>デバッグコードの実装</h2>
 <b>DEBUG</b> 定数が定義されている場合のみ有効なコードの記述例 :
 <p class="code">
@@ -31,8 +33,10 @@
     Console.WriteLine("デバッグビルド");
 <kwd>#endif</kwd>
 </p>
+
 <h2>条件付きコンパイル</h2>
 C#における <b class="blue">#if</b> はC/C++の <b class="blue">#ifdef</b> に相当。
+
 <p class="code">
 <kwd>#if</kwd> DEBUG
     Console.WriteLine("DEBUGが定義されている");
@@ -42,6 +46,7 @@ C#における <b class="blue">#if</b> はC/C++の <b class="blue">#ifdef</b> �
     Console.WriteLine("どちらも定義されていない");
 <kwd>#endif</kwd>
 </p>
+
 条件付きコンパイルディレクティブの比較<br>
 <table>
 	<tr class="row1">

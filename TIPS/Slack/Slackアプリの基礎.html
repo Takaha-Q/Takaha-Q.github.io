@@ -23,12 +23,17 @@
 <h5>目次 :</h5>
 <div id="toc"></div>
 <hr>
+
 <!-- 本文ここから -->
+
 ※この記事は書きかけです。
+
 <h2>Slackアプリでできること</h2>
 外部のアプリケーションからSlackへのメッセージ送信や、サーバを介したインタラクティブな通信が可能となる。
+
 <h2>アプリの作成手順</h2>
 「アプリの作成(Create an app)」と表記されてはいるが、ここで紹介する手順は「外部アプリケーションへの窓口(インタフェース)を用意する」のに近い。<br>
+
 <h3>アプリの設定</h3>
 <ol>
 	<li>
@@ -70,6 +75,7 @@
 		<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Slack/App_Basics/10.png"><br>
 	</li>
 </ol>
+
 <h3>アプリのインストール</h3>
 <ol>
 	<li>
@@ -88,6 +94,7 @@
 		<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Slack/App_Basics/14.png"><br>
 	</li>
 </ol>
+
 <h3>トークンの取得</h3>
 トークンとは、外部アプリケーションからSlack Appを介して投稿を行う際に、用いるAppを特定する鍵のことを指す。<br>
 ユーザとして投稿する場合と、Botとして投稿を行う場合とで異なるトークンを用いる点に注意。<br>
@@ -98,6 +105,7 @@
 		<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Slack/App_Basics/15.png"><br>
 	</li>
 </ol>
+
 <h3>チャンネルへのAppの追加(チャンネルへの投稿の許可)</h3>
 投稿先となるチャンネルにAppを追加することで、Appを介したチャンネルへの投稿が可能となる。<br>
 <ol>
@@ -114,6 +122,7 @@
 		<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Slack/App_Basics/18.png"><br>
 	</li>
 </ol>
+
 <h3>cURLを用いたSlackへの投稿</h3>
 cURLとは、様々なプロトコルを用いたデータ転送を可能とするライブラリと、コマンドラインインタフェースの組である。<br>
 cURLを用いることで、HTTPリクエストの形式でSlackへのメッセージ送信が可能となる。<br>
@@ -121,6 +130,7 @@ UNIX / Linuxだけでなく、Windowsでも利用可能。<br>
 以下、Windows + PowerShellでの例。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Slack/App_Basics/01.png"><br>
 ( "--data" は "-d" と同義)
+
 <h4>メッセージの形式</h4>
 解説のために改行を挿入。実際には空白で連結する。
 <p class="code">
@@ -129,6 +139,7 @@ curl -X POST -H 'Authorization: Bearer <blue>xoxb-$$$$$</blue>' <cmt>//< 青字�
 <dmagenta>-d '{<dcyan>"channel":"@username"</dcyan>,<dyellow>"text":"Test"</dyellow>}'</dmagenta>        <cmt>//< {}内に送信先チャンネル、メッセージを記述</cmt>
 <red>https://slack.com/api/chat.postMessage</red>             <cmt>//< SlackのURL</cmt>
 </p>
+
 <table>
 	<tr class="row1">
 		<td colspan="3">項目</td>
@@ -160,6 +171,7 @@ curl -X POST -H 'Authorization: Bearer <blue>xoxb-$$$$$</blue>' <cmt>//< 青字�
 		<td></td>
 	</tr>
 </table>
+
 <h4>注意が必要な点</h4>
 Windows版cURLに限り、<b><dmagenta>送信データ</dmagenta></b>中の二重引用符(")は、<b>バックスラッシュ(\)を付与する必要がある</b>。<br>
 <ul>
@@ -170,8 +182,10 @@ Windows版cURLに限り、<b><dmagenta>送信データ</dmagenta></b>中の二�
 	<dmagenta>--data '{<dcyan><b>\</b>"channel<b>\</b>":<b>\</b>"@username<b>\</b>"</dcyan>,<dyellow><b>\</b>"text<b>\</b>":<b>\</b>"Test<b>\</b>"</dyellow>}'</dmagenta>
 	</li>
 </ul>
+
 <h3>Webhookを用いたSlackへの投稿</h3>
 投稿先のチャンネル(またはユーザ)に紐づいたURL(Webhook)を用いることで、より簡便にメッセージを送信できる。<br>
+
 <h4>準備(Webhook URLの作成)</h4>
 <ol>
 	<li>
@@ -193,15 +207,18 @@ Windows版cURLに限り、<b><dmagenta>送信データ</dmagenta></b>中の二�
 		<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Slack/App_Basics/22.png"><br>
 	</li>
 </ol>
+
 <h4>cURLを用いた投稿</h4>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Slack/App_Basics/23.png"><br>
 解説のために改行を挿入。実際には空白で連結する。
 ( "--data" は "-d" と同義)
+
 <p class="code">
 curl -X POST -H 'Content-type: application/json;charset=UTF-8'
 <dmagenta>-d '{<dyellow>"text":"Test"</dyellow>}'</dmagenta>                                                             <cmt>//< {}内にメッセージを記述</cmt>
 <red>https://hooks.slack.com/services/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</red>  <cmt>//< Webhook URL</cmt>
 </p>
+
 <table>
 	<tr class="row1">
 		<td colspan="3">項目</td>
@@ -216,6 +233,7 @@ curl -X POST -H 'Content-type: application/json;charset=UTF-8'
 		<td></td>
 	</tr>
 </table>
+
 <h2>課題</h2>
 <ul>
     <li>外部からコマンドは実行できない？</li>

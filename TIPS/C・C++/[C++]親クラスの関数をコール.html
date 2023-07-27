@@ -21,6 +21,7 @@
 <div id="toc"></div>
 <hr>
 <!-- 本文ここから -->
+
 <h2>親(継承元)クラスを指定して関数を呼び出す</h2>
 通常、クラス内でメンバ関数を呼び出す場合は、( this ポインタによって関連付けられる)自身のメンバを呼ぶこととなる。<br>
 (自身ではなく)親クラスの関数を呼び出したい場合は、 <b>スコープ解決演算子 ("::") を用いて親クラスの名前を指定する</b> 。<br>
@@ -32,18 +33,21 @@
 <kwd>public</kwd>:
     <kwd>virtual</kwd> <kwd>void</kwd> Hoge();
 }
+
 <cmt>// 子クラス</cmt>
 <kwd>class</kwd> C_Child : <kwd>public</kwd> C_Parent
 {
 <kwd>private</kwd>:
     <kwd>void</kwd> Fuga();
 }
+
 <cmt>// Hoge() のオーバーライド</cmt>
 <kwd>void</kwd> C_Child::Hoge()
 {
     <cmt>// 親 (C_Parent) の Hoge() をコール</cmt>
     C_Parent::Hoge();
 }
+
 <kwd>void</kwd> C_Child::Fuga()
 {
     <cmt>// 自身 (C_Child) の Hoge() をコール</cmt>

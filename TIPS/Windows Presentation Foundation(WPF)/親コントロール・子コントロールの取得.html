@@ -22,40 +22,52 @@
 <h5>目次 :</h5>
 <div id="toc"></div>
 <hr>
+
 <!-- 本文ここから -->
+
 <h2>コントロールの親コントロールを取得する</h2>
 <b>Parent</b> プロパティを参照する。
+
 <h2>コントロールの親ウィンドウを取得する</h2>
 <b>System.Windows.Window.GetWindow()</b> メソッドにより、そのコントロールの親ウィンドウを取得することができる。
+
 <h3>コード例</h3>
 <div class="code">
 <kwd>using</kwd> <knw>System</knw>.<knw>Windows</knw>;
 <kwd>class</kwd> MyControl : UserControl
 {
     :
+
     <cmt>// 親ウィンドウの取得</cmt>
     <cmt>// ユーザコントロール(自身)を渡す</cmt>
     <kwd>var</kwd> parent = Window.GetWindow(<kwd>this</kwd>);
+
     :
 }
 </div>
+
 <h2>子コントロールの一覧を取得する</h2>
 <b>System.Windows.LogicalTreeHelper.GetChildren()</b> メソッドにより、引数に指定されたコントロールの直接の子要素を取得することができる。<br>
 再帰的に呼び出すことで、含まれる子孫要素を全て取得することができる。
+
 <h3>コード例</h3>
 <div class="code">
 <kwd>using</kwd> <knw>System</knw>.<knw>Windows</knw>;
+
 <cmt>// 異常一覧ウィンドウ</cmt>
 <kwd>public partial class</kwd> NotifyWindow : Window
 {
     :
+
     <cmt>// ボタン「○○」押下時の処理 (イベントハンドラ)</cmt>
     <kwd>private void</kwd> ClearNotifies( <kwd>object</kwd> sender, RoutedEventArgs e )
     {
         <cmt>// 表示を再帰的に更新</cmt>
         Refresh( <kwd>this</kwd> );
     }
+
     :
+
     <cmt>// 表示を再帰的に更新</cmt>
     <kwd>private void</kwd> Refresh( DependencyObject obj )
     {
@@ -73,6 +85,7 @@
             ( (NotifyItem_Warning)obj ).Update();
             <kwd>return</kwd>;
         }
+
         <cmt>// 子要素をスキャン</cmt>
         <cmt>// System.Windows.LogicalTreeHelper.GetChildren()</cmt>
         <kwd>foreach</kwd>( <kwd>var</kwd> child <kwd>in</kwd> LogicalTreeHelper.GetChildren(obj))
@@ -86,5 +99,6 @@
     }
 }
 </div>
+
 コントロールは全て DependencyObject を継承しているため、System.Windows.LogicalTreeHelper.GetChildren() の引数に指定することができる。<br>
 GetChildren() の戻り値はインタフェース IEnumerable であり、foreach で走査が可能である。

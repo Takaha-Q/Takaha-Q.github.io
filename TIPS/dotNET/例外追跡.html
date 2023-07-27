@@ -20,11 +20,15 @@
 <h5>目次 :</h5>
 <div id="toc"></div>
 <hr>
+
 <!-- 本文ここから -->
+
 <h2>スタックトレース情報の取得</h2>
 プログラム中の特定の時点において、スレッドが開始されてからそこに到達するまでの関数の呼び出し履歴をコールスタックと呼ぶ。<br>
 そのコールスタックを追跡することをスタックトレースと呼び、主に例外発生時の原因特定に用いられる。<br>
+
 <h2>例外発生時のスタックトレース情報出力 : Exception.StackTrace</h2>
+
 (C#)
 <div class="code">
 <kwd>class</kwd> Program
@@ -45,24 +49,29 @@
             <knw>Console</knw>.WriteLine(ex.StackTrace);
         }
     }
+
     <kwd>static void</kwd> FuncC()
     {
         FuncB();
     }
+
     <kwd>static void</kwd> FuncB()
     {
         FuncA();
     }
+
     <kwd>static void</kwd> FuncA()
     {
         CallException();
     }
+
     <kwd>static void</kwd> CallException()
     {
         <kwd>throw new</kwd> <knw>Exception</knw>("ここで例外を発生させる");
     }
 }    
 </div>
+
 (出力結果)<br>
 <div class="xaml">
 例外メッセージ --&gt; ここで例外を発生させる
@@ -76,6 +85,7 @@
 <br>
 Exception.StackTrace プロパティには、スタックトレース情報が文字列形式(StackTrace 型ではない)で格納されている。<br>
 このスタックトレース情報は、例外発生時点から呼び元までコールスタックを遡る形で記録されており、メソッドの呼び出し経路を一覧できる。
+
 <h2>例外情報の文字出力 : Exception.ToString()</h2>
 Exception.ToString() をコールすることで、上記のスタックトレースに加え、現在の例外のクラス名とメッセージも取得することができる。<br>
 <ul>例) ゼロ除算例外

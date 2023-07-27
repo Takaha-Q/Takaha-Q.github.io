@@ -29,16 +29,20 @@
 <h5>目次 :</h5>
 <div id="toc"></div>
 <hr>
+
 <!-- 本文ここから -->
+
 <h2>C#におけるシグナル処理</h2>
 シグナル処理の概念に関しては<a href="TIPS/ソフトウェア開発一般/[並列処理]タスク(スレッド)間通信.html">ここ</a>を参照のこと。<br>
 あるタスクが別タスクからのシグナル(イベントフラグ)を待機し、シグナルを契機として処理を再開するような処理の場合、<br>
 シグナル(イベント)の待機には<b>「イベント待機ハンドラ」</b>を用いる。<br>
 (イベント待機ハンドラはセマフォやミューテックスと同様、「同期オブジェクト(シンクロナイザー)」に含まれる。「<a href="TIPS/C Sharp/イベント処理.html">イベントハンドラ</a>」との混同に注意。)<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Software%20Development/InterTask_Communication/development-inter-task-communication_03.png"><br>
+
 <h2>実装例</h2>
 「コンテンツのダウンロードをいったん中断し、『OK』ボタン押下後に再開する」処理を行う。<br>
 使用するイベント待機ハンドラによって、コメント箇所の実装が変化する。
+
 <div class="code">
 <cmt>// ダウンロードタスク</cmt>
 <kwd>public async</kwd> <knw>Task</knw><<kwd>string</kwd>> DownloadAsync()
@@ -51,14 +55,17 @@
             <cmt>// コンテンツの1行目のみを読み込む</cmt>
             <kwd>var</kwd> first = stream.ReadLine();
         }
+
         <cmt>// ----------------------------------------</cmt>
         <cmt>// 「OK」ボタンが押されるまで処理を中断</cmt>
         <cmt>// (シグナル待ち状態に移行)</cmt>
         <cmt>// ----------------------------------------</cmt>
+
         <cmt>// 処理を再開</cmt>
         <kwd>return await</kwd> response.Content.ReadAsStringAsync();
     }
 }
+
 <cmt>// ダウンロード継続承認</cmt>
 <cmt>// (「OK」ボタン押下時の処理)</cmt>
 <kwd>public void</kwd> DownloadAcceppted(<kwd>object</kwd> sender, <knw>EventArgs</knw> args)
@@ -68,12 +75,15 @@
     <cmt>// ----------------------------------------</cmt>
 }
 </div>
+
 <h3>System.Threading.CountdownEvent による実装</h3>
 CountdownEvent は、オブジェクト生成時に指定した回数だけシグナルを受けると、待ち状態を解除するハンドラである。<br>
 (例 : CountdownEvent(3) であれば、CountdownEvent.Signal() が3回コールされた時点でシグナル状態となる。)<br>
+
 <div class="code">
 <cmt>// イベント待機ハンドラ CountdownEvent の初期化</cmt>
 <kwd>private readonly</kwd> CountdownEvent condition = <kwd>new</kwd> CountdownEvent(<ltr>1</ltr>);
+
 <cmt>// ダウンロードタスク</cmt>
 <kwd>public async</kwd> <knw>Task</knw><<kwd>string</kwd>> DownloadAsync()
 {
@@ -85,14 +95,18 @@ CountdownEvent は、オブジェクト生成時に指定した回数だけシ�
             <cmt>// コンテンツの1行目のみを読み込む</cmt>
             <kwd>var</kwd> first = stream.ReadLine();
         }
+
         <cmt>// 「OK」ボタンが押されるまで処理を中断</cmt>
         condition.Wait();
+
         <cmt>// シグナル状態を解除</cmt>
         condition.Reset();
+
         <cmt>// 処理を再開</cmt>
         <kwd>return await</kwd> response.Content.ReadAsStringAsync();
     }
 }
+
 <cmt>// ダウンロード継続承認</cmt>
 <cmt>// (「OK」ボタン押下時の処理)</cmt>
 <kwd>public void</kwd> DownloadAcceppted(<kwd>object</kwd> sender, <knw>EventArgs</knw> args)
@@ -101,11 +115,15 @@ CountdownEvent は、オブジェクト生成時に指定した回数だけシ�
     condition.Signal();
 }
 </div>
+
 ここでは、シグナル状態に移行(待ち状態の解除)後、待機ハンドラを再利用することを考慮してシグナル状態を解除( Reset() )している。<br>
+
 <h3>System.Threading.AutoResetEvent による実装</h3>
+
 <div class="code">
 <cmt>// イベント待機ハンドラ AutoResetEvent の初期化</cmt>
 <kwd>private readonly</kwd> AutoResetEvent condition = <kwd>new</kwd> AutoResetEvent();
+
 <cmt>// ダウンロードタスク</cmt>
 <kwd>public async</kwd> <knw>Task</knw><<kwd>string</kwd>> DownloadAsync()
 {
@@ -117,13 +135,17 @@ CountdownEvent は、オブジェクト生成時に指定した回数だけシ�
             <cmt>// コンテンツの1行目のみを読み込む</cmt>
             <kwd>var</kwd> first = stream.ReadLine();
         }
+
         <cmt>// 「OK」ボタンが押されるまで処理を中断</cmt>
         condition.WaitOne();
+
         <cmt>// タスクの待ちが解除されると自動的にシグナル解除</cmt>
+
         <cmt>// 処理を再開</cmt>
         <kwd>return await</kwd> response.Content.ReadAsStringAsync();
     }
 }
+
 <cmt>// ダウンロード継続承認</cmt>
 <cmt>// (「OK」ボタン押下時の処理)</cmt>
 <kwd>public void</kwd> DownloadAcceppted(<kwd>object</kwd> sender, <knw>EventArgs</knw> args)
@@ -132,7 +154,9 @@ CountdownEvent は、オブジェクト生成時に指定した回数だけシ�
     condition.Set();
 }
 </div>
+
 AutoResetEvent はシグナル状態に移行すると、シグナル待ちのタスクが再開された時点で自動的にシグナル状態が解除される。
+
 <h3>System.Threading.ManualResetEvent による実装</h3>
 CountdownEvent と同様、手動でシグナル状態を解除する必要がある。以下のメソッドを使用する。<br>
 <ul>
@@ -141,6 +165,7 @@ CountdownEvent と同様、手動でシグナル状態を解除する必要が�
     <li>シグナルリセット : ManualResetEvent.Reset()</li>
 </ul>
 シグナル状態が自動で解除されないため、複数のタスクを待たせるのに使用できる。
+
 <h3>どのように使い分けるか</h3>
 CountdownEvent は.NET 4.0から使用可能となった比較的新しいクラスで、AutoResetEvent や ManualResetEvent と比較してオーバーヘッドが小さい(1/20程度)。<br>
 このため.NET 4.0移行の環境では、CountdownEvent の使用が推奨される。<br>
@@ -151,6 +176,7 @@ CountdownEvent は.NET 4.0から使用可能となった比較的新しいクラ
     <li>待ち状態のキャンセルが可能である。</li>
 </ul>
 詳細は出典元を参照。
+
 <table>
     <tr class="row1">
         <td class="col1" width="20%">クラス</td>
@@ -181,13 +207,16 @@ CountdownEvent は.NET 4.0から使用可能となった比較的新しいクラ
         <td>.NET 4.0以降<br>オーバーヘッドが小さい<br>スピンウェイトあり<br>待ち状態キャンセル可</td>
     </tr>
 </table>
+
 <h2>Producer-Consumer パターン</h2>
 データを生成する処理(Producer)とデータを使用する処理(Consumer)を異なるスレッドで非同期に実行するモデルのこと。イベント待機ハンドラの使用を前提としている。<br>
 Producerはデータをエンキューする際にシグナルをセットし、Consumerはシグナルを契機にタスクを起床してキューからデータを回収することで、効率的にコンピュータ資源を利用できる。<br>
+
 <ul>
     <li>イベントトリガをバッファ(イベントキュー)に格納する : Producer</li>
     <li>イベントトリガをイベントキューから取り出して実行する : Consumer</li>
 </ul>
+
 <h3>実装例</h3>
 <div class="code">
 <cmt>// Producer-Consumer テンプレートクラス </cmt>
@@ -196,12 +225,14 @@ Producerはデータをエンキューする際にシグナルをセットし、
     <kwd>private readonly</kwd> Queue&lt;T&gt; _queue = <kwd>new</kwd> Queue&lt;T&gt;();                                  <cmt>//< データキュー</cmt>
     <kwd>private readonly</kwd> ManualResetEventSlim _resetevent = <kwd>new</kwd> ManualResetEventSlim();     <cmt>//< イベント待ちハンドラ</cmt>
     <kwd>private readonly object</kwd> _lock = <kwd>new object</kwd>();                                       <cmt>//< ロックオブジェクト</cmt>
+
     <cmt>// デストラクタ</cmt>
     ~BlockingQueue()
     {
         <cmt>// イベント待ちハンドラを破棄</cmt>
         _resetevent.Dispose();
     }
+
     <cmt>// データを生成 (Producer)</cmt>
     <kwd>public void</kwd> Put(T data)
     {
@@ -209,10 +240,12 @@ Producerはデータをエンキューする際にシグナルをセットし、
         {                     
             <cmt>// データをエンキュー</cmt>
             _queue.Enqueue(data);
+
             <cmt>// シグナルをセット</cmt>
             _resetevent.Set();
         }
     }
+
     <cmt>// データを取得 (Consumer)</cmt>
     <kwd>public</kwd> T Take(CancellationToken token)
     {
@@ -221,6 +254,7 @@ Producerはデータをエンキューする際にシグナルをセットし、
         {
             <cmt>// キャンセル要求があれば例外を投げる</cmt>
             token.ThrowIfCancellationRequested();
+
             lock (_lock)
             {
                 <cmt>// キューにデータが入っていればデキューして返す</cmt>
@@ -229,9 +263,11 @@ Producerはデータをエンキューする際にシグナルをセットし、
                     <kwd>var</kwd> val = _queue.Dequeue();
                     <kwd>return</kwd> val;
                 }
+
                 <cmt>// シグナルをクリア</cmt>
                 _resetevent.Reset();
             }
+
             <cmt>// シグナル待ちに移行</cmt>
             _resetevent.Wait(Timeout.Infinite, token);
         }

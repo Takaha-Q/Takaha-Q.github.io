@@ -20,13 +20,17 @@
 <h5>目次 :</h5>
 <div id="toc"></div>
 <hr>
+
 <!-- 本文ここから -->
+
 <h2>Gitフックとは</h2>
 リポジトリに対する特定の操作が行われた際に、付随して実行したい処理を登録できる機構のこと。<br>
 例えば、コミットの際に特定のアプリケーションやスクリプトを実行するといったことができる。<br>
 このとき、使用者が登録する処理はイベントハンドラに相当し、処理の実行契機となるイベントにハンドラを関連づける(フッキング)ことになる。
+
 <h2>大別</h2>
 フックはクライアントサイドフックとサーバサイドフックに分けられる。<br>
+
 <table>
 <tr>
 <td class="col1">クライアントサイドフック</td>
@@ -37,11 +41,13 @@
 <td>リモートリポジトリに関連付けられ、プッシュ時にサーバで実行される</td>
 </tr>
 </table>
+
 <h2>基本</h2>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/VCS/Git_Hook/01.png" alt="画像"><br>
 コミット、およびプッシュ時のイベント発生順は上図の通り。<br>
 クライアントサイドフックを<b><red>赤字</red></b>、サーバサイドフックは<b><dgreen>緑字</dgreen></b>で示している。<br>
 (一部割愛)<br>
+
 <table>
 <tr class="row1">
 <td class="col1">フック</td>
@@ -49,9 +55,11 @@
 <td>パラメータ</td>
 <td>解説</td>
 </tr>
+
 <tr>
 <td colspan="4" class="bg_lr center b">クライアントサイドフック</td>
 </tr>
+
 <tr>
 <td class="col1">pre-commit</td>
 <td>コミット操作直後</td>
@@ -62,6 +70,7 @@
 <li>git commit --no-verify<br>でスキップ可能</li>
 </ul></td>
 </tr>
+
 <tr>
 <td class="col1">prepare-commit-msg</td>
 <td>コミットメッセージエディタ<br>起動直前</td>
@@ -71,6 +80,7 @@
 </ul></td>
 <td>デフォルトのコミットメッセージを<br>動的に上書きすることが可能</td>
 </tr>
+
 <tr>
 <td class="col1">commit-msg</td>
 <td>コミットメッセージ入力直後</td>
@@ -81,12 +91,14 @@
 <li>非ゼロ返却でコミット中断</li>
 </ul></td>
 </tr>
+
 <tr>
 <td class="col1">post-commit</td>
 <td>コミット処理完了直後</td>
 <td>なし</td>
 <td></td>
 </tr>
+
 <tr>
 <td class="col1">pre-push</td>
 <td>プッシュ要求直後</td>
@@ -97,15 +109,18 @@
 </ul></td>
 <td>非ゼロ返却でプッシュ中断</td>
 </tr>
+
 <tr>
 <td colspan="4" class="bg_lg center b">サーバサイドフック</td>
 </tr>
+
 <tr>
 <td class="col1">pre-receive</td>
 <td>プッシュ処理直前</td>
 <td>プッシュされた参照(ブランチ)のリスト(標準入力)</td>
 <td>非ゼロ返却でプッシュ中断</td>
 </tr>
+
 <tr>
 <td class="col1">update</td>
 <td>各ブランチの<br>プッシュ処理直前</td>
@@ -117,13 +132,16 @@
 </ul>
 <td>非ゼロ返却で当該参照のプッシュ中断<br>それ以外の参照はプッシュ継続</td>
 </tr>
+
 <tr>
 <td class="col1">pre-receive</td>
 <td>全ブランチの<br>プッシュ処理完了直後</td>
 <td>プッシュされた参照(ブランチ)のリスト(標準入力)</td>
 <td>フック処理が終了するまで接続が継続される</td>
 </tr>
+
 </table>
+
 <h2>フック処理の実装</h2>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/VCS/Git_Hook/02.png" alt="画像"><br>
 フック処理を有効にするには、Gitディレクトリ下の <b>hooks ディレクトリに、フック名に対応したファイルを配置すればよい</b>。<br>
@@ -137,6 +155,7 @@
 (EXE、BAT、PS1、SH、Ruby、Perl、Pythonなど)<br>
 <br>
 また、フックが受け取るパラメータの内訳は、サンプルスクリプトから確認が可能である。<br>
+
 <h3>注意が必要な点</h3>
 リポジトリのプッシュ後に別のユーザが同じリポジトリをクローンしても、クライアントサイドフックはコピーされない。<br>
 このため、共通のポリシーを強制する場合はサーバサイドフックを用いるとよい。<br>

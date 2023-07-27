@@ -24,6 +24,7 @@ Office TANAKA - VBA高速化テクニック[関数も使え！]
 <div id="toc"></div>
 <hr>
 <!-- 本文ここから -->
+
 <h2>VBAからワークシート関数を呼び出す</h2>
 VBAからは、ほぼすべてのワークシート関数を呼び出すことができる。<br>
 ワークシート関数を用いる利点としては、VBAのみで処理を行う場合と比較して、
@@ -32,28 +33,33 @@ VBAからは、ほぼすべてのワークシート関数を呼び出すこと�
 <li>処理が(多くの場合非常に)高速となる</li>
 </ul>
 が挙げられる。<br>
+
 <h2>基本の書式</h2>
 <b class="red">WorksheetFunction</b> オブジェクトを用いる。
 <p class="code">
 <b class="red">WorksheetFunction</b>.関数名(引数)
 </p>
+
 <h2>ワークシート関数を用いる場合と用いない場合の処理時間の比較</h2>
 セル範囲 A1 : A100000 に入力された数値の総和を求める場合の例<br>
 <h4>VBAに直接記述 ⇒ 0.395秒</h4>
 <p class="code">
 <kwd>Sub</kwd> Test1()
     <kwd>Dim</kwd> i <kwd>As Long</kwd>, A <kwd>As Long</kwd>
+
     <cmt>' A に A1 : A100000 の総和を格納</cmt>
     <kwd>For</kwd> i = 1 <kwd>To</kwd> 100000
         A = A + Cells(i, 1)
     <kwd>Next</kwd> i
 <kwd>End Sub</kwd>
 </p>
+
 <h4>ワークシート関数( Sum() )を使用 ⇒ 0.002 秒</h4>
 <p class="code">
 <kwd>Sub</kwd> Test2()
     <cmt>' ループ制御変数 i は不要</cmt>
     <kwd>Dim</kwd> A <kwd>As Long</kwd>
+
     <cmt>' A に A1 : A100000 の総和を格納</cmt>
     A = <b class="red">WorksheetFunction</b>.Sum(Range("A1:A100000"))
 <kwd>End Sub</kwd>

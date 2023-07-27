@@ -17,7 +17,9 @@
 <h5>目次 :</h5>
 <div id="toc"></div>
 <hr>
+
 <!-- 本文ここから -->
+
 <h2>正規表現とは</h2>
 <b>特定のパターンに合致した</b>文字列を検索・抽出すること。パターンマッチングとも呼ばれる。<br>
 融通の利かない通常のキーワード(全文一致)検索とは異なり、<b>「曖昧に」「パターンに一致する複数の箇所を」</b>抽出することができる。<br>
@@ -32,6 +34,7 @@ Microsoft Officeは未対応(但しVBAでは使用可)。<br>
 <ltr>06-6543-2109</ltr>
 <ltr>03-888-9990</ltr>
 </p>
+
 <ul>
 	<li>
 <b>通常のキーワード検索</b> : 「03-3456-7890」など<br>⇒ キーワードが<b>完全一致しないとマッチしない</b>。
@@ -45,7 +48,9 @@ Microsoft Officeは未対応(但しVBAでは使用可)。<br>
 ⇒ 「03-3456-7890」「03-1111-2222」にマッチ
 	</li>
 </ul>
+
 <h2>主要なメタ文字</h2>
+
 <h3>文字種を表すもの</h3>
 <table>
 <tr class="row1">
@@ -62,6 +67,7 @@ Microsoft Officeは未対応(但しVBAでは使用可)。<br>
 <tr><th>\n</td>				<th class="border_r_double">LF (改行)</td><td class="bg_lh"></td><td class="bg_lh"></td><td class="bg_lh"></td><td class="bg_lh"></td><td class="bg_lh"></td><td class="bg_lh"></td><td class="bg_lh"></td><td class="center">○</td></tr>
 </table>
 \s (空白文字)が改行(\r / \n)にもヒットする点に注意。
+
 <h3>位置を表すもの</h3>
 <table>
 <tr><td class="col1">^</td><td>行頭にマッチ</td></tr>
@@ -70,6 +76,7 @@ Microsoft Officeは未対応(但しVBAでは使用可)。<br>
 <tr><td class="col1">\B</td><td>単語境界以外にマッチ</td></tr>
 </table>
 「行末」は、その行に改行文字が存在する場合は改行文字の直前を指す。即ち「行」には改行文字を含まない。<br><br>
+
 「単語境界」とは : 「単語を構成する文字(英数字とアンダースコア)」が連続している範囲を「単語」とみなし、単語とそうでない部分の境界を指す。<br>
 即ち、単語の先頭の直前、および単語の末尾の直後を指す。<br><br>
 例) The next number is "20th_November".<br>
@@ -78,6 +85,7 @@ Microsoft Officeは未対応(但しVBAでは使用可)。<br>
 <bg_y> </bg_y><bg_lg>The</bg_lg><bg_y> </bg_y> <bg_y> </bg_y><bg_lg>next</bg_lg><bg_y> </bg_y> <bg_y> </bg_y><bg_lg>number</bg_lg><bg_y> </bg_y> <bg_y> </bg_y><bg_lg>is</bg_lg><bg_y> </bg_y>  "<bg_y> </bg_y><bg_lg>20th_November</bg_lg><bg_y> </bg_y>". 
 </p>
 「<bg_y>\b</bg_y><bg_lg>next</bg_lg><bg_y>\b</bg_y>」とすると、単語 "next" にマッチする。"next_xxx" などにはマッチしない。
+
 <h3>量(繰り返し)を表すもの</h3>
 <table>
 <tr><td class="col1">*</td><td>0回以上の繰り返しにマッチ</td></tr>
@@ -87,6 +95,7 @@ Microsoft Officeは未対応(但しVBAでは使用可)。<br>
 <tr><td class="col1">{n,m}</td><td>n回以上m回以下の繰り返しにマッチ</td></tr>
 <tr><td class="col1">?</td><td>0回または1回の出現にマッチ</td></tr>
 </table>
+
 <h3>集合を表すもの</h3>
 <table>
 <tr><td class="col1">[abc]</td><td>"a","b","c"いずれかの文字にマッチ</td></tr>
@@ -96,9 +105,11 @@ Microsoft Officeは未対応(但しVBAでは使用可)。<br>
 <tr><td class="col1">klm|xyz</td><td>"klm"または"xyz"にマッチ</td></tr>
 <tr><td class="col1">(Upp|Low)er</td><td>"Upper"または"Lower"にマッチ</td></tr>
 </table>
+
 <h3>メタ文字として用いられる特殊文字</h3>
 \ (バックスラッシュ・円記号)をつけることでその文字自身を表す<br>
 例) "\." ⇒ . (ドット) 、"\*" ⇒ *(アスタリスク)<br>
+
 <h2>パターンの例</h2>
 <table>
 <tr><td class="col1">^[\r\n]+</td><td>行頭から改行文字(CRまたはLF)が1回以上連続している ⇒ 空行</td></tr>

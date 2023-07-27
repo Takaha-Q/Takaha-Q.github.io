@@ -20,13 +20,16 @@
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
+
 <hr>
+
 <!-- 本文ここから -->
 <h2>オーナーウィンドウの設定(Window.Owner)</h2>
 WPFでは ShowDialog() でウィンドウをモーダル表示した場合、Windows Formと異なり、新たに開くウィンドウと呼び元の(イベントハンドラを持つ)ウィンドウとは自動的には関連付けられない。<br>
 そうした場合、例えばタスクバーから呼び元のウィンドウを選択すると、そのウィンドウがアクティブとなってしまう。<br>
 (モーダル表示されているウィンドウが存在するため、操作はできない。)<br>
 このような現象を避けるには ShowDialog() を呼び出す前に、表示するウィンドウの Owner を明示的に指定する。
+
 <div class="code">
 <cmt>// ボタン押下時の処理</cmt>
 <cmt>// 新しいウィンドウを開く</cmt>
@@ -38,8 +41,10 @@ WPFでは ShowDialog() でウィンドウをモーダル表示した場合、Win
     wnd.WindowStartupLocation = <knw>System</knw>.<knw>Windows</knw>.WindowStartupLocation.CenterOwner;
     wnd.Width = <kwd>this</kwd>.Width / 2;
     wnd.Height = <kwd>this</kwd>.Height / 2;
+
     <cmt>// 新しいウィンドウの Owner を自身に指定する</cmt>
     wnd.Owner = <kwd>this</kwd>;
+
     <cmt>// ウィンドウを開く</cmt>
     wnd.ShowDialog();
 }    

@@ -25,14 +25,18 @@
 <h5>目次 :</h5>
 <div id="toc"></div>
 <hr>
+
 <!-- 本文ここから -->
+
 <h2>ユーザーコントロールの概要</h2>
 複数のコントロールを組み合わせたものをひとつのコントロールとして使いまわしたい場合、<br>
 それらを「ユーザーコントロール」として定義することで、再利用可能なコントロールとなる。<br>
 尚、「<a href="TIPS/Windows Presentation Foundation(WPF)/カスタムコントロール.html">カスタムコントロール</a>」とは異なる。<br>
 外観の複雑なカスタマイズは不可能であるため、カスタマイズを目的とする場合はカスタムコントロールを使用することとなる。
+
 <h3>作成手順・実装例</h3>
 ここでは、2つの Label コントロールを持つユーザーコントロール MachineErrIndicator を作成する。<br>
+
 <ol>
     <li>準備
         <ol>
@@ -54,6 +58,7 @@
             <li>
                 XAML<br>
                 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_UserControl/02.png">
+
             </li>
         </ol>
     </li>
@@ -66,6 +71,7 @@
         <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_UserControl/04.png">
     </li>
 </ol>
+
 <h4>何が起こっているか</h4>
 <ul>
     <li>
@@ -81,11 +87,14 @@
         設定値は SigNum 、SigName に反映されるとともに、データバインドを介して Label の文言に反映される。
     </li>
 </ul>
+
 <h2>ユーザーコントロールの階層化</h2>
 ユーザーコントロールには別のユーザーコントロールを含めることも可能である。<br>
 最も外側のユーザーコントロールを操作して最も内側のコントロールを変化させたい場合は、<br>
 下図のようにデータバインドを各段階で用いる。<br>
+
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_UserControl/05.png"><br>
+
 上図では依存関係プロパティ MogoProperty を操作することで、ラッパープロパティ Mogo を介して<br>
 すぐ内側のユーザーコントロール上の FugaProperty に伝播する。<br>
 同様に FugaProperty の変化は Fuga を介して HogeProperty に伝播し、結果として表示に反映される。<br>

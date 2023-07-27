@@ -23,71 +23,98 @@
 <h5>目次 :</h5>
 <div id="toc"></div>
 <hr>
+
 <!-- 本文ここから -->
+
 <h2>C言語における時間の取り扱い</h2>
 日時を取り扱うための関数およびデータ型が <b>time.h</b> に定義されている。
+
 <h2>clock() と clock_t</h2>
 <b>clock()</b> 関数は、そのプログラムが起動してからのプロセッサ時間を返却する。割り込みの処理中は計時されない。<br>
 戻り値は <b>clock_t</b> 型で、単位(精度)は環境によって異なる。値は名称に反し、クロック数とは一致しない。<br>
 尚、1秒あたりの clock_t の値が定数 <b>CLOCKS_PER_SEC</b> で定義されており、除算によって秒数を得ることができる。
+
 <div class="code">
 <kwd>#include</kwd> &lt;stdio.h&gt;
 <kwd>#include</kwd> &lt;time.h&gt;
+
 <kwd>void</kwd> main(<kwd>void</kwd>)
 {
     clock_t start, end;
+
     printf("Enterキーを押下してください。\n");
+
     <cmt>// メッセージ表示時点の clock_t 値</cmt>
     start = clock();
+
     <cmt>// Enterキーが押されるのを待つ</cmt>
     getchar();
+
     <cmt>// Enterキーが押された時点の clock_t 値</cmt>
     end = clock();
+
     <cmt>// 経過時間を秒数に変換</cmt>
     printf("%f秒でした。", (<kwd>double</kwd>)(end - start) / CLOCKS_PER_SEC);
 }
 </div>
+
 <b>実行結果 :</b>
 <div class="code">
 Enterキーを押下してください。
+
 1.837000秒でした。
 </div>
+
 <h2>現在時刻の取得</h2>
 <b>time()</b> 関数は、現在の時刻を返却する。<br>
 戻り値は <b>time_t</b> 型で、<b>「1970年1月1日 0時0分0秒からの秒数」</b>(UNIX時間)を表す。<br>
 ただこの time_t 型は秒単位の整数であり、そのままでは時刻として扱いにくい。<br>
 <b>localtime()</b> 関数を用ると <b>tm</b> 構造体に変換でき、時、分、秒など個別要素を取り出すことができるようになる。
+
 <div class="code">
 <kwd>#include</kwd> &lt;stdio.h&gt;
 <kwd>#include</kwd> &lt;time.h&gt;
+
 <kwd>void</kwd> main(<kwd>void</kwd>)
 {
     time_t t1, t2;
+
     <cmt>// 下記のいずれの方法も有効</cmt>
+
     <cmt>// time() 関数にポインタを渡すことで時刻を取得</cmt>
     time(&t1);
+
     <cmt>// time() 関数の戻り値として時刻を取得</cmt>
     t2 = time(NULL);
+
     <cmt>// t2 を tm 型に変換</cmt>
     <kwd>struct</kwd> tm* local = localtime(&t2);
+
     <cmt>// local の要素を出力</cmt>
     printf("%04d/", local->tm_year + 1900);     <cmt>//< 年</cmt>
     printf("%02d/", local->tm_mon + 1);         <cmt>//< 月</cmt>
     printf("%02d", local->tm_mday);             <cmt>//< 日</cmt>
+
     printf(" ");
+
     printf("%02d:", local->tm_hour);            <cmt>//< 時</cmt>
     printf("%02d:", local->tm_min);             <cmt>//< 分</cmt>
     printf("%02d\n", local->tm_sec);            <cmt>//< 秒</cmt>
+
     <kwd>char</kwd>* <kwd>const</kwd> wdays[] = { "日", "月", "火", "水", "木", "金", "土" };     <cmt>//< 曜日</cmt>
+
     printf("今日は%s曜日\n", wdays[local->tm_wday]);
 }
 </div>
+
 <b>実行結果 :</b>
 <div class="code">
 2012/01/23 01:23:45
 今日は月曜日
 </div>
+
 <h3>tm 構造体の定義</h3>
+
 <table>
 <tr>    <td class="col1">tm_year</td>   <td>1900年からの年</td>             </tr>
 <tr>    <td class="col1">tm_mon</td>    <td>1月からの月(0～11)</td>         </tr>
@@ -104,4 +131,5 @@ Enterキーを押下してください。
                                             <li>負 : 不明</li>
                                             </ul></td>                      </tr>
 </table>
+
 tm_mon 、tm_wday 、tm_yday はいずれも 0 起算であることに注意。

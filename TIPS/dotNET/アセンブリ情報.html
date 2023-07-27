@@ -22,19 +22,25 @@
 <h5>目次 :</h5>
 <div id="toc"></div>
 <hr>
+
 <!-- 本文ここから -->
+
 <h2>アセンブリ情報とは</h2>
 ビルド時にアセンブリ(EXE / DLL)に付与できる、バージョン、著作権などの情報のこと(下図参照)。<br>
 これらはファイルのプロパティから参照することができる。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/DotNet_AssyInfo/01.png" alt=""><br>
+
 <h2>アセンブリ情報の付与</h2>
+
 <h3>Visual Studio上で行う場合</h3>
 ここではVisual Studio 2022を例に挙げる。
 <ol>
     <li>ソリューション エクスプローラー上でプロジェクトファイル(CSPROJ など)を右クリックし、「プロパティ」を選択する。</li>
     <li>「パッケージ」>「全般」以下の各項目を設定する。<br>
         <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/DotNet_AssyInfo/02.png" alt="">
+
         <ul>主な項目
+
             <li>パッケージ バージョン : 製品のバージョン。major.minor.patch 形式。「製品バージョン」として参照可能。</li>
             <li>製品 : 製品の名称。「製品名」として参照可能。</li>
             <li>著作権 : 著作権表記。「著作権」として参照可能。</li>
@@ -44,10 +50,13 @@
    
     </li>
 </ol>
+
 <h2>プログラム中からのアセンブリ情報の参照</h2>
 現在動作しているアセンブリの情報は、<b>System.Reflection.Assembly.GetExecutingAssembly() </b>で取得できる。<br>
 取得した <b>System.Reflection.Assembly</b> 型から個々の情報を抽出できるが、項目によって抽出方法は異なる(後述)。
+
 <h3>取得できる項目一覧</h3>
+
 <table>
   <tr class="row1">
     <td class="col1">項目</td>
@@ -155,22 +164,31 @@
     <td class="center">●</td>
   </tr>
 </table>
+
 <h3>AssemblyName として取得</h3>
 アセンブリ名、およびバージョンを参照する際に使用。高速に処理できる。
 <div class="code">
 <kwd>using</kwd>  System.Reflection;
+
 :
+
 <kwd>var</kwd> assemblyName = Assembly.GetExecutingAssembly().GetName();
+
 <kwd>var</kwd> n1 = assemblyName.Name;    <cmt>//< アセンブリ名</cmt>
 <kwd>var</kwd> v1 = assemblyName.Version; <cmt>//< アセンブリバージョン</cmt>
 </div>
+
 <h3>FileVersionInfo として取得</h3>
 ファイルにアクセスするため速度が低い。
+
 <div class="code">
 <kwd>using</kwd>  System.Diagnostics;
 <kwd>using</kwd>  System.Reflection;
+
 :
+
 <kwd>var</kwd> fileVersionInfo = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
+
 <kwd>var</kwd> t2 = fileVersionInfo.FileDescription; <cmt>//< タイトル</cmt>
 <kwd>var</kwd> d2 = fileVersionInfo.Comments;        <cmt>//< 説明</cmt>
 <kwd>var</kwd> c2 = fileVersionInfo.CompanyName;     <cmt>//< 会社</cmt>
@@ -180,14 +198,19 @@
 <kwd>var</kwd> f2 = fileVersionInfo.FileVersion;     <cmt>//< ファイルバージョン</cmt>
 <kwd>var</kwd> f3 = fileVersionInfo.ProductVersion;  <cmt>//< パッケージバージョン</cmt>
 </div>
+
 <h3>Attribute として取得</h3>
 項目ごとに指定する型(T)が異なる点に注意。リフレクションを行うため、速度は低い。
 <div class="code">
 <kwd>using</kwd>  System.Reflection;
+
 :
+
 <kwd>var</kwd> assembly = Assembly.GetExecutingAssembly();
+
 T GetCustomAttribute&lt;T&gt;() where T : Attribute =>
     (T)Attribute.GetCustomAttribute(assembly, <kwd>typeof</kwd>(T));
+
 <kwd>var</kwd> t1 = GetCustomAttribute&lt;AssemblyTitleAttribute&gt;().Title;                                <cmt>//< タイトル</cmt>
 <kwd>var</kwd> d1 = GetCustomAttribute&lt;AssemblyDescriptionAttribute&gt;().Description;                    <cmt>//< 説明</cmt>
 <kwd>var</kwd> c1 = GetCustomAttribute&lt;AssemblyCompanyAttribute&gt;().Company;                            <cmt>//< 会社</cmt>
@@ -200,14 +223,18 @@ T GetCustomAttribute&lt;T&gt;() where T : Attribute =>
 <kwd>var</kwd> v2 = GetCustomAttribute&lt;AssemblyFileVersionAttribute&gt;().Version;                        <cmt>//< ファイルバージョン</cmt>
 <kwd>var</kwd> v3 = GetCustomAttribute&lt;AssemblyInformationalVersionAttribute&gt;().InformationalVersion;  <cmt>//< パッケージバージョン</cmt>
 </div>
+
 <h3>動作ディレクトリを取得</h3>
 Assembly のプロパティ Location より、アセンブリのパスを参照可能。<br>
 また、System.IO.Path.GetDirectoryName() でアセンブリが格納されているディレクトリ( = 実行ディレクトリ)を抽出できる。
+
 <div class="code">
 <kwd>using</kwd>  System.Reflection;
+
 :
+
 <kwd>var</kwd> assembly = Assembly.GetExecutingAssembly();
+
 <kwd>string</kwd> path = assembly.Location;                       <cmt>//< ファイルパス</cmt>
 <kwd>string</kwd> dir  = System.IO.Path.GetDirectoryName(path);   <cmt>//< 実行ディレクトリ</cmt>
 </div>
-  

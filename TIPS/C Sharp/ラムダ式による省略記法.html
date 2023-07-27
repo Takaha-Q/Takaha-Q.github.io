@@ -23,35 +23,45 @@
 <div id="toc"></div>
 <hr>
 <!-- 本文ここから -->
+
 <h2>ラムダ式を用いたメソッドの省略記法</h2>
 メソッドの内容が単文の場合、ラムダ式を用いて簡潔に記述することができる。<br>
 これはC#6.0以降で有効。
+
 <h3>戻り値のあるメソッド</h3>
+
 <div class="code">
 <cmt>// 通常の記法</cmt>
 <kwd>public int</kwd> Mul_(<kwd>int</kwd> a, <kwd>int</kwd> b)
 {
     <kwd>return</kwd> a * b;
 }
+
 <cmt>// ラムダ式による記法</cmt>
 <kwd>public int</kwd> Mul(<kwd>int</kwd> a, <kwd>int</kwd> b) => a * b;
 </div>
+
 <h3>戻り値のないメソッド</h3>
+
 <div class="code">
 <cmt>// 通常の記法</cmt>
 <kwd>public void</kwd> Print_(<kwd>string</kwd> msg)
 {
     <knw>Console</knw>.WriteLine(msg);
 }
+
 <cmt>// ラムダ式による記法(C#6.0)</cmt>
 <kwd>public void</kwd> Print(<kwd>string</kwd> msg) => <knw>Console</knw>.WriteLine(msg);
 </div>
+
 ここで、ラムダ式(=> の右辺。この場合は Console.WriteLine(msg) )が値を返したとしても無視される。これは通常記法の場合と同様。
+
 <h2>プロパティ、インデクサーへの応用</h2>
 メソッドに限らず、プロパティやインデクサーに対しても同様に、ラムダ式を用いた簡潔な記法が適用できる。<br>
 C#6.0では読み取り専用のプロパティ、インデクサー(getter)に限定されていたが、C#7.0以降はsetterでも使用できる。<br>
 (尤もプロパティに限れば、単に値を読み書きするだけならば自動プロパティを用いるのが最も簡便である。)<br>
 尚、対象が読み取り専用の場合、get を省略できる。
+
 <h3>プロパティ</h3>
 <div class="code">
 <kwd>public class</kwd> Person
@@ -64,9 +74,11 @@ C#6.0では読み取り専用のプロパティ、インデクサー(getter)に�
             <kwd>return</kwd> FirstName + " " + LastName;
         }
     }
+
     <cmt>// 読み取り専用プロパティ : ラムダ式記法</cmt>
     <cmt>// (get を省略)</cmt>
     <kwd>public string</kwd> FullName => FirstName + " " + LastName;
+
     <cmt>// 読み書き可能プロパティ : 通常記法</cmt>
     <kwd>private</kwd> <knw>DateTime</knw> _birthday;
     <kwd>public</kwd> <knw>DateTime</knw> Birthday_
@@ -89,6 +101,7 @@ C#6.0では読み取り専用のプロパティ、インデクサー(getter)に�
     }
 }
 </div>
+
 <h3>インデクサー</h3>
 <h4>読み取り専用</h4>
 <div class="code">
@@ -97,11 +110,13 @@ C#6.0では読み取り専用のプロパティ、インデクサー(getter)に�
     <cmt>// Personオブジェクトを保持する、キー付きのコレクション(SortedList)</cmt>
     <kwd>private</kwd> SortedList<<kwd>string</kwd>, Person> _persons 
         = <kwd>new</kwd> SortedList<<kwd>string</kwd>, Person>();
+
     <cmt>// 読み取り専用インデクサー : ラムダ式記法</cmt>
     <cmt>// (<kwd>get</kwd> を省略)</cmt>
     <kwd>public</kwd> Person <kwd>this</kwd>[<kwd>string</kwd> id] => _persons[id];
 }
 </div>
+
 <h4>読み書き可能</h4>
 <div class="code">
 <kwd>public class</kwd> Group
@@ -109,6 +124,7 @@ C#6.0では読み取り専用のプロパティ、インデクサー(getter)に�
     <cmt>// Personオブジェクトを保持する、キー付きのコレクション(SortedList)</cmt>
     <kwd>private</kwd> SortedList<<kwd>string</kwd>, Person> _persons 
         = <kwd>new</kwd> SortedList<<kwd>string</kwd>, Person>();
+
     <cmt>// 読み書き可能インデクサー : ラムダ式記法</cmt>
     <kwd>public</kwd> Person <kwd>this</kwd>[<kwd>string</kwd> id]
     {

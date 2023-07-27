@@ -23,8 +23,10 @@
 <div id="toc"></div>
 <hr>
 <!-- 本文ここから -->
+
 <h2>C#によるライブラリ(DLL)の作成と結合</h2>
 C#ではDLLを動的にも静的にも結合することができ、C++と比較してその手順は簡便である。
+
 <h3>呼ばれる側(DLL)の作成</h3>
 <ol>
     <li>
@@ -46,13 +48,17 @@ C#ではDLLを動的にも静的にも結合することができ、C++と比較
         <cmt>// - = - = - = - = - = - = - = - = - = -</cmt>
         <cmt>// private メンバ</cmt>
         <cmt>// - = - = - = - = - = - = - = - = - = -</cmt>
+
         <cmt>// データリスト</cmt>
         <kwd>private</kwd> <knw>List</knw>&lt;MyData&gt; list_Data = <kwd>new</kwd> <knw>List</knw>&lt;MyData&gt;();
+
         <cmt>// - = - = - = - = - = - = - = - = - = -</cmt>
         <cmt>// public メソッド</cmt>
         <cmt>// - = - = - = - = - = - = - = - = - = -</cmt>
+
         <cmt>// [static]足し算を行う</cmt>
         <kwd>public static int</kwd> Add(<kwd>int</kwd> a, <kwd>int</kwd> b) => a + b;
+
         <cmt>// データリストにデータを追加する</cmt>
         <kwd>public int</kwd> AddMyData(MyData data)
         {
@@ -60,12 +66,15 @@ C#ではDLLを動的にも静的にも結合することができ、C++と比較
             {
                 list_Data.Add(data);
             }
+
             <kwd>return</kwd> list_Data.Count;
         }
+
         <cmt>// 指定されたインデクスのデータを返す</cmt>
         <kwd>public</kwd> MyData DataSearch(<kwd>int</kwd> serachIndex) => 
             list_Data.FirstOrDefault(x => x.index == serachIndex);
     }
+
     <cmt>// 試験用データ</cmt>
     <kwd>public class</kwd> MyData
     {
@@ -76,6 +85,7 @@ C#ではDLLを動的にも静的にも結合することができ、C++と比較
 </p>
     </li>
 </ol>
+
 <h3>呼ぶ側 - 静的結合</h3>
 以下の手順により、アセンブリ(DLLまたはEXE)の内容を参照することができる。
 <ol>
@@ -96,6 +106,7 @@ C#ではDLLを動的にも静的にも結合することができ、C++と比較
         <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/CSharp/Dll_Create_and_Link/05.png">
     </li>
 </ol>
+
 <h3>呼ぶ側 - 動的結合</h3>
 動的に結合することも可能。
 <p class="code">
@@ -105,6 +116,7 @@ C#ではDLLを動的にも静的にも結合することができ、C++と比較
 <kwd>using</kwd> <knw>System</knw>.Reflection;
 <kwd>using</kwd> <knw>System</knw>.<knw>Text</knw>;
 <kwd>using</kwd> <knw>System</knw>.Threading.Tasks;
+
 <kwd>namespace</kwd> CSharpConsole
 {
     <kwd>class</kwd> Program
@@ -118,6 +130,7 @@ C#ではDLLを動的にも静的にも結合することができ、C++と比較
             <cmt>//                              ↑       ↑</cmt>
             <cmt>//                           名前空間    │</cmt>
             <cmt>//                                     クラス</cmt>
+
             <kwd>if</kwd> (Person != <kwd>null</kwd>)
             {
                 <cmt>// CSharpDll.Personクラスをインスタンス化</cmt>
@@ -132,6 +145,7 @@ C#ではDLLを動的にも静的にも結合することができ、C++と比較
                 <knw>Console</knw>.WriteLine(<ltr>$"age= {p1.Age}"</ltr>);
                 <knw>Console</knw>.WriteLine(p1.ToString());
             }
+
             <knw>Console</knw>.ReadKey();
         }
     }

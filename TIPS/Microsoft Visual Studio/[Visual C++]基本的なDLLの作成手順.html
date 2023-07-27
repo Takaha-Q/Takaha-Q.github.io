@@ -20,7 +20,9 @@
 <h5>目次 :</h5>
 <div id="toc"></div>
 <hr>
+
 <!-- 本文ここから -->
+
 <ol>
 <li>
 プロジェクトを作成する。<br>
@@ -39,6 +41,7 @@
 library.h<br>
 <p class="code">
 <kwd>#pragma</kwd> once
+
 <kwd>extern</kwd> <ltr>"<ltr>C</ltr>"</ltr>
 {
     __declspec( dllexport ) <kwd>void</kwd> __stdcall Test();
@@ -48,6 +51,7 @@ library.cpp<br>
 <p class="code">
 <kwd>#include</kwd> &lt;iostream&gt;
 <kwd>#include</kwd> <ltr>"library.h"</ltr>
+
 <kwd>void</kwd> Test()
 {
     std::cout &lt;&lt; <ltr>"Cの関数が呼び出されました。"</ltr> &lt;&lt; std::endl;

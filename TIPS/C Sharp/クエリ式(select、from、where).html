@@ -23,20 +23,27 @@
 <h5>目次 :</h5>
 <div id="toc"></div>
 <hr>
+
 <!-- 本文ここから -->
+
 <h2>C#におけるクエリ</h2>
 集合(コレクション)から特定の条件に合致する要素を抽出できるクエリ(SQLのクエリと同様)文を用いることができる。<br>
+
 <h2>基本的なクエリ文</h2>
+
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/CSharp/query_statement/01.png" alt=""><br>
+
 <h5>出力結果 :</h5>
 <div class="code">
 97 92 81
 </div>
+
 ここでは、コレクション Scores から、80 を超える値を抽出し、新たなコレクション queryHighScores を作成している。<br>
 記述すべき内容は記述順を除き、SQLとほぼ同様である。<br>
 <br>
 Where 句で論理演算子を用いることもできるほか、複数の where 句をクエリに含めることも可能である。<br>
 このため、以下のコードにおけるクエリ#1と#2の結果は等しくなる。
+
 <div class="code">
 class WhereSample2
 {
@@ -44,12 +51,14 @@ class WhereSample2
     {
         // 元データ
         int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
+
         // クエリ#1
         // 条件式を && で結合
         var queryLowNums2 =
             from num in numbers
             where num < 5 && num % 2 == 0
             select num;
+
         // クエリ#2
         // 複数の where 句を記述
         var queryLowNums3 =
@@ -57,6 +66,7 @@ class WhereSample2
             where num < 5
             where num % 2 == 0
             select num;
+
         // 画面出力
         foreach (var s in queryLowNums2)
         {
@@ -70,11 +80,13 @@ class WhereSample2
     }
 }
 </div>
+
 <h5>出力結果 :</h5>
 <div class="code">
 4 2 0
 4 2 0
 </div>
+
 <h2>LINQとの関係</h2>
 上述のように、C#ではSQLに準じたクエリ文を用いることができるが、記述は簡潔ではなく、SQLに慣れていないと扱いづらい。<br>
 <a href="TIPS/LINQ (Language Integrated Query).html">LINQ</a>はこの弱点を補う機能で、よりプログラミング言語との親和性が高い構文を用いることができる。

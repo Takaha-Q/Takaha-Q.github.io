@@ -30,11 +30,13 @@
 <h5>目次 :</h5>
 <div id="toc"></div>
 <hr>
+
 <!-- 本文ここから -->
 <h2>コマンドラインでのビルド</h2>
 .NETプロジェクト(CSPROJなど)はコマンドラインでのビルドが可能である。<br>
 但し、これらビルドに必要なプログラムは.NET SDKに含まれており、使用するには.NET SDKまたはVisual Studioをインストールする必要がある。<br>
 dotnet コマンドはビルドに限らずプロジェクトの作成なども可能であるが、ここでは既存のプロジェクトをビルドする方法を紹介するに留める。
+
 <h2>ビルドに使用するプログラム</h2>
 Visual Studio 2022 Communityを C:\Program Files にインストールした場合の例<br>
 <ul>
@@ -58,7 +60,9 @@ C:\Program Files\Microsoft Visual Studio\2022\Community\Msbuild\Current\Bin\
 </ul>
 </li>
 </ul>
+
 <h2>dotnet コマンド</h2>
+
 <table>
   <tr class="row1">
     <td class="col1">コマンド</td>
@@ -96,6 +100,7 @@ C:\Program Files\Microsoft Visual Studio\2022\Community\Msbuild\Current\Bin\
     <td>内部で build を行う<br>(ソースコードしかない状態でも実行可能)</td>
   </tr>
 </table>
+
 ビルドには MSBuild.exe を使用する。<br>
 環境変数(PATH)が設定されていない都合上、MSBuild.exe を直接呼び出す場合は完全なパスを指定しなければならないが、<br>
 dotnet コマンドは.NET SDK(またはVisual Studio)がインストールされていればPATHが設定されるため、パスを指定せず使用できる。<br>
@@ -104,8 +109,10 @@ dotnet コマンドは.NET SDK(またはVisual Studio)がインストールさ�
 これはプロジェクトの依存関係(ビルド対象のプロジェクトが、どのアセンブリに依存しているか)を記述しており、dotnet restore によって作成(復元)される。<br>
 但し、dotnet build は暗黙的に復元を行うため、通常は restore を明示的に実行する必要は無い。<br>
 (オプションの指定により、暗黙的復元を無効化することも可能。詳細は後述。)
+
 <h3>dotnet build</h3>
 プロジェクトと、その依存関係のビルドを実行する。
+
 <h4>構文</h4>
 オプションの詳細は後述。
 <div class="code">
@@ -128,17 +135,22 @@ dotnet build [&lt;PROJECT&gt;|&lt;SOLUTION&gt;] [-a|--arch &lt;ARCHITECTURE&gt;]
                                     [-v|--verbosity &lt;LEVEL&gt;]
                                     [--version-suffix &lt;VERSION_SUFFIX&gt;]
 </div>
+
 <h4>引数</h4>
+
 &lt;PROJECT&gt;|&lt;SOLUTION&gt;<br>
 ビルド対象のプロジェクトまたはソリューションファイル。<br>
 省略した場合は、現在の作業ディレクトリから "proj" / "sln" のいずれかで終わるファイルを検索し、そのファイルを使用する。
+
 <h3>dotnet msbuild</h3>
 MSBuild.exe と共通のパラメータを用いて実行する。そのため、MSBuild.exe を直接呼び出すことと等価である。<br>
 通常は内部で restore を行わないため、ソースコードしかない状態ではエラーとなる。<br>
 詳細は<a href="https://learn.microsoft.com/ja-jp/visualstudio/msbuild/msbuild-command-line-reference?view=vs-2022">リンク先</a>を参照のこと。
+
 <h3>dotnet publish</h3>
 アプリとその依存関係をフォルダに発行し、ホスティングシステム(導入先のコンピュータ)で使用できるようにする。<br>
 dotnet build 同様、依存関係の復元( restore )は暗黙的に実行される。
+
 <h4>構文</h4>
 オプションの詳細は後述。
 <div class="code">
@@ -162,15 +174,21 @@ dotnet publish [&lt;PROJECT&gt;|&lt;SOLUTION&gt;] [-a|--arch &lt;ARCHITECTURE&gt
                                       [-v|--verbosity &lt;LEVEL&gt;]
                                       [--version-suffix &lt;VERSION_SUFFIX&gt;]
 </div>
+
 <h4>引数</h4>
+
 &lt;PROJECT&gt;|&lt;SOLUTION&gt;<br>
 dotnet build と共通。
+
 <h4>公開プロパティの参照</h4>
+
 公開プロパティが記述された .pubxml ファイルを参照することも可能である。.pubxml ファイル はVisual Studioで公開を行うと作成される。<br>
 <a href="TIPS/Microsoft Visual Studio/[Visual Studio]パッケージの発行.html">リンク先</a>も併せて参照のこと。
+
 <div class="code">
 dotnet publish -p:PublishProfile=FolderProfile
 </div>
+
 <b>PublishProfile</b> プロパティは
 <ul>
   <li>フォルダ : <b><i>&lt;project_folder&gt;\Properties\PublishProfiles</i></b></li>
@@ -178,8 +196,11 @@ dotnet publish -p:PublishProfile=FolderProfile
 </ul>
 が前提とされており、パスと拡張子が含まれていてもそれらは無視される。<br>
 上記の場合、&lt;project_folder&gt;\Properties\PublishProfiles\<b>FolderProfile.pubxml</b> が参照される。<br>
+
 PublishProfile ではなく <b>PublishProfileFullPath</b> プロパティを使用すると、パスと拡張子を含めたファイル名を指定できる。
+
 <h3>オプション一覧(dotnet build / publish)</h3>
+
 <table>
   <tr class="row1">
     <th>オプション</th>
@@ -371,6 +392,7 @@ PublishProfile ではなく <b>PublishProfileFullPath</b> プロパティを使�
     <td class="center bg_lg">○</td>
     <td>$(Version) プロパティが設定されている場合は無効</td>
   </tr>
+
   <tr>
     <th>-l</th>
     <td class="col1"></td>
@@ -389,6 +411,7 @@ PublishProfile ではなく <b>PublishProfileFullPath</b> プロパティを使�
     <td class="center bg_lg">○</td>
     <td class="center bg_lg">○</td>
   </tr>
+
   <tr>
     <th>--help</th>
     <td class="col1">-h<br>-?</td>
@@ -399,13 +422,16 @@ PublishProfile ではなく <b>PublishProfileFullPath</b> プロパティを使�
     <td></td>
   </tr>
 </table>
+
 <h2>devenv コマンド</h2>
 devenv を使用すると、IDE(Visual Studio)の機能を使用できる。<br>
 通常、ビルドは MSBuild を使用すれば十分だが、インストーラープロジェクトなど一部のプロジェクトは MSBuild でのビルドに対応していないため、devenv を介してIDEの機能によりビルドを行う。<br>
 (上記のような例外を除き、ビルドでは devenv ではなく MSBuild の使用が推奨されている。)
+
 <h3>devenv のスイッチ</h3>
 ビルドに関連するものを抜粋。原典は<a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/reference/devenv-command-line-switches?view=vs-2022">リンク先</a>を参照のこと。<br>
 尚、devenv 自身の引数は<b>ソリューションファイル</b>である。/Project スイッチを用いない限り、プロジェクトを指定した操作はできない。
+
 <table>
   <tr class="row1">
     <td class="col1">スイッチ</td>
@@ -413,6 +439,7 @@ devenv を使用すると、IDE(Visual Studio)の機能を使用できる。<br>
     <td>解説</td>
     <td>記述例</td>
   </tr>
+
   <tr>
     <td class="col1">/Build</td>
     <td rowspan="4">ソリューション構成( Debug / Release ほか)(省略時は Debug)</td>
@@ -459,3 +486,4 @@ devenv を使用すると、IDE(Visual Studio)の機能を使用できる。<br>
     <td>指定されたソリューションに含まれるすべてのプロジェクトファイル、または指定されたプロジェクトを最新のVisual Studioの形式に更新する</td>
     <td class="code">devenv mysln.sln /upgrade</td>
   </tr>
+</table>

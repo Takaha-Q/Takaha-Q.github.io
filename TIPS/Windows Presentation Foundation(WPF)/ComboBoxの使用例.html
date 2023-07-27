@@ -18,12 +18,16 @@
 <div id="toc"></div>
 <hr>
 <!-- 本文ここから -->
+
 <h2>Dictionaryをソースとしたドロップダウンリスト</h2>
 ドロップダウンリストで選択された項目をキーとして、Dictionary を検索する場合の実装例。
+
 <h5>XAML : HogeWindow.xaml</h5>
 <div class="xaml">
 &lt;Window&gt;
+
     (略)
+
     <cmt>&lt;!-- ComboBox の ItemsSource を HogeItems に --&gt;</cmt>
     <cmt>&lt;!-- SelectedItem を HogeItem にバインド --&gt;</cmt>
     &lt;ComboBox ItemsSource="{Binding Path=HogeItems,
@@ -35,14 +39,19 @@
               Margin="6"/&gt;
     
     (略)
+
 &lt;/Window&gt;
 </div>
 IsEditable プロパティを True に設定しない場合、入力不可のドロップダウンリストとして機能する。
+
+
 <h5>コードビハインド : HogeWindow.xaml.cs</h5>
+
 <div class="code">
 <cmt>/// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = -</cmt>
 <cmt>/// private 定数</cmt>
 <cmt>/// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = -</cmt>
+
 <cmt>// Combobox の項目 対 紐づける値</cmt>
 <kwd>private static readonly</kwd> <knw>Dictionary</knw>&lt;<kwd>string</kwd>, <kwd>int</kwd>&gt; C_Dic_Hoge =
     <kwd>new</kwd> <knw>Dictionary</knw>&lt;<kwd>string</kwd>, <kwd>int</kwd>&gt;
@@ -51,13 +60,17 @@ IsEditable プロパティを True に設定しない場合、入力不可のド
         { "コンボボックス項目#2", 2 },
         :
     };
+
 <cmt>/// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = -</cmt>
 <cmt>/// public プロパティ</cmt>
 <cmt>/// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = -</cmt>
+
 <cmt>// Combobox のソース</cmt>
 <kwd>public string</kwd>[] HogeItems { <kwd>get</kwd>; <kwd>set</kwd>; }
+
 <cmt>// Combobox で選択された項目</cmt>
 <kwd>public string</kwd> HogeItem { <kwd>get</kwd>; <kwd>set</kwd>; }
+
 <cmt>/// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = -</cmt>
 <cmt>/// コンストラクタ</cmt>
 <cmt>/// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = -</cmt>
@@ -66,6 +79,7 @@ IsEditable プロパティを True に設定しない場合、入力不可のド
     <cmt>// Combobox ソース初期化</cmt>
     HogeItems = C_Dic_Hoge.Keys.ToArray();
 }
+
 <cmt>/// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = -</cmt>
 <cmt>/// イベントハンドラ</cmt>
 <cmt>/// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = -</cmt>
@@ -83,6 +97,7 @@ IsEditable プロパティを True に設定しない場合、入力不可のド
     DoSomething(t);
 }
 </div>
+
 <h3>要点</h3>
 <ul>
     <li>Dictionary のキーは string 、値は任意の型(デリゲートも可)</li>

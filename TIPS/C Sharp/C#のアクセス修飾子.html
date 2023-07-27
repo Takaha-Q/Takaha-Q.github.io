@@ -22,8 +22,10 @@
 <div id="toc"></div>
 <hr>
 <!-- 本文ここから -->
+
 <h2>アクセス修飾子とアクセシビリティ</h2>
 型と型メンバのアクセス可否(アクセシビリティ)を決定するには、アクセス修飾子を用いる。
+
 <table>
   <tr>
     <th class="col1" rowspan="2"></th>
@@ -38,6 +40,7 @@
     <th width="72">子孫<br>(派生クラス)</th>
     <th width="72">それ以外</th>
   </tr>
+
   <tr>
     <td class="col1">public</td>
     <td class="bg_lg center">可</td>
@@ -47,6 +50,7 @@
     <td class="bg_lg center">可</td>
     <td>任意のコードからアクセス可能。</td>
   </tr>
+
   <tr>
     <td class="col1">protected internal</td>
     <td class="bg_lg center">可</td>
@@ -56,6 +60,7 @@
     <td class="bg_lr center">不可</td>
     <td>protected に加え、同一アセンブリ内の任意のコードからアクセス可能。</td>
   </tr>
+
   <tr>
     <td class="col1">protected</td>
     <td class="bg_lg center">可</td>
@@ -65,6 +70,7 @@
     <td class="bg_lr center">不可</td>
     <td>自身または派生クラスからアクセス可能。</td>
   </tr>
+
   <tr>
     <td class="col1">internal</td>
     <td class="bg_lg center">可</td>
@@ -74,6 +80,7 @@
     <td class="bg_lr center">不可</td>
     <td>同一アセンブリ内の任意のコードからアクセス可能。</td>
   </tr>
+
   <tr>
     <td class="col1">private protected</td>
     <td class="bg_lg center">可</td>
@@ -83,6 +90,7 @@
     <td class="bg_lr center">不可</td>
     <td>private に加え、同一アセンブリ内の派生クラスからアクセス可能。</td>
   </tr>
+
   <tr>
     <td class="col1">private</td>
     <td class="bg_lg center">可</td>
@@ -92,9 +100,12 @@
     <td class="bg_lr center">不可</td>
     <td>自身のクラスからのみアクセス可能。</td>
   </tr>
+
 </table>
+
 ここで「<b>アセンブリ</b>」は、ひとつのプロジェクトをビルドすることで作成される、DLL または EXE を意味する。<br>
 internal と public は、オブジェクトへのアクセスを同一のアセンブリに限定するか、アセンブリを跨ぐことを可能とするかが異なる。
+
 <h2>アクセシビリティの指定可否</h2>
 名前空間に直接宣言される(他のクラスや構造体の入れ子でない)クラス、レコード、構造体、およびインタフェースには、public または internal を指定できる。既定値は internal 。<br>
 クラス、レコード、およびインタフェースのメンバにはすべてのアクセス修飾子を適用できる。<br>
@@ -102,4 +113,5 @@ internal と public は、オブジェクトへのアクセスを同一のアセ
 ここで原則として、メンバのアクセシビリティはそれを含む型のアクセシビリティよりも緩くなってはならない。<br>
 (例 : クラスのアクセシビリティが internal 、メンバのアクセシビリティが public はエラーとなる。)<br>
 但しインタフェースメソッドの実装(オーバーライド)は例外で、public で宣言されている場合は public とする必要がある。<br>
+
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/CSharp/Accessibility/01.png" alt=""><br>

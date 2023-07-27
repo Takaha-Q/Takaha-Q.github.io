@@ -29,6 +29,7 @@
 <div id="toc"></div>
 <hr>
 <!-- 本文ここから -->
+
 <h2>コンテナとは</h2>
 「指定した型のデータを複数個格納するデータ構造」のこと。C言語における配列(固定長配列)もコンテナである。<br>
 C++のSTL(Standard Template Library)には、<br>
@@ -39,9 +40,12 @@ C++のSTL(Standard Template Library)には、<br>
 </ul>
 といった、データを取り扱う上で有用なコンテナクラスが定義されている。<br>
 C++以外にもJava、C#、Rubyなどのモダンな言語には同様の機構が実装されている。<br>
+
 <h2>コンテナの一覧</h2>
+
 <h3>可変長・固定長配列</h3>
 メモリ領域が連続するため、ポインタで走査可能。<br>
+
 <table>
 	<tr class="row1">
 		<td class="col1">名称</td>
@@ -65,7 +69,9 @@ C++以外にもJava、C#、Rubyなどのモダンな言語には同様の機構�
 		<td>C++11以降</td>
 	</tr>
 </table>
+
 <h3>list : 連結リスト</h3>
+
 <table>
 	<tr class="row1">
 		<td class="col1">名称</td>
@@ -90,9 +96,11 @@ C++以外にもJava、C#、Rubyなどのモダンな言語には同様の機構�
 		<td>C++11以降</td>
 	</tr>
 </table>
+
 <h3>map : ユニークなキーと、値の対を格納(連想配列)</h3>
 ユニークなキーと、値のペアを格納する。要素の参照が高速。<br>
 詳細は<a href="TIPS/C・C%2B%2B/[C%2B%2B／STL／コンテナ]マップ(連想配列).html">[C++／STL／コンテナ]マップ(連想配列)</a>を参照。
+
 <table>
 	<tr class="row1">
 		<td class="col1">名称</td>
@@ -124,8 +132,10 @@ C++以外にもJava、C#、Rubyなどのモダンな言語には同様の機構�
 			multimap よりも処理が高速でメモリ効率が良い</td>
 	</tr>
 </table>
+
 <h3>set : ユニークな値を格納</h3>
 ユニークな要素を格納する。map とは異なり、要素自体をキーとする。<br>
+
 <table>
 	<tr class="row1">
 		<td class="col1">名称</td>
@@ -157,7 +167,9 @@ C++以外にもJava、C#、Rubyなどのモダンな言語には同様の機構�
 			multiset よりも処理が高速でメモリ効率が良い</td>
 	</tr>
 </table>
+
 <h3>その他</h3>
+
 <table>
 	<tr class="row1">
 		<td class="col1">名称</td>

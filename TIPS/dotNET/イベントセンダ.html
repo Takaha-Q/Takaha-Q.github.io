@@ -17,11 +17,14 @@
 <h5>目次 :</h5>
 <div id="toc"></div>
 <hr>
+
 <!-- 本文ここから -->
+
 <h2>フォームアプリケーションにおけるイベントセンダ</h2>
 イベントを発行するコントロールを指す。<br>
 例えば、ボタンがクリックされた場合はクリックされたボタンが、<br>
 チェックボックスのチェック状態が変更された場合は当該チェックボックスがイベントセンダとなる。
+
 <h2>イベントセンダの情報を取得</h2>
 <h3>C# (.Net)</h3>
 イベントハンドラの<b>第1引数(sender)</b>として渡される。<br>
@@ -43,6 +46,7 @@ sender は object 型にラップされているため、<b>メンバにアク�
 	}
 }
 </p>
+
 <h2>何ができるのか</h2>
 イベントセンダの情報を取得することで発行元を特定できるため、<br>
 <b>複数のコントロールでイベントハンドラメソッドを共用することができる</b>。<br>
@@ -66,4 +70,4 @@ sender は object 型にラップされているため、<b>メンバにアク�
 また、前節の例にあるように、RadioButton.CheckChanged は<br>
 直接操作されたラジオボタンは勿論、同一グループにある他のラジオボタンもイベントを発行する。<br>
 ラジオボタンのチェック状態に応じて処理を行うことで、処理の重複を避けることができる。<br>
-<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/Event_Sender/01.png"><br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/Event_Sender/01.png">

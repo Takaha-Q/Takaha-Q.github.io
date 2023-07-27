@@ -23,12 +23,15 @@
 <h5>目次 :</h5>
 <div id="toc"></div>
 <hr>
+
 <!-- 本文ここから -->
 <h2>System.Windows.Threading.DispatcherTimer</h2>
 Dispathcer キューに統合されたタイマ。<br>
 <a href="TIPS/dotNET/Timer.html">System.Timers.Timer</a>とは異なりタイマハンドラがUIスレッドで実行されるため、タイマイベントでUIを更新することが可能である。<br>
+
 <div class="code">
 <kwd>using</kwd> <knw>System</knw>.<knw>Windows</knw>.Threading;
+
 <kwd>class</kwd> Hoge
 {
     <kwd>public</kwd> Initialize()
@@ -37,9 +40,11 @@ Dispathcer キューに統合されたタイマ。<br>
         dispatcherTimer = <kwd>new</kwd> <knw>System</knw>.<knw>Windows</knw>.Threading.DispatcherTimer();   <cmt>//< タイマ生成</cmt>
         dispatcherTimer.Tick += <kwd>new</kwd> <knw>EventHandler</knw>(dispatcherTimer_Tick);     <cmt>//< タイマハンドラの設定</cmt>
         dispatcherTimer.Interval = <kwd>new</kwd> <knw>TimeSpan</knw>(0,0,1);                     <cmt>//< タイマ周期の設定</cmt>
+
         <cmt>// タイマ始動</cmt>
         dispatcherTimer.Start();
     }
+
     <cmt>// タイマ満了時の処理(タイマハンドラ)</cmt>
     <kwd>private void</kwd> dispatcherTimer_Tick(<kwd>object</kwd> sender, <knw>EventArgs</knw> e)
     {

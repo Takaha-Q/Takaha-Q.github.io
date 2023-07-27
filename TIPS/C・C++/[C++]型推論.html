@@ -26,17 +26,20 @@
 <div id="toc"></div>
 <hr>
 <!-- 本文ここから -->
+
 <h2>型推論とは</h2>
 静的な型付けを持つ言語において、変数や関数シグネチャの型を明示的に宣言しなくても、周辺情報および文脈などから自動的(暗黙的)に各々の型を決定する機構のこと。<br>
 初期化のための代入式の右辺値や、関数呼び出し時の実引数などから、変数や関数の戻り値の型を帰納的に決定することができる。<br>
 特にテンプレートやメタプログラミングでは、オブジェクトの型を実装時に特定することが困難(または不可能)であるため、型推論によって最適な型を割り当てることで省力化やヒューマンエラー低減が期待できる。<br>
 Java、C#、Swiftなどモダン言語が型推論をサポートしており、C++には<a href="TIPS/C%E3%83%BBC%2B%2B/[C%2B%2B]C%2B%2B11.html">C++11</a>から導入された。<br>
+
 <h2>C++における型推論</h2>
 <h3>auto キーワードによる型推論</h3>
 <p class="code">
 <kwd>auto</kwd> someStrangeCallableType = boost::bind(&amp;SomeFunction, _2, _1, someObject);
 <kwd>auto</kwd> otherVariable = <ltr>5</ltr>;
 </p>
+
 明示的に初期化される変数の宣言に <b>auto</b> キーワードを用いると、初期化子によって変数の型が特定される。<br>
 上記の変数 someStrangeCallableType の型は、関数テンプレート boost::bind() がその引数に応じて返す戻り値の型であり、<br>
 これはコンパイラは容易に判断できても、プログラマが調べるのは困難または不可能である。<br>
@@ -46,11 +49,13 @@ Java、C#、Swiftなどモダン言語が型推論をサポートしており、
 auto はコードの簡略化(冗長性の排除)にも有効である。<br>
 <p class="code">
 <cmt>// std::vector&lt;int&gt; myvec (ベクトル)を走査する場合</cmt>
+
 <cmt>// auto を使用しない for ループ</cmt>
 <kwd>for</kwd> (std::vector&lt;<kwd>int</kwd>&gt;::const_iterator itr = myvec.begin(); itr != myvec.end(); ++itr)
 {
     :
 }
+
 <cmt>// auto を使用した for ループ</cmt>
 <cmt>// myvec.begin() がイテレータを返すことから、itr がイテレータであることは明白</cmt>
 <kwd>for</kwd> (<kwd>auto</kwd> itr = myvec.begin(); itr != myvec.end(); ++itr)
@@ -58,10 +63,12 @@ auto はコードの簡略化(冗長性の排除)にも有効である。<br>
     :
 }
 </p>
+
 myvec.begin() の戻り値の型からイテレータ itr の型を推論することができる。<br>
 コンテナがネストするような場合は特に効果が大きい。コンテナおよびイテレータについては、<a href="TIPS/C%E3%83%BBC%2B%2B/[C%2B%2B%EF%BC%8FSTL%EF%BC%8F%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A]%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A.html">[C++／STL／コンテナ]コンテナ</a>および
 <a href="TIPS/C%E3%83%BBC%2B%2B/[C%2B%2B%EF%BC%8FSTL%EF%BC%8F%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A]%E3%82%A4%E3%83%86%E3%83%AC%E3%83%BC%E3%82%BF.html">[C++／STL／コンテナ]イテレータ</a>
 を参照のこと。<br>
+
 <h3>decltype キーワードによる型の取得</h3>
 <b>decltype</b> キーワードを用いると、オペランドで指定した式の型をコンパイル時に取得することができる。<br>
 <p class="code">

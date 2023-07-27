@@ -19,13 +19,16 @@
 <h5>目次 :</h5>
 <div id="toc"></div>
 <hr>
+
 <!-- 本文ここから -->
+
 <h2>WPFで使用できるファイル選択・保存ダイアログ</h2>
 Windows Formでは OpenFileDialog 、SaveFileDialog が標準で使用できたが、<br>
 これはWPFと組み合わせて使用されることは想定されておらず、オーナーウィンドウが指定できないなど不便な点が存在する。<br>
 Windows API Code Packに含まれる CommonFileDialog は当初から.NETおよびWPFでの使用を前提としているため、WPFとの相性が良い。<br>
 (Windows Formは.NETを謳ってはいるものの、実際はWin32をラッピングしたもので、パフォーマンス等の最適化が十分でない。)<br>
 尚、使用できる機能自体はWindows Formのものと相違は無い。
+
 <h2>準備</h2>
 CommonFileDialog の使用に際しては、Windows API Code Pack を組み込む必要がある。<br>
 Windows10以降に適合するのは Microsoft-Windows<b>10</b>-APICodePack-Shell であり、Microsoft-WindowsAPICodePack-Shell とは異なる。
@@ -44,6 +47,7 @@ Windows10以降に適合するのは Microsoft-Windows<b>10</b>-APICodePack-Shel
         <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_CommonFileDialog/03.png" alt="">
     </li>
 </ol>
+
 <h2>使い方</h2>
 <h3>ファイル選択ダイアログ : CommonOpenFileDialog</h3>
 <div class="code">
@@ -58,11 +62,13 @@ Windows10以降に適合するのは Microsoft-Windows<b>10</b>-APICodePack-Shel
     {
         <cmt>// CommonOpenFileDialog の生成</cmt>
         <kwd>var</kwd> dialog = <kwd>new</kwd> CommonOpenFileDialog(title);
+
         <cmt>// パラメータの指定</cmt>
         dialog.DefaultFileName = defaultFileName;
         dialog.InitialDirectory = initDir;
         dialog.EnsureFileExists = <kwd>true</kwd>;         <cmt>//< 存在するファイルのみ選択可</cmt>
         dialog.EnsureValidNames = <kwd>true</kwd>;         <cmt>//< ファイル名の検証を行う</cmt>
+
         <cmt>// フィルタ設定</cmt>
         <kwd>if</kwd>( filters <kwd>is</kwd> not <kwd>null</kwd> )
         {
@@ -71,19 +77,24 @@ Windows10以降に適合するのは Microsoft-Windows<b>10</b>-APICodePack-Shel
                 <cmt>// 拡張子列が null の場合はスキップ</cmt>
                 <kwd>if</kwd>( f.extensions <kwd>is null</kwd> )
                     <kwd>continue</kwd>;
+
                 <cmt>// フィルタを追加</cmt>
                 <kwd>var</kwd> st_f = <kwd>new</kwd> CommonFileDialogFilter();
+
                 st_f.DisplayName = f.dispName;
                 <kwd>foreach</kwd>( <kwd>var</kwd> e <kwd>in</kwd> f.extensions )
                 {
                     st_f.Extensions.Add( e );
                 }
+
                 dialog.Filters.Add( st_f );
             }
         }
+
         <cmt>// ダイアログを開く</cmt>
         <cmt>// オーナーが存在する場合はオーナーを指定</cmt>
         CommonFileDialogResult result = owner <kwd>is</kwd> not <kwd>null</kwd> ? dialog.ShowDialog(owner) : dialog.ShowDialog();
+
         <cmt>// 「OK」が押された場合、選択されたファイル名を返す</cmt>
         <cmt>// それ以外は空文字列を返す</cmt>
         <kwd>return</kwd> ( result == CommonFileDialogResult.Ok ) ? dialog.FileName : <knw>String</knw>.Empty;
@@ -103,6 +114,7 @@ CommonFileDialogFilter は DisplayName (表示名)と Extensions (拡張子の�
 影響を受けるのは ".lnk" (ショートカット)で、リンク先のファイルがフィルタに合致しない場合に選択ができなくなる。<br>
 (フォルダリンクはこの限りではない。リンク先のフォルダに遷移し、ダイアログの動作は継続される。)<br>
 EnsureValidNames == false だと「リンク先がフィルタに合致しないファイルリンク」を選択できてしまう。
+
 <h3>ファイル保存ダイアログ : CommonSaveFileDialog</h3>
 <div class="code">
 <cmt>// ファイル保存ダイアログを開く</cmt>
@@ -116,8 +128,10 @@ EnsureValidNames == false だと「リンク先がフィルタに合致しない
     {
         <cmt>// CommonSaveFileDialog の生成</cmt>
         <kwd>var</kwd> dialog = <kwd>new</kwd> CommonSaveFileDialog(title);
+
         dialog.DefaultFileName = defaultFileName;
         dialog.InitialDirectory = initDir;
+
         <cmt>// フィルタ設定</cmt>
         <kwd>if</kwd>( filters <kwd>is</kwd> not <kwd>null</kwd> )
         {
@@ -126,19 +140,24 @@ EnsureValidNames == false だと「リンク先がフィルタに合致しない
                 <cmt>// 拡張子列が null の場合はスキップ</cmt>
                 <kwd>if</kwd>( f.extensions <kwd>is null</kwd> )
                     <kwd>continue</kwd>;
+
                 <cmt>// フィルタを追加</cmt>
                 <kwd>var</kwd> st_f = <kwd>new</kwd> CommonFileDialogFilter();
+
                 st_f.DisplayName = f.dispName;
                 <kwd>foreach</kwd>( <kwd>var</kwd> e <kwd>in</kwd> f.extensions )
                 {
                     st_f.Extensions.Add( e );
                 }
+
                 dialog.Filters.Add( st_f );
             }
         }
+
         <cmt>// ダイアログを開く</cmt>
         <cmt>// オーナーが存在する場合はオーナーを指定</cmt>
         CommonFileDialogResult result = owner <kwd>is</kwd> not <kwd>null</kwd> ? dialog.ShowDialog(owner) : dialog.ShowDialog();
+
         <cmt>// 「OK」が押された場合、保存されたファイル名を返す</cmt>
         <cmt>// それ以外は空文字列を返す</cmt>
         <kwd>return</kwd> ( result == CommonFileDialogResult.Ok ) ? dialog.FileName : <knw>String</knw>.Empty;
@@ -150,6 +169,7 @@ EnsureValidNames == false だと「リンク先がフィルタに合致しない
 }
 </div>
 CommonOpenFileDialog が CommonSaveFileDialog となったほかは、前節と同様。
+
 <h3>フォルダ選択ダイアログ</h3>
 <div class="code">
 <kwd>public static string</kwd> ShowFolderBrowserDialog( <kwd>string</kwd> initDir = "",
@@ -160,11 +180,14 @@ CommonOpenFileDialog が CommonSaveFileDialog となったほかは、前節と�
     {
         <cmt>// CommonOpenFileDialog の生成</cmt>
         <kwd>var</kwd> dialog = <kwd>new</kwd> CommonOpenFileDialog(title);
+
         dialog.IsFolderPicker = <kwd>true</kwd>;           <cmt>//< フォルダ選択オン</cmt>
         dialog.InitialDirectory = initDir;
+
         <cmt>// ダイアログを開く</cmt>
         <cmt>// オーナーが存在する場合はオーナーを指定</cmt>
         CommonFileDialogResult result = owner <kwd>is</kwd> not <kwd>null</kwd> ? dialog.ShowDialog(owner) : dialog.ShowDialog();
+
         <cmt>// 「OK」が押された場合、選択されたフォルダ名を返す</cmt>
         <cmt>// それ以外は空文字列を返す</cmt>
         <kwd>return</kwd> ( result == CommonFileDialogResult.Ok ) ? dialog.FileName : <knw>String</knw>.Empty;

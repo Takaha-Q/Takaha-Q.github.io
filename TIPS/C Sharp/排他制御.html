@@ -31,19 +31,23 @@
 <h5>目次 :</h5>
 <div id="toc"></div>
 <hr>
+
 <!-- 本文ここから -->
 <h2>lock ステートメントによる排他制御</h2>
 任意のオブジェクトを用いて簡便に相互排他を行うことができる。<br>
 あるスレッドがロックを取得している間に、他のスレッドが同一のオブジェクトを用いてロックを取得しようとした場合はブロックされ、先にロックを取得したスレッドがロックを解放するまで待ち状態となる。<br>
 機能としては<a href="TIPS/ソフトウェア開発一般/[並列処理]セマフォとミューテックス.html">バイナリセマフォ</a>と同等である。後述のセマフォよりもパフォーマンス面で有利。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/CSharp/Interlock/01.png" alt=""><br>
+
 <h3>一般形</h3>
 lock ステートメント中に、排他実行したい処理を記述する。<br>
+
 <div class="code">
 <kwd>public class</kwd> Sample
 {
     <cmt>// ロックオブジェクト</cmt>
     <kwd>private object</kwd> obj_A;
+
     <cmt>// lock ステートメントを含む DoSomething() メソッド</cmt>
     <kwd>private void</kwd> DoSomething()
     {
@@ -55,8 +59,10 @@ lock ステートメント中に、排他実行したい処理を記述する。
     }
 }
 </div>
+
 <h3>lock ステートメントと例外</h3>
 lock ステートメントは以下のコードと等価である。
+
 <div class="code">
 <kwd>object</kwd> __lockObj = obj_A;
 <kwd>bool</kwd> __lockWasTaken = <kwd>false</kwd>;
@@ -70,7 +76,9 @@ lock ステートメントは以下のコードと等価である。
     <kwd>if</kwd> (__lockWasTaken) <knw>System</knw>.<knw>Threading</knw>.Monitor.Exit(__lockObj);
 }
 </div>
+
 try - finally ブロックが使用されているため、例外が発生した場合でもロックが解放される(例外安全)。
+
 <h3>注意すべき点</h3>
 <ul>
 <li>
@@ -88,19 +96,25 @@ try - finally ブロックが使用されているため、例外が発生した
     lock ステートメント中に <a href="TIPS/CSharp/Taskの開始と終了待ち.html">await</a> を使用することはできない。
 </li>
 </ul>
+
 <h2>セマフォによる排他制御</h2>
 lock ステートメントでは複数のスレッドが共通のロックオブジェクトを同時に占有することはできないが、セマフォを用いると指定された数のスレッドによる同時占有(エントリ)が可能となる。<br>
 セマフォに関しては<a href="TIPS/ソフトウェア開発一般/[並列処理]セマフォとミューテックス.html">リンク先</a>を参照のこと。
+
 <h3>System.Threading.Semaphore</h3>
 標準のセマフォクラス。リソースに同時にアクセスできるスレッドの本数を制限できる。
+
 <div class="code">
 <kwd>using</kwd> <knw>System</knw>;
 <kwd>using</kwd> <knw>System</knw>.<knw>Threading</knw>;
+
 <kwd>public class</kwd> Example
 {
     <cmt>// Semaphore クラスインスタンス</cmt>
     <kwd>private static</kwd> Semaphore _pool;
+
     :
+
     <cmt>// メインメソッド</cmt>
     <kwd>public static void</kwd> Main()
     {
@@ -109,34 +123,42 @@ lock ステートメントでは複数のスレッドが共通のロックオブ
         <cmt>// 最大カウント : 3</cmt>
         <knw>Console</knw>.WriteLine("メインスレッド開始、セマフォを初期化");
         _pool = <kwd>new</kwd> Semaphore(initialCount: 0, maximumCount: 3);
+
         <cmt>// 5 本のスレッドを起動</cmt>
         <kwd>for</kwd>(<kwd>int</kwd> i = 1; i <= 5; i++)
         {
             Thread t = <kwd>new</kwd> Thread(<kwd>new</kwd> ParameterizedThreadStart(Worker));
             t.Start(i);
         }
+
         :
+
         <cmt>// セマフォを 3 回解放</cmt>
         <knw>Console</knw>.WriteLine("メインスレッドがセマフォを解放");
         _pool.Release(releaseCount: 3);
+
         <knw>Console</knw>.WriteLine("メインスレッド終了");
     }
+
     <cmt>// ワーカースレッド</cmt>
     <kwd>private static void</kwd> Worker(<kwd>object</kwd> num)
     {
         <cmt>// セマフォの空きを待機する</cmt>
         <knw>Console</knw>.WriteLine($@"スレッド #{num} 開始、セマフォを待機");
         _pool.WaitOne();
+
         <cmt>// セマフォに空きが発生したので、待ちを解除</cmt>
         <knw>Console</knw>.WriteLine($@"スレッド #{num} がセマフォを獲得");
  
         :
+
         <cmt>// セマフォを解放</cmt>
         <knw>Console</knw>.WriteLine($@"スレッド #{num} がセマフォを解放");
         _pool.Release();
     }
 }
 </div>
+
 出力結果 :
 <div class="code">
 メインスレッド開始、セマフォを初期化                ( セマフォカウント :      0 / 3 )
@@ -160,28 +182,34 @@ lock ステートメントでは複数のスレッドが共通のロックオブ
 スレッド #3 がセマフォを解放                        ( セマフォカウント : 1 ⇒ 2 / 3 )
 スレッド #1 がセマフォを解放                        ( セマフォカウント : 2 ⇒ 3 / 3 )
 </div>
+
 ここでは、セマフォカウントの最大が 3 のセマフォを用いる例を示している。<br>
 Main() メソッド内でセマフォを初期化、ワーカースレッドはセマフォを獲得( WaitOne() )しようとしているが、初期カウントが 0 (すべて獲得済み)のため待ちとなる。<br>
 Main() メソッド内でセマフォを解放( Release() )すると、ワーカースレッドがセマフォを獲得可能となる。このとき、引数に指定した回数だけセマフォから出る。<br>
 最大3本のスレッドが同時にエントリでき、セマフォを獲得できなかったワーカースレッドは引き続きセマフォの空きを待機する。<br>
 ここで、複数のスレッドがセマフォを待機している場合、<b>獲得順は待ち順と一致しない</b>(FIFOではない)。<br>
 また、lock ステートメントと同様本文中で await を使用できない。パフォーマンスは後述の SemaphoreSlim よりも不利である。
+
 <h4>応用</h4>
 Semaphore クラスは初期化時にセマフォの名称を指定できる。これにより、<b>他のプロセスと共有される名前つきシステムセマフォを作成することができる</b>。<br>
 利用法のひとつとして、アプリケーションの多重起動抑止がある。<a href="TIPS/dotNET/アプリケーション多重起動の抑止">リンク先</a>を参照。
+
 <h3>System.Threading.SemaphoreSlim</h3>
 Semaphore をより軽量に改良したもの。使用法は同様。<br>
 システムセマフォを作成して他プロセスと共有することはできないが、同一プロセス内でのロックに用いるならば Semaphore よりもパフォーマンス面で有利。<br>
 また、Semaphore と異なり<b>本文中で await を使用できる</b>。
+
 <h2>ミューテックス( System.Threading.Mutex )による排他制御</h2>
 ミューテックスの概念に関しては<a href="TIPS/ソフトウェア開発一般/[並列処理]セマフォとミューテックス.html">リンク先</a>を参照のこと。<br>
 Semaphore と同様、名前つきにすることで<b>他のプロセスと共有されるシステムミューテックスを作成できる</b>。
+
 <h2>まとめ</h2>
 下表におけるリソース消費量はあくまでも比較である。lock が最もリソース効率が良く、パフォーマンス面で有利である。<br>
 本文中に await を使用する場合は、SemaphoreSlim を、他プロセスとの共有(システムセマフォ)を行う場合は Semaphore を用いると良い。<br>
 Mutex は Semaphore よりもリソース効率が悪く、積極的に用いる利点は薄い。<br>
 (これは Mutex の実装が古く、.NET向けに最適化されていないことに起因する。)<br>
 比較の詳細は<a href="https://qiita.com/tadokoro/items/28b3623a5ec58517d431">出典元</a>を参照のこと。
+
 <table class="center">
   <tr class="row1">
     <td class="col1">ロック種別</td>

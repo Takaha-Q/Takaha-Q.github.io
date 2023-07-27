@@ -24,27 +24,34 @@
 <div id="toc"></div>
 <hr>
 <!-- 本文ここから -->
+
 <h2>型キャストとは</h2>
 オブジェクトの型を、指定した別の型に変換すること。<br>
 C#ではC/C++と同様の () によるキャスト以外に、as / is 演算子を使用できる。<br>
+
 <h3>アップキャストとダウンキャスト</h3>
 派生クラスから基底クラスへの変換をアップキャストと呼ぶ。この際、明示的なキャストは不要である。<br>
 逆に、基底クラスから派生クラスへの変換をダウンキャストと呼び、明示的なキャストが必要となる。<br>
 継承関係の無い型へのダウンキャストはコンパイルエラーとならず、実行時例外となる。
+
 <h2>as 演算子</h2>
 左辺のオブジェクトを右辺で指定された型に変換する。
+
 <div class="code">
 <kwd>using</kwd> <knw>System</knw>;
+
 <kwd>class</kwd> CastSample
 {
     <kwd>public static void</kwd> Main() 
     {
         <cmt>// オブジェクトを宣言</cmt>
         <kwd>object</kwd> nyanchu = "nyanchu"
+
         <cmt>// as によるキャスト : object ⇒ CastSample</cmt>
         <cmt>// キャスト失敗、cs1 = null となる</cmt>
         CastSample cs1 = nyanchu <kwd>as</kwd> CastSample
         <knw>Console</knw>.WriteLine(cs1 == <kwd>null</kwd>); <cmt>// True</cmt>
+
         <kwd>try</kwd> 
         {
             <cmt>// () によるキャスト : object ⇒ CastSample</cmt>
@@ -58,19 +65,24 @@ C#ではC/C++と同様の () によるキャスト以外に、as / is 演算子�
     }
 }
 </div>
+
 キャストができない場合、as によるキャストは式の評価結果が null となるのに対し、() によるキャストは例外( InvalidCastException )が投げられる。<br>
 また、() によるキャストは値型・参照型を問わず使用できるのに対し、as は参照型にしか用いることができない。<br>
 但し as によるキャストは () を用いる場合と比べて高速である(後述)。
+
 <div class="code">
 <cmt>// 値型に対する () を用いたキャスト ⇒ OK</cmt>
 <kwd>int</kwd> i = (<kwd>int</kwd>)1;
+
 <cmt>// 値型に対する as を用いたキャスト ⇒ NG(コンパイルエラー)</cmt>
 <kwd>int</kwd> i = 1 <kwd>as int</kwd>;
 </div>
+
 <h2>is 演算子</h2>
 左辺のオブジェクトが右辺で指定された型に変換可能であるかを返す。右辺に新たな変数を指定した場合、変換可能であれば当該変数に変換後のオブジェクトが格納される。<br>
 後者の用法はパターンマッチングと呼ばれ、変換可否の確認と変数の初期化を一文で実行できる。C#7.0で追加された。<br>
 パターンマッチングの詳細は<a href="TIPS/C Sharp/パターンマッチング.html">リンク先</a>を参照。
+
 <div class="code">
 <cmt>// is 演算子による変換可否の確認</cmt>
 <kwd>static void</kwd> UseIsOperator(Animal a)
@@ -83,6 +95,7 @@ C#ではC/C++と同様の () によるキャスト以外に、as / is 演算子�
         m.Eat();
     }
 }
+
 <cmt>// is 演算子によるパターンマッチング</cmt>
 <kwd>static void</kwd> UsePatternMatchingIs(Animal a)
 {
@@ -93,15 +106,20 @@ C#ではC/C++と同様の () によるキャスト以外に、as / is 演算子�
     }
 }
 </div>
+
 また、is 演算子はオブジェクトがnullであるかをテストすることも可能である。<br>
 ( is not で非nullをテストすることも可能。)
+
 <div class="code">
 <kwd>int</kwd> i = 5;
 PatternMatchingNullable(i);
+
 <kwd>int</kwd>? j = <kwd>null</kwd>;
 PatternMatchingNullable(j);
+
 <kwd>double</kwd> d = 9.78654;
 PatternMatchingNullable(d);
+
 <kwd>static void</kwd> PatternMatchingNullable(ValueType? val)
 {
     <cmt>// パターンマッチング : val に使用できるのはnull不許容型のみ</cmt>
@@ -120,14 +138,19 @@ PatternMatchingNullable(d);
     }
 }
 </div>
+
 また、パターンマッチングの延長として、以下のような switch - case 構文も使用できる。
+
 <div class="code">
 <kwd>int</kwd> i = 5;
 PatternMatchingNullable(i);
+
 <kwd>int</kwd>? j = <kwd>null</kwd>;
 PatternMatchingNullable(j);
+
 <kwd>double</kwd> d = 9.78654;
 PatternMatchingNullable(d);
+
 <kwd>static void</kwd> PatternMatchingSwitch(ValueType? val)
 {
     <kwd>switch</kwd> (val)
@@ -135,30 +158,39 @@ PatternMatchingNullable(d);
         <kwd>case int</kwd> number:
             <knw>Console</knw>.WriteLine(number);
             <kwd>break</kwd>;
+
         <kwd>case long</kwd> number:
             <knw>Console</knw>.WriteLine(number);
             <kwd>break</kwd>;
+
         <kwd>case</kwd> decimal number:
             <knw>Console</knw>.WriteLine(number);
             <kwd>break</kwd>;
+
         <kwd>case float</kwd> number:
             <knw>Console</knw>.WriteLine(number);
             <kwd>break</kwd>;
+
         <kwd>case double</kwd> number:
             <knw>Console</knw>.WriteLine(number);
             <kwd>break</kwd>;
+
         <kwd>case null</kwd>:
             <knw>Console</knw>.WriteLine("val はnullです。");
             <kwd>break</kwd>;
+
         <kwd>default</kwd>:
             <knw>Console</knw>.WriteLine("変換できません : " + val.ToString());
             <kwd>break</kwd>;
     }
 }
 </div>
+
 <h2>() / as / is の速度比較</h2>
+
 <div class="code">
 <kwd>using</kwd> <knw>System</knw>;
+
 <kwd>class</kwd> CastBench
 {
     <cmt>// サンプルクラス1</cmt>
@@ -166,10 +198,13 @@ PatternMatchingNullable(d);
     {
         <kwd>public int</kwd> n = 1;
     }
+
     <cmt>// サンプルクラス2</cmt>
     <kwd>class</kwd> Sample2
     {
+
     }
+
     <cmt>// () によるキャスト</cmt>
     <kwd>private static int</kwd> testCast(<kwd>object</kwd> [] testdata) 
     {
@@ -187,6 +222,7 @@ PatternMatchingNullable(d);
         }
         <kwd>return</kwd> sum;
     }
+
     <cmt>// as によるキャスト</cmt>
     <kwd>private static int</kwd> testAs(<kwd>object</kwd> [] testdata) 
     {
@@ -205,6 +241,7 @@ PatternMatchingNullable(d);
         }
         <kwd>return</kwd> sum;
     }
+
     <cmt>// is によるテスト + () によるキャスト</cmt>
     <kwd>private static int</kwd> testIsCast(<kwd>object</kwd> [] testdata) 
     {
@@ -222,6 +259,7 @@ PatternMatchingNullable(d);
         }
         <kwd>return</kwd> sum;
     }
+
     <cmt>// Main() メソッド</cmt>
     <kwd>public static void</kwd> Main() 
     {
@@ -239,6 +277,7 @@ PatternMatchingNullable(d);
                 testdata[i] = <kwd>new</kwd> Sample2();
             }
         }
+
         <cmt>// () によるキャスト</cmt>
         <knw>DateTime</knw> startCast = <knw>DateTime</knw>.Now;
         <kwd>for</kwd> (<kwd>int</kwd> i = 0; i < 1000; i++) 
@@ -248,6 +287,7 @@ PatternMatchingNullable(d);
         <knw>DateTime</knw> endCast = <knw>DateTime</knw>.Now;
         <knw>Console</knw>.WriteLine("キャストの実行時間 {0}", endCast - startCast);
         <cmt>// 出力例 : キャストの実行時間 00:00:47.9899632</cmt>
+
         <cmt>// as によるキャスト</cmt>
         <knw>DateTime</knw> startAs = <knw>DateTime</knw>.Now;
         <kwd>for</kwd> (<kwd>int</kwd> i = 0; i < 1000; i++) 
@@ -257,6 +297,7 @@ PatternMatchingNullable(d);
         <knw>DateTime</knw> endAs = <knw>DateTime</knw>.Now;
         <knw>Console</knw>.WriteLine("as演算子の実行時間 {0}", endAs - startAs);
         <cmt>// 出力例 : as演算子の実行時間 00:00:11.7771696</cmt>
+
         <cmt>// is によるテスト + () によるキャスト</cmt>
         <knw>DateTime</knw> startIsCats = <knw>DateTime</knw>.Now;
         <kwd>for</kwd> (<kwd>int</kwd> i = 0; i < 1000; i++) 
@@ -269,6 +310,7 @@ PatternMatchingNullable(d);
     }
 }
 </div>
+
 (処理時間は目安)<br>
 上記のコードでは、1,000,000個のデータ列に対する型変換を1,000回繰り返し行っている。ここで、データ列には1,000個に1個の割合で Sample2 が混入しており、Sample1 への変換を行おうとすると失敗する。<br>
 () によるキャストは、変換失敗時に例外が発生することもあって3つの中では最も所要時間が長い。(例外の送出はオーバーヘッドが大きい。)<br>

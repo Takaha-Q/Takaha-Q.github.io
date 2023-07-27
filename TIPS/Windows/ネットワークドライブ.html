@@ -22,41 +22,53 @@
 <h5>目次 :</h5>
 <div id="toc"></div>
 <hr>
+
 <!-- 本文ここから -->
+
 <h2>ネットワークドライブの割り当て</h2>
 特定のディレクトリ(ネットワーク上のリソースに限らず、ローカル(自PC)のロケーションでも可)にドライブレターを割り当てる。
+
 <h3>コマンド例 (PowerShell)</h3>
+
 <p class="code">
 <cmt># ネットワークドライブを割り当てる
 # (\\ComputerName\Users\Takaha-Q\sagawa を J: ドライブとする)</cmt>
 New-PSDrive -Persist -Name J -PSProvider FileSystem -Root \\ComputerName\Users\Takaha-Q\sagawa
+
 <cmt># 割り当てられているドライブの一覧を表示する</cmt>
 Get-PSDrive
+
 <cmt># ネットワークドライブの割り当てを解除する
 # (J: ドライブを解放する)</cmt>
 Remove-PSDrive -Name J
 </p>
+
 <h2>実行権限とネットワークドライブとの関係</h2>
 Windowsアプリケーションを<b>管理者権限で実行している場合、アプリケーションからネットワークドライブに直接アクセスすることができない</b>。<br>
+
 <table>
 <tr class="row1">
 <td class="col1">実行権限</td>
 <td width="120px">実ドライブ(C:)<br>へのアクセス</td>
 <td width="120px">ネットワークドライブ(J:)<br>へのアクセス</td>
 </tr>
+
 <tr>
 <td class="col1">一般</td>
 <td class="center b bg_lg">可</td>
 <td class="center b bg_lg">可</td>
 </tr>
+
 <tr>
 <td class="col1">管理者</td>
 <td class="center b bg_lg">可</td>
 <td class="center b bg_lr">不可</td>
 </tr>
 </table>
+
 <h3>この問題への対処</h3>
 ネットワークドライブのUNCパスを取得し、UNCパスに対してアクセスする。
+
 <h4>クラス・関数定義</h4>
 ライブラリ mpr.dll の WNetGetConnection() を用いる。<br>
 <p class="code">
@@ -64,6 +76,7 @@ Windowsアプリケーションを<b>管理者権限で実行している場合�
 <kwd>using</kwd> System.IO;
 <kwd>using</kwd> System.Runtime.InteropServices;
 <kwd>using</kwd> System.Text;
+
 <kwd>public</kwd> <kwd>static</kwd> <kwd>class</kwd> MappedDriveResolver
 {
     <cmt>// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = -</cmt>
@@ -78,6 +91,7 @@ Windowsアプリケーションを<b>管理者権限で実行している場合�
     <kwd>public</kwd> <kwd>static</kwd> <kwd>extern</kwd> <kwd>int</kwd> WNetGetConnection([MarshalAs(UnmanagedType.LPTStr)] <kwd>string</kwd> localName,
                                                [MarshalAs(UnmanagedType.LPTStr)] StringBuilder remoteName,
                                                ref <kwd>int</kwd> length);
+
     <kwd>public</kwd> <kwd>static</kwd> <kwd>string</kwd> GetUNCPath(<kwd>string</kwd> path_Org)
     {
         <cmt>// path_Org がドライブレターを含む場合</cmt>
@@ -90,22 +104,27 @@ Windowsアプリケーションを<b>管理者権限で実行している場合�
         {
             StringBuilder sb = <kwd>new</kwd> StringBuilder(<ltr>512</ltr>);
             <kwd>int</kwd> size = sb.Capacity;
+
             <cmt>// 接続先のUNCパスを返す</cmt>
             WNetGetConnection(path_Org.Substring(<ltr>0</ltr>, <ltr>2</ltr>), sb, ref size);
             <kwd>string</kwd> path_Mod = Path.GetFullPath(path_Org).Substring(Path.GetPathRoot(path_Org).Length);
             <kwd>return</kwd> Path.Combine(sb.ToString().TrimEnd(), path_Mod);
         }
+
         <cmt>// 元のパスを返す</cmt>
         <kwd>return</kwd> path_Org;
     }
+
 }   <cmt>// public static class MappedDriveResolver</cmt>
 </p>
+
 <h4>関数コール</h4>
 <p class="code">
 <cmt>// MappedDriveResolver クラスの GetUNCPath() メソッドをコール
 // ネットワークドライブ下のロケーションを渡す</cmt>
 MappedDriveResolver.GetUNCPath(@<ltr>"J:\ChildDir"</ltr>);
 </p>
+
 <h4>引数・戻り値の相関(例)</h4>
 (\\ComputerName\AnyDir にドライブレター J: を割り当てている場合)<br>
 <table>
@@ -113,18 +132,22 @@ MappedDriveResolver.GetUNCPath(@<ltr>"J:\ChildDir"</ltr>);
 <td>引数</td>
 <td>戻り値</td>
 </tr>
+
 <tr>
 <td>@"J:"</td>
 <td>@"J:" (変換失敗)</td>
 </tr>
+
 <tr>
 <td>@"J:\"</td>
 <td>@"\\ComputerName\AnyDir"</td>
 </tr>
+
 <tr>
 <td>@"J:\ChildDir"</td>
 <td>@"\\ComputerName\AnyDir\ChildDir"</td>
 </tr>
+
 <tr>
 <td>@"J:\ChildDir\"</td>
 <td>@"\\ComputerName\AnyDir\ChildDir\"</td>

@@ -23,16 +23,22 @@
 <h5>目次 :</h5>
 <div id="toc"></div>
 <hr>
+
 <!-- 本文ここから -->
+
 ※ この記事は書きかけです。内容は正確ではありません。
+
 <h2>WPFアプリケーションにおけるコントロールの再描画</h2>
 WinFormでは、Refresh() メソッドをコールすることでコントロールを再描画することができたが、WPFでは同様のメソッドは標準実装されていない。<br>
 コントロールを再描画するには以下のような処理を実装する必要がある。
+
 <div class="code">
 <kwd>using</kwd> <knw>System</knw>.<knw>Windows</knw>.Threading;
+
 <kwd>public class</kwd> HogeWindow
 {
     :
+
     <cmt>/// &lt;summary&gt;</cmt>
     <cmt>/// 現在メッセージ待ち行列の中にある全てのUIメッセージを処理します。</cmt>
     <cmt>/// &lt;/summary&gt;</cmt>
@@ -47,7 +53,10 @@ WinFormでは、Refresh() メソッドをコールすることでコントロー
         Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.Background, callback, frame);
         Dispatcher.PushFrame(frame);
     }
+
     :
+
 }
 </div>
+
 ウィンドウを更新する場合は、上記の DoEvents() メソッドをコールし、キューイングされたUIメッセージを処理するとよい。

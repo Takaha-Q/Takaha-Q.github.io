@@ -23,16 +23,20 @@
 <h5>目次 :</h5>
 <div id="toc"></div>
 <hr>
+
 <!-- 本文ここから -->
+
 <h2>キーイベントについての留意事項</h2>
 コントロールによっては、矢印、Tab、Enter、Escなどのキーが押されても KeyDown 、KeyUp のイベントが発生しない。<br>
 例えば、TextBox の場合矢印キーが押下されても捕捉できない。<br>
 これらを捕捉したい場合は、.NET Framework 2.0 で追加された <b>PreviewKeyDown</b> 、<b>PreviewKeyUp</b> イベントを用いる。
+
 <h2>PreviewKeyDown の使い方</h2>
 PreviewKeyDown イベントは KeyDown イベントの前に発生し、KeyDown で捕捉できないキーも捕捉できる。<br>
 また、WinFormの場合、PreviewKeyDown ハンドラ中でプロパティ PreviewKeyDownEventArgs.IsInputKey を true にすることで<br>
 (本来発生しない) KeyDown 、KeyUp イベントが発生するようになる。<br>
 但しこの場合、そのキー本来の機能(矢印、Tabであればフォーカスの移動)は失われる。<br>
+
 <h3>コード例(C# / WinForm)</h3>
 <div class="code">
 <cmt>// PreviewKeyDown イベントハンドラ</cmt>
@@ -47,6 +51,7 @@ PreviewKeyDown イベントは KeyDown イベントの前に発生し、KeyDown 
         <kwd>case</kwd> Keys.Down:
             <knw>Console</knw>.WriteLine("矢印キーが押されました。");
             <kwd>break</kwd>;
+
         <cmt>// Tabキー</cmt>
         <kwd>case</kwd> Keys.Tab:
             <cmt>// IsInputKey = true により、KeyDown 、KeyUp が発生するようになる</cmt>
@@ -56,6 +61,7 @@ PreviewKeyDown イベントは KeyDown イベントの前に発生し、KeyDown 
     }
 }
 </div>
+
 <h3>コード例(C# / WPF)</h3>
 <div class="code">
 <cmt>// PreviewKeyDown イベントハンドラ</cmt>
@@ -70,6 +76,7 @@ PreviewKeyDown イベントは KeyDown イベントの前に発生し、KeyDown 
         <kwd>case</kwd> Key.Down:
             <knw>Console</knw>.WriteLine("矢印キーが押されました。");
             <kwd>break</kwd>;
+
         <cmt>// Tabキー</cmt>
         <kwd>case</kwd> Key.Tab:
             <cmt>// イベントを処理済み(Handled)とする</cmt>
@@ -79,6 +86,7 @@ PreviewKeyDown イベントは KeyDown イベントの前に発生し、KeyDown 
     }
 }
 </div>
+
 <h2>余談</h2>
 Button クラスの場合、IsInputKey メソッドをオーバーライドして true を返させることで、<br>
 同様に KeyDown 、KeyUp を発生させることが可能となる。詳細は出典元を参照。

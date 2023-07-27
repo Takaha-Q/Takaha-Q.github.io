@@ -19,19 +19,24 @@
 <h5>目次 :</h5>
 <div id="toc"></div>
 <hr>
+
 <!-- 本文ここから -->
+
 <h2>特殊フォルダ(SpecialFolder)のパスを取得</h2>
 System 名前空間の Environment クラスに含まれる GetFolderPath() メソッドで、Windowsで規定される特殊フォルダの絶対パスを取得できる。<br>
 その際引数には、取得したいフォルダに対応する SpecialFolder 列挙体の値を渡す。
+
 <h5>C#でのコード例</h5>
 <div class="code">
 <cmt>// デスクトップ</cmt>
 <knw>Console</knw>.WriteLine( <knw>System</knw>.<knw>Environment</knw>.GetFolderPath( <knw>System</knw>.<knw>Environment</knw>.SpecialFolder.DesktopDirectory ) );
 <cmt>// 結果: C:\Users\<i>UserName</i>\Desktop</cmt>
 </div>
+
 <h2>SpecialFolder 列挙体の詳細</h2>
 SpecialFolder 列挙体の定義を下表に示す。ここで、<i class="blue">UserName</i> はユーザ名を表し、サインインするユーザごとに異なる。<br>
 「実際のパス」はWindows(7以降 64ビット版)におけるもの。
+
 <table>		
 <tr class="row1"><td>列挙子</td>	<td>説明</td>	<td>実際のパス</td></tr>
 <tr><td>AdminTools</td>	<td>ユーザーの管理ツールフォルダ</td>	<td>C:\Users\<i class="blue">UserName</i>\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Administrative Tools</td></tr>

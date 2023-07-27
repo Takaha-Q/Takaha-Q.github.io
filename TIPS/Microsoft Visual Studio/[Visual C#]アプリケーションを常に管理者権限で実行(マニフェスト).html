@@ -20,14 +20,17 @@
 <div id="toc"></div>
 <hr>
 <!-- 本文ここから -->
+
 <h2>作成したアプリケーションを常に管理者権限で実行させる手順</h2>
 マニフェストを作成することで、アプリケーションが管理者権限を要求するようにできる。<br>
 ただし、この操作でマニフェストを「管理者権限を要求する」とした場合、<br>
 <b>デバッグ時はVisual Studioを管理者権限で起動する必要がある</b>。
+
 <h3>マニフェストの作成</h3>
 (プロジェクト内にマニフェストファイル(app.manifest)が存在しない場合)<br>
 プロジェクトを右クリックし、「追加」「新しい項目」「アプリケーション マニフェスト ファイル(Windowsのみ)」を選択し、「追加」をクリック。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/TaskScheduler_with_CSharp/cs_task_scheduler_03.png"><br>
+
 <h3>マニフェストの編集</h3>
 trustInfo > security > requestedExecutionLevel の値を下図のように書き換える。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/TaskScheduler_with_CSharp/cs_task_scheduler_01.png"><br>

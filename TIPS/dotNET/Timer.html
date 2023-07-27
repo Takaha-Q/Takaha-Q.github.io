@@ -23,14 +23,18 @@
 <h5>目次 :</h5>
 <div id="toc"></div>
 <hr>
+
 <!-- 本文ここから -->
+
 <h2>Timerクラス (System.Timers.Timer)</h2>
 指定時間経過後にイベントを生成するタイマ。
+
 <h2>基本的な使い方(C#)</h2>
 (コード)
 <div class="code">
 <kwd>using</kwd> <knw>System</knw>;
 <kwd>using</kwd> <knw>System</knw>.Timers;
+
 <kwd>public class</kwd> Example
 {
     <cmt>// タイマの宣言</cmt>
@@ -42,22 +46,28 @@
         <cmt>// タイマの生成</cmt>
         <cmt>// 周期2000ms</cmt>
         aTimer = <kwd>new</kwd> <knw>System</knw>.Timers.Timer(2000);
+
         <cmt>// タイマハンドラの指定</cmt>
         aTimer.Elapsed += OnTimedEvent;
+
         <cmt>// オートリセットオン ⇒ Elapsed イベントが繰り返し発生する</cmt>
         aTimer.AutoReset = <kwd>true</kwd>;
+
         <cmt>// タイマ開始</cmt>
         aTimer.Enabled = <kwd>true</kwd>;
+
         <cmt>// ユーザ入力待ち</cmt>
         <knw>Console</knw>.WriteLine("アプリケーションは {0:HH:mm:ss.fff} に開始されました。", <knw>DateTime</knw>.Now);
         <knw>Console</knw>.WriteLine("終了する場合は、Enterキーを押してください...\n");
         <knw>Console</knw>.ReadLine();
+
         <cmt>// タイマ停止、破棄</cmt>
         aTimer.Stop();
         aTimer.Dispose();
         
         <knw>Console</knw>.WriteLine("\n終了します。");
     }
+
     <cmt>// タイマハンドラ</cmt>
     <kwd>private static void</kwd> OnTimedEvent(Object source, ElapsedEventArgs e)
     {
@@ -66,10 +76,12 @@
     }
 }
 </div>
+
 (実行結果)
 <div class="code">
 <cmt>アプリケーションは 09:40:29.068 に開始されました。
 終了する場合は、Enterキーを押してください...
+
 Elapsed イベントが 09:40:31.084 に発生しました。
 Elapsed イベントが 09:40:33.100 に発生しました。
 Elapsed イベントが 09:40:35.100 に発生しました。
@@ -78,6 +90,7 @@ Elapsed イベントが 09:40:39.116 に発生しました。
 Elapsed イベントが 09:40:41.117 に発生しました。
 :
 :
+
 終了します。</cmt>
 </div>
     
@@ -88,6 +101,7 @@ Enabled プロパティが true の間タイマは計時を行い、指定され
 ここで、AutoReset プロパティが false であれば Elapsed イベントは最初の1回のみ発生し、タイマは停止するが、<br>
 AutoReset プロパティが true の場合は、周期ごとに Elapsed イベントが繰り返し発生する。<br>
 尚、Timer クラスは IDisposable を実装しており、インスタンスが不要になった時点で破棄( Dispose() )する必要がある。
+
 <h2>プロパティ</h2>
 主要なものを抜粋。
 <table>
@@ -118,6 +132,7 @@ AutoReset プロパティが true の場合は、周期ごとに Elapsed イベ�
     <td>Elapsed イベントの発生間隔(ミリ秒)。0 より大きく、Int32.MaxValue 以下である必要がある。</td>
   </tr>
 </table>
+
 <h2>メソッド</h2>
 主要なものを抜粋。いずれも引数、戻り値無し。
 <table>
@@ -138,6 +153,7 @@ AutoReset プロパティが true の場合は、周期ごとに Elapsed イベ�
 <td>タイマを停止する。Enabled を false に設定することと等価。</td>
 </tr>
 </table>
+
 <h2>その他のタイマ</h2>
 .NET(.NET Framework / .NET Core を含む)には System.Timers.Timer 以外にもタイマクラスが存在するが、機能はそれぞれ異なる。
 <table>

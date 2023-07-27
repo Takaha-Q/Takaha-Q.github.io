@@ -13,58 +13,73 @@
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
 <!-- 出典・関連ページ -->
+
 <h5>出典 :</h5>
 <a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.datetime?view=net-6.0">DateTime 構造体 (System) | Microsoft Learn</a><br>
 <a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.timespan?view=net-6.0">TimeSpan 構造体 (System) | Microsoft Learn</a><br>
 <a href="https://learn.microsoft.com/ja-jp/dotnet/standard/base-types/custom-timespan-format-strings#other-characters">カスタム TimeSpan 書式指定文字列 | Microsoft Learn</a>
+
 <h5>関連 :</h5>
 <a href="TIPS/Microsoft%20Visual%20Studio/[Visual Studio]日付・時刻入力(DateTimePicker).html">[Visual Studio]日付・時刻入力(DateTimePicker)</a><br>
 <a href="TIPS/C%20Sharp/文字列リテラル.html">[C#]文字列リテラル</a>
+
+
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
+
 <hr>
+
 <!-- 本文ここから -->
+
 <h2>DateTime / TimeSpan 型とは</h2>
 <b>System.DateTime</b> : 時刻(日付を含む)を取り扱うクラス<br>
 <b>System.TimeSpan</b> : 時間(間隔)を取り扱うクラス<br>
 両者には相関がある。以下、コード例はいずれもC#における実装。
+
 <h2>DateTime</h2>
 <p class="code">
 <cmt>// 初期化 (複数のオーバーロードあり)</cmt>
 DateTime dt1 = <kwd>new</kwd> DateTime(<ltr>2020</ltr>, <ltr> 6</ltr>, <ltr>20</ltr>, <ltr>18</ltr>, <ltr>45</ltr>,  <ltr>3</ltr>);        <cmt>//< 日時 2020年 6月20日 18時45分 3秒 を表現</cmt>
 DateTime dt2 = <kwd>new</kwd> DateTime(<ltr>2020</ltr>, <ltr> 8</ltr>, <ltr>18</ltr>, <ltr>15</ltr>, <ltr>20</ltr>, <ltr>59</ltr>);        <cmt>//< 日時 2020年 8月18日 15時20分59秒 を表現</cmt>
 DateTime dt3 = <kwd>new</kwd> DateTime();                                <cmt>//< 日時 0001年 1月 1日  0時00分00秒 を表現</cmt>
+
 <cmt>// 文字列に変換</cmt>
 Console.WriteLine(dt1.ToString());                            <cmt>//< 書式指定なし                     ⇒ "2020/06/20 18:45:03"</cmt>
 Console.WriteLine(dt1.ToString(<ltr>"yyyyMMdd_HHmmss"</ltr>));           <cmt>//< 書式指定                         ⇒ "20200620_184503"</cmt>
 Console.WriteLine(dt1.ToString(<ltr>"yyyy/MM/dd HH:mm:ss.fff"</ltr>));   <cmt>//< 書式指定(ミリ秒まで表示)         ⇒ "2020/06/20 18:45:03.000"</cmt>
 Console.WriteLine(dt1.ToString(<ltr>"yyyy/M/d HH:mm:ss"</ltr>));         <cmt>//< 書式指定(月・日のゼロ埋め無し)   ⇒ "2020/6/20 18:45:03"</cmt>
+
 <cmt>// 各要素の抽出</cmt>
 Console.WriteLine(dt1.Hour);                                  <cmt>//< 時   ⇒ 18</cmt>
 Console.WriteLine(dt1.DayOfWeek);                             <cmt>//< 曜日 ⇒ Saturday</cmt>
 </p>
+
 <h2>TimeSpan</h2>
 <p class="code">
 <cmt>// 初期化 (複数のオーバーロードあり)</cmt>
 TimeSpan ts1 = <kwd>new</kwd> TimeSpan(<ltr>45</ltr>, <ltr>3</ltr>, <ltr>21</ltr>, <ltr>0</ltr>);              <cmt>//< 期間 45日 3時間21分0秒 を表現</cmt>
 TimeSpan ts2 = <kwd>new</kwd> TimeSpan();                          <cmt>//< 期間 0日  0時間 0分0秒 を表現</cmt>
+
 <cmt>// 文字列に変換</cmt>
 Console.WriteLine(ts1.ToString());                      <cmt>//< 書式指定なし           ⇒ "45.03:21:00"</cmt>
 Console.WriteLine(ts1.ToString(<ltr>"ddhhmmss"</ltr>));            <cmt>//< 書式指定               ⇒ "45032100"</cmt>
 Console.WriteLine(ts1.ToString(<ltr>"fff"</ltr>));                 <cmt>//< 書式指定(ミリ秒を表示) ⇒ "000"</cmt>
 Console.WriteLine(ts1.ToString(<ltr>"hh\:mm\:ss\.fff"</ltr>));     <cmt>//< 書式指定               ⇒ "03:21:00.000"</cmt>
                                                         <cmt>//< : (コロン)、. (ドット)はエスケープする</cmt>
+
 <cmt>// 各要素の抽出</cmt>
 Console.WriteLine(ts1.Hours);                           <cmt>//< 時間     ⇒ 3</cmt>
 Console.WriteLine(ts1.Minutes);                         <cmt>//< 分       ⇒ 21</cmt>
 Console.WriteLine(ts1.TotalMinutes);                    <cmt>//< 合計の分 ⇒ 65001 (小数点以下が発生することもある)</cmt>
 </p>
+
 <h3>注意が必要な点</h3>
 TimeSpan 型を文字列に変換する際の書式指定文字列には書式指定子以外の文字( = 記号)はそのままでは使用できず、エスケープするか文字列リテラルとする必要がある。<br>
 誤 : "hh<b class="red">:</b>mm<b class="red">:</b>ss" ⇒ コロンをそのまま使用<br>
 正 : "hh<b class="red">\:</b>mm<b class="red">\:</b>ss" ⇒ コロンをエスケープ<br>
 正 : "hh<b class="red">':'</b>mm<b class="red">':'</b>ss" ⇒ コロンを文字列リテラル化<br>
+
 <h2>DateTime / TimeSpan に対する演算</h2>
 <p class="code">
 <cmt>// DateTime 同士の比較</cmt>
@@ -76,6 +91,7 @@ TimeSpan 型を文字列に変換する際の書式指定文字列には書式�
 {
     Console.WriteLine(<ltr>"dt1 と dt2 は同時刻です"</ltr>);
 }
+
 <cmt>// TimeSpan 同士の比較</cmt>
 <kwd>if</kwd> ( ts1 < ts2 )
 {
@@ -85,12 +101,15 @@ TimeSpan 型を文字列に変換する際の書式指定文字列には書式�
 {
     Console.WriteLine(<ltr>"ts1 と ts2 は同値です"</ltr>);
 }
+
 <cmt>// DateTime 同士の差分は TimeSpan 型となる</cmt>
 TimeSpan ts3 = dt2 - dt1;                                          <cmt>//< 差異 : 58日 20時間 35分 56秒</cmt>
+
 <cmt>// DateTime に TimeSpan を加減算すると DateTime 型となる</cmt>
 DateTime dt4 = dt1 + ts3;                                          <cmt>//<   2020年 6月 20日 18時   45分  3秒 </cmt>
                                                                    <cmt>//< +            58日 20時間 35分 56秒 </cmt>
                                                                    <cmt>//< = 2020年 8月 18日 15時   20分 59秒 </cmt>
+
 <cmt>// 日付部分のみを取り出す</cmt>
 DateTime dt5 = dt4.Date;                                           <cmt>//<   2020年 6月 20日 18時   45分  3秒 </cmt>
                                                                    <cmt>//< ⇒2020年 6月 20日( 0時    0分  0秒)</cmt>

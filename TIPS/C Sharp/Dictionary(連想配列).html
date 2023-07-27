@@ -27,20 +27,25 @@ C# の Dictionary&lt;TKey, TValue&gt; の使い方 - PG日誌</a><br>
 <div id="toc"></div>
 <hr>
 <!-- 本文ここから -->
+
 <h2>Dictionary とは</h2>
 .Netにおける連想配列クラス。キーと値を関連付けて、キーから値を検索できる。<br>
 C++(STL)における std::map と共通の概念。<br>
+
 <h2>依存する名前空間</h2>
 System.Collections.Generic<br>
+
 <h2>通常の配列との比較</h2>
 いずれもC#における例。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/DotNet_Dictionary/dictionary_01.png" alt="画像"><br>
 Dictionary は要素を自由に追加( Add() )、削除( Remove() )できる。<br>
+
 <h2>基本形(宣言・初期化・参照)</h2>
 Dictionary&lt;TKey, TValue&gt;<br>
 TKey 、TValue ともに <b>任意の型を指定できる</b>(「文字列をキーに数値を検索」など)。<br>
 いずれもC#における例。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/DotNet_Dictionary/dictionary_02.png" alt="画像"><br>
+
 <h2>キーのみ / 値のみの集合を抽出</h2>
 Dictionary のキー(Keys)、値(Values)のみを抽出できる。
 <p class="code">
@@ -51,12 +56,15 @@ Dictionary &lt;<kwd>int</kwd>, <kwd>string</kwd>&gt; dic = <kwd>new</kwd> Dictio
     { <ltr>1</ltr>, <ltr>"みかん"</ltr> },
     { <ltr>2</ltr>, <ltr>"いちご"</ltr> },
 };
+
 <cmt>// キーのみ、値のみを抽出</cmt>
 <kwd>var</kwd> keys   = dic.Keys;       <cmt>//< 戻り値は KeyCollection 型</cmt>
 <kwd>var</kwd> values = dic.Values;     <cmt>//< 戻り値は ValueCollection 型</cmt>
+
 <cmt>// 配列化( ToArray() )可能</cmt>
 <kwd>int</kwd>[]    array_keys   = keys.ToArray();
 <kwd>string</kwd>[] array_values = values.ToArray();
+
 <cmt>// List 化可能</cmt>
 <cmt>// コンストラクタに KeyCollection / ValueCollection を渡す</cmt>
 List&lt;<kwd>int</kwd>&gt;    list_keys   = <kwd>new</kwd> List&lt;<kwd>int</kwd>&gt(keys);
@@ -76,9 +84,11 @@ Dictionary &lt;<kwd>int</kwd>, <kwd>string</kwd>&gt; dic = <kwd>new</kwd> Dictio
     { <ltr>1</ltr>, <ltr>"みかん"</ltr> },
     { <ltr>2</ltr>, <ltr>"いちご"</ltr> },
 };
+
 <cmt>// 値 (Value) が"みかん"の要素のキー (Key) を取得 (== 1)</cmt>
 <kwd>int</kwd> key = dic.First(x =&gt; x.Value == <ltr>"みかん"</ltr>).Key;
 </p>
 First() 関数の代わりに All() 関数を用いると、該当する要素すべて(集合)が返る。<br>
+
 <h2>余談</h2>
 Dictionary はC#固有ではなく .Net Framework の機能であるため、Visual Basic でも使用可能。<br>
