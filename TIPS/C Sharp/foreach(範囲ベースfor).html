@@ -20,7 +20,7 @@
 <a href="https://qiita.com/Marimoiro/items/bf560d7406511380d7b6">そのforeach本当に要りますか？～for/foreach等をLINQに書き換える～ - Qiita</a><br>
 <h5>関連 :</h5>
 <a href="TIPS\C Sharp\コレクション.html">コレクション</a><br>
-<a href="TIPS\C・C++\[C++]範囲ベースfor.html">[C++]範囲ベースfor</a><br>
+<a href="TIPS\C・C%2B%2B\[C%2B%2B]範囲ベースfor.html">[C++]範囲ベースfor</a><br>
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
@@ -29,20 +29,20 @@
 <h2>foreach() 文</h2>
 データの集合(コレクション)の全要素に対して繰り返し処理を行う制御構文。
 <div class="code">
-using System;
+<kwd>using</kwd> <knw>System</knw>;
  
-namespace Sample
+<kwd>namespace</kwd> Sample
 {
-    class Sample
+    <kwd>class</kwd> Sample
     {
-        static void Main()
+        <kwd>static void</kwd> Main()
         {
-            // コレクション(配列)の宣言、初期化
-            char[] src = new char[5]{'a', 'b', 'c', 'd', 'e'};
-            // foreach 文で src の全要素を走査
-            foreach( char chr in src )
+            <cmt>// コレクション(配列)の宣言、初期化</cmt>
+            <kwd>char</kwd>[] src = <kwd>new char</kwd>[5]{'a', 'b', 'c', 'd', 'e'};
+            <cmt>// foreach 文で src の全要素を走査</cmt>
+            <kwd>foreach</kwd>( <kwd>char</kwd> chr <kwd>in</kwd> src )
             {
-                Console.WriteLine( $"{chr}" );
+                <knw>Console</knw>.WriteLine( $"{chr}" );
             }
         }
     }
@@ -65,14 +65,18 @@ for ループと異なり、インデクスの指定や加算、終了判定が�
 コレクションの要素が値型(数値型および構造体)の場合、foreach 節内で要素の値を書き換えることは不可能である。<br>
 その場合は for や while など、別の手段を用いるしかない。
 <div class="code">
-static void Main()
+<kwd>static void</kwd> Main()
 {
-    char[] src = new char[5]{'a', 'b', 'c', 'd', 'e'};
-    // foreach 文で src の全要素を走査
-    foreach( char chr in src )
+    <kwd>char</kwd>[] src = <kwd>new char</kwd>[5]{'a', 'b', 'c', 'd', 'e'};
+    <cmt>// foreach 文で src の全要素を走査</cmt>
+    <kwd>foreach</kwd>( <kwd>char</kwd> chr <kwd>in</kwd> src )
     {
-        // この文はエラーとなる
+        <cmt>// この文はエラーとなる</cmt>
         chr = 's';
     }
 }
 </div>
+
+
+
+
