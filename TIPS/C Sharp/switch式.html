@@ -1,35 +1,46 @@
 <!DOCTYPE html>
+
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
+
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
+
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
+
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
+
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
+
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-<!-- 出典・関連ページ -->
+
+<!-- 出典ページ -->
 <h5>出典 :</h5>
 <a href="https://learn.microsoft.com/ja-jp/dotnet/csharp/language-reference/operators/switch-expression">switch 式 - C# リファレンス - Microsoft Learn</a><br>
 <a href="https://learn.microsoft.com/ja-jp/dotnet/csharp/language-reference/statements/selection-statements%23the-switch-statement">選択ステートメント - C# リファレンス | Microsoft Learn</a><br>
 <a href="https://learn.microsoft.com/ja-jp/dotnet/csharp/language-reference/operators/patterns">パターン - C# リファレンス | Microsoft Learn</a>
+
+<!-- 関連ページ -->
 <h5>関連 :</h5>
 <a href="TIPS/C Sharp/型キャストとas・is.html">型キャストとas・is</a><br>
 <a href="TIPS/C Sharp/パターンマッチング.html">パターンマッチング</a>
+
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
 <hr>
+
 <!-- 本文ここから -->
 
 <h2>switch 式とは</h2>
 C#8.0で追加された、入力値に応じて出力値を選択できる構文。switch - case 節を用いるよりも記述を簡略化でき、かつ選択を網羅的にできる。
 
-<h2>switch - case 節との比較</h2>
+<h2>switch - case 節( switch ステートメント)との比較</h2>
 
 <h3>switch - case 節による実装</h3>
 
@@ -85,22 +96,25 @@ C#8.0で追加された、入力値に応じて出力値を選択できる構文
 パターンにはリテラルをはじめとした定数式だけでなく、<a href="TIPS/C Sharp/パターンマッチング.html">パターンマッチング</a>に基づくルールを指定可能。これは switch ステートメントも同様である。
 パターンのみでは十分な判定ができない場合に、付帯条件として「ケースガード」を指定できる。<br>
 ケースガードは when キーワードと、それに続くブール式として指定する。<br>
-switch 式の入力値がいずれのアームにおけるパターン(およびケースガード)にも合致しない場合、switch 式の評価値が決定できないことから実行時エラーとなる。<br>
-入力値が確実に処理されるようにするには、「破棄パターン」( switch ステートメントにおける default 節に相当)を用いたアームを指定する。
+なお、<b>アームは必ず記述した順に(上から)判定が行われる</b>。このため、後述の<b>「破棄パターン」は必ず末尾に記述する</b>。
 
-<h2>具体例</h2>
+<h3>破棄パターン</h3>
+_ (アンダースコア)で表現される「破棄パターン」は null を含む任意の式に一致する。( switch ステートメントにおける defalt に相当。)<br>
+入力値がいずれのアームにも適合しなければ、switch 式の評価値が決定できず実行時エラーとなるが、<br>
+破棄パターンを用いるとすべての入力式が処理され、式の評価値は必ず確定する。<br>
 
+<h2>switch 式の具体例</h2>
 <div class="code">
 <kwd>private void</kwd> Button_Click( <kwd>object</kwd> sender, RoutedEventArgs e )
 {
     <cmt>// ボタンのタグと SubParam に基づいて処理を決定</cmt>
     (<kwd>string</kwd> tgt, <kwd>string</kwd> ope, E_CommandForPlc cmd) = sender <kwd>switch</kwd>
     {
-        <knw>Button</knw> { Tag: "InkSys_1" } b when  SubParam => ( "#1", "停止", SUPPLYFORINKSYS_1_OFF ),  <cmt>//< 1) インクシステム#1 オン ⇒ オフ</cmt>
-        <knw>Button</knw> { Tag: "InkSys_1" } b                => ( "#1", "開始", SUPPLYFORINKSYS_1_ON  ),  <cmt>//< 2) インクシステム#1 オフ ⇒ オン</cmt>
-        <knw>Button</knw> { Tag: "InkSys_2" } b when  SubParam => ( "#2", "停止", SUPPLYFORINKSYS_2_OFF ),  <cmt>//< 3) インクシステム#2 オン ⇒ オフ</cmt>
-        <knw>Button</knw> { Tag: "InkSys_2" } b                => ( "#2", "開始", SUPPLYFORINKSYS_2_ON  ),  <cmt>//< 4) インクシステム#2 オフ ⇒ オン</cmt>
-        _ => <kwd>throw new</kwd> <knw>Exception</knw>( "規定されていない動作です。" ),                               <cmt>//< 5) 上記以外</cmt>
+        <knw>Button</knw> { Tag: "InkSys_1" } b when SubParam => ( "#1", "停止", SUPPLYFORINKSYS_1_OFF ),  <cmt>//< 1) インクシステム#1 オン ⇒ オフ</cmt>
+        <knw>Button</knw> { Tag: "InkSys_1" } b               => ( "#1", "開始", SUPPLYFORINKSYS_1_ON  ),  <cmt>//< 2) インクシステム#1 オフ ⇒ オン</cmt>
+        <knw>Button</knw> { Tag: "InkSys_2" } b when SubParam => ( "#2", "停止", SUPPLYFORINKSYS_2_OFF ),  <cmt>//< 3) インクシステム#2 オン ⇒ オフ</cmt>
+        <knw>Button</knw> { Tag: "InkSys_2" } b               => ( "#2", "開始", SUPPLYFORINKSYS_2_ON  ),  <cmt>//< 4) インクシステム#2 オフ ⇒ オン</cmt>
+        _ => <kwd>throw new</kwd> <knw>Exception</knw>( "規定されていない動作です。" ),                               <cmt>//< 5) 上記以外 (破棄パターン)</cmt>
     };
 
     <cmt>// 問い合わせ表示、「はい」押下時以外は抜ける</cmt>
@@ -114,19 +128,42 @@ switch 式の入力値がいずれのアームにおけるパターン(および
 }
 </div>
 
-上記は、Button の Click ハンドラ内で、Tag プロパティと状態変数の値に応じて値を振り分ける例である。<br>
-switch 式は、sender が Button 型でかつ Tag が○○であれば、Button 型変数 b に Button 型に変換した sender を格納、さらに when 以降の条件に当てはまる場合に => の右辺を返却する。<br>
-(ここで、変数 b は when 句で用いることができる。ここではいずれのアームでも b を用いていないため、b を省略しても問題は無い。)<br>
-上記の switch 式は
+上記は宣言パターンを用いた、Button の Click ハンドラ内で Tag プロパティと状態変数の値に応じて値を振り分ける例である。<br>
+宣言パターンについては<a href="TIPS/C Sharp/パターンマッチング.html#宣言パターン・型パターン">パターンマッチング</a>を参照のこと。<br>
+ここでは、
 <ul>
 <li>sender の型判別( Button 型かどうか)</li>
 <li>sender のメンバ( Tag )の識別</li>
 <li>付帯条件(ここでは SubParam )の判定</li>
 </ul>
-を一度に行うことができるため、判定がネストせず表記が簡潔となる。<br>
-<br>また、<b>アームは必ず上から順に判定が行われる</b>。<br>
-アーム(1)はアーム(2)に SubParam の判定を追加してものとなっているが、アーム(1)の条件に該当するケースはアーム(2)を判定するより前にすべてアーム(1)で捕捉できるため、<br>
-アーム(2)にはアーム(1)の条件に該当しなかったもののみが流れ込む。<br>
-(即ちアーム(2)は、when 句を記述する必要が無い。)<br>
-このようにして、上段のアームでより限定的な判断を行い、該当しないもの( else / default )を下段で捕捉することが可能である。<br>
-(<b>このため破棄パターン( _ : アンダースコア)は最下段に記述しなければならない。</b>)
+を行っており、最初に評価されるアーム(1)では、
+<ul>
+<li>sender 型が Button である</li>
+<li>((Button)sender).Tag == "InkSys_1" である</li>
+<li>SubParam == true である</li>
+</ul>
+すべてが成立した場合にパターン(およびケースガード)に合致したものとみなされ、トークンに続く式<br>
+<span class="code">( "#1", "停止", SUPPLYFORINKSYS_1_OFF )</span><br>
+が switch 式の評価結果となる。
+
+<h3>網羅的判定</h3>
+アーム(1)の次に評価されるアーム(2)は、
+<ul>
+<li>sender 型が Button である</li>
+<li>((Button)sender).Tag == "InkSys_1" である</li>
+</ul>
+を条件としており、これは(1)の条件よりも緩いが、(1)の評価順のほうが早いため、(2)には(1)の条件に該当しなかったもののみが流れ込む。<br>
+(このため(2)には、when 句を記述する必要が無い。)<br>
+<br>
+このように上段のアームでより限定的な判断を行い、該当しないもの( else / default )を下段で捕捉することで、すべての式を適切に評価できる。<br>
+
+<h3>一時変数</h3>
+宣言パターンでは、評価対象がパターンにマッチした場合に評価対象を格納する一時変数をパターンに続けて指定することができる。<br>
+このとき、評価対象は合致した型にキャストされる。<br>
+上記の例ではアーム(1)～(4)に一時変数( b )を指定しており、アーム(1)評価時点で、<br>
+<span class="code">((Button)sender).Tag == "InkSys_1"</span><br>
+であれば、<br>
+<span class="code">b = (Button)sender</span><br>
+となる。<br>
+この一時変数は、when に続くケースガード内で参照することが可能である。<br>
+ただ、この例ではいずれのアームもケースガード内で b を参照していないため、省略しても問題は無い。

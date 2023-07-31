@@ -25,14 +25,9 @@
 <!-- 本文ここから -->
 
 <h2>パターンマッチングとは</h2>
-入力式が特定のパターンにマッチしているかを検査することができる構文。C#7.0で導入された。<br>
-<a href="TIPS/C Sharp/型キャストとas・is.html">is 式</a>、<a href="TIPS/C Sharp/switch式.html">switch 式</a>、および switch ステートメントで使用できる。<br>
-尚、「正規表現(パターンマッチング)」とは異なる。
-
-<h2>破棄パターン</h2>
-_ (アンダースコア)で表現される「破棄パターン」は null を含む任意の式に一致する。( switch ステートメントにおける defalt に相当。)<br>
-破棄パターンを用いることで、すべての入力式を処理することができる。具体例は後述。<br>
-破棄パターンは switch 式でのみ用いることができ、is 式、switch ステートメントでは使用できない。
+入力式が特定のパターン(型、値、要素数など)にマッチしているかを検査することができる構文。C#7.0で導入された。<br>
+<a href="TIPS/C Sharp/型キャストとas・is.html">is 式</a>や switch ステートメントで使用できるが、<a href="TIPS/C Sharp/switch式.html">switch 式</a>で用いるのが強力である。<br>
+尚、「正規表現(パターンマッチング)」とは無関係である。
 
 <h2>宣言パターン・型パターン</h2>
 「宣言パターン」では入力式が指定された型と互換性があるかをチェックすることができる。<br>
@@ -177,13 +172,14 @@ C#10.0以降は「拡張プロパティパターン」として、. (ドット)�
 <kwd>static</kwd> decimal GetGroupTicketPriceDiscount( <kwd>int</kwd> groupSize, <knw>DateTime</knw> visitDate )
     =&gt; ( groupSize, visitDate.DayOfWeek ) <kwd>switch</kwd>
     {
-        ( &lt;= 0          , _                                      ) =&gt; <kwd>throw new</kwd> ArgumentException("Group size must be positive."),
-        ( _             , DayOfWeek.Saturday or DayOfWeek.Sunday ) =&gt; 0.0m,
-        ( &gt;= 5 and &lt; 10 , DayOfWeek.Monday                       ) =&gt; 20.0m,
-        ( &gt;= 10         , DayOfWeek.Monday                       ) =&gt; 30.0m,
-        ( &gt;= 5 and &lt; 10 , _                                      ) =&gt; 12.0m,
-        ( &gt;= 10         , _                                      ) =&gt; 15.0m,
-        _ =&gt; 0.0m,
+        ( &lt;= 0          , _                                      ) =&gt; <kwd>throw new</kwd> Exception("Invalid group size."),    <cmt>//<       groupSize &lt;= 0  ( visitDate.DayOfWeek 不問)</cmt>
+        ( _             , DayOfWeek.Saturday or DayOfWeek.Sunday ) =&gt; 0.0m,                                          <cmt>//<     ( groupSize 不問)   visitDate.DayOfWeek == DayOfWeek.Saturday or 
+                                                                                                                                                 visitDate.DayOfWeek == DayOfWeek.Sunday</cmt>
+        ( &gt;= 5 and &lt; 10 , DayOfWeek.Monday                       ) =&gt; 20.0m,                                         <cmt>//< 5  &lt;= groupSize &lt; 10 && visitDate.DayOfWeek == DayOfWeek.Monday</cmt>
+        ( &gt;= 10         , DayOfWeek.Monday                       ) =&gt; 30.0m,                                         <cmt>//< 10 &lt;= groupSize      && visitDate.DayOfWeek == DayOfWeek.Monday</cmt>
+        ( &gt;= 5 and &lt; 10 , _                                      ) =&gt; 12.0m,                                         <cmt>//< 5  &lt;= groupSize &lt; 10  ( visitDate.DayOfWeek 不問)</cmt>
+        ( &gt;= 10         , _                                      ) =&gt; 15.0m,                                         <cmt>//< 10 &lt;= groupSize       ( visitDate.DayOfWeek 不問)</cmt>
+        _ =&gt; 0.0m,                                                                                                   <cmt>//< 上記以外(破棄パターン)</cmt>
     };
 </div>
 
