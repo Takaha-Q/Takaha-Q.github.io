@@ -134,6 +134,14 @@ CSequenceClass someVar(i_er);
 
 <!-- ～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～ -->
 
+<h2>一様初期化</h2>
+C++03までは、型の初期化の方法が複数存在する場合、取り違えると同じ結果にはならなかった。<br>
+C++11では「統一初期化記法(uniform initialization)」が導入され、どのようなオブジェクトでも同様の記法で初期化できるようになった。<br>
+これは上記の初期化子リスト構文の拡張である。
+詳細は<a href="TIPS\C・C++\一様初期化.html">一様初期化</a>を参照。
+
+<!-- ～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～ -->
+
 <h2>デフォルトメンバ初期化子</h2>
 メンバ変数を宣言時に初期化することが可能。コンストラクタの記述を省略できる。<br>
 詳細は<a href="TIPS/C・C%2B%2B/デフォルトメンバ初期化子.html">デフォルトメンバ初期化子</a>を参照。
@@ -158,89 +166,11 @@ C#やJavaの foreach と同様、for 文の別構文により、コンテナを�
 
 <!-- ～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～ -->
 
-<h2>オブジェクト構築の改良</h2>
+<h2>オブジェクト構築の改良(委譲コンストラクタと継承コンストラクタ)</h2>
 C++03までは、コンストラクタは他のコンストラクタを呼び出せず、それぞれのコンストラクタでメンバの初期化を行う必要があったため、コードの重複が避けられなかった。<br>
 また、基底クラスのコンストラクタは派生クラスには直接公開されず、派生クラス側で(基底クラスと重複する)コンストラクタを定義する必要があった。<br>
 C++11ではコンストラクタが他の同等なコンストラクタを呼び出すこと(委譲)が可能となっている。<br>
-<p class="code">
-<kwd>class</kwd> C_SomeType 
-{
-    <kwd>int</kwd> number;
-  
-<kwd>public</kwd>:
-    C_SomeType(<kwd>int</kwd> newNumber) : number(newNumber) {}
-    C_SomeType() : C_SomeType(<ltr>42</ltr>) {}                       <cmt>//&lt; C_SomeType() が C_SomeType(int) を呼び出している</cmt>
-};
-</p>
-<p class="code">
-<cmt>// 基底クラス</cmt>
-<kwd>class</kwd> C_BaseClass 
-{
-<kwd>public</kwd>:
-    C_BaseClass (<kwd>int value</kwd>);
-    C_BaseClass (<kwd>float value</kwd>);
-};
-
-<cmt>// 派生クラス</cmt>
-<kwd>class</kwd> C_DerivedClass : <kwd>public</kwd> C_BaseClass 
-{
-<kwd>public</kwd>:
-    <kwd>using</kwd> C_BaseClass::C_BaseClass;    <cmt>//&lt; 基底クラスのコンストラクタを使用する</cmt>
-};
-</p>
-更に、メンバの初期化に以下の構文が使用できる。コンストラクタで初期化内容を上書きすることもできる。<br>
-<p class="code">
-<kwd>class</kwd> C_SomeClass 
-{
-  <kwd>int</kwd> iValue = <ltr>5</ltr>;    <cmt>//&lt; クラス定義中でメンバ iValue を初期化</cmt>
-<kwd>public</kwd>:
-    C_SomeClass () {}
-    <kwd>explicit</kwd> C_SomeClass (<kwd>int</kwd> iNewValue) : iValue(iNewValue) {}  <cmt>//&lt; <kwd>int</kwd> 型引数付きで呼ばれた場合、引数で iValue を初期化</cmt>
-};
-</p>
-
-<!-- ～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～ -->
-
-<h2>統一初期化記法</h2>
-C++03までは、型の初期化の方法が複数存在する場合、取り違えると同じ結果にはならなかった。<br>
-C++11では「統一初期化記法(uniform initialization)」が導入され、どのようなオブジェクトでも同様の記法で初期化できるようになった。これは初期化リスト構文の拡張である。<br>
-<p class="code">
-<kwd>struct</kwd> St_BasicStruct
-{
-    <kwd>int</kwd> x;
-    <kwd>double</kwd> y;
-};
-
-<kwd>struct</kwd> St_AltStruct 
-{
-<kwd>public</kwd>:
-    <cmt>// コンストラクタ</cmt>
-    St_AltStruct(<kwd>int</kwd> x, <kwd>double</kwd> y) : x_(x), y_(y) {}
-  
-<kwd>private</kwd>:
-    <kwd>int</kwd> x_;
-    <kwd>double</kwd> y_;
-};
-
-St_BasicStruct var1 { <ltr>5</ltr>, <ltr>3.2</ltr> };
-St_AltStruct var2 { <ltr>2</ltr>, <ltr>4.3</ltr> };
-</p>
-St_BasicStruct 型の var1 と、St_AltStruct 型の var2 を、同様の記法(ブレースに初期値を列挙)で初期化している。var1 ではC形式の初期化子リストと同様に振る舞い、var2 ではコンストラクタを呼んでいる。<br>
-型推論と組み合わせて、以下のように応用できる。<br>
-<p class="code">
-<kwd>struct</kwd> St_IdString
-{
-    <kwd>std</kwd>::<kwd>string</kwd> name;
-    <kwd>int</kwd> identifier;
-};
-
-St_IdString get_string()
-{
-    <kwd>return</kwd> { <ltr>"SomeName"</ltr>, <ltr>4</ltr> };
-}
-</p>
-return 文にて暗黙の一時変数を統一初期化記法で初期化し、返却している。関数の戻り値は宣言から St_IdString 型であることが明白であるため、一時変数の型を明示していない。<br>
-C99における複合リテラルと同様。<br>
+詳細は<a href="TIPS/C・C%2B%2B/委譲コンストラクタと継承コンストラクタ.html">委譲コンストラクタと継承コンストラクタ</a>を参照。
 
 <!-- ～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～ -->
 
@@ -313,8 +243,6 @@ C++11では <b>override</b> キーワードが導入され、仮想関数のオ�
 <h2>継承・オーバーライドの禁止 ( final )</h2>
 C++11では <b>final</b> キーワードが追加された。クラスに適用した場合と仮想関数に適用した場合で、意味が異なる。<br>
 
-<!-- ～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～ -->
-
 <h3>クラスの final 修飾</h3>
 クラスを final 修飾した場合、 <b>そのクラスを派生(継承)させることができなくなる</b> 。<br>
 <p class="code">
@@ -335,8 +263,6 @@ C++11では <b>final</b> キーワードが追加された。クラスに適用�
 };
 </p>
 
-<!-- ～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～ -->
-
 <h3>仮想関数の final 修飾</h3>
 仮想関数を final 修飾した場合、 <b>その関数はオーバーライド不可となる</b> 。<br>
 <p class="code">
@@ -353,18 +279,6 @@ C++11では <b>final</b> キーワードが追加された。クラスに適用�
     <kwd>void</kwd> some_func(<kwd>float</kwd>);    <cmt>//&lt; 不正 : final 修飾された関数をオーバーライドしようとしている</cmt>
 };
 </p>
-
-<!-- ～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～ -->
-
-<h2>委譲コンストラクタ</h2>
-コンストラクタから、自身の他のコンストラクタを呼ぶことができる。<br>
-詳細は<a href="TIPS/C・C%2B%2B/委譲コンストラクタと継承コンストラクタ.html%23委譲コンストラクタ">ここ</a>を参照。
-
-<!-- ～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～ -->
-
-<h2>継承コンストラクタ</h2>
-基底クラスで定義したコンストラクタを、派生クラスでそのまま使用できる。<br>
-詳細は<a href="TIPS/C・C%2B%2B/委譲コンストラクタと継承コンストラクタ.html%23継承コンストラクタ">ここ</a>を参照。
 
 <!-- ～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～ -->
 
