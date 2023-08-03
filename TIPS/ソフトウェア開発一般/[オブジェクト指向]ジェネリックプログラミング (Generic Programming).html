@@ -1,28 +1,39 @@
 <!DOCTYPE html>
+
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
+
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
+
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
+
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
+
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
+
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-<!-- 出典・関連ページ -->
+
+<!-- 出典ページ -->
 <h5>出典 :</h5>
 <a href="https://ja.wikipedia.org/wiki/%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AA%E3%83%83%E3%82%AF%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0">ジェネリックプログラミング - Wikipedia</a><br>
+
+<!-- 関連ページ -->
 <h5>関連 :</h5>
-<a href="TIPS/C%E3%83%BBC%2B%2B/[C%2B%2B]%E9%96%A2%E6%95%B0%E3%82%AA%E3%83%BC%E3%83%90%E3%83%BC%E3%83%AD%E3%83%BC%E3%83%89%E3%81%A8%E3%83%87%E3%83%95%E3%82%A9%E3%83%AB%E3%83%88%E5%BC%95%E6%95%B0.html">[C++]関数オーバーロードとデフォルト引数</a><br>
-<a href="TIPS/C%E3%83%BBC%2B%2B/[C%2B%2B%EF%BC%8FSTL%EF%BC%8F%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A]%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A.html">[C++／STL／コンテナ]コンテナ</a><br>
-<a href="TIPS/C・C%2B%2B/[C%2B%2B]型推論.html">[C++]型推論</a><br>
+<a href="TIPS/C%E3%83%BBC%2B%2B/%E9%96%A2%E6%95%B0%E3%82%AA%E3%83%BC%E3%83%90%E3%83%BC%E3%83%AD%E3%83%BC%E3%83%89%E3%81%A8%E3%83%87%E3%83%95%E3%82%A9%E3%83%AB%E3%83%88%E5%BC%95%E6%95%B0.html">[C++]関数オーバーロードとデフォルト引数</a><br>
+<a href="TIPS/C%E3%83%BBC%2B%2B/[STL%EF%BC%8F%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A]%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A.html">[C++／STL／コンテナ]コンテナ</a><br>
+<a href="TIPS/C・C%2B%2B/型推論.html">[C++]型推論</a><br>
+
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
 <hr>
+
 <!-- 本文ここから -->
 
 <h2>ジェネリック(汎用)プログラミングとは</h2>
@@ -154,5 +165,4 @@ List_t&lt;Data_t&gt;::List_t(Data_t d)
 List_t&lt;<kwd>char</kwd>&gt; start(<ltr>'a'</ltr>);
 </p>
 
-C++の<b>STL(標準テンプレートライブラリ)</b>はその名の通り汎用クラスとして定義されており、多様な型のデータを共通の手法で管理できる。<br>
-コンテナが代表的。<a href="TIPS/C%E3%83%BBC%2B%2B/[C%2B%2B%EF%BC%8FSTL%EF%BC%8F%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A]%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A.html">[C++／STL／コンテナ]コンテナ</a>を参照。
+C++の<b>STL(標準テンプレートライブラリ)</b>はその名の通り汎用クラスとして定義されており、多様な型のデータを共通の手法で管理できる。<a href="TIPS/C%E3%83%BBC%2B%2B/[STL%EF%BC%8F%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A]%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A.html">コンテナ</a>が代表的。
