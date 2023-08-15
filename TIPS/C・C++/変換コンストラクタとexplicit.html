@@ -58,10 +58,10 @@
 
 <kwd>int</kwd> main()
 {
-	<cmt>// 変換コンストラクタの呼び出し</cmt>
+    <cmt>// 変換コンストラクタの呼び出し</cmt>
     SimpleClass sc1 = 15;
 
-	<cmt>// 変換コンストラクタの呼び出し</cmt>
+    <cmt>// 変換コンストラクタの呼び出し</cmt>
     SimpleClass sc2;
     sc2 = 20;
 
@@ -71,10 +71,9 @@
 </div>
 
 クラス SimpleClass における SimpleClass(int n) は引数をひとつだけ取るコンストラクタであり、<b>変換コンストラクタ</b>として動作する。<br>
-main() 関数内で数値を代入(に見える操作を)することで、変換コンストラクタを呼び出すことができる。<br>
+値を代入(に見える操作を)することで、変換コンストラクタを呼び出すことができるが、<br>
 このとき、与えられた値の<b>暗黙的な変換が可能な場合のみ</b>変換コンストラクタが呼び出され、オブジェクトが生成される。<br>
-(上記の場合、= の右辺値である 15 や 20 は int に変換が可能なため変換コンストラクタが呼び出されるが、<br>
-右辺値が "abc" など int に変換できない値の場合はコンパイルエラーとなる。)<br>
+(上記の場合、= の右辺値である 15 や 20 は int に変換が可能なため変換コンストラクタが呼び出されるが、<br>右辺値が "abc" など int に変換できない値の場合はコンパイルエラーとなる。)<br>
 <br>
 <b>変換コンストラクタとなる条件は「引数ひとつで呼び出せる」ことのみ</b>であるため、以下のコードのコンストラクタはすべて変換コンストラクタとして機能する。<br>
 (第1引数以外がすべてデフォルト引数となっているものも含まれる。)
@@ -100,26 +99,26 @@ main() 関数内で数値を代入(に見える操作を)することで、変�
 
 <kwd>int</kwd> main()
 {
-	<cmt>// SimpleClass(double)の呼び出し ⇒ OK</cmt>
+    <cmt>// SimpleClass(double)の呼び出し ⇒ OK</cmt>
     SimpleClass sc1 = 3.0;
 
-	<cmt>// SimpleClass(char*)の呼び出し ⇒ OK</cmt>
+    <cmt>// SimpleClass(char*)の呼び出し ⇒ OK</cmt>
     SimpleClass sc2 = "Hello";
 
-	<cmt>// SimpleClass(int, double)の呼び出し ⇒ OK</cmt>
+    <cmt>// SimpleClass(int, double)の呼び出し ⇒ OK</cmt>
     <cmt>// (第1引数のみを指定)</cmt>
     SimpleClass sc3 = 7;
 
-	<cmt>// SimpleClass(int, double)の呼び出し ⇒ NG</cmt>
+    <cmt>// SimpleClass(int, double)の呼び出し ⇒ NG</cmt>
     <cmt>// (第1引数以外も指定)</cmt>
     <cmt>// SimpleClass sc4 = (10, 4.5);</cmt>
 
-	<cmt>// 通常のコンストラクタ呼び出し ⇒ OK</cmt>
+    <cmt>// 通常のコンストラクタ呼び出し ⇒ OK</cmt>
     SimpleClass sc4(10, 4.5);
 }
 </div>
 
-<h2>暗黙的型変換の禁止(explicit)</h2>
+<h2>暗黙的呼び出しの禁止(explicit)</h2>
 
 変換コンストラクタが使用できることで、問題となるケースが存在する。
 
@@ -172,11 +171,11 @@ main() 関数内で数値を代入(に見える操作を)することで、変�
     <cmt>// 明示的にコンストラクタを呼んでいるためOK</cmt>
     SimpleClass sc(10);
     func(sc);
+
+    <cmt>// キャストは明示的呼び出しと見なされるためOK</cmt>
+    func( (SimpleClass)10 );
 }
 </div>
 
 <b>コンストラクタを explicit 修飾することで、暗黙的なコンストラクタ呼び出し( = 変換コンストラクタ)を禁止できる</b>。<br>
-変換コンストラクタは混乱の元となることも多いため、禁止しておくことも有効な選択となり得る。
-
-
-
+変換コンストラクタは混乱の元となることも多く、禁止しておくことが有効な選択となり得る。
