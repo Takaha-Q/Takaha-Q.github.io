@@ -1,18 +1,27 @@
 <!DOCTYPE html>
+
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
+
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
+
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
+
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
+
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
+
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
+
 <!-- 出典・関連ページ -->
+<a href="TIPS/C・C++/例外クラス.html">例外クラス</a>
+
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
@@ -88,3 +97,6 @@ try ブロックで発生した例外を処理した後、さらに外側に例�
 
 過去には、throw 句を用いて送出例外の型を制限する記法も存在したが、これはあまり有用ではないことから<br>
 C++11で非推奨となり、C++17で削除された。
+
+<h2>C++標準の例外クラス</h2>
+C++の標準ライブラリには、例外として送出するためのクラス(例外オブジェクト)が定義されている。詳細は<a href="TIPS/C・C++/例外クラス.html">ここ</a>を参照。
