@@ -192,7 +192,7 @@ unique_ptr&lt;T[]&gt; で配列を保持できる。配列型の場合、 operat
 {
     <kwd>void</kwd> operator()(<kwd>int</kwd>* ptr_)
     {
-        free_int_from_sotrage(ptr_);
+        free_int_from_storage(ptr_);
     }
 };
 
@@ -434,14 +434,14 @@ std::weak_ptr&lt;<kwd>int</kwd>&gt; wptr(sptr);
     <td class="col1">deleter定義</td>
     <td class="center bg_lh">不可</td>
     <td class="center">可</td>
-    <td class="center">可br>(make_shared()との併用不可)</td>
+    <td class="center">可<br>(make_shared()との併用不可)</td>
     <td class="center bg_lh">不可</td>
   </tr>
   <tr>
     <td class="col1">配列の保持</td>
     <td class="center bg_lh">不可</td>
     <td class="center">可</td>
-    <td class="center bg_lg">可br>(deleter要定義)</td>
+    <td class="center bg_lg">可<br>(deleter要定義)</td>
     <td class="center">可</td>
   </tr>
   <tr>
