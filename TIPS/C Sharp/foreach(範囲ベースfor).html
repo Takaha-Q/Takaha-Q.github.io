@@ -1,30 +1,41 @@
 <!DOCTYPE html>
+
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
+
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
+
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
+
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
+
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
+
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-<!-- 出典・関連ページ -->
+
+<!-- 出典ページ -->
 <h5>出典 :</h5>
 <a href="https://www.sejuku.net/blog/41892">【C#入門】foreachの使い方(break、continueでの制御も解説) | 侍エンジニアブログ</a><br>
 <a href="https://programming.pc-note.net/csharp/foreach.html">foreach文(C#) - 超初心者向けプログラミング入門</a><br>
 <a href="https://learn.microsoft.com/ja-jp/troubleshoot/developer/visualstudio/csharp/language-compilers/make-class-foreach-statement">foreach ステートメントでクラスを使用可能にする - C# | Microsoft Learn</a><br>
 <a href="https://qiita.com/Marimoiro/items/bf560d7406511380d7b6">そのforeach本当に要りますか？～for/foreach等をLINQに書き換える～ - Qiita</a><br>
+
+<!-- 関連ページ -->
 <h5>関連 :</h5>
 <a href="TIPS\C Sharp\コレクション.html">コレクション</a><br>
 <a href="TIPS\C・C%2B%2B\範囲ベースfor.html">[C++]範囲ベースfor</a><br>
+
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
 <hr>
+
 <!-- 本文ここから -->
 <h2>foreach() 文</h2>
 データの集合(コレクション)の全要素に対して繰り返し処理を行う制御構文。
@@ -40,7 +51,7 @@
             <cmt>// コレクション(配列)の宣言、初期化</cmt>
             <kwd>char</kwd>[] src = <kwd>new char</kwd>[5]{'a', 'b', 'c', 'd', 'e'};
             <cmt>// foreach 文で src の全要素を走査</cmt>
-            <kwd>foreach</kwd>( <kwd>char</kwd> chr <kwd>in</kwd> src )
+            <kwd>foreach</kwd>( <kwd>var</kwd> chr <kwd>in</kwd> src )
             {
                 <knw>Console</knw>.WriteLine( $"{chr}" );
             }
