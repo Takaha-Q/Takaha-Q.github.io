@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<h5>出典 :</h5>
+<a href="https://cpprefjp.github.io/lang/cpp11/scoped_enum.html">スコープを持つ列挙型 - cpprefjp C++日本語リファレンス</a><br>
+<a href="https://cpprefjp.github.io/reference/type_traits/underlying_type.html">underlying_type - cpprefjp C++日本語リファレンス</a><br>
+<a href="https://nsb248.hatenablog.com/entry/2016/02/08/145432">enum classをfor文で回す。 - nsb248の日記</a>
+
+<!-- 関連ページ -->
+<h5>関連 :</h5>
+<a href="TIPS/C%E3%83%BBC%2B%2B/C%2B%2B11.html">C++11</a><br>
+<a href="TIPS/C%E3%83%BBC%2B%2B/[C%2B%2B／STL／コンテナ]イテレータ.html">イテレータ</a><br>
+<a href="TIPS/C%E3%83%BBC%2B%2B/範囲ベースfor.html">範囲ベースfor</a><br>
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>強い型付けの列挙型とは</h2>
+C++11で追加された、型安全な(クラス化された)列挙体のことを指す。
+
+<h3>従来の列挙型 (enum)</h3>
+enum は型安全ではなく、列挙値は暗黙的に整数型への変換が可能であった。<br>
+また、同一スコープに存在する二つの異なる列挙体が、同じ名前のメンバを持つことができなかった。<br>
+
+<div class="code">
+<cmt>// 列挙型の定義#1</cmt>
+<kwd>enum</kwd> E_Enumeration01
+{
+    VAL1,        <cmt>//&lt; == 0</cmt>
+    VAL2,
+    VAL3 = <ltr>100</ltr>,
+    VAL4,        <cmt>//&lt; == 101</cmt>
+};
+
+<cmt>// 列挙型の定義#2</cmt>
+<cmt>// ⇒ メンバ名が E_Enumeration01 と重複しているためエラーとなる</cmt>
+<kwd>enum</kwd> E_Enumeration02
+{
+    VAL1,
+    VAL2,
+};
+
+<kwd>void</kwd> DoSomething()
+{
+    <cmt>// int型への暗黙的変換</cmt>
+    <kwd>int</kwd> i = VAL1;
+}
+</div>
+
+<h3>強い型付けの列挙型(スコープを持つ列挙型) (enum class / enum struct)</h3>
+
+<div class="code">
+<cmt>// 列挙型の定義#1 (enum class は enum struct に代替可能)</cmt>
+<kwd>enum class</kwd> E_Enumeration01
+{
+    VAL1,        <cmt>//&lt; == 0</cmt>
+    VAL2,
+    VAL3 = <ltr>100</ltr>,
+    VAL4,        <cmt>//&lt; == 101</cmt>
+};
+
+<cmt>// 列挙型の定義#2</cmt>
+<cmt>// ⇒ E_Enumeration01 と共通のメンバ名を持つことができる</cmt>
+<kwd>enum class</kwd> E_Enumeration02
+{
+    VAL1,
+    VAL2,
+};
+
+<kwd>void</kwd> DoSomething()
+{
+    <cmt>// int型への暗黙的変換は行われない ⇒ エラー</cmt>
+    <kwd>int</kwd> i = E_Enumeration01::VAL1;
+}
+</div>
+
+C++11では従来の列挙型の欠点を改善すべく、「強い型付けの列挙型」が追加された。<br>
+この列挙型は暗黙的に整数値に変換されることは無く、整数値や他の列挙型との直接比較はできない。<br>
+<b>列挙値へのアクセスは E_Enumeration::VAL1 のように、スコープを明示する必要がある</b> 。(C#における列挙型と同様)<br>
+列挙値(のラベル)は型に拘束されるため、異なる列挙型で同じ名前のメンバを持つことができる。<br>
+なお、enum class と enum struct に機能の違いは無い。
+
+<h2>列挙型の基底型</h2>
+列挙型の定義時に、基底型を指定することができる。<br>
+各列挙子の内部値が基底型で表現されるため、列挙子が少ない場合は基底型を小さくすることでメモリ使用量を削減できる。<br>
+列挙子の値が基底型の範囲に収まらない場合はエラーとなる。<br>
+
+<div class="code">
+<cmt>// 基底型を unsigned char とする</cmt>
+<kwd>enum class</kwd> Color : <kwd>unsigned char</kwd>
+{
+    Red, 
+    Green, 
+    Blue,
+};
+</div>
+
+基底型の指定は enum class だけでなく従来の enum に対しても行うことができる。<br>
+基底型を指定しない場合の振舞は両者で異なり、
+<ul>
+<li>enum class : int に固定</li>
+<li>enum : その列挙型の全列挙子を表現できる整数型のいずれか</li>
+</ul>
+となる。
+
+<h3>基底型の取得</h3>
+<b>std::underlying_type&lt;T&gt;</b>を使用することで、列挙型の基底型を取得することができる。<br>
+&lt;type_traits&gt;のインクルードが必要。
+
+<div class="code">
+<kwd>#include</kwd> &lt;iostream&gt;
+<kwd>#include</kwd> &lt;type_traits&gt;        <cmt>//< underlying_type を使用するために必要</cmt>
+
+<kwd>enum</kwd> E1 : <kwd>char</kwd> 
+{ (略) };
+<kwd>enum class</kwd> E2 : <kwd>char</kwd>
+{ (略) };
+
+<kwd>enum</kwd> E3
+{ (略) };
+<kwd>enum class</kwd> E4
+{ (略) };
+
+<kwd>int</kwd> main()
+{
+    <cmt>// E1 、E2 の基底型が char かどうかを判定</cmt>
+    <kwd>if</kwd>( <kwd>std</kwd>::is_same&lt;<kwd>std</kwd>::underlying_type&lt;E1&gt;::type, <kwd>char</kwd>&gt;::value )
+    {
+        <kwd>std</kwd>::cout << "E1 の基底型は <kwd>char</kwd>" << <kwd>std</kwd>::end;
+    }
+    <kwd>if</kwd>( <kwd>std</kwd>::is_same&lt;<kwd>std</kwd>::underlying_type&lt;E2&gt;::type, <kwd>char</kwd>&gt;::value )
+    {
+        <kwd>std</kwd>::cout << "E2 の基底型は <kwd>char</kwd>" << <kwd>std</kwd>::end;
+    }
+
+    <cmt>// E3 、E4 の基底型が整数型かどうかを判定</cmt>
+    <kwd>if</kwd>( <kwd>std</kwd>::is_integral&lt;<kwd>std</kwd>::underlying_type&lt;E3&gt;::type&gt;::value )
+    {
+        <kwd>std</kwd>::cout << "E3 の基底型は整数型" << <kwd>std</kwd>::end;
+    }
+    <kwd>if</kwd>( <kwd>std</kwd>::is_integral&lt;<kwd>std</kwd>::underlying_type&lt;E4&gt;::type&gt;::value )
+    {
+        <kwd>std</kwd>::cout << "E4 の基底型は整数型" << <kwd>std</kwd>::end;
+    }
+}
+</div>
+
+列挙型 T に対し、<span class="code">std::underlying_type&lt;T&gt;::type</span>で基底型を取得できる。
+
+<h2>応用 : 列挙子を範囲ベースforで走査</h2>
+
+列挙型にイテレータを追加することで、イテレーションを行えるようになる。<br>
+<a href="TIPS/C%E3%83%BBC%2B%2B/[C%2B%2B／STL／コンテナ]イテレータ.html">イテレータ</a>および<a href="TIPS/C%E3%83%BBC%2B%2B/範囲ベースfor.html">範囲ベースfor</a>に関してはリンク先を参照。
+
+<div class="code">
+<kwd>#include</kwd> &lt;type_traits&gt;
+
+<cmt>// 列挙型定義</cmt>
+<kwd>enum class</kwd> Color
+{
+    red,        <cmt>//< 先頭要素 == 0</cmt>
+    blue,
+    LAST,       <cmt>//< 末尾を表す列挙子</cmt>
+}
+
+<cmt>// イテレータの定義</cmt>
+<kwd>inline</kwd> Color <kwd>operator</kwd>++(Color& x) 
+{ 
+    <kwd>return</kwd> x = (Color)(<kwd>std</kwd>::underlying_type<Color>::type(x) + 1); 
+}
+<kwd>inline</kwd> Color <kwd>operator</kwd>*(Color c) 
+{
+    <kwd>return</kwd> c; 
+}
+<kwd>inline</kwd> Color begin(Color r) 
+{ 
+    <kwd>return</kwd> static_cast<Color>(0); 
+}
+<kwd>inline</kwd> Color end(Color r)
+{
+    Color l = Color::LAST;
+    <kwd>return</kwd> l; 
+}
+
+<kwd>int</kwd> main()
+{
+    <cmt>// Color の全メンバを走査</cmt>
+    <kwd>for</kwd> ( Color c : Color() )
+    {
+        doSomething(c);
+    }
+}
+</div>
+
+以下の制約がある。
+<ul>
+<li>先頭の列挙子は必ず 0</li>
+<li>以降の列挙子はひとつ前の要素に 1 を加算 ⇒ 初期値を指定しない</li>
+<li>末尾に LAST を定義する必要がある ⇒ end() イテレータは「末尾要素の次」を表すため、LASTはシーケンスの一員とみなされない</li>
+</ul>
+
+
+
+
