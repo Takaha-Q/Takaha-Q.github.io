@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<h5>出典 :</h5>
+<a href="https://programming-place.net/ppp/contents/cpp2/main/assert.html">アサート | Programming Place Plus　新C++編</a><br>
+<a href="https://rinatz.github.io/cpp-book/ch10-03-assertions/">10.3 アサーション - ゼロから学ぶ C++</a><br>
+
+<!-- 関連ページ -->
+<h5>関連 :</h5>
+<a href="TIPS/C・C%2B%2B/例外処理.html">[C++]例外処理</a>
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+<h2>アサーション(Assertion)とは</h2>
+プログラム内のある時点(またはコンパイル時点)で想定される状況(条件)を記述し、その状況に無かった場合にエラーを発する機能。<br>
+「その時点においては当然そうである(そうでない場合は利用者のミスである)」ことを表明することで、引数などの誤りをデバッグ段階で検出しやすくなる。<br>
+
+<h2>assert()</h2>
+実行時に特定の条件を満たすことを想定する。<br>
+条件を満たさなかった場合は abort() (C) / std::abort() (C++)を呼び出してプログラムを異常終了させる。<br>
+使用するには &lt;assert.h&gt; (C) / &lt;cassert&gt; (C++)のインクルードが必要。尚、assert() は関数形式マクロである。
+
+<h5>実装例(main.cpp) :</h5>
+<div class="code">
+<kwd>#include</kwd> &lt;cassert&gt;                <cmt>//< アサーション用</cmt>
+<kwd>#include</kwd> &lt;iostream&gt;
+<kwd>#include</kwd> &lt;limits&gt;
+<kwd>#include</kwd> &lt;vector&gt;
+
+<cmt>// ベクトルの値の中で最大のものを返す</cmt>
+<kwd>int</kwd> Max(<kwd>const std</kwd>::vector&lt;<kwd>int</kwd>&gt;& v)
+{
+    <cmt>// アサーション</cmt>
+    <cmt>// v が空でないことを強制する</cmt>
+    <cmt>// ( v が空の場合は異常終了)</cmt>
+    assert( !v.empty() );
+
+    <kwd>int</kwd> max = <kwd>std</kwd>::numeric_limits&lt;<kwd>int</kwd>&gt;::min();
+    <kwd>for</kwd>( <kwd>auto</kwd> e : v )
+    {
+        <kwd>if</kwd>( e &gt; max )
+        {
+            max = e;
+        }
+    }
+    <kwd>return</kwd> max;
+}
+
+<cmt>// main()</cmt>
+<kwd>int</kwd> main()
+{
+    <kwd>std</kwd>::vector&lt;<kwd>int</kwd>&gt; v1 = {1, 2, 3, 4, 5};
+    <kwd>std</kwd>::vector&lt;<kwd>int</kwd>&gt; v2;
+
+    <kwd>std</kwd>::cout &lt;&lt; Max(v1) &lt;&lt; <kwd>std</kwd>::endl;
+    <kwd>std</kwd>::cout &lt;&lt; Max(v2) &lt;&lt; <kwd>std</kwd>::endl;
+
+    <kwd>return</kwd> 0;
+}
+</div>
+
+<h5>実行結果 :</h5>
+<div class="code">
+
+<cmt>$ ./a.exe
+5
+assertion "!v.empty()" failed: file "main.cpp", line 11, function: int Max(const std::vector&lt;int&gt;&)
+Aborted (コアダンプ)</cmt>
+</div>
+
+上記のコードでは assert() を使用している。<br>
+assert() の引数は「その時点で true となっているはずのブール式」であり、上記では引数 v (ベクトル)が空でないことを想定している。<br>
+main() 関数ではアサーションを組み込んだ Max() を呼び出しているが、空のベクトル v2 を渡すとアサーション違反となり、プログラムが異常終了する。<br>
+その際、異常個所のファイル名、行番号、関数名、アサーション内容が出力されるため、どのアサーションに違反したのかを容易に追跡できる。<br>
+(但し、出力内容は処理系に依存する。)<br>
+このように、関数の引数に制約を設ける場合などに有用である。
+
+<h3>注意が必要な点</h3>
+assert() はあくまで<b>「開発中のバグを取り除くこと」</b>を想定した機能であり、<b>(通常)リリースビルド( NDEBUG 定義)では無効となる</b>。<br>
+前節のコードをリリースビルドした場合の実行結果は下記のようになり、アサーションが機能していないことがわかる。
+
+<div class="code">
+$ ./a.exe
+5
+-2147483648
+</div>
+
+<h3>if 文との比較</h3>
+
+<h5>if 文の場合</h5>
+<div class="code">
+<kwd>bool</kwd> f(<kwd>int</kwd> v)
+{
+    <kwd>if</kwd> (v &lt; 0) {
+        <kwd>std</kwd>::cerr &lt;&lt; "v must be a positive number.\n";
+        <kwd>return false</kwd>;
+    }
+
+    <cmt>//...</cmt>
+
+    <kwd>return true</kwd>;
+}
+</div>
+
+<h5>assert() の場合</h5>
+<div class="code">
+<kwd>void</kwd> f(<kwd>int</kwd> v)
+{
+    assert(v >= 0);
+
+    <cmt>//...</cmt>
+}
+</div>
+
+if 文を用いたエラー処理(ガード節)よりも、assert() を用いるほうが記述が簡潔で、制約が課されていることが視覚的にわかりやすい。<br>
+また、リリースビルド後に制約違反が起こらないことが保証されている場合、if 文はリリースビルドでも比較に伴うコストが発生するのに対し、<br>
+assert() は文自体が無効化されるため、パフォーマンス面でも有利である。<br>
+当然、公開APIなどリリース後も引数チェックが必要となるケースは存在するため、すべてをアサーションで代替することはできない。
+
+<h2>static_assert()</h2>
+コンパイル時に特定の条件を満たすことを想定する。想定する条件が満たされない場合はコンパイルエラーとなる。<br>
+static_assert() はマクロではなく、言語文法の一部として実装されている。assert() と異なり、標準ライブラリのインクルードは不要である。
+
+<div class="code">
+<cmt>// long 型のサイズが 8 バイトであることを想定する</cmt>
+<cmt>// (それ以外のサイズだとコンパイルエラーとなる)</cmt>
+static_assert(sizeof(<kwd>long</kwd>) == 8, "<kwd>long</kwd> type is not 8 bytes.");
+
+<kwd>int</kwd> main()
+{
+}
+</div>
+
+assert() と同様、括弧内には true が想定されるブール式を記述する。<br>
+(失敗時のメッセージ(文字列リテラル)を併せて指定できるが、C++17ではメッセージを省略可能。)<br>
+判定はコンパイル時であるため、条件式は定数式(コンパイル時定数)でなければならない。
