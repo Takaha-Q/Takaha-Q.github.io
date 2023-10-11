@@ -84,7 +84,6 @@
 
 <h5>実行結果 :</h5>
 <div class="code">
-
 <cmt>$ ./a.exe
 5
 assertion "!v.empty()" failed: file "main.cpp", line 11, function: int Max(const std::vector&lt;int&gt;&)
@@ -114,7 +113,8 @@ $ ./a.exe
 <div class="code">
 <kwd>bool</kwd> f(<kwd>int</kwd> v)
 {
-    <kwd>if</kwd> (v &lt; 0) {
+    <kwd>if</kwd>( v &lt; 0 )
+	{
         <kwd>std</kwd>::cerr &lt;&lt; "v must be a positive number.\n";
         <kwd>return false</kwd>;
     }
@@ -136,7 +136,7 @@ $ ./a.exe
 </div>
 
 if 文を用いたエラー処理(ガード節)よりも、assert() を用いるほうが記述が簡潔で、制約が課されていることが視覚的にわかりやすい。<br>
-また、リリースビルド後に制約違反が起こらないことが保証されている場合、if 文はリリースビルドでも比較に伴うコストが発生するのに対し、<br>
+また、リリースビルド後に制約違反が起こらないことが保証されている場合、if 文は比較に伴うコストが発生するのに対し、<br>
 assert() は文自体が無効化されるため、パフォーマンス面でも有利である。<br>
 当然、公開APIなどリリース後も引数チェックが必要となるケースは存在するため、すべてをアサーションで代替することはできない。
 
