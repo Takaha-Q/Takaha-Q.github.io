@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<h5>出典 :</h5>
+<a href="https://www.excel-ubara.com/excelvba1/EXCELVBA430.html">テーブル操作の概要（ListObject）｜VBA入門</a><br>
+<a href="https://www.excel-ubara.com/excelvba1/EXCELVBA431.html">テーブル操作のVBAコード（ListObject,DataBodyRange）｜VBA入門</a><br>
+
+<!-- 関連ページ -->
+<h5>関連 :</h5>
+<a href="TIPS/Microsoft Excel/テーブル.html">テーブル</a><br>
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>VBAからテーブルを操作する</h2>
+テーブルはVBAと相性が良く、セル範囲をテーブル化することでセルの絶対位置(アドレス)を考慮せずにデータの操作が可能となる。<br>
+テーブルの操作は <b>ListObject</b> を介して行う。<br>
+尚、テーブルについては<a href="TIPS/Microsoft Excel/テーブル.html">リンク先</a>を参照のこと。<br>
+
+<h2>ListObject と ListObjects</h2>
+ひとつのテーブルはひとつの ListObject に紐づけられる。<br>
+ひとつのワークシートには複数のテーブルを作成することができ、ワークシートに存在するテーブル( ListObject )を束ねたコレクションが ListObjects である。<br>
+
+<div class="code">
+<kwd>Sub</kwd> DoSomething()
+    <cmt>' テーブル範囲を格納する tbl 変数の宣言</cmt>
+    <kwd>Dim</kwd> tbl <kwd>As</kwd> ListObject
+
+    <cmt>' アクティヴなシートの「テーブル1」を tbl に格納</cmt>
+    <kwd>Set</kwd> tbl = ActiveSheet.ListObjects("テーブル1")
+
+    :
+
+<kwd>End Sub</kwd>
+</div>
+
+ListObjects はシート( WorkSheet )のプロパティであり、テーブル名を指定することで特定のテーブルに紐づく ListObject が取得できる。
+
+<h2>テーブルの作成</h2>
+<div class="code">
+' テーブルの初期化
+Private Sub InitializeTable()
+
+    ' 見出し行を作成
+    Cells(ROW_HEADER, E_Col.Folder).Value = "フォルダ"
+    Cells(ROW_HEADER, E_Col.Filename).Value = "ファイル名"
+    Cells(ROW_HEADER, E_Col.Schema).Value = "スキーマ"
+    Cells(ROW_HEADER, E_Col.Name_P).Value = "物理名称"
+    Cells(ROW_HEADER, E_Col.Name_L).Value = "論理名称"
+    Cells(ROW_HEADER, E_Col.ObjCode).Value = "オブジェクトコード"
+    Cells(ROW_HEADER, E_Col.Attr).Value = "属性"
+
+    ' テーブルを作成
+    Dim ddTable As ListObject 
+    Set ddTable = ListObjects.Add(SourceType:=xlSrcRange, _
+                                  Source:=Range(Cells(ROW_HEADER, E_Col.Folder).Address).CurrentRegion, _
+                                  XlListObjectHasHeaders:=xlYes)
+
+    ' テーブル名、テーブルスタイルを設定
+    ddTable.Name = "目録"
+    ddTable.TableStyle = "TableStyleLight2"
+
+End Sub
+</div>
+
+上記は、テーブルを新規作成する例である。<br>
+プロシージャ InitializeTable() はワークシートのメンバとして定義されており、ListObjects は「自身(シート)の ListObjects 」を指す。<br>
+<br>
+ここでは、まず見出し行を作成し、作成した見出し行をテーブルに変換している。<br>
+ListObjects.Add() はワークシートにテーブルを追加するメソッドで、ここでは以下のパラメータを指定している。
+<table>
+<tr>
+<td>SourceType<br>元データの種類</td>
+<td>xlSrcRange<br>セル範囲</td>
+</tr>
+<tr>
+<td>Source<br>元データ</td>
+<td>Range(Cells(ROW_HEADER, E_Col.Folder).Address).CurrentRegion<br>
+Cells(ROW_HEADER, E_Col.Folder) が含まれる範囲</td>
+</tr>
+<tr>
+<td>XlListObjectHasHeaders<br>見出し行を作成するか</td>
+<td>xlYes<br>はい</td>
+</tr>
+</table>
+テーブル名は Add() のパラメータには含まれないため、作成後に付与する。
+
+<h2>テーブルのセルを参照・更新</h2>
+
+<div class="code">
+Sub DoSomething()
+
+    ' テーブル「目録」を tbl に関連付ける
+    Dim tbl As ListObject
+    Set tbl = ListObjects("目録")
+    
+    ' 列「列1」の 6 行目に「い」を格納
+    tbl.ListColumns("列1").Range(6) = "い"
+
+    ' 列「列2」の 5 行目の値を取得
+	Dim val
+    val = tbl.ListColumns("列2").Range(5)
+
+End Sub
+</div>
+
+<h2>テーブルの破棄</h2>
+<div class="code">
+Sub DoSomething()
+
+    ' 既存のテーブルを全て削除
+    Dim lob As ListObject
+    For Each lob In ListObjects
+        lob.Delete
+    Next
+
+End Sub
+</div>
+
+上記は、テーブルを新規作成する例である。<br>
+ここで、プロシージャ InitializeTable() はワークシートのメンバとして定義されており、ListObjects は「自身(シート)の ListObjects 」を指す。<br>
+<br>
+事前準備として、シート内に存在するテーブルを全て削除( ListObject.Delete )している。<br>
+
+
+
+
+
+
+<h2>理想的な構成</h2>
+テーブル(およびワークシート)を使用する際は、以下を原則とすることで効率よくデータを管理することができる。<br>
+(特にVBAとの連携時)
+
+<ul>
+<li>ひとつのワークシートに複数のテーブルを作らない(1シート1テーブル)</li>
+<li>先頭行は見出し、2行目以降に実データを格納する(見出し行を必ず設ける)</li>
+<li>テーブル外のセル範囲にデータを入れない</li>
+</ul>
+
