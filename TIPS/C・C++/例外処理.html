@@ -19,7 +19,10 @@
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
 
-<!-- 出典・関連ページ -->
+<!-- 出典 -->
+
+<!-- 関連 -->
+<h5>関連 :</h5>
 <a href="TIPS/C・C++/例外クラス.html">例外クラス</a>
 
 <!-- 目次 -->
@@ -63,23 +66,39 @@ C++における例外処理の原則は以下の通りである。
 <h2>例外の投げなおし</h2>
 try ブロックで発生した例外を処理した後、さらに外側に例外を投げることができる。<br>
 当然、try ブロックは(コールスタック全体で)ネストしている必要がある。<br>
-<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/CPP/exception_handling/exception_handling_02.png" alt="画像"><br>
 
-ここで、キャッチした例外を投げなおす場合は、throw 句<b>のみ</b>を記述する。
+<h3>捕捉した例外と異なる例外を投げる</h3>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/CPP/exception_handling/exception_handling_02.png" alt="画像"><br>
+catch 節内に throw 句を記述することで、さらに外側に例外を投げる。<br>
+このとき、捕捉した例外と型や値が一致している必要はない。
+
+<h3>捕捉した例外をそのまま投げなおす</h3>
+捕捉した例外をそのまま投げなおす場合は、<b>throw のみ</b>を記述する。
+
 <div class="code">
+<kwd>void</kwd> func1()
+{
     <kwd>try</kwd>
     {
-        :
+        <cmt>// ここで例外発生</cmt>
+        func2();
     }
-    <kwd>catch</kwd> (...)
+    <kwd>catch</kwd> (exception ex)
     {
-        :
-    
         <cmt>// 例外を投げなおす</cmt>
         <kwd>throw</kwd>;
+
+        <cmt>// これは誤り
+        // throw ex;</cmt>
     }
+}
 </div>
-これにより、投げなおした時点のスタックトレース情報までを例外に含めることができる。
+
+上記のコードでは例外 ex を捕捉し、外側に投げなおしている。<br>
+このとき<span class="code">throw ex;</span>とすると、ex が投げられた時点でのコールスタック情報( func2() )しか記録されないため、<br>
+func1() が例外を投げ(なおし)たことがわからなくなる。<br>
+単に<span class="code">throw;</span>とすることで、投げなおした func1() の情報も追加される。<br>
+投げなおされる例外の型は ex と共通である。
 
 <h2>例外送出有無の表明 ( noexcept )</h2>
 <b>noexcept</b> 句を使用することで、関数が例外を送出しない(または逆に、する可能性がある)ことを明確化することができる。<br>
