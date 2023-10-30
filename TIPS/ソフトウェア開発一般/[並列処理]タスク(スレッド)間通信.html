@@ -67,7 +67,7 @@
 
 <h3>メールボックス</h3>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Software%20Development/InterTask_Communication/development-inter-task-communication_05.png" alt="画像"><br>
-メッセージボックス同様、宛先タスクにメッセージを送信する機構。<br>
+メッセージバッファ同様、宛先タスクにメッセージを送信する機構。<br>
 メッセージバッファがメッセージそのものを送信するのに対し、メールボックスはメッセージの先頭アドレスのみを通知する。<br>
 このため、必要最小限のメモリを動的に確保するだけでよく、メッセージのサイズが大きい場合に(実際にメッセージを移動しない分)メッセージバッファよりも高速に処理できる。<br>
 但し、受信側がメッセージを受信し終えるまでにメッセージが改変されることが無いようにする必要がある。
