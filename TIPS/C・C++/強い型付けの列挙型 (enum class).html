@@ -103,6 +103,47 @@ C++11では従来の列挙型の欠点を改善すべく、「強い型付けの
 列挙値(のラベル)は型に拘束されるため、異なる列挙型で同じ名前のメンバを持つことができる。<br>
 なお、enum class と enum struct に機能の違いは無い。
 
+<h2>注意が必要な点</h2>
+強い型付けの列挙型( enum class )は上述のように、整数値に暗黙的変換されることがない。<br>
+このため、配列のインデクスなど整数値として用いる際は通常、キャストが必要となる。<br>
+キャストを用いれば相互変換も可能である。
+
+<div class="code">
+<cmt>// 従来の列挙型</cmt>
+<kwd>enum</kwd> Idx_Weak
+{
+    VAL1,
+    VAL2,
+    :
+};
+
+<cmt>// 強い型付けの列挙型</cmt>
+<kwd>enum class</kwd> Idx_Strong
+{
+    VAL1,       <cmt>//< 0</cmt>
+    VAL2,       <cmt>//< 1</cmt>
+    :
+};
+
+<cmt>// C準拠の配列</cmt>
+<kwd>char</kwd> array[] = { 'a', 'b', 'c' };
+
+<kwd>void</kwd> DoSomething()
+{
+    <cmt>// enum の列挙子を配列のインデクスとして用いる ⇒ OK</cmt>
+    <kwd>char</kwd> c1 = array[VAL1];
+
+    <cmt>// enum class の列挙子を配列のインデクスとして用いる ⇒ NG</cmt>
+    <cmt>// char c2 = array[Idx_Strong::VAL1];</cmt>
+
+    <cmt>// enum class の列挙子を int に変換後、配列のインデクスとして用いる ⇒ OK</cmt>
+    <kwd>char</kwd> c3 = array[static_cast&lt;<kwd>int</kwd>&gt;(Idx_Strong::VAL1)];
+
+    <cmt>// int から enum class への変換 ⇒ 1 に相当する列挙子( Idx_Strong::VAL2 )が存在するためOK</cmt>
+    Idx_Strong val = static_cast&lt;Idx_Strong&gt;(1);
+}
+</div>
+
 <h2>列挙型の基底型</h2>
 列挙型の定義時に、基底型を指定することができる。<br>
 各列挙子の内部値が基底型で表現されるため、列挙子が少ない場合は基底型を小さくすることでメモリ使用量を削減できる。<br>
@@ -183,7 +224,7 @@ C++11では従来の列挙型の欠点を改善すべく、「強い型付けの
 {
     red,        <cmt>//< 先頭要素 == 0</cmt>
     blue,
-    LAST,       <cmt>//< 末尾を表す列挙子</cmt>
+    LAST,       <cmt>//< end() が指す列挙子</cmt>
 }
 
 <cmt>// イテレータの定義</cmt>
@@ -201,6 +242,7 @@ C++11では従来の列挙型の欠点を改善すべく、「強い型付けの
 }
 <kwd>inline</kwd> Color end(Color r)
 {
+    <cmt>// LAST (有効な末尾要素の次)を返す</cmt>
     Color l = Color::LAST;
     <kwd>return</kwd> l; 
 }
@@ -219,10 +261,18 @@ C++11では従来の列挙型の欠点を改善すべく、「強い型付けの
 <ul>
 <li>先頭の列挙子は必ず 0</li>
 <li>以降の列挙子はひとつ前の要素に 1 を加算 ⇒ 初期値を指定しない</li>
-<li>末尾に LAST を定義する必要がある ⇒ end() イテレータは「末尾要素の次」を表すため、LASTはシーケンスの一員とみなされない</li>
+<li>末尾に LAST を定義する必要がある ⇒ end() イテレータは「末尾要素の次」を表すため、LAST (無効要素)を追加しないと列挙子を末尾まで走査できない</li>
 </ul>
 
 <h2>余談</h2>
 列挙型を定義する際、末尾要素の後ろにカンマが存在してもエラーとはならない。<br>
 このため、すべての列挙子で同様の書式をとることができる。
+
+
+
+
+
+
+
+
 
