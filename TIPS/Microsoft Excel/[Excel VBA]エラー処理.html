@@ -21,6 +21,7 @@
 
 <!-- 出典ページ -->
 <h5>出典 :</h5>
+<a href="https://learn.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/raise-method?f1url=%3FappId%3DDev11IDEF1%26l%3Dja-JP%26k%3Dk(vblr6.chm1014183)%3Bk(TargetFrameworkMoniker-Office.Version%3Dv16)%26rd%3Dtrue">Raiseメソッド (Visual Basic for Applications) | Microsoft Learn</a><br>
 <a href="http://officetanaka.net/excel/vba/tips/tips104.htm">Office TANAKA - Excel VBA Tips[エラーに負けない]</a><br>
 <a href="https://www.sejuku.net/blog/35484">【VBA入門】エラーを処理する方法(On Error、Resume、GoTo) | 侍エンジニアブログ</a><br>
 <a href="https://qiita.com/ririn_yume/items/13d3b7aad7bc49411eb7">vbaのエラー処理 - Qiita</a><br>
@@ -228,3 +229,8 @@ VBAではエラーへの対処を <b>On Error</b> ステートメントを用い
 <b>Err.Raise</b> メソッドにより、任意の Number および Description のエラーを発生させることができる。<br>
 (これは例外機構がある言語における、例外を投げる(throw)処理に相当する。)<br>
 また、<b>Err.Clear</b> メソッドにより、発生していたエラーをクリアすることができる。<br>
+On Error 節でエラーを捕捉した後など、エラー情報を参照する必要が無くなった場合はクリアしておくことが望ましい。<br>
+<br>
+Err.Raise メソッドの引数は
+<a href="https://learn.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/raise-method?f1url=%3FappId%3DDev11IDEF1%26l%3Dja-JP%26k%3Dk(vblr6.chm1014183)%3Bk(TargetFrameworkMoniker-Office.Version%3Dv16)%26rd%3Dtrue">出典元</a>
+を参照。number のみが必須で、それ以外は省略可能である。
