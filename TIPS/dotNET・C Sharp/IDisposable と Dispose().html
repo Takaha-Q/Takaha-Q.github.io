@@ -17,7 +17,7 @@
 <a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.idisposable?view=net-6.0">IDisposable インターフェイス (System) | Microsoft Learn</a><br>
 <a href="https://qiita.com/hkuno/items/e35c7e306e852ced375d">C# の Dispose を正しく実装する - Qiita</a>
 <h5>関連 :</h5>
-<a href="TIPS/C Sharp/C%23におけるusing.html">C#におけるusing</a>
+<a href="TIPS/dotNET・C Sharp/C%23におけるusing.html">C#におけるusing</a>
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
@@ -29,7 +29,7 @@
 GC言語であるC#は通常、C++のような非GC言語と異なり、任意のタイミングでオブジェクトを破棄してデストラクタを実行させることができない。<br>
 但し、IDisposable インタフェース(の Dispose() メソッド)を実装することで、当該オブジェクトの破棄に即した処理(主にリソースの解放)を実現することができる。<br>
 また、.NETの標準クラスライブラリには IDisposable が実装されているものも多く、それらは Dispose() (によるリソース解放)を実行することができる。<br>
-( using を用いることで明示的なコールを省略できる。詳細は<a href="TIPS/C Sharp/C%23におけるusing.html">リンク先</a>を参照。)
+( using を用いることで明示的なコールを省略できる。詳細は<a href="TIPS/dotNET・C Sharp/C%23におけるusing.html">リンク先</a>を参照。)
 
 <h3>デストラクタとファイナライザ</h3>
 C#はC++のデストラクタと同様、オブジェクトが破棄される際に実行したい処理を定義できる。<br>
