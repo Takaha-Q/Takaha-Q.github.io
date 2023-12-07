@@ -81,7 +81,6 @@ C#、PythonのDictionary、Perl、Rubyのハッシュテーブルと共通の概
 <div class="code">
 <kwd>#include</kwd> &lt;iostream&gt;
 <kwd>#include</kwd> &lt;map&gt;
-<kwd>using namespace std</kwd>;
 <kwd>int</kwd> main()
 {
     <cmt>// map の作成</cmt>
@@ -93,8 +92,8 @@ C#、PythonのDictionary、Perl、Rubyのハッシュテーブルと共通の概
     <cmt>// m[2] を追加</cmt>
     m[2] = 9;
 
-    cout &lt;&lt; m[1] &lt;&lt; endl;
-    cout &lt;&lt; m[9] &lt;&lt; endl;
+    std::cout &lt;&lt; m[1] &lt;&lt; std::endl;
+    std::cout &lt;&lt; m[9] &lt;&lt; std::endl;
 }
 </div>
 
@@ -111,15 +110,14 @@ C#、PythonのDictionary、Perl、Rubyのハッシュテーブルと共通の概
 <div class="code">
 <kwd>#include</kwd> &lt;iostream&gt;
 <kwd>#include</kwd> &lt;map&gt;
-<kwd>using namespace std</kwd>;
 <kwd>int</kwd> main()
 {
     <cmt>// map の作成</cmt>
     <kwd>std</kwd>::map&lt;<kwd>int</kwd>,<kwd>int</kwd>&gt; m {};
 
-    cout &lt;&lt; m.size() &lt;&lt; endl;       <cmt>//< 空なので 0</cmt>
-    cout &lt;&lt; m[1] &lt;&lt; endl;           <cmt>//< キー 1 の要素は存在しないため、m[1] = 0 (int 型の既定値)が追加される</cmt>
-    cout &lt;&lt; m.size() &lt;&lt; endl;       <cmt>//< 要素が追加されたので 1</cmt>
+    std::cout &lt;&lt; m.size() &lt;&lt; std::endl;       <cmt>//< 空なので 0</cmt>
+    std::cout &lt;&lt; m[1] &lt;&lt; std::endl;           <cmt>//< キー 1 の要素は存在しないため、m[1] = 0 (int 型の既定値)が追加される</cmt>
+    std::cout &lt;&lt; m.size() &lt;&lt; std::endl;       <cmt>//< 要素が追加されたので 1</cmt>
 }
 </div>
 
@@ -140,19 +138,18 @@ C#、PythonのDictionary、Perl、Rubyのハッシュテーブルと共通の概
 <div class="code">
 <kwd>#include</kwd> &lt;iostream&gt;
 <kwd>#include</kwd> &lt;map&gt;
-<kwd>using namespace std</kwd>;
 <kwd>int</kwd> main()
 {
     <cmt>// map の作成</cmt>
     <kwd>std</kwd>::map&lt;<kwd>int</kwd>,<kwd>int</kwd>&gt; m {};
 
-    cout &lt;&lt; m.size() &lt;&lt; endl;       <cmt>//< 空なので 0</cmt>
-<cmt>//  cout &lt;&lt; m.at(1) &lt;&lt; endl;        //< キー 1 の要素は存在しないためエラー</cmt>
+    std::cout &lt;&lt; m.size() &lt;&lt; std::endl;       <cmt>//< 空なので 0</cmt>
+<cmt>//  std::cout &lt;&lt; m.at(1) &lt;&lt; std::endl;        //< キー 1 の要素は存在しないためエラー</cmt>
 
     <cmt>// m[1] を追加</cmt>
     m[1] = 3;
 
-    cout &lt;&lt; m.at(1) &lt;&lt; endl;
+    std::cout &lt;&lt; m.at(1) &lt;&lt; std::endl;
 }
 </div>
 
