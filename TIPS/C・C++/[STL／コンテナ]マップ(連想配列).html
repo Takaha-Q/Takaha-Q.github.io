@@ -29,6 +29,8 @@
 <!-- 関連ページ -->
 <h5>関連 :</h5>
 <a href="TIPS/C・C%2B%2B/[C%2B%2B／STL／コンテナ]コンテナ.html">[C++／STL／コンテナ]コンテナ</a><br>
+<a href="TIPS/C・C%2B%2B/[C%2B%2B／STL／コンテナ]イテレータ.html">[C++／STL／コンテナ]イテレータ</a><br>
+<a href="TIPS/C・C%2B%2B/範囲ベースfor.html">範囲ベースfor</a><br>
 <a href="TIPS/dotNET・C Sharp/[コレクション]Dictionary(連想配列).html">Dictionary(連想配列)</a><br>
 
 <!-- 目次 -->
@@ -60,7 +62,7 @@ C#、PythonのDictionary、Perl、Rubyのハッシュテーブルと共通の概
 "{キー, 値}"の順に記述。<br>
 <p class="code">
 <cmt>// エラーコード対エラーメッセージ</cmt>
-std::map&lt;<kwd>const</kwd> <kwd>long</kwd>, <kwd>const</kwd> <kwd>wchar_t</kwd>*&gt; cErrorInfo =
+<kwd>std</kwd>::map&lt;<kwd>const long</kwd>, <kwd>const wchar_t</kwd>*&gt; cErrorInfo =
 {
     <cmt>//キー                , 値</cmt>
     { OPOS_E_CLOSED,        _T(<ltr>"クローズ中"</ltr>)                          },  <cmt>//&lt; オープン未済</cmt>
@@ -77,22 +79,18 @@ std::map&lt;<kwd>const</kwd> <kwd>long</kwd>, <kwd>const</kwd> <kwd>wchar_t</kwd
 存在しないキーが指定された場合は自動で値が追加される。
 
 <div class="code">
-#include &lt;iostream&gt;
-#include &lt;map&gt;
-using namespace std;
-int main()
+<kwd>#include</kwd> &lt;iostream&gt;
+<kwd>#include</kwd> &lt;map&gt;
+<kwd>using namespace std</kwd>;
+<kwd>int</kwd> main()
 {
-    // map の作成
-    std::map&lt;int,int&gt; m {};
+    <cmt>// map の作成</cmt>
+    <kwd>std</kwd>::map&lt;<kwd>int</kwd>,<kwd>int</kwd>&gt; m {};
 
-    cout &lt;&lt; m.size() &lt;&lt; endl;       //< 空なので 0
-    cout &lt;&lt; m[1] &lt;&lt; endl;           //< キー 1 の要素は存在しないため、m[1] = 0 が追加される
-    cout &lt;&lt; m.size() &lt;&lt; endl;       //< 要素が追加されたので 1
-
-    // m[1] を更新
+    <cmt>// m[1] を追加</cmt>
     m[1] = 3;
 
-    // m[2] を追加
+    <cmt>// m[2] を追加</cmt>
     m[2] = 9;
 
     cout &lt;&lt; m[1] &lt;&lt; endl;
@@ -102,33 +100,56 @@ int main()
 
 <h5>実行結果</h5>
 <div class="code">
-0               //< 初期状態の m の要素数
-0               //< 追加した m[1]
-1               //< m[1] 追加後の m の要素数
-3               //< 更新後の m[1]
-9               //< 追加した m[2]
+3               <cmt>//< m[1]</cmt>
+9               <cmt>//< m[2]</cmt>
 </div>
 
-添字演算子でアクセスした場合は、上記のように要素の変更を行うことができる。<br>
-このため、const な map には添字演算子でのアクセスはできない。後述の at() を用いる。
+<h3>注意が必要な点</h3>
+存在しないキーで添字演算子を用いた場合、値を代入しなかった場合も要素(ペア)が追加される。<br>
+このとき追加される値は、値として指定された型の既定値である。
+
+<div class="code">
+<kwd>#include</kwd> &lt;iostream&gt;
+<kwd>#include</kwd> &lt;map&gt;
+<kwd>using namespace std</kwd>;
+<kwd>int</kwd> main()
+{
+    <cmt>// map の作成</cmt>
+    <kwd>std</kwd>::map&lt;<kwd>int</kwd>,<kwd>int</kwd>&gt; m {};
+
+    cout &lt;&lt; m.size() &lt;&lt; endl;       <cmt>//< 空なので 0</cmt>
+    cout &lt;&lt; m[1] &lt;&lt; endl;           <cmt>//< キー 1 の要素は存在しないため、m[1] = 0 (int 型の既定値)が追加される</cmt>
+    cout &lt;&lt; m.size() &lt;&lt; endl;       <cmt>//< 要素が追加されたので 1</cmt>
+}
+</div>
+
+<h5>実行結果</h5>
+<div class="code">
+0               <cmt>//< 初期状態の m の要素数</cmt>
+0               <cmt>//< 追加された m[1]</cmt>
+1               <cmt>//< m[1] 追加後の m の要素数</cmt>
+</div>
+
+後述の at() を用いると、存在しないキーを指定した際に実行時例外となる。
+また、const な map には添字演算子でのアクセスはできない。後述の at() を用いる。
 
 <h3>at() (C++11以降)</h3>
 指定されたキーに対応する値の取得を行う。要素の取得のみで更新はできない。<br>
 添字演算子と異なり、const な map にアクセス可能。
 
 <div class="code">
-#include &lt;iostream&gt;
-#include &lt;map&gt;
-using namespace std;
-int main()
+<kwd>#include</kwd> &lt;iostream&gt;
+<kwd>#include</kwd> &lt;map&gt;
+<kwd>using namespace std</kwd>;
+<kwd>int</kwd> main()
 {
-    // map の作成
-    std::map&lt;int,int&gt; m {};
+    <cmt>// map の作成</cmt>
+    <kwd>std</kwd>::map&lt;<kwd>int</kwd>,<kwd>int</kwd>&gt; m {};
 
-    cout &lt;&lt; m.size() &lt;&lt; endl;       //< 空なので 0
-//  cout &lt;&lt; m.at(1) &lt;&lt; endl;        //< キー 1 の要素は存在しないためエラー
+    cout &lt;&lt; m.size() &lt;&lt; endl;       <cmt>//< 空なので 0</cmt>
+<cmt>//  cout &lt;&lt; m.at(1) &lt;&lt; endl;        //< キー 1 の要素は存在しないためエラー</cmt>
 
-    // m[1] を追加
+    <cmt>// m[1] を追加</cmt>
     m[1] = 3;
 
     cout &lt;&lt; m.at(1) &lt;&lt; endl;
@@ -137,8 +158,8 @@ int main()
 
 <h5>実行結果</h5>
 <div class="code">
-0               //< 初期状態の m の要素数
-3               //< 更新後の m[1]
+0               <cmt>//< 初期状態の m の要素数</cmt>
+3               <cmt>//< 更新後の m[1]</cmt>
 </div>
 
 <h2>要素の追加</h2>
@@ -147,6 +168,7 @@ insert() 関数を使用。<br>
 <cmt>// キー : OPOS_E_UNKNOWN 、値 : "未知のエラー" のレコードを追加</cmt>
 cErrorInfo.insert(OPOS_E_UNKNOWN, <ltr>"未知のエラー"</ltr>);
 </p>
+添字演算子でも要素の追加が可能である。
 
 <h2>要素の削除</h2>
 elase() 関数を使用。<br>
@@ -159,5 +181,43 @@ cErrorInfo.elase(OPOS_E_UNKNOWN);
 size() 関数を使用。<br>
 <p class="code">
  <cmt>// レコードの総数( 5 )が出力される</cmt>
-std::cout &lt;&lt; cErrorInfo.size();
+<kwd>std</kwd>::cout &lt;&lt; cErrorInfo.size();
 </p>
+
+<h2>マップの走査(スキャン)</h2>
+マップの全要素に順にアクセスする際は、以下の手順を用いる。<br>
+マップの各要素は std::pair 型として存在し、std::pair::first でキーを、std::pair::second で値を取得できる。
+
+<h3>イテレータを用いる場合</h3>
+<div class="code">
+<kwd>std</kwd>::map&lt;<kwd>int</kwd>, <kwd>int</kwd>&gt; m {};
+
+:
+
+<kwd>auto</kwd> end = m.end();
+<kwd>for</kwd>( <kwd>auto</kwd> it = m.begin(); m != end ; ++it )
+{
+	<kwd>int</kwd> key = it-&gt;first;
+	<kwd>int</kwd> val = it-&gt;second;
+}
+</div>
+
+<a href="TIPS/C・C%2B%2B/[C%2B%2B／STL／コンテナ]イテレータ.html">イテレータ</a>も併せて参照のこと。<br>
+要素の参照のみで更新を行わないのであれば、読み取り専用イテレータを用いると安全である(C++11以降)。
+但しC++11以降であれば、後述の範囲ベースforを用いたほうが簡便である。
+
+<h3>範囲ベースforを用いる場合(C++11以降)</h3>
+<div class="code">
+<kwd>std</kwd>::map&lt;<kwd>int</kwd>, <kwd>int</kwd>&gt; m {};
+
+:
+
+<kwd>for</kwd>( <kwd>const auto</kwd>& elem : m )
+{
+	<kwd>int</kwd> key = elem.first;
+	<kwd>int</kwd> val = elem.second;
+}
+</div>
+
+<a href="TIPS/C・C%2B%2B/範囲ベースfor.html">範囲ベースfor</a>も併せて参照のこと。<br>
+要素の更新を行わないのであれば、上記のように一時変数を const 化すると安全である。
