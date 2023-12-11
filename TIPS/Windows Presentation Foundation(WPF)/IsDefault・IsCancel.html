@@ -33,3 +33,22 @@ IsDefault == true に設定された Button は、Window が開いた際に初�
 IsCancel == true に設定された Button は Esc キー押下でクリックイベントが発生する。<br>
 <b>ウィンドウを閉じるためのボタンに割り当てることが前提となっており、<br>
 クリックイベントが発生すると、ハンドラ内に Close() が記述されていない場合でもハンドラ終了時にウィンドウが閉じる。</b>
+
+<h2>補足</h2>
+ある Button に IsDefault == true が設定されている場合、別のコントロールにフォーカスが在る状態で Enter キーを押下すると、
+<ol>
+<li>当該コントロールの PreviewKeyDown(A)</li>
+<li>IsDefault == true が設定された Button の Click(B)</li>
+</ol>
+の順にイベントが発生する。<br>
+<br>
+ここで、当該コントロールが TextBox で、Text プロパティにデータバインディングを行っていると、<br>
+TextBox がフォーカスを失うまで、Text の値はソースに書き戻されない。<br>
+このため、TextBox 上で Enter キーを押下し、上記(B)のハンドラでバインドソースを参照しようとしても<br>
+(新たに入力した文字がある場合) Text の値が正しく取得できない。<br>
+(TextBox にフォーカスが残ったまま Button.Click が実行される。)<br>
+
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/WPF/IsDefault_IsCancel/01.png" alt="画像"><br>
+
+この場合は、上記(A)のハンドラ内で Text の値を明示的にバインドソースへ書き戻すなどで対応が可能である。
+
