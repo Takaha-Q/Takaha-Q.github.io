@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<h5>出典 :</h5>
+<a href="https://qiita.com/comugi/items/21dfc8baf1666e239536">自作したVBAをアドインにして使う方法 #Excel - Qiita</a><br>
+<a href="https://qiita.com/NagaJun/items/c7c6964a12a8a945726e">Office アドイン作成方法【C#】初心者向け #C# - Qiita</a><br>
+
+<!-- 関連ページ -->
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+<h2>Excelのアドイン</h2>
+マクロ化した一連の処理を、Excelの機能として組み込む仕組みをアドインと呼ぶ。<br>
+これにより、マクロを組み込んでいないブックであってもマクロを用いることができる。<br>
+「アドオン」と同義であるが、Excel(を含めたMicrosoft Office全体)では呼称が「アドイン」と定められている。
+
+<h2>アドインの作成</h2>
+
+<h3>Excel VBAを用いる場合 (Excelアドイン)</h3>
+
+<ol>
+<li>Visual Basic Editor(VBE)を開き「標準モジュール」を挿入、任意の処理を Sub プロシージャとして実装する。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MS Excel/Addin/01.png" alt="画像"></li>
+
+<li>Excelに戻り、<b>ファイルをアドイン(XLAM)として保存する</b>。<br>
+(保存された XLAM は「隠しファイル」となる点に注意。保存先フォルダとファイル名を控えておくこと。)<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MS Excel/Addin/02.png" alt="画像"></li>
+
+<li>「ファイル」>「オプション」を選択してオプション画面を開き「アドイン」を選択、<br>
+作成したアドインが「Excelアドイン」として保存されていることを確認する。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MS Excel/Addin/02.png" alt="画像"></li>
+</ol>
+
+<h3>Visual Studioを用いる場合 (COMアドイン)</h3>
+Visual Studio 2022を用いて、ボタンを押すと処理を行うアドインを作成する場合の例を挙げる。
+
+<ol>
+<li>「新しいプロジェクトの作成」>「Excel VSTOアドイン」を選択する。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MS Excel/Addin/08.png" alt="画像"><br>
+
+<ol>
+<li>(「Excel VSTOアドイン」が表示されない場合)<br>
+「さらにツールと機能をインストールする」をクリックする。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MS Excel/Addin/06.png" alt="画像"></li>
+
+<li>「Office/SharePoint開発」にチェックを入れ、「変更」を押す。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MS Excel/Addin/07.png" alt="画像"></li>
+</ol>
+</li>
+
+<li>リボンを追加する。
+
+<ol>
+<li>ソリューション エクスプローラー上でプロジェクトを右クリック、「追加」>「新しい項目」を選択する。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MS Excel/Addin/09.png" alt="画像"></li>
+
+<li>「リボン (ビジュアルなデザイナー)」を選択し、「追加」を押す。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MS Excel/Addin/10.png" alt="画像"></li>
+
+<li>リボンが追加され、デザイナーが表示される。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MS Excel/Addin/11.png" alt="画像"></li>
+</ol>
+
+</li>
+
+<li>リボンにボタンを追加する。
+
+<ol>
+<li>「表示」>「ツールボックス」を選択してツールボックスを表示し、<br>
+「Office リボン コントロール」>「Button」を「group1」の枠内にドラッグ&ドロップする。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MS Excel/Addin/12.png" alt="画像"></li>
+
+<li>追加したボタン「button1」をダブルクリックする。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MS Excel/Addin/13.png" alt="画像"></li>
+
+<li>ボタンのClickハンドラが生成されるので、任意の処理を記述する。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MS Excel/Addin/14.png" alt="画像"></li>
+
+<li>プロジェクトをビルドする。</li>
+
+<li>ビルド完了後、生成されたVSTOファイルをダブルクリックすることでExcelで使用可能となる。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MS Excel/Addin/14.png" alt="画像"></li>
+</ol>
+
+</li>
+
+</ol>
+
+<h2>アドインの追加(組み込み)</h2>
+
+<h3>Excelアドイン</h3>
+
+<ol>
+<li>「ファイル」>「オプション」を選択してオプション画面を開き、「リボンのユーザー設定」を選択、<br>
+「コマンドの選択」欄で「マクロ」を選択する。<br>
+組み込みたいアドインを選択し、「追加」を押すとリボンに追加される。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MS Excel/Addin/04.png" alt="画像"></li>
+
+<li>追加先のタブを開くとボタンが追加されている。ボタンを押すとマクロが実行される。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MS Excel/Addin/05.png" alt="画像"></li>
+</ol>
+
+<h3>COMアドイン</h3>
+
+<ol>
+<li>「ファイル」>「オプション」を選択してオプション画面を開き、「アドイン」を選択、<br>
+アドインがリストに含まれていることを確認する。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MS Excel/Addin/15.png" alt="画像"></li>
+
+<li>リボンに「アドイン」タブとボタンが追加されている。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MS Excel/Addin/16.png" alt="画像"></li>
+
