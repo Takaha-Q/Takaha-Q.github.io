@@ -1,10 +1,16 @@
 @charset "utf-8";
 
 /* ---------------------------------- */
-/* コード (<### class="code">         */
-/* XAML   (<### class="xaml">         */
+/* コード   (<### class="code">       */
+/* CPP      (<### class="cpp">        */
+/* C#       (<### class="cs">         */
+/* Java     (<### class="java">       */
+/* テキスト (<### class="text">       */
+/* VBA      (<### class="vba">        */
+/* XAML     (<### class="xaml">       */
 /* ---------------------------------- */
-.code, .xaml {
+.code, .cpp, .cs, .java, .text .vba, .xaml
+{
   white-space:          pre;
   font-family:          monospace;
   line-height:          1.2;
@@ -12,37 +18,79 @@
   margin:               6px 10em 6px 0;
 }
 
-span.code, div.code, p.code, div.xaml, p.xaml {
+div.code, p.code,
+div.cpp,  p.cpp,
+div.cs,   p.cs,
+div.java, p.java,
+div.text, p.text,
+div.vba,  p.vba,
+div.xaml, p.xaml
+{
   border-style:         solid;
   border-width:         1px;
   border-color:         #996666;
-}
-
-div.code, p.code, div.xaml, p.xaml {
   padding:              0 1em 1.3em 1em;
 }
 
-span.code {
+span.code, 
+span.cpp, 
+span.cs, 
+span.java, 
+span.text, 
+span.vba, 
+span.xaml
+{
+  border-style:         solid;
+  border-width:         1px;
+  border-color:         #996666;
   margin:               3px;
-  padding:              0 3px;
+  padding:              1px 3px;
 }
-  
+
 /* キーワード (<keyword>、<kwd>) */
-.code keyword, .code kwd {
+.code keyword, .code kwd,
+.cpp  keyword, .cpp  kwd,
+.cs   keyword, .cs   kwd,
+.java keyword, .java kwd,
+.text keyword, .text kwd,
+.vba  keyword, .vba  kwd,
+.xaml keyword, .xaml kwd
+{
   color:                #0000FF;
 }
   
 /* 既知のクラス (<known>、<knw>) */
-.code known, .code knw {
+.code known, .code knw,
+.cpp  known, .cpp  knw,
+.cs   known, .cs   knw,
+.java known, .java knw,
+.text known, .text knw,
+.vba  known, .vba  knw,
+.xaml known, .xaml knw
+{
   color:                #20B0D0;
 }
 
 /* コメント (<comment>、<cmt>) */
-.code comment, .code cmt, .xaml comment, .xaml cmt {
+.code comment, .code cmt,
+.cpp  comment, .cpp  cmt,
+.cs   comment, .cs   cmt,
+.java comment, .java cmt,
+.text comment, .text cmt,
+.vba  comment, .vba  cmt,
+.xaml comment, .xaml cmt
+{
   color:                #009000;
 }
 
 /* リテラル (<literal>、<ltr>) */
-.code literal, .code ltr {
+.code literal, .code ltr,
+.cpp  literal, .cpp  ltr,
+.cs   literal, .cs   ltr,
+.java literal, .java ltr,
+.text literal, .text ltr,
+.vba  literal, .vba  ltr,
+.xaml literal, .xaml ltr
+{
   color:                #990000;
 }
