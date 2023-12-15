@@ -37,19 +37,21 @@ Excelの機能でワークシートを保護している場合、セルのロッ
 このため、保護されたシートをマクロで編集する場合は保護の解除が必要となる。
 
 <h2>Worksheet.Protect メソッドによるマクロの解禁</h2>
-Worksheet.Protect はシートの保護を有効にするメソッドだが、パラメータ UserInterfaceOnly に True を設定すると、<br>
-画面上からの変更は禁止となるが、マクロによる変更のみ許可される。<br>
+Worksheet.Protect はシートの保護を有効にするメソッドだが、パラメータ UserInterfaceOnly に True を設定すると<br>
+マクロによる変更のみ許可される。(画面上からの変更は禁止。)<br>
 既にシートの保護が行われている場合でも有効。
 
 <h5>ThisWorkbook</h5>
 <div class="code">
 <kwd>Private Sub</kwd> Workbook_Open()
 
-	<cmt>' シート2のマクロ実行を解禁</cmt>
+    <cmt>' シート2のマクロ実行を解禁</cmt>
     Sheet2.Protect UserInterfaceOnly:=<kwd>True</kwd>
 
 <kwd>End Sub</kwd>
 </div>
+
+その他のパラメータに関しては出典元を参照のこと。
 
 <h2>シート保護の解除</h2>
 Worksheet.Unprotect メソッドでシートの保護を解除できる。<br>
