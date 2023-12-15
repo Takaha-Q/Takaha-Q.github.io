@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<h5>出典 :</h5>
+<a href="https://learn.microsoft.com/ja-jp/office/vba/api/excel.worksheet.protect">Worksheet.Protect メソッド (Excel) | Microsoft Learn</a>
+
+<!-- 関連ページ -->
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>シート保護とVBA</h2>
+Excelの機能でワークシートを保護している場合、セルのロックの有無によらずマクロからセルを編集することはできない。<br>
+このため、保護されたシートをマクロで編集する場合は保護の解除が必要となる。
+
+<h2>Worksheet.Protect メソッドによるマクロの解禁</h2>
+Worksheet.Protect はシートの保護を有効にするメソッドだが、パラメータ UserInterfaceOnly に True を設定すると、<br>
+画面上からの変更は禁止となるが、マクロによる変更のみ許可される。<br>
+既にシートの保護が行われている場合でも有効。
+
+<h5>ThisWorkbook</h5>
+<div class="code">
+<kwd>Private Sub</kwd> Workbook_Open()
+
+	<cmt>' シート2のマクロ実行を解禁</cmt>
+    Sheet2.Protect UserInterfaceOnly:=<kwd>True</kwd>
+
+<kwd>End Sub</kwd>
+</div>
+
+<h2>シート保護の解除</h2>
+Worksheet.Unprotect メソッドでシートの保護を解除できる。<br>
+これは画面上からの変更、マクロによる変更双方が対象となる。
