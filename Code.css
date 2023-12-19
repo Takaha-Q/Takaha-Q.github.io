@@ -5,30 +5,28 @@
 /* CPP      (<### class="cpp">        */
 /* C#       (<### class="cs">         */
 /* Java     (<### class="java">       */
-/* テキスト (<### class="text">       */
 /* VBA      (<### class="vba">        */
 /* XAML     (<### class="xaml">       */
 /* ---------------------------------- */
-.code, .cpp, .cs, .java, .text .vba, .xaml
+.code, .cpp, .cs, .java, .vba, .xaml
 {
   white-space:          pre;
   font-family:          monospace;
   line-height:          1.2;
   background-color:     #EEEEEE;
-  margin:               6px 10em 6px 0;
 }
 
 div.code, p.code,
 div.cpp,  p.cpp,
 div.cs,   p.cs,
 div.java, p.java,
-div.text, p.text,
 div.vba,  p.vba,
 div.xaml, p.xaml
 {
   border-style:         solid;
   border-width:         1px;
   border-color:         #996666;
+  margin:               6px 10em 6px 0;
   padding:              0 1em 1.3em 1em;
 }
 
@@ -36,7 +34,6 @@ span.code,
 span.cpp, 
 span.cs, 
 span.java, 
-span.text, 
 span.vba, 
 span.xaml
 {
@@ -44,7 +41,7 @@ span.xaml
   border-width:         1px;
   border-color:         #996666;
   margin:               3px;
-  padding:              1px 3px;
+  padding:              3px 5px;
 }
 
 /* キーワード (<keyword>、<kwd>) */
@@ -52,7 +49,6 @@ span.xaml
 .cpp  keyword, .cpp  kwd,
 .cs   keyword, .cs   kwd,
 .java keyword, .java kwd,
-.text keyword, .text kwd,
 .vba  keyword, .vba  kwd,
 .xaml keyword, .xaml kwd
 {
@@ -64,7 +60,6 @@ span.xaml
 .cpp  known, .cpp  knw,
 .cs   known, .cs   knw,
 .java known, .java knw,
-.text known, .text knw,
 .vba  known, .vba  knw,
 .xaml known, .xaml knw
 {
@@ -76,7 +71,6 @@ span.xaml
 .cpp  comment, .cpp  cmt,
 .cs   comment, .cs   cmt,
 .java comment, .java cmt,
-.text comment, .text cmt,
 .vba  comment, .vba  cmt,
 .xaml comment, .xaml cmt
 {
@@ -88,7 +82,6 @@ span.xaml
 .cpp  literal, .cpp  ltr,
 .cs   literal, .cs   ltr,
 .java literal, .java ltr,
-.text literal, .text ltr,
 .vba  literal, .vba  ltr,
 .xaml literal, .xaml ltr
 {
