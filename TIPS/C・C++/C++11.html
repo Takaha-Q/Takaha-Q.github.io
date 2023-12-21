@@ -27,6 +27,7 @@
 <a href="https://qiita.com/leon-joel/items/81415c1ef355c6246280">C++11, C++14, C++17 新機能まとめ ～使いそうなものだけ - Qiita</a><br>
 <a href="https://ja.cppreference.com/w/cpp/language/history">C++ の歴史 - cppreference.com</a><br>
 
+
 <!-- 関連ページ -->
 <h5>関連 :</h5>
 <a href="TIPS/C%E3%83%BBC%2B%2B/[C]C99.html">[C]C99</a><br>
@@ -69,7 +70,7 @@ C++ではvoid* 型から<b>他のポインタ型への暗黙的変換が認め�
 このような経緯からC++では <b>NULL はあらゆるポインタ型への変換が例外的に認められる 0 </b>と展開される。<br>
 しかし以下のように関数オーバーロードと組み合わせることで回避しにくい問題となる。<br>
 
-<p class="code">
+<p class="cpp">
 <kwd>void</kwd> foo(<kwd>char</kwd>*);
 <kwd>void</kwd> foo(<kwd>int</kwd>);
 :
@@ -81,11 +82,11 @@ foo(NULL); <cmt>//< ポインタ型のつもりでNULLを与えているが…</
 この問題を受け、C++11ではキーワード <b>nullptr</b> が導入された。<br>
 <b>nullptr は整数型との比較・代入ができないが、あらゆるポインタ型との比較・代入ができる</b> 。<br>
 
-<p class="code">
+<p class="cpp">
 <kwd>void</kwd> foo(<kwd>char</kwd>*);
 <kwd>void</kwd> foo(<kwd>int</kwd>);
 :
-foo(<kwd>nullptr</kwd>); <cmt>//< <kwd>nullptr</kwd> はポインタ型と解釈されるため、foo(char*) が呼ばれる</cmt>
+foo(<kwd>nullptr</kwd>); <cmt>//< nullptr はポインタ型と解釈されるため、foo(char*) が呼ばれる</cmt>
 </p>
 
 <!-- ～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～ -->
@@ -95,7 +96,7 @@ foo(<kwd>nullptr</kwd>); <cmt>//< <kwd>nullptr</kwd> はポインタ型と解釈
 定数式はコンパイラの最適化の対象となり、多くの場合でコンパイル時に演算が行われ、プログラム中にはその結果のみが格納される。<br>
 即ちプログラム中の定数式 3 + 4 は、コンパイルにより定数 7 に置換される。<br>
 但し、関数呼び出しやオブジェクトコンストラクタが出現すると、定数式とは見なされなくなる。<br>
-<p class="code">
+<p class="cpp">
 <cmt>// C++03まで (有効でないコード)</cmt>
 <kwd>int</kwd> get5() { <kwd>return</kwd> <ltr>5</ltr>; }
 <kwd>int</kwd> arr_values[get5() + <ltr>5</ltr>];    <cmt>//&lt; 要素数10の配列を作りたいが、</cmt>
@@ -103,14 +104,14 @@ foo(<kwd>nullptr</kwd>); <cmt>//< <kwd>nullptr</kwd> はポインタ型と解釈
 </p>
 C++11ではキーワード<b>constexpr</b> が導入され、関数やオブジェクトコンストラクタがコンパイル時定数であることを保証できるようになった。<br>
 即ち、<b>下記の get5() は定数式と解釈される</b>。
-<p class="code">
+<p class="cpp">
 <cmt>// C++11以降 (有効なコード)</cmt>
-<kwd>constexpr int</kwd> get5() { <kwd>return</kwd> <ltr>5</ltr>; }    <cmt>//&lt; <kwd>constexpr</kwd> 修飾により get5() は定数式となる</cmt>
+<kwd>constexpr int</kwd> get5() { <kwd>return</kwd> <ltr>5</ltr>; }    <cmt>//&lt; constexpr 修飾により get5() は定数式となる</cmt>
 <kwd>int</kwd> arr_values[get5() + <ltr>5</ltr>];           <cmt>//&lt; 要素数10の配列を作る ⇒ []内が定数式のため有効</cmt>
 </p>
 また、定数を定数式として定義することも可能である。(const の代替)<br>
-<p class="code">
-<kwd>constexpr double</kwd> forceOfGravity = <ltr>9</ltr>.<ltr>8</ltr>;
+<p class="cpp">
+<kwd>constexpr double</kwd> forceOfGravity = <ltr>9.8</ltr>;
 <kwd>constexpr double</kwd> moonGravity = forceOfGravity / <ltr>6</ltr>;
 </p>
 
@@ -118,7 +119,7 @@ C++11ではキーワード<b>constexpr</b> が導入され、関数やオブジ�
 
 <h2>初期化子リスト</h2>
 C++ではCと同様、構造体を初期化する際に、初期値をブレース { } 内に列記(初期化子リスト)することで各メンバに割り当てることができる。これは入れ子となった構造体や、構造体配列でも有効である。<br>
-<p class="code">
+<p class="cpp">
 <kwd>struct</kwd> St_Object
 {
   <kwd>float</kwd> first;
@@ -129,7 +130,7 @@ St_Object scalar    = { <ltr>0.43F</ltr>, <ltr>10</ltr> };  <cmt>//< St_Object �
 St_Object anArray[] = { {<ltr>13.4F</ltr>, <ltr>3</ltr>}, {<ltr>43.28F</ltr>, <ltr>29</ltr>}, {<ltr>5.934F</ltr>, <ltr>17</ltr>} };  <cmt>//< St_Object 型配列変数の初期化</cmt>
 </p>
 C++11では初期化子リストがテンプレート <b>std::initializer_list</b> と結び付けられ、コンストラクタなどの関数が<b>初期化子リストを引数として</b>取ることができるようになった。<br>
-<p class="code">
+<p class="cpp">
 <kwd>class</kwd> CSequenceClass
 {
 <kwd>public</kwd>:
@@ -198,7 +199,7 @@ C++11では型安全な(クラス化された)列挙体 (enum class) が導入�
 C++03では、基底クラスの仮想関数をオーバーライドする際に、(タイプミスなどで)誤って意図に反する新しい仮想関数を作成してしまうことがある。<br>
 C++11では <b>override</b> キーワードが導入され、仮想関数のオーバーライドであることを明示することで解決を図ることができる。 <br>
 
-<p class="code">
+<p class="cpp">
 <cmt>// 基底クラス</cmt>
 <kwd>class</kwd> C_Base
 {
@@ -219,7 +220,7 @@ C++11では <b>override</b> キーワードが導入され、仮想関数のオ�
 上記は派生クラスで基底クラスの仮想関数をオーバーライドしようとして、意図に反して新たな仮想関数を作成してしまった例である。<br>
 文法上は誤りではないためコンパイルエラーとはならず、間違いに気づくことができない。<br>
 
-<p class="code">
+<p class="cpp">
 <cmt>// 基底クラス</cmt>
 <kwd>class</kwd> C_Base
 {
@@ -245,7 +246,7 @@ C++11では <b>final</b> キーワードが追加された。クラスに適用�
 
 <h3>クラスの final 修飾</h3>
 クラスを final 修飾した場合、 <b>そのクラスを派生(継承)させることができなくなる</b> 。<br>
-<p class="code">
+<p class="cpp">
 <cmt>// 基底クラス</cmt>
 <cmt>// final : 継承不可となる</cmt>
 <kwd>class</kwd> C_Base <kwd>final</kwd>
@@ -265,12 +266,12 @@ C++11では <b>final</b> キーワードが追加された。クラスに適用�
 
 <h3>仮想関数の final 修飾</h3>
 仮想関数を final 修飾した場合、 <b>その関数はオーバーライド不可となる</b> 。<br>
-<p class="code">
+<p class="cpp">
 <cmt>// 基底クラス</cmt>
 <kwd>class</kwd> C_Base
 {
 <kwd>public</kwd>:
-    <kwd>virtual void</kwd> some_func(<kwd>float</kwd>) <kwd>final</kwd>;    <cmt>//&lt; <kwd>final</kwd> : some_func(<kwd>float</kwd>) はオーバーライド不可となる</cmt>
+    <kwd>virtual void</kwd> some_func(<kwd>float</kwd>) <kwd>final</kwd>;    <cmt>//&lt; final : some_func(float) はオーバーライド不可となる</cmt>
 };
 
 <cmt>// 派生クラス</cmt>
@@ -317,7 +318,7 @@ C++03で利用できた auto_ptr&lt;T&gt; に加え、unique_ptr&lt;T&gt; / shar
 <li>デストラクタ</li>
 </ul>
 delete / default を用いることで、これらの暗黙的に定義される特殊メンバ関数の定義を制御することができる。<br>
-詳細は<a href="TIPS\C・C%2B%2B\関数のdefault・delete宣言.html">ここ</a>を参照。
+詳細は<a href="TIPS/C・C%2B%2B/関数のdefault・delete宣言.html">ここ</a>を参照。
 
 <!-- ～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～ -->
 

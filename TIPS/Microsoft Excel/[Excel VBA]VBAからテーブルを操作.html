@@ -31,6 +31,7 @@
 <!-- 関連ページ -->
 <h5>関連 :</h5>
 <a href="TIPS/Microsoft Excel/テーブル.html">テーブル</a><br>
+
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
@@ -49,13 +50,13 @@
 ひとつのテーブルはひとつの ListObject に紐づけられる。<br>
 ひとつのワークシートには複数のテーブルを作成することができ、ワークシートに存在するテーブル( ListObject )を束ねたコレクションが ListObjects である。<br>
 
-<div class="code">
+<div class="vba">
 <kwd>Sub</kwd> DoSomething()
     <cmt>' テーブル範囲を格納する tbl 変数の宣言</cmt>
     <kwd>Dim</kwd> tbl <kwd>As</kwd> ListObject
 
     <cmt>' アクティヴなシートの「テーブル1」を tbl に格納</cmt>
-    <kwd>Set</kwd> tbl = ActiveSheet.ListObjects("テーブル1")
+    <kwd>Set</kwd> tbl = ActiveSheet.ListObjects(<ltr>"テーブル1"</ltr>)
 
     :
 
@@ -65,30 +66,30 @@
 ListObjects はシート( WorkSheet )のプロパティであり、テーブル名を指定することで特定のテーブルに紐づく ListObject が取得できる。
 
 <h2>テーブルの作成</h2>
-<div class="code">
-' テーブルの初期化
-Private Sub InitializeTable()
+<div class="vba">
+<cmt>' テーブルの初期化</cmt>
+<kwd>Private Sub</kwd> InitializeTable()
 
-    ' 見出し行を作成
-    Cells(ROW_HEADER, E_Col.Folder).Value = "フォルダ"
-    Cells(ROW_HEADER, E_Col.Filename).Value = "ファイル名"
-    Cells(ROW_HEADER, E_Col.Schema).Value = "スキーマ"
-    Cells(ROW_HEADER, E_Col.Name_P).Value = "物理名称"
-    Cells(ROW_HEADER, E_Col.Name_L).Value = "論理名称"
-    Cells(ROW_HEADER, E_Col.ObjCode).Value = "オブジェクトコード"
-    Cells(ROW_HEADER, E_Col.Attr).Value = "属性"
+    <cmt>' 見出し行を作成</cmt>
+    Cells(ROW_HEADER, E_Col.Folder).Value = <ltr>"フォルダ"</ltr>
+    Cells(ROW_HEADER, E_Col.Filename).Value = <ltr>"ファイル名"</ltr>
+    Cells(ROW_HEADER, E_Col.Schema).Value = <ltr>"スキーマ"</ltr>
+    Cells(ROW_HEADER, E_Col.Name_P).Value = <ltr>"物理名称"</ltr>
+    Cells(ROW_HEADER, E_Col.Name_L).Value = <ltr>"論理名称"</ltr>
+    Cells(ROW_HEADER, E_Col.ObjCode).Value = <ltr>"オブジェクトコード"</ltr>
+    Cells(ROW_HEADER, E_Col.Attr).Value = <ltr>"属性"</ltr>
 
-    ' テーブルを作成
-    Dim ddTable As ListObject 
-    Set ddTable = ListObjects.Add(SourceType:=xlSrcRange, _
+    <cmt>' テーブルを作成</cmt>
+    <kwd>Dim</kwd> ddTable <kwd>As</kwd> ListObject 
+    <kwd>Set</kwd> ddTable = ListObjects.Add(SourceType:=xlSrcRange, _
                                   Source:=Range(Cells(ROW_HEADER, E_Col.Folder).Address).CurrentRegion, _
                                   XlListObjectHasHeaders:=xlYes)
 
-    ' テーブル名、テーブルスタイルを設定
-    ddTable.Name = "目録"
-    ddTable.TableStyle = "TableStyleLight2"
+    <cmt>' テーブル名、テーブルスタイルを設定</cmt>
+    ddTable.Name = <ltr>"目録"</ltr>
+    ddTable.TableStyle = <ltr>"TableStyleLight2"</ltr>
 
-End Sub
+<kwd>End Sub</kwd>
 </div>
 
 上記は、テーブルを新規作成する例である。<br>
@@ -115,35 +116,35 @@ Cells(ROW_HEADER, E_Col.Folder) が含まれる範囲</td>
 
 <h2>テーブルのセルを参照・更新</h2>
 
-<div class="code">
-Sub DoSomething()
+<div class="vba">
+<kwd>Sub</kwd> DoSomething()
 
-    ' テーブル「目録」を tbl に関連付ける
-    Dim tbl As ListObject
-    Set tbl = ListObjects("目録")
+    <cmt>' テーブル「目録」を tbl に関連付ける</cmt>
+    <kwd>Dim</kwd> tbl <kwd>As</kwd> ListObject
+    <kwd>Set</kwd> tbl = ListObjects(<ltr>"目録"</ltr>)
     
-    ' 列「列1」の 6 行目に「い」を格納
-    tbl.ListColumns("列1").Range(6) = "い"
+    <cmt>' 列「列1」の 6 行目に「い」を格納</cmt>
+    tbl.ListColumns(<ltr>"列1"</ltr>).Range(<ltr>6</ltr>) = <ltr>"い"</ltr>
 
-    ' 列「列2」の 5 行目の値を取得
-	Dim val
-    val = tbl.ListColumns("列2").Range(5)
+    <cmt>' 列「列2」の 5 行目の値を取得</cmt>
+	<kwd>Dim</kwd> val
+    val = tbl.ListColumns(<ltr>"列2"</ltr>).Range(<ltr>5</ltr>)
 
-End Sub
+<kwd>End Sub</kwd>
 </div>
 
 <h2>テーブルの破棄</h2>
 
-<div class="code">
-Sub DoSomething()
+<div class="vba">
+<kwd>Sub</kwd> DoSomething()
 
-    ' 既存のテーブルを全て削除
-    Dim lob As ListObject
-    For Each lob In ListObjects
+    <cmt>' 既存のテーブルを全て削除</cmt>
+    <kwd>Dim</kwd> lob <kwd>As</kwd> ListObject
+    <kwd>For Each</kwd> lob <kwd>In</kwd> ListObjects
         lob.Delete
-    Next
+    <kwd>Next</kwd>
 
-End Sub
+<kwd>End Sub</kwd>
 </div>
 
 <h2>理想的な構成</h2>
@@ -155,4 +156,3 @@ End Sub
 <li>先頭行は見出し、2行目以降に実データを格納する(見出し行を必ず設ける)</li>
 <li>テーブル外のセル範囲にデータを入れない</li>
 </ul>
-
