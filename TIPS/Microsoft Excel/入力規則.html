@@ -1,24 +1,37 @@
 <!DOCTYPE html>
+
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
+
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
+
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
+
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
+
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
+
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-<!-- 出典・関連ページ -->
+
+<!-- 出典ページ -->
+<h5>出典 :</h5>
+<a href="https://blog-tips.sekenkodqx.jp/2019/05/01/excel-pulldown-space-delete00001/">Excel プルダウンで不要な空白を表示させない方法 | 誰でもできる業務改善講座</a>
+
+<!-- 関連ページ -->
 <h5>関連 :</h5>
 <a href="TIPS/Microsoft Excel/テーブル.html">テーブル</a>
+
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
 <hr>
+
 <!-- 本文ここから -->
 
 <h2>入力規則とは</h2>
@@ -128,3 +141,16 @@
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MS Excel/input_rules/08.png"><br>
 </li>
 </ol>
+
+<h2>応用 : セル範囲をリストに設定し、不要な空白を削除する方法</h2>
+(この節における「空白」は " " (ホワイトスペース)ではなく、何も入力されていない「空」を意味する。)<br>
+以下のような例を考える。<br>
+リストの選択肢を後から追加できるように、入力値として設定するセル範囲に空白を設けると、当然その空白も選択肢に含まれる。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MS Excel/input_rules/09.png"><br>
+この空白を除去したい場合は、「実際の要素数に合わせてセル範囲が変化する」ようにすればよい。<br>
+<ul>
+<li>要素数 : COUNTA 関数で取得</li>
+<li>セル範囲 : OFFSET 関数で取得</li>
+</ul>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MS Excel/input_rules/10.png"><br>
+空白はセル範囲の末尾側にまとめる必要がある点に注意。値が空白を挟んで飛び飛びになると、選択肢に空白が入ってしまう。
