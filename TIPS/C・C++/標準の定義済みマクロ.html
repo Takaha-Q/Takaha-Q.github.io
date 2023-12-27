@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<h5>出典 :</h5>
+<a href="https://learn.microsoft.com/ja-jp/cpp/preprocessor/predefined-macros?view=msvc-170">定義済みマクロ | Microsoft Learn</a><br>
+<a href="https://cpprefjp.github.io/lang/cpp11/func.html">事前定義識別子__func__ - cpprefjp C++日本語リファレンス</a>
+
+<!-- 関連ページ -->
+<h5>関連 :</h5>
+<a href="TIPS\C・C++/プリプロセッサディレクティブ.html">プリプロセッサディレクティブ</a>
+<a href="TIPS/C・C%2B%2B/言語バージョンの確認.html">言語バージョンの確認</a><br>
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>C/C++標準の定義済みマクロ</h2>
+標準C/C++に準拠するコンパイラでは、以下のマクロが定義されている。
+
+<table>
+    <tr class="row1">
+        <td class="col1">マクロ</td>
+        <td>解説</td>
+        <td>型</td>
+        <td colspan="2">具体的な値・書式</td>
+        <td>備考</td>
+    </tr>
+
+    <tr>
+        <td class="col1" rowspan="2">__STDC__</td>
+        <td rowspan="2">Cとしてコンパイルされるか</td>
+        <td rowspan="2">整数</td>
+        <td>1</td>
+        <td>Cとしてコンパイルされる<br>
+        (/Za オプション指定時)</td>
+        <td rowspan="2"></td>
+    </tr>
+    <tr>
+        <td>(定義なし)</td>
+        <td>上記以外</td>
+    </tr>
+
+    <tr>
+        <td class="col1" rowspan="4">__STDC_VERSION__</td>
+        <td rowspan="4">コンパイラがサポートする<br>Cのバージョン</td>
+        <td rowspan="4">整数</td>
+        <td>201112L</td>
+        <td>C11準拠</td>
+        <td rowspan="4"></td>
+    </tr>
+    <tr>
+        <td>199901L</td>
+        <td>C99準拠</td>
+    </tr>
+    <tr>
+        <td>199409L</td>
+        <td>C95準拠</td>
+    </tr>
+    <tr>
+        <td>(定義なし)</td>
+        <td>C95より前、<br>または標準Cに準拠しない</td>
+    </tr>
+
+    <tr>
+        <td class="col1" rowspan="6">__cplusplus</td>
+        <td rowspan="6">コンパイラがサポートする<br>C++のバージョン</td>
+        <td rowspan="6">整数</td>
+        <td>202002L</td>
+        <td>C++20準拠</td>
+        <td rowspan="6"></td>
+    </tr>
+    <tr>
+        <td>201703L</td>
+        <td>C++17準拠</td>
+    </tr>
+    <tr>
+        <td>201402L</td>
+        <td>C++14準拠</td>
+    </tr>
+    <tr>
+        <td>201103L</td>
+        <td>C++11準拠</td>
+    </tr>
+    <tr>
+        <td>199711L</td>
+        <td>C++98準拠</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>標準C++より前</td>
+    </tr>
+
+    <tr>
+        <td class="col1">__DATE__</td>
+        <td>コンパイル時の日付</td>
+        <td>文字列</td>
+        <td colspan="2">"Mmm dd yyyy" 形式<br>(Mmmは月名の省略形)</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td class="col1">__TIME__</td>
+        <td>コンパイル時の時刻</td>
+        <td>文字列</td>
+        <td colspan="2">"hh: mm: ss" 形式</td>
+        <td></td>
+    </tr>
+    
+    <tr>
+        <td class="col1">__FILE__</td>
+        <td>現在のソースファイル名</td>
+        <td>文字列</td>
+        <td colspan="2"></td>
+        <td>#line ディレクティブで変更可能</td>
+    </tr>
+
+    <tr>
+        <td class="col1">__LINE__</td>
+        <td>現在の行番号</td>
+        <td>整数</td>
+        <td colspan="2"></td>
+        <td>#line ディレクティブで変更可能</td>
+    </tr>
+
+    <tr>
+        <td class="col1">__func__</td>
+        <td>現在実行中の関数名</td>
+        <td>文字列</td>
+        <td colspan="2"></td>
+        <td>C99以降、C++11以降でのみ使用可能<br>関数外で使用するとエラーとなる</td>
+    </tr>
+
+    <tr>
+        <td rowspan="2" class="col1">__STDCPP_THREADS__</td>
+        <td rowspan="2">プログラムが<br>複数のスレッドを持つことができるか</td>
+        <td rowspan="2">整数</td>
+        <td>1</td>
+        <td>C++としてコンパイルされ、<br>
+        かつ複数のスレッドを持つことができる</td>
+        <td rowspan="2"></td>
+    </tr>
+    <tr>
+        <td>(定義なし)</td>
+        <td>上記以外</td>
+    </tr>
+
+    <tr>
+        <td class="col1">__STDC_HOSTED__<br>
+        __STDC_NO_ATOMICS__<br>
+        __STDC_NO_COMPLEX__<br>
+        __STDC_NO_THREADS__<br>
+        __STDC_NO_VLA__<br>
+        __STDCPP_DEFAULT_NEW_ALIGNMENT__</td>
+        <td colspan="4"><a href="https://learn.microsoft.com/ja-jp/cpp/preprocessor/predefined-macros?view=msvc-170">出典元</a>参照</td>
+        <td></td>
+    </tr>
+
+</table>
