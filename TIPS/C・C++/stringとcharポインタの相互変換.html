@@ -46,18 +46,20 @@ std::string 型を使用する際は、<b>&lt;string&gt;</b> のインクルー�
 <kwd>void</kwd> DoSomething()
 {
     <cmt>// string 型変数の宣言と初期化</cmt>
-    <kwd>std</kwd>::<kwd>string</kwd> str = "What happened!?";
+    <kwd>std</kwd>::<kwd>string</kwd> str = <ltr>"What happened!?"</ltr>;
 
     :
 }
 </div>
 
+上記のように、string の初期化には char* を用いることができる。
+
 <h2>char* 型を用いた string の初期化(char* から string への変換)</h2>
 char* で string を初期化(および代入)できる。<br>
 
-<div class="code">
+<div class="cpp">
 <cmt>// 初期化に使用する文字列( char* )</cmt>
-<kwd>const char</kwd>* input = "Rock'n Roll never dies.";
+<kwd>const char</kwd>* input = <ltr>"Rock'n Roll never dies."</ltr>;
 
 <cmt>// 以下はいずれも等価</cmt>
 <cmt>// (コンストラクタ引数に input を与えて初期化)</cmt>
@@ -70,56 +72,56 @@ char* で string を初期化(および代入)できる。<br>
 str4 = input;
 
 <cmt>// 各変数の値を出力</cmt>
-<kwd>std</kwd>::cout << "input : " << input << <kwd>std</kwd>::endl;
+<kwd>std</kwd>::<kwd>cout</kwd> << <ltr>"input : "</ltr> << input << <kwd>std</kwd>::<kwd>endl</kwd>;
 
-<kwd>std</kwd>::cout << "str1  : " << str1  << <kwd>std</kwd>::endl;
-<kwd>std</kwd>::cout << "str2  : " << str2  << <kwd>std</kwd>::endl;
-<kwd>std</kwd>::cout << "str3  : " << str3  << <kwd>std</kwd>::endl;
-<kwd>std</kwd>::cout << "str4  : " << str4  << <kwd>std</kwd>::endl;
+<kwd>std</kwd>::<kwd>cout</kwd> << <ltr>"str1  : "</ltr> << str1  << <kwd>std</kwd>::<kwd>endl</kwd>;
+<kwd>std</kwd>::<kwd>cout</kwd> << <ltr>"str2  : "</ltr> << str2  << <kwd>std</kwd>::<kwd>endl</kwd>;
+<kwd>std</kwd>::<kwd>cout</kwd> << <ltr>"str3  : "</ltr> << str3  << <kwd>std</kwd>::<kwd>endl</kwd>;
+<kwd>std</kwd>::<kwd>cout</kwd> << <ltr>"str4  : "</ltr> << str4  << <kwd>std</kwd>::<kwd>endl</kwd>;
 </div>
 
 <h5>実行結果</h5>
-<div class="code">
+<div class="code"><ltr>
 input : Rock'n Roll never dies.
 str1  : Rock'n Roll never dies.
 str2  : Rock'n Roll never dies.
 str3  : Rock'n Roll never dies.
 str4  : Rock'n Roll never dies.
-</div>
+</ltr></div>
 
 初期化の際に char* の一部(部分文字列)を抽出することも可能である。
-<div class="code">
-<kwd>const char</kwd>* input = "Rock'n Roll never dies.";
+<div class="cpp">
+<kwd>const char</kwd>* input = <ltr>"Rock'n Roll never dies."</ltr>;
 
 <cmt>// input の先頭から 6 文字を抽出する</cmt>
-<kwd>std</kwd>::<kwd>string</kwd> str5(input, 6);
+<kwd>std</kwd>::<kwd>string</kwd> str5(input, <ltr>6</ltr>);
 
 <cmt>// input の 7 文字目から 4 文字を抽出する</cmt>
-<kwd>std</kwd>::<kwd>string</kwd> str6(input, 7, 4);
+<kwd>std</kwd>::<kwd>string</kwd> str6(input, <ltr>7</ltr>, <ltr>4</ltr>);
 
 <cmt>// 各変数の値を出力</cmt>
-<kwd>std</kwd>::cout << "input : " << input << <kwd>std</kwd>::endl;
+<kwd>std</kwd>::<kwd>cout</kwd> << <ltr>"input : "</ltr> << input << <kwd>std</kwd>::<kwd>endl</kwd>;
 
-<kwd>std</kwd>::cout << "str5  : " << str5 << <kwd>std</kwd>::endl;
-<kwd>std</kwd>::cout << "str6  : " << str6 << <kwd>std</kwd>::endl;
+<kwd>std</kwd>::<kwd>cout</kwd> << <ltr>"str5  : "</ltr> << str5 << <kwd>std</kwd>::<kwd>endl</kwd>;
+<kwd>std</kwd>::<kwd>cout</kwd> << <ltr>"str6  : "</ltr> << str6 << <kwd>std</kwd>::<kwd>endl</kwd>;
 </div>
 
 <h5>実行結果</h5>
-<div class="code">
+<div class="code"><ltr>
 input : Rock'n Roll never dies.
 str5  : Rock'n
 str6  : Roll
-</div>
+</ltr></div>
 
 <h2>string から char* への変換( c_str() )</h2>
 string のメンバ関数<b> c_str()</b> を用いることで、char* を得ることができる。<br>
 printf() などのCライブラリ関数は string を引数に取ることができないため、この方法で char* に変換して用いる。
 
-<div class="code">
+<div class="cpp">
 <cmt>// string 型変数の宣言・初期化</cmt>
-<kwd>std</kwd>::<kwd>string</kwd> str = "THE HIGH-LOWS"
+<kwd>std</kwd>::<kwd>string</kwd> str = <ltr>"THE HIGH-LOWS"</ltr>
 
-<cmt>// printf() に string 直接を渡す ⇒ エラー</cmt>
+<cmt>// printf() に string を直接渡す ⇒ エラー</cmt>
 printf("%s\n", str);
 
 <cmt>// char* 型に変換して printf() に渡す ⇒ OK</cmt>
@@ -127,6 +129,6 @@ printf("%s\n", str.c_str());
 </div>
 
 <h5>実行結果</h5>
-<div class="code">
+<div class="code"><ltr>
 THE HIGH-LOWS
-</div>
+</ltr></div>
