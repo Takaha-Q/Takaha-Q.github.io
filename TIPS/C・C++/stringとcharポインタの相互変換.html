@@ -1,21 +1,29 @@
 <!DOCTYPE html>
+
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
+
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
+
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
+
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
+
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
+
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
+
 <!-- 出典・関連ページ -->
 <h5>出典 :</h5>
 <a href="https://www.sejuku.net/blog/52403">
 【C++入門】string型⇔char*型に変換する方法まとめ | 侍エンジニアブログ</a><br>
+
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
@@ -23,16 +31,14 @@
 
 <!-- 本文ここから -->
 
-<h2>char* と string</h2>
-C++では文字列を格納する際に、C準拠の char* に加え string 型を使用できる。<br>
-string は文字列の扱いがより簡便であるが、Cのライブラリ関数では string が使用できない。<br>
-その場合は string を char* に変換する必要がある。<br>
+<h2>char* と std::string</h2>
+C++では文字列を格納する際に、C準拠の char* に加え std::string 型を使用できる。<br>
+std::string は文字列の扱いがより簡便であるが、Cのライブラリ関数では使用できず、char* に変換する必要がある。<br>
 尚、C++における文字列のデフォルトは char* であるため、文字列リテラルは const char* と見なされる。<br>
-(後述のように string への代入が可能であるため、デフォルト型を意識する必要はほぼ無い。)
+(後述のように std::string への代入が可能であるため、デフォルト型を意識する必要はほぼ無い。)
 
-<h3>string の基本</h3>
-string 型を使用する際は、<b>&lt;string&gt;</b> のインクルードが必要となる。<br>
-また、string は <b>std</b> 名前空間に属しており、名前空間の解決が必要となる。
+<h3>std::string の基本</h3>
+std::string 型を使用する際は、<b>&lt;string&gt;</b> のインクルードが必要となる。<br>
 
 <div class="code">
 <kwd>#include</kwd> &lt;<kwd>string</kwd>&gt;       <cmt>//< string 型を使用するために必要</cmt>
