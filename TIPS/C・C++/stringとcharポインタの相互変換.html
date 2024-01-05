@@ -19,10 +19,13 @@
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
 
-<!-- 出典・関連ページ -->
+<!-- 出典 -->
 <h5>出典 :</h5>
-<a href="https://www.sejuku.net/blog/52403">
-【C++入門】string型⇔char*型に変換する方法まとめ | 侍エンジニアブログ</a><br>
+<a href="https://www.sejuku.net/blog/52403">【C++入門】string型⇔char*型に変換する方法まとめ | 侍エンジニアブログ</a><br>
+
+<!-- 関連 -->
+<h5>関連 :</h5>
+<a href="TIPS\C・C++\文字・文字列.html">文字・文字列</a>
 
 <!-- 目次 -->
 <h5>目次 :</h5>
@@ -31,34 +34,11 @@
 
 <!-- 本文ここから -->
 
-<h2>char* と std::string</h2>
-C++では文字列を格納する際に、C準拠の char* に加え std::string 型を使用できる。<br>
-std::string は文字列の扱いがより簡便であるが、Cのライブラリ関数では使用できず、char* に変換する必要がある。<br>
-尚、C++における文字列のデフォルトは char* であるため、文字列リテラルは const char* と見なされる。<br>
-(後述のように std::string への代入が可能であるため、デフォルト型を意識する必要はほぼ無い。)
-
-<h3>std::string の基本</h3>
-std::string 型を使用する際は、<b>&lt;string&gt;</b> のインクルードが必要となる。<br>
-
-<div class="code">
-<kwd>#include</kwd> &lt;<kwd>string</kwd>&gt;       <cmt>//< string 型を使用するために必要</cmt>
-
-<kwd>void</kwd> DoSomething()
-{
-    <cmt>// string 型変数の宣言と初期化</cmt>
-    <kwd>std</kwd>::<kwd>string</kwd> str = <ltr>"What happened!?"</ltr>;
-
-    :
-}
-</div>
-
-上記のように、string の初期化には char* を用いることができる。
-
-<h2>char* 型を用いた string の初期化(char* から string への変換)</h2>
-char* で string を初期化(および代入)できる。<br>
+<h2>char [n] 型( char 配列)を用いた string の初期化( char [n] から string への変換)</h2>
+char [n] で string を初期化(および代入)できる。<br>
 
 <div class="cpp">
-<cmt>// 初期化に使用する文字列( char* )</cmt>
+<cmt>// 初期化に使用する文字列( char [n] )</cmt>
 <kwd>const char</kwd>* input = <ltr>"Rock'n Roll never dies."</ltr>;
 
 <cmt>// 以下はいずれも等価</cmt>
@@ -67,17 +47,17 @@ char* で string を初期化(および代入)できる。<br>
 <kwd>std</kwd>::<kwd>string</kwd> str2(input);
 <kwd>std</kwd>::<kwd>string</kwd> str3 {input};
 
-<cmt>// string に char* を代入することも可能</cmt>
+<cmt>// string に char [n] を代入することも可能</cmt>
 <kwd>std</kwd>::<kwd>string</kwd> str4;
 str4 = input;
 
 <cmt>// 各変数の値を出力</cmt>
-<kwd>std</kwd>::<kwd>cout</kwd> << <ltr>"input : "</ltr> << input << <kwd>std</kwd>::<kwd>endl</kwd>;
+<kwd>std</kwd>::<kwd>cout</kwd> &lt;&lt; <ltr>"input : "</ltr> &lt;&lt; input &lt;&lt; <kwd>std</kwd>::<kwd>endl</kwd>;
 
-<kwd>std</kwd>::<kwd>cout</kwd> << <ltr>"str1  : "</ltr> << str1  << <kwd>std</kwd>::<kwd>endl</kwd>;
-<kwd>std</kwd>::<kwd>cout</kwd> << <ltr>"str2  : "</ltr> << str2  << <kwd>std</kwd>::<kwd>endl</kwd>;
-<kwd>std</kwd>::<kwd>cout</kwd> << <ltr>"str3  : "</ltr> << str3  << <kwd>std</kwd>::<kwd>endl</kwd>;
-<kwd>std</kwd>::<kwd>cout</kwd> << <ltr>"str4  : "</ltr> << str4  << <kwd>std</kwd>::<kwd>endl</kwd>;
+<kwd>std</kwd>::<kwd>cout</kwd> &lt;&lt; <ltr>"str1  : "</ltr> &lt;&lt; str1  &lt;&lt; <kwd>std</kwd>::<kwd>endl</kwd>;
+<kwd>std</kwd>::<kwd>cout</kwd> &lt;&lt; <ltr>"str2  : "</ltr> &lt;&lt; str2  &lt;&lt; <kwd>std</kwd>::<kwd>endl</kwd>;
+<kwd>std</kwd>::<kwd>cout</kwd> &lt;&lt; <ltr>"str3  : "</ltr> &lt;&lt; str3  &lt;&lt; <kwd>std</kwd>::<kwd>endl</kwd>;
+<kwd>std</kwd>::<kwd>cout</kwd> &lt;&lt; <ltr>"str4  : "</ltr> &lt;&lt; str4  &lt;&lt; <kwd>std</kwd>::<kwd>endl</kwd>;
 </div>
 
 <h5>実行結果</h5>
@@ -89,7 +69,7 @@ str3  : Rock'n Roll never dies.
 str4  : Rock'n Roll never dies.
 </ltr></div>
 
-初期化の際に char* の一部(部分文字列)を抽出することも可能である。
+初期化の際に char [n] の一部(部分文字列)を抽出することも可能である。
 <div class="cpp">
 <kwd>const char</kwd>* input = <ltr>"Rock'n Roll never dies."</ltr>;
 
@@ -100,10 +80,10 @@ str4  : Rock'n Roll never dies.
 <kwd>std</kwd>::<kwd>string</kwd> str6(input, <ltr>7</ltr>, <ltr>4</ltr>);
 
 <cmt>// 各変数の値を出力</cmt>
-<kwd>std</kwd>::<kwd>cout</kwd> << <ltr>"input : "</ltr> << input << <kwd>std</kwd>::<kwd>endl</kwd>;
+<kwd>std</kwd>::<kwd>cout</kwd> &lt;&lt; <ltr>"input : "</ltr> &lt;&lt; input &lt;&lt; <kwd>std</kwd>::<kwd>endl</kwd>;
 
-<kwd>std</kwd>::<kwd>cout</kwd> << <ltr>"str5  : "</ltr> << str5 << <kwd>std</kwd>::<kwd>endl</kwd>;
-<kwd>std</kwd>::<kwd>cout</kwd> << <ltr>"str6  : "</ltr> << str6 << <kwd>std</kwd>::<kwd>endl</kwd>;
+<kwd>std</kwd>::<kwd>cout</kwd> &lt;&lt; <ltr>"str5  : "</ltr> &lt;&lt; str5 &lt;&lt; <kwd>std</kwd>::<kwd>endl</kwd>;
+<kwd>std</kwd>::<kwd>cout</kwd> &lt;&lt; <ltr>"str6  : "</ltr> &lt;&lt; str6 &lt;&lt; <kwd>std</kwd>::<kwd>endl</kwd>;
 </div>
 
 <h5>実行結果</h5>
@@ -122,10 +102,10 @@ printf() などのCライブラリ関数は string を引数に取ることが�
 <kwd>std</kwd>::<kwd>string</kwd> str = <ltr>"THE HIGH-LOWS"</ltr>
 
 <cmt>// printf() に string を直接渡す ⇒ エラー</cmt>
-printf("%s\n", str);
+// printf("%s\n", str);
 
 <cmt>// char* 型に変換して printf() に渡す ⇒ OK</cmt>
-printf("%s\n", str.c_str());
+printf(<ltr>"%s\n"</ltr>, str.c_str());
 </div>
 
 <h5>実行結果</h5>
