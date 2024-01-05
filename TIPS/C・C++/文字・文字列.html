@@ -31,6 +31,11 @@
 <a href="https://cpprefjp.github.io/reference/string/basic_string/op_s.html">sリテラル - cpprefjp C++日本語リファレンス</a><br>
 <a href="https://www.sejuku.net/blog/52403">【C++入門】string型⇔char*型に変換する方法まとめ | 侍エンジニアブログ</a><br>
 
+<!-- 関連 -->
+<h5>関連 :</h5>
+<a href="TIPS\C・C++\stringとcharポインタの相互変換.html">stringとcharポインタの相互変換</a><br>
+<a href="TIPS\C・C++\stringstream.html">stringstream</a><br>
+
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
@@ -73,6 +78,12 @@ UTF-8は1文字が可変幅(割り当てられるバイト数が文字によっ�
 {
     <kwd>using namespace std</kwd>::literals::string_literals;     <cmt>//< s サフィックスの名前解決</cmt>
 
+    <cmt>// L プレフィックスを付与 ⇒ wchar_t のシーケンス</cmt>
+    <kwd>wchar_t</kwd> s[] = <ltr>L"あいうえお"</ltr>;
+
+    <cmt>// u8 プレフィックスを付与 ⇒ char8_t のシーケンス</cmt>
+    <kwd>char8_t</kwd> s8[] = <ltr>u8"あいうえお"</ltr>;
+
     <cmt>// u プレフィックスを付与 ⇒ char16_t のシーケンス</cmt>
     <kwd>char16_t</kwd> s16[] = <ltr>u"あいうえお"</ltr>;
 
@@ -85,6 +96,11 @@ UTF-8は1文字が可変幅(割り当てられるバイト数が文字によっ�
     <cmt>// s と U の併用 ⇒ u16string リテラル</cmt>
     <kwd>std</kwd>::<kwd>u16string</kwd> sy = <ltr>U"hello"s</ltr>;
 }
+</div>
+
+u8 プレフィックスを付与するとC++17までは const char* とされていたが、C++20以降では const char8_t* として扱われる。<br>
+
+<div class="cpp">
 </div>
 
 <h2>まとめ</h2>
@@ -163,11 +179,3 @@ UTF-8は1文字が可変幅(割り当てられるバイト数が文字によっ�
         <td>C++11以降</td>
     </tr>
 </table>
-
-
-
-
-
-
-
-
