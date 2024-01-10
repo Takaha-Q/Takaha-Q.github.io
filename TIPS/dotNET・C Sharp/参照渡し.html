@@ -1,26 +1,36 @@
 <!DOCTYPE html>
+
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
+
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
+
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
+
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
+
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
+
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-<!-- 出典・関連ページ -->
+
+<!-- 出典 -->
 <h5>出典 :</h5>
-<a href="
-https://www.atmarkit.co.jp/ait/articles/1804/25/news021.html
-">
-in／out／refパラメーター修飾子の違いとは？［C#］：.NET TIPS - ＠IT
-</a><br>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/csharp/language-reference/builtin-types/value-types">値型 - C# リファレンス - C# | Microsoft Learn</a><br>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/csharp/language-reference/keywords/reference-types">参照型 - C# リファレンス - C# | Microsoft Learn</a><br>
+<a href="https://www.atmarkit.co.jp/ait/articles/1804/25/news021.html">in／out／refパラメーター修飾子の違いとは？［C#］：.NET TIPS - ＠IT</a><br>
+
+<!-- 関連 -->
 <h5>関連 :</h5>
+<a href="TIPS/dotNET・C Sharp/タプル(tuple).html">タプル(tuple)</a><br>
+<a href="TIPS/dotNET・C Sharp/レコード(record).html">レコード(record)</a><br>
 <a href="TIPS/dotNET・C Sharp/オブジェクトの代入とコピー.html">オブジェクトの代入とコピー</a><br>
+
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
@@ -29,44 +39,63 @@ in／out／refパラメーター修飾子の違いとは？［C#］：.NET TIPS 
 
 <!-- 本文ここから -->
 
-<h2>参照渡しとは</h2>
-変数の「値」ではなく、「参照」を渡すこと。<br>
-ある変数(の値)をメソッド(関数)内で更新したい場合、その変数への「参照」をメソッドに渡すことで、<br>
-メソッド内では参照先( = 渡された変数の内容)を書き換えることができる。<br>
-対して、参照渡しを行わない場合、変数の値のみを渡すことになり(値渡し)、<b>メソッド引数は渡された変数のコピーとなる</b>。<br>
-このため、メソッド内で引数(の値)を更新しても、呼び出し元の(渡された)変数には一切影響しない。<br>
-値渡しは渡された変数の厳密なコピーを生成するため、変数のサイズが大きくなる(構造体など)と、関数呼び出しにかかるオーバーヘッドが大きくなる。<br>
-この場合も参照渡しを用いることで、オーバーヘッドを小さくすることができる。<br>
-逆に言えば、参照渡しの引数を更新すると、呼び出し元に影響が及ぶことに注意。<br>
+<h2>値型と参照型</h2>
+C#の型は「値型」と「参照型」に大別され、値型の変数にはその型のインスタンスが格納される(データを直接参照する)のに対し、参照型ではインスタンスへの参照が格納される。<br>
+代入時(メソッド呼び出しを含む)、参照型はインスタンスへの参照をコピーするが、値型はインスタンスの厳密なコピーを作成する。<br>
+これにより、参照型のコピー先(またはコピー元)の値を変更すると、同一のオブジェクトを指すコピー元(またはコピー先)の値も同様に変化するが、<br>
+値型はそれぞれが独立しており、一方の変更が他方には波及しない。<br>
+<br>
+値型変数をメソッドに渡すと通常は「値渡し」となるため、変数のコピーを生成するためのコスト(オーバーヘッド)が発生する。<br>
+この場合、参照渡しを用いることでオーバーヘッドを低減することができる。
 
-<h2>C#における参照渡し</h2>
-C#において変数の参照をメソッドに渡す場合は、<b>in / ref / out </b>キーワードを付与する。<br>
-これはC/C++におけるポインタ・参照引数に相当。<br>
+<h3>型の分類</h3>
+<ul>
+    <li><a href="https://learn.microsoft.com/ja-jp/dotnet/csharp/language-reference/builtin-types/value-types">値型</a>
+        <ul>
+            <li>単純型 (プリミティブ)
+                <ul>
+                    <li>整数数値型</li>
+                    <li>浮動小数点数値型</li>
+                    <li>bool</li>
+                    <li>char</li>
+                </ul>
+            </li>
+            <li>構造体 ( struct )</li>
+        </ul>
+    </li>
+</ul>
+<ul>
+    <li><a href="https://learn.microsoft.com/ja-jp/dotnet/csharp/language-reference/keywords/reference-types">参照型</a>
+        <ul>
+            <li>クラス ( class )</li>
+            <li>レコード ( record / record class )</li>
+            <li>配列</li>
+            <li>string</li>
+        </ul>
+    </li>
+</ul>
 
-<h3>暗黙の参照渡し</h3>
-<b>オブジェクト(クラス)型引数はデフォルトで参照渡しとなる</b>ため、キーワードは必須ではない。<br>
-(参照渡しであることを明示するため、キーワードを付与することも可能。)<br>
-配列(固定長配列)も同様に参照渡しとなるが、構造体は値渡しとなる点に注意。<br>
-<a href="TIPS/dotNET・C Sharp/オブジェクトの代入とコピー.html">変数のコピーを行う際には注意が必要となる</a>。
+<h2>in / ref / out による参照渡し</h2>
+値型変数の参照をメソッドに渡す場合は、<b>in / ref / out </b>キーワードを付与する。<br>
+参照型変数に対して用いることも可能である。
 
-<h2>in / ref / out の使い分け</h2>
-それぞれ、参照として受け取った引数(の参照先)を、メソッド内でどのように処理するかで異なる。<br>
 <ul>
 <li>in : 受け取った引数をメソッド内で変更しない場合</li>
 <li>ref : 受け取った引数をメソッド内で変更する(可能性がある)場合</li>
 <li>out : 引数に値を割り当てることが確実で、呼び出し時の格納値を考慮しない場合</li>
 </ul>
+
 <table class="center">
 <tr class="row1"><td class="col1">修飾子 : 用途</td><td>呼び出し前の<br>変数初期化</td><td>呼び出し時の<br>修飾子付与</td><td>メソッド内での<br>参照先割り当て／変更</td><td>オプション引数</td></tr>
 <tr><td class="col1">in : 入力</td><td class="bg_lr">必須</td><td class="bg_ly">任意</td><td class="bg_lh">不可</td><td class="bg_lg">可</td></tr>
 <tr><td class="col1">ref : 変更</td><td class="bg_lr">必須</td><td class="bg_lr">必須</td><td class="bg_lg">可能</td><td class="bg_lh">不可</td></tr>
 <tr><td class="col1">out : 出力</td><td class="bg_lg">不要</td><td class="bg_lr">必須</td><td class="bg_lr">必須</td><td class="bg_lh">不可</td></tr>
 </table>
-ref 修飾は最も汎用的で、C/C++のポインタ・参照と同様の感覚で用いることができる。<br>
-(「オプション引数」は、引数を指定しない場合にデフォルト値が充てられる引数のこと。C++の「デフォルト引数」と同義。)<br>
+
+(「オプション引数」はC++の「デフォルト引数」と同義。呼び出し時に指定の必要が無い(Optional)ことを意味する。)<br>
 
 <h3>in のサンプル</h3>
-<h4>一般形</h4>
+<h5>一般形</h5>
 <p class="code">
 <cmt>// 参照渡しメソッドの定義</cmt>
 <kwd>public void</kwd> InTest(<kwd>in int</kwd> arg1)
@@ -84,7 +113,7 @@ ref 修飾は最も汎用的で、C/C++のポインタ・参照と同様の感�
 }
 </p>
 
-<h4>オプション引数を指定した場合</h4>
+<h5>オプション引数を指定した場合</h5>
 <p class="code">
 <cmt>// 参照渡しメソッドの定義</cmt>
 <kwd>public void</kwd> InTest(<kwd>in int</kwd> arg1 = <ltr>0</ltr>)
@@ -100,7 +129,7 @@ ref 修飾は最も汎用的で、C/C++のポインタ・参照と同様の感�
 }
 </p>
 
-<h4>エラーとなる場合</h4>
+<h5>エラーとなる場合</h5>
 <p class="code">
 <cmt>// 参照渡しメソッドの定義</cmt>
 <kwd>public void</kwd> InTest(<kwd>in int</kwd> arg1)
@@ -118,7 +147,7 @@ ref 修飾は最も汎用的で、C/C++のポインタ・参照と同様の感�
 </p>
 
 <h3>ref のサンプル</h3>
-<h4>一般形</h4>
+<h5>一般形</h5>
 <p class="code">
 <cmt>// 参照渡しメソッドの定義</cmt>
 <kwd>public void</kwd> RefTest(<kwd>ref int</kwd> arg1)
@@ -139,7 +168,7 @@ ref 修飾は最も汎用的で、C/C++のポインタ・参照と同様の感�
 }
 </p>
 
-<h4>エラーとなる場合</h4>
+<h5>エラーとなる場合</h5>
 <p class="code">
 <cmt>// 参照渡しメソッドの定義</cmt>
 <kwd>public void</kwd> RefTest(<kwd>ref int</kwd> arg1)
@@ -167,7 +196,7 @@ ref 修飾は最も汎用的で、C/C++のポインタ・参照と同様の感�
 </p>
 
 <h3>out のサンプル</h3>
-<h4>一般形</h4>
+<h5>一般形</h5>
 <p class="code">
 <cmt>// 参照渡しメソッドの定義</cmt>
 <kwd>public void</kwd> OutTest(<kwd>out int</kwd> arg1)
@@ -186,7 +215,7 @@ ref 修飾は最も汎用的で、C/C++のポインタ・参照と同様の感�
 }
 </p>
 
-<h4>引数を初期化しない場合</h4>
+<h5>引数を初期化しない場合</h5>
 <p class="code">
 <cmt>// 参照渡しメソッドの定義</cmt>
 <kwd>public void</kwd> OutTest(<kwd>out</kwd> cMyClass arg1)
@@ -212,7 +241,7 @@ ref 修飾は最も汎用的で、C/C++のポインタ・参照と同様の感�
 }
 </p>
 
-<h4>エラーとなる場合</h4>
+<h5>エラーとなる場合</h5>
 <p class="code">
 <cmt>// 参照渡しメソッドの定義</cmt>
 <kwd>public void</kwd> OutTest(<kwd>out int</kwd> arg1)
@@ -224,10 +253,10 @@ ref 修飾は最も汎用的で、C/C++のポインタ・参照と同様の感�
 }
 </p>
 
-<h3>注意が必要な点 (メソッドのオーバーロード)</h3>
+<h2>注意が必要な点 (メソッドのオーバーロード)</h2>
 in / ref / out の各キーワードは、バイナリ上での差異は存在しない。<br>
-即ち、参照渡し引数の取り扱いに関するヒューマンエラー(コーディングの誤り)をコンパイラが検知してエラーを発するのみである。<br>
-このため、メソッドのオーバーロードに関して以下のような制約が発生する。<br>
+このため、メソッドのオーバーロードに関して以下のような制約が発生する。
+
 <p class="code">
 <cmt>// 参照渡しメソッド(in)の定義</cmt>
 <kwd>public void</kwd> Func(<kwd>in int</kwd> arg1)
@@ -257,3 +286,4 @@ in / ref / out の各キーワードは、バイナリ上での差異は存在�
     :
 }
 </p>
+Func(in int) が定義されているため、Func(ref int) や Func(out int) を定義しようとするとシグネチャの競合によりコンパイルエラーとなる。
