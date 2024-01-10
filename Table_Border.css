@@ -49,12 +49,12 @@ th, .row1, .col1, .row0, .col0 {
 }
 
 /* テキスト右詰め */
-.left {
+.right {
   text-align:           right;
 }
 
 /* テキスト中央揃え */
-.left {
+.center {
   text-align:           center;
 }
 

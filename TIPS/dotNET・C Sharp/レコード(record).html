@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典 -->
+<h5>出典 :</h5>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/csharp/fundamentals/types/records">C# のレコード - C# | Microsoft Learn</a><br>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/csharp/language-reference/builtin-types/record">レコード - C# リファレンス - C# | Microsoft Learn</a><br>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/csharp/programming-guide/statements-expressions-operators/how-to-define-value-equality-for-a-type">クラスまたは構造体の値の等価性を定義する方法 - C# プログラミング ガイド - C# | Microsoft Learn</a><br>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/csharp/language-reference/keywords/required">required 修飾子 - C# リファレンス - C# | Microsoft Learn</a><br>
+<a href="https://qiita.com/shimamura_io/items/80982b11ce41eca03e10">【C# 9.0 新機能】レコード（record）型はクラスと比べて何がオトクなのか #C# - Qiita</a><br>
+<a href="https://takap-tech.com/entry/2018/10/19/004932">C#のクラスと構造体の違い・使い分け方 - PG日誌</a>
+
+<!-- 関連 -->
+<h5>関連 :</h5>
+<a href="TIPS/dotNET・C Sharp/タプル(tuple).html">タプル(tuple)</a><br>
+<a href="TIPS/dotNET・C Sharp/C%23のアクセス修飾子.html">C#のアクセス修飾子</a><br>
+<a href="TIPS/dotNET・C Sharp/コンストラクタからコンストラクタを呼ぶ.html">コンストラクタからコンストラクタを呼ぶ</a>
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>レコード(record)型</h2>
+C#9.0で追加されたデータ型。「値の等価性をサポートする参照型」であり、クラスと構造体の双方の特徴を取り入れている。<br>
+Javaにおけるレコードと共通の概念。
+
+<h3>「値の等価性」とは</h3>
+オブジェクト自身の型とすべてのメンバの値が等しい場合に、2つのオブジェクトが等しいとすること。<br>
+対義語として「参照の等価性」があり、これは2つのオブジェクトが同一のオブジェクトを指す場合に等しいとすることを指す。
+
+<div class="cs">
+<cmt>// クラス( class )による実装</cmt>
+<kwd>public class</kwd> PersonClass
+{
+    <cmt>// プロパティ</cmt>
+    <kwd>public string</kwd> LastName { <kwd>get</kwd>; }
+    <kwd>public string</kwd> FirstName { <kwd>get</kwd>; }
+
+    <cmt>// コンストラクタ</cmt>
+    <kwd>public</kwd> PersonClass(<kwd>string</kwd> first, <kwd>string</kwd> last) => (FirstName, LastName) = (first, last);
+}
+
+<cmt>// 構造体( struct )による実装</cmt>
+<kwd>public struct</kwd> PersonStruct
+{
+    <cmt>// プロパティ</cmt>
+    <kwd>public string</kwd> LastName { <kwd>get</kwd>; }
+    <kwd>public string</kwd> FirstName { <kwd>get</kwd>; }
+
+    <cmt>// コンストラクタ</cmt>
+    <kwd>public</kwd> PersonStruct(<kwd>string</kwd> first, <kwd>string</kwd> last) => (FirstName, LastName) = (first, last);
+}
+
+<cmt>// レコード( record )による実装</cmt>
+<kwd>public record</kwd> PersonRecord
+{
+    <cmt>// プロパティ</cmt>
+    <kwd>public string</kwd> LastName { <kwd>get</kwd>; }
+    <kwd>public string</kwd> FirstName { <kwd>get</kwd>; }
+
+    <cmt>// コンストラクタ</cmt>
+    <kwd>public</kwd> PersonRecord(<kwd>string</kwd> first, <kwd>string</kwd> last) => (FirstName, LastName) = (first, last);
+}
+
+:
+
+{
+    <cmt>// PersonClass 型の比較</cmt>
+    <kwd>var</kwd> personClass1 = <kwd>new</kwd> PersonClass(<ltr>"Bill"</ltr>, <ltr>"Wagner"</ltr>);
+    <kwd>var</kwd> personClass2 = <kwd>new</kwd> PersonClass(<ltr>"Bill"</ltr>, <ltr>"Wagner"</ltr>);
+
+    <knw>Console</knw>.WriteLine( personClass1.Equals(personClass2) );
+
+    <cmt>// PersonStruct 型の比較</cmt>
+    <kwd>var</kwd> personStruct1 = <kwd>new</kwd> PersonStruct(<ltr>"Bill"</ltr>, <ltr>"Wagner"</ltr>);
+    <kwd>var</kwd> personStruct2 = <kwd>new</kwd> PersonStruct(<ltr>"Bill"</ltr>, <ltr>"Wagner"</ltr>);
+
+    <knw>Console</knw>.WriteLine( personStruct1.Equals(personStruct2) );
+
+    <cmt>// PersonRecord 型の比較</cmt>
+    <kwd>var</kwd> personRecord1 = <kwd>new</kwd> PersonRecord(<ltr>"Bill"</ltr>, <ltr>"Wagner"</ltr>);
+    <kwd>var</kwd> personRecord2 = <kwd>new</kwd> PersonRecord(<ltr>"Bill"</ltr>, <ltr>"Wagner"</ltr>);
+
+    <knw>Console</knw>.WriteLine( personRecord1.Equals(personRecord2) );
+}
+</div>
+
+実行結果 :
+<div class="code">
+<ltr>false</ltr>       <cmt>//&lt; PersonClass  同士の Equals()</cmt>
+<ltr>true</ltr>        <cmt>//&lt; PersonStruct 同士の Equals()</cmt>
+<ltr>true</ltr>        <cmt>//&lt; PersonRecord 同士の Equals()</cmt>
+</div>
+
+上記のコードのようにオブジェクトの比較を行った場合、クラス( class )は2つのオブジェクトが同一でなければ等しいとは見なされないが、<br>
+構造体( struct )およびレコード( record )では、オブジェクトの型とすべてのメンバの値が等しければ等しいとされる。<br>
+クラスで値の等価性を確保しようとした場合 Equals() および GetHashCode() のオーバーライドが必要であるが、レコードはそれらが自動的に実装される。<br>
+
+<h3>構造体( struct )との違い</h3>
+構造体は値型だが、レコードはクラスと同様の参照型である。<br>
+構造体と異なり、以下の特徴を持つ。これらはいずれもクラスと共通である。
+
+<ul>
+    <li>参照渡しとなる</li>
+    <li>NULLを格納できる</li>
+    <li>継承がサポートされる</li>
+</ul>
+
+<table>
+    <tr class="row1">
+        <td class="col1" width="108"></td>
+        <td width="108">クラス<br>( class )</td>
+        <td width="108">構造体<br>( struct )</td>
+        <td width="108">レコード<br>( record )</td>
+    </tr>
+
+    <tr>
+        <td class="col1">型</td>
+        <td class="center bg_lg">参照</td>
+        <td class="center bg_lr">値</td>
+        <td class="center bg_lg">参照</td>
+    </tr>
+
+    <tr>
+        <td class="col1">等価性</td>
+        <td class="center bg_lg">参照</td>
+        <td class="center bg_lr">値</td>
+        <td class="center bg_lr">値</td>
+    </tr>
+</table>
+
+<h2>レコードの存在意義</h2>
+レコードは主にデータ(メソッドではない)の格納に用いることが想定されている。<br>
+値の等価性に依存するデータモデルを定義でき、不変(イミュータブル)なオブジェクトを簡便に構築できる。<br>
+クラス同様参照型であることから、メソッドの引数に用いた場合もオーバーヘッドが小さい。
+
+<h2>プライマリコンストラクタによる初期化</h2>
+C#12以降、クラス、構造体、レコードで「<a href="https://learn.microsoft.com/ja-jp/dotnet/csharp/programming-guide/classes-and-structs/instance-constructors#primary-constructors">プライマリコンストラクタ</a>」を宣言できるようになった。<br>
+(詳細はリンク先を参照。)<br>
+レコードにプライマリコンストラクタを宣言した場合、コンストラクタ引数と同名のパブリックプロパティが生成される。<br>
+これにより、イミュータブルなレコードを簡潔に定義することができる。
+
+<div class="cs">
+<cmt>// プライマリコンストラクタを用いた Person レコードの定義</cmt>
+<cmt>// ( FirstName 、LastName は「位置パラメータ」)</cmt>
+<kwd>public record</kwd> Person(<kwd>string</kwd> FirstName, <kwd>string</kwd> LastName);
+</div>
+
+生成されるレコードはコンストラクタを除いて以下と等価である。
+
+<div class="cs">
+<cmt>// 生成されるレコード</cmt>
+<cmt>// ( FirstName 、LastName は「位置プロパティ」)</cmt>
+<kwd>public record</kwd> Person
+{
+    <kwd>public required string</kwd> FirstName { <kwd>get</kwd>; <kwd>init</kwd>; }
+    <kwd>public required string</kwd> LastName  { <kwd>get</kwd>; <kwd>init</kwd>; }
+};
+</div>
+
+<a href="https://learn.microsoft.com/ja-jp/dotnet/csharp/language-reference/keywords/required">required 修飾</a>は、そのメンバがインスタンスの生成時に必ず初期化されなければならないことを意味する。<br>
+これにより、レコード Person の各メンバは必ず値を持つことが保証され、かつ不変となる( set アクセサが定義されないため)。<br>
+プライマリコンストラクタを宣言した場合、引数はすべてのインスタンスの生成に必要であるものと見なされ、<br>
+他のコンストラクタは <a href="TIPS/dotNET・C Sharp/コンストラクタからコンストラクタを呼ぶ.html">this(...)</a> 構文を用いてプライマリコンストラクタを呼び出す必要がある。<br>
+<br>
+レコードにおけるプライマリコンストラクタの引数は「位置パラメータ」と呼ばれ、<br>
+プライマリコンストラクタを宣言すると、コンパイラにより位置パラメータと同名の「位置プロパティ」が作成される。<br>
+(但し、プライマリコンストラクタに独自の処理を記述した場合はその限りではない。)
+
+<h2>ToString()</h2>
+レコードではクラス同様、ToString() が自動的に生成される。<br>
+ToString() をオーバーライドしない場合、クラスでは型名が出力されるが、レコードでは型名、メンバ名とそれぞれの値が出力される。
+
+<div class="cs">
+{
+    <cmt>// PersonClassToString()</cmt>
+    <knw>Console</knw>.WriteLine(personClass1.ToString());
+
+    <cmt>// PersonRecord.ToString()</cmt>
+    <knw>Console</knw>.WriteLine(personRecord1.ToString());
+}
+</div>
+
+実行結果 :
+<div class="code">
+<ltr>PersonClass
+PersonRecord { LastName = Wagner, FirstName = Bill }</ltr>
+</div>
+
+
+
+
+
+
+
+
