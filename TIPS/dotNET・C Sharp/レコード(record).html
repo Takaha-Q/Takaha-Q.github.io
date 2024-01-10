@@ -163,20 +163,18 @@ C#12以降、クラス、構造体、レコードで「<a href="https://learn.mi
 
 <div class="cs">
 <cmt>// プライマリコンストラクタを用いた Person レコードの定義</cmt>
-<cmt>// ( FirstName 、LastName は「位置パラメータ」)</cmt>
 <kwd>public record</kwd> Person(<kwd>string</kwd> FirstName, <kwd>string</kwd> LastName);
 </div>
 
-生成されるレコードはコンストラクタを除いて以下と等価である。
+これは以下と等価である。
 
 <div class="cs">
-<cmt>// 生成されるレコード</cmt>
-<cmt>// ( FirstName 、LastName は「位置プロパティ」)</cmt>
-<kwd>public record</kwd> Person
+<cmt>// プライマリコンストラクタを用いた Person レコードの定義</cmt>
+<kwd>public record</kwd> Person(<kwd>string</kwd> FirstName, <kwd>string</kwd> LastName)
 {
-    <kwd>public required string</kwd> FirstName { <kwd>get</kwd>; <kwd>init</kwd>; }
-    <kwd>public required string</kwd> LastName  { <kwd>get</kwd>; <kwd>init</kwd>; }
-};
+    <kwd>public required string</kwd> FirstName { <kwd>get</kwd>; <kwd>init</kwd>; } = FirstName;
+    <kwd>public required string</kwd> LastName  { <kwd>get</kwd>; <kwd>init</kwd>; } = LastName;
+}
 </div>
 
 <a href="https://learn.microsoft.com/ja-jp/dotnet/csharp/language-reference/keywords/required">required 修飾</a>は、そのメンバがインスタンスの生成時に必ず初期化されなければならないことを意味する。<br>
@@ -187,6 +185,27 @@ C#12以降、クラス、構造体、レコードで「<a href="https://learn.mi
 レコードにおけるプライマリコンストラクタの引数は「位置パラメータ」と呼ばれ、<br>
 プライマリコンストラクタを宣言すると、コンパイラにより位置パラメータと同名の「位置プロパティ」が作成される。<br>
 (但し、プライマリコンストラクタに独自の処理を記述した場合はその限りではない。)
+<br>
+また、プロパティの一部のみを独自に定義することも可能である。
+<div class="cs">
+<kwd>public record</kwd> Person(<kwd>string</kwd> FirstName, <kwd>string</kwd> LastName, <kwd>string</kwd> Id)
+{
+    <kwd>internal string</kwd> Id { <kwd>get</kwd>; <kwd>init</kwd>; } = Id;
+}
+</div>
+ここでは、FirstName 、LastName が public プロパティとして自動生成されるが、Id は internal として定義される。
+
+<h2>with 式</h2>
+with 式を用いることで、プロパティの一部のみ値が異なる複製オブジェクトを作成できる。<br>
+with 式は、init アクセサが定義されている場合のみ使用可能。
+
+<div class="cs">
+{
+    <kwd>var</kwd> person1 = <kwd>new</kwd> Person(<ltr>"Terry"</ltr>, <ltr>"Bogard"</ltr>);        <cmt>//&lt; FirstName = "Terry" 、LastName = "Bogard" で初期化</cmt>
+
+    <kwd>var</kwd> person2 = person1 <kwd>with</kwd> { FirstName = <ltr>"Andy"</ltr> };  <cmt>//&lt; FirstName のみを "Andy" に変更</cmt>
+}
+</div>
 
 <h2>ToString()</h2>
 レコードではクラス同様、ToString() が自動的に生成される。<br>
@@ -208,10 +227,7 @@ ToString() をオーバーライドしない場合、クラスでは型名が出
 PersonRecord { LastName = Wagner, FirstName = Bill }</ltr>
 </div>
 
-
-
-
-
-
-
-
+<h2>record class と record struct</h2>
+C#10では record struct が追加された。機能は record と同様であるが、値型である点が異なる。<br>
+同様に参照型であることを明示するための record class も追加されており、これは record と同義である。<br>
+即ち、record は record class の省略形と見ることができる。詳細は<a href="https://learn.microsoft.com/ja-jp/dotnet/csharp/language-reference/builtin-types/record">リンク先</a>を参照。
