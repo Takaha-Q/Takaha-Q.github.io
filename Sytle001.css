@@ -48,9 +48,12 @@ body {
   text-decoration-line: line-through;
 }
 
+/* ---------------------------------- */
+/* 段組み                             */
+/* ---------------------------------- */
 /* 段組み (<#### class="container">) */
 .container {
-  column-count: 4;
+  column-count: 3;
 }
 
 /* ---------------------------------- */
