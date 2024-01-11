@@ -45,7 +45,7 @@ C++11で追加された、型安全な(クラス化された)列挙体のこと�
 enum は型安全ではなく、列挙値は暗黙的に整数型への変換が可能であった。<br>
 また、同一スコープに存在する二つの異なる列挙体が、同じ名前のメンバを持つことができなかった。<br>
 
-<div class="code">
+<div class="cpp">
 <cmt>// 列挙型の定義#1</cmt>
 <kwd>enum</kwd> E_Enumeration01
 {
@@ -72,7 +72,7 @@ enum は型安全ではなく、列挙値は暗黙的に整数型への変換が
 
 <h3>強い型付けの列挙型(スコープを持つ列挙型) (enum class / enum struct)</h3>
 
-<div class="code">
+<div class="cpp">
 <cmt>// 列挙型の定義#1 (enum class は enum struct に代替可能)</cmt>
 <kwd>enum class</kwd> E_Enumeration01
 {
@@ -108,7 +108,7 @@ C++11では従来の列挙型の欠点を改善すべく、「強い型付けの
 このため、配列のインデクスなど整数値として用いる際は通常、キャストが必要となる。<br>
 キャストを用いれば相互変換も可能である。
 
-<div class="code">
+<div class="cpp">
 <cmt>// 従来の列挙型</cmt>
 <kwd>enum</kwd> Idx_Weak
 {
@@ -126,7 +126,7 @@ C++11では従来の列挙型の欠点を改善すべく、「強い型付けの
 };
 
 <cmt>// C準拠の配列</cmt>
-<kwd>char</kwd> array[] = { 'a', 'b', 'c' };
+<kwd>char</kwd> array[] = { <ltr>'a'</ltr>, <ltr>'b'</ltr>, <ltr>'c'</ltr> };
 
 <kwd>void</kwd> DoSomething()
 {
@@ -140,7 +140,7 @@ C++11では従来の列挙型の欠点を改善すべく、「強い型付けの
     <kwd>char</kwd> c3 = array[static_cast&lt;<kwd>int</kwd>&gt;(Idx_Strong::VAL1)];
 
     <cmt>// int から enum class への変換 ⇒ 1 に相当する列挙子( Idx_Strong::VAL2 )が存在するためOK</cmt>
-    Idx_Strong val = static_cast&lt;Idx_Strong&gt;(1);
+    Idx_Strong val = static_cast&lt;Idx_Strong&gt;(<ltr>1</ltr>);
 }
 </div>
 
@@ -149,7 +149,7 @@ C++11では従来の列挙型の欠点を改善すべく、「強い型付けの
 各列挙子の内部値が基底型で表現されるため、列挙子が少ない場合は基底型を小さくすることでメモリ使用量を削減できる。<br>
 列挙子の値が基底型の範囲に収まらない場合はエラーとなる。<br>
 
-<div class="code">
+<div class="cpp">
 <cmt>// 基底型を unsigned char とする</cmt>
 <kwd>enum class</kwd> Color : <kwd>unsigned char</kwd>
 {
@@ -171,7 +171,7 @@ C++11では従来の列挙型の欠点を改善すべく、「強い型付けの
 <b>std::underlying_type&lt;T&gt;</b>を使用することで、列挙型の基底型を取得することができる。<br>
 &lt;type_traits&gt;のインクルードが必要。
 
-<div class="code">
+<div class="cpp">
 <kwd>#include</kwd> &lt;iostream&gt;
 <kwd>#include</kwd> &lt;type_traits&gt;        <cmt>//< underlying_type を使用するために必要</cmt>
 
@@ -190,33 +190,33 @@ C++11では従来の列挙型の欠点を改善すべく、「強い型付けの
     <cmt>// E1 、E2 の基底型が char かどうかを判定</cmt>
     <kwd>if</kwd>( <kwd>std</kwd>::is_same&lt;<kwd>std</kwd>::underlying_type&lt;E1&gt;::type, <kwd>char</kwd>&gt;::value )
     {
-        <kwd>std</kwd>::cout << "E1 の基底型は <kwd>char</kwd>" << <kwd>std</kwd>::end;
+        <kwd>std</kwd>::<kwd>cout</kwd> << <ltr>"E1 の基底型は char"</ltr> << <kwd>std</kwd>::end;
     }
     <kwd>if</kwd>( <kwd>std</kwd>::is_same&lt;<kwd>std</kwd>::underlying_type&lt;E2&gt;::type, <kwd>char</kwd>&gt;::value )
     {
-        <kwd>std</kwd>::cout << "E2 の基底型は <kwd>char</kwd>" << <kwd>std</kwd>::end;
+        <kwd>std</kwd>::<kwd>cout</kwd> << <ltr>"E2 の基底型は char"</ltr> << <kwd>std</kwd>::end;
     }
 
     <cmt>// E3 、E4 の基底型が整数型かどうかを判定</cmt>
     <kwd>if</kwd>( <kwd>std</kwd>::is_integral&lt;<kwd>std</kwd>::underlying_type&lt;E3&gt;::type&gt;::value )
     {
-        <kwd>std</kwd>::cout << "E3 の基底型は整数型" << <kwd>std</kwd>::end;
+        <kwd>std</kwd>::<kwd>cout</kwd> << <ltr>"E3 の基底型は整数型"</ltr> << <kwd>std</kwd>::end;
     }
     <kwd>if</kwd>( <kwd>std</kwd>::is_integral&lt;<kwd>std</kwd>::underlying_type&lt;E4&gt;::type&gt;::value )
     {
-        <kwd>std</kwd>::cout << "E4 の基底型は整数型" << <kwd>std</kwd>::end;
+        <kwd>std</kwd>::<kwd>cout</kwd> << <ltr>"E4 の基底型は整数型"</ltr> << <kwd>std</kwd>::end;
     }
 }
 </div>
 
-列挙型 T に対し、<span class="code">std::underlying_type&lt;T&gt;::type</span>で基底型を取得できる。
+列挙型 T に対し、<span class="cpp">std::underlying_type&lt;T&gt;::type</span>で基底型を取得できる。
 
 <h2>応用 : 列挙子を範囲ベースforで走査</h2>
 
 列挙型にイテレータを追加することで、イテレーションを行えるようになる。<br>
 <a href="TIPS/C%E3%83%BBC%2B%2B/[C%2B%2B／STL／コンテナ]イテレータ.html">イテレータ</a>および<a href="TIPS/C%E3%83%BBC%2B%2B/範囲ベースfor.html">範囲ベースfor</a>に関してはリンク先を参照。
 
-<div class="code">
+<div class="cpp">
 <kwd>#include</kwd> &lt;type_traits&gt;
 
 <cmt>// 列挙型定義</cmt>
@@ -230,7 +230,7 @@ C++11では従来の列挙型の欠点を改善すべく、「強い型付けの
 <cmt>// イテレータの定義</cmt>
 <kwd>inline</kwd> Color <kwd>operator</kwd>++(Color& x) 
 { 
-    <kwd>return</kwd> x = (Color)(<kwd>std</kwd>::underlying_type<Color>::type(x) + 1); 
+    <kwd>return</kwd> static_cast&lt;Color&gt;(<kwd>std</kwd>::underlying_type&lt;Color&gt;::type(x) + <ltr>1</ltr>); 
 }
 <kwd>inline</kwd> Color <kwd>operator</kwd>*(Color c) 
 {
@@ -238,13 +238,12 @@ C++11では従来の列挙型の欠点を改善すべく、「強い型付けの
 }
 <kwd>inline</kwd> Color begin(Color r) 
 { 
-    <kwd>return</kwd> static_cast<Color>(0); 
+    <kwd>return</kwd> static_cast&lt;Color&gt;(<ltr>0</ltr>); 
 }
 <kwd>inline</kwd> Color end(Color r)
 {
     <cmt>// LAST (有効な末尾要素の次)を返す</cmt>
-    Color l = Color::LAST;
-    <kwd>return</kwd> l; 
+    <kwd>return</kwd> Color::LAST;
 }
 
 <kwd>int</kwd> main()
@@ -267,12 +266,3 @@ C++11では従来の列挙型の欠点を改善すべく、「強い型付けの
 <h2>余談</h2>
 列挙型を定義する際、末尾要素の後ろにカンマが存在してもエラーとはならない。<br>
 このため、すべての列挙子で同様の書式をとることができる。
-
-
-
-
-
-
-
-
-
