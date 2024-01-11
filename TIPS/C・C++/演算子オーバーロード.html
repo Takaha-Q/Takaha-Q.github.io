@@ -157,9 +157,13 @@ x および 10 は演算の対象となる「オペランド」である。<br>
     (略)
 
     <cmt>// + 演算子をオーバーロード</cmt>
+    <cmt>//</cmt>
     <cmt>//                    引数を const 修飾</cmt>
-    <cmt>//                    │                  関数を const 修飾</cmt>
-    <cmt>//                    ↓                  ↓</cmt>
+    <cmt>//                    │</cmt>
+    <cmt>//                    │            参照仮引数</cmt>
+    <cmt>//                    │            │</cmt>
+    <cmt>//                    │            │    関数を const 修飾</cmt>
+    <cmt>//                    ↓            ↓    ↓</cmt>
     TestClass <kwd>operator</kwd> +(<kwd>const</kwd> TestClass& r) <kwd>const</kwd>
     {
         TestClass tc;
@@ -522,6 +526,11 @@ TestClass tc1(10);
         num = n;
     }
 
+    TestClass(<kwd>const</kwd> TestClass& n)
+    {
+        num = n.get();
+    }
+
     <kwd>int get</kwd>() <kwd>const</kwd> { <kwd>return</kwd> num; }
 
     <cmt>// 加算代入演算子</cmt>
@@ -563,11 +572,3 @@ TestClass tc1(10);
 <br>
 上記の実装は加算演算子を定義するのに加算代入演算子を用いるという手順を踏んでおり、些か煩雑である。<br>
 フレンド関数を用いることで簡潔にするというアプローチも存在するが、ここでは詳細は割愛する。
-
-
-
-
-
-
-
-
