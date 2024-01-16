@@ -1,18 +1,25 @@
 <!DOCTYPE html>
+
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
+
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
+
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
+
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
+
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
+
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-<!-- 出典・関連ページ -->
+
+<!-- 出典ページ -->
 <h5>出典 :</h5>
 <a href="https://learn.microsoft.com/ja-jp/dotnet/csharp/language-reference/builtin-types/enum">列挙型 - C# リファレンス | Microsoft Learn</a><br>
 <a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.flagsattribute?view=net-6.0">FlagsAttribute クラス (System) | Microsoft Learn</a><br>
@@ -20,13 +27,18 @@
 <a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.enum.getname?source=recommendations&view=net-6.0">Enum.GetName メソッド (System) | Microsoft Learn</a><br>
 <a href="https://www.sejuku.net/blog/50547">【C#入門】enum(列挙型)の使い方総まとめ(文字列/int/foreach) | 侍エンジニアブログ</a><br>
 <a href="https://www.sejuku.net/blog/50504">【C#入門】enumの値と名前をforeachで列挙する(GetValues/GetNames) | 侍エンジニアブログ</a><br>
+<a href="https://www.sejuku.net/blog/42539">【C#入門】enumの値を文字列に変換する方法(属性の定義も解説) | 侍エンジニアブログ</a><br>
 <a href="https://qiita.com/stc1988/items/e6f76503ddf06fcf20b8">C#のenumでビット演算をする - Qiita</a><br>
+
+<!-- 関連ページ -->
 <h5>関連 :</h5>
 <a href="TIPS/dotNET・C Sharp/文字列リテラル.html">文字列リテラル</a>
+
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
 <hr>
+
 <!-- 本文ここから -->
 
 <h2>列挙型をビットフィールド(フラグセット)として用いる</h2>
@@ -261,7 +273,8 @@ value で指定された値が複数のメンバに該当する(複数のメン�
 </div>
 
 <h4>Enum.GetName() との差異</h4>
-Enum.GetName() は引数で指定された値が列挙型に含まれない場合に null を返す可能性があるが、ToString() は null を返さない。null を考慮する必要が無いため、ToString() はより簡便に用いることができる。<br>
+Enum.GetName() は引数で指定された値が列挙型に含まれない場合に null を返すが、ToString() は String.Empty を返す。<br>
+null を考慮する必要が無いため、ToString() はより簡便に用いることができる。<br>
     
 <h2>値または要素名(ラベル)の集合の取得 : GetValues() / GetNames()</h2>
 Enum の静的メソッド GetValues() 、GetNames() を用いることで、引数に指定した列挙型のすべての値、またはすべてのラベルを集合として取得することができる。<br>
