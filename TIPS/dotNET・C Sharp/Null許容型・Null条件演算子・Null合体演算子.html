@@ -1,30 +1,37 @@
 <!DOCTYPE html>
+
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
+
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
+
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
+
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
+
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
+
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-<!-- 出典・関連ページ -->
+
+<!-- 出典 -->
 <h5>出典 :</h5>
-<a href="https://www.wareko.jp/blog/nullable-type-null-condition-operator-null-coalescing-operator-three-nulls-brothers">
-【ワレコC#】int?はNull許容型･ナンチャラ?.はNull条件演算子･??はNull合体演算子【ヌル三兄弟】</a><br>
-<a href="https://www.ipentec.com/document/csharp-null-conditional-operators">
-変数名の後ろに"?" がある - Null条件演算子の利用 - iPentec</a><br>
-<a href="https://johobase.com/csharp-null-operator/">
-null合体演算子とnull条件演算子でショートコードプログラミング [C#] | JOHOBASE</a><br>
-    
+<a href="https://www.wareko.jp/blog/nullable-type-null-condition-operator-null-coalescing-operator-three-nulls-brothers">【ワレコC#】int?はNull許容型･ナンチャラ?.はNull条件演算子･??はNull合体演算子【ヌル三兄弟】</a><br>
+<a href="https://www.ipentec.com/document/csharp-null-conditional-operators">変数名の後ろに"?" がある - Null条件演算子の利用 - iPentec</a><br>
+<a href="https://johobase.com/csharp-null-operator/">null合体演算子とnull条件演算子でショートコードプログラミング [C#] | JOHOBASE</a><br>
+
+<!-- 関連 -->
+
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
 <hr>
+
 <!-- 本文ここから -->
 
 <h2>Null許容型</h2>
@@ -87,7 +94,7 @@ value = <kwd>null</kwd>;
     </tr>
 </table>
 
-<h2>Null合体演算子</h2>
+<h2>Null合体演算子(Null結合演算子)</h2>
 <b class="red">?? (Null合体演算子)</b> の左辺値がnullでなければ左辺値をそのまま、nullの場合は右辺値を返すようにできる。
 <p class="code">
 <knw>List</knw>&lt;<kwd>string</kwd>&gt; arr = <kwd>null</kwd>;
@@ -101,6 +108,17 @@ value = <kwd>null</kwd>;
 <cmt>// 以下のコードと等価</cmt>
 <kwd>int</kwd> len = (arr?.Count != <kwd>null</kwd>) ? arr.Count : <ltr>0</ltr>;
 </p>
+
+複数連結することもでき、その場合はnullでない最初の値を返す。
+<div class="cs">
+<kwd>object</kwd> ob1 = <kwd>null</kwd>;
+<kwd>object</kwd> ob2 = <kwd>null</kwd>;
+<kwd>object</kwd> ob3 = <kwd>new object</kwd>();
+<kwd>object</kwd> ob4 = <kwd>new object</kwd>();
+
+<cmt>// ob3 を返す</cmt>
+<kwd>return</kwd> ob1 <b class="red">??</b> ob2 <b class="red">??</b> ob3 <b class="red">??</b> ob4;
+</div>
 
 また、複合代入演算子として <b class="red">??=</b> を使用可能。<br>
 右辺値がnullでなければ右辺値をそのまま代入、nullの場合は何もしない。

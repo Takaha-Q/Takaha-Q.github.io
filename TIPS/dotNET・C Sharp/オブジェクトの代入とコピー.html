@@ -1,29 +1,40 @@
 <!DOCTYPE html>
+
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
+
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
+
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
+
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
+
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
+
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-<!-- 出典・関連ページ -->
+
+<!-- 出典ページ -->
 <h5>出典 :</h5>
 <a href="https://programming.pc-note.net/csharp/copy.html">シャローコピーとディープコピー(C#) - 超初心者向けプログラミング入門</a><br>
 <a href="https://cyzennt.co.jp/blog/2020/05/01/c%EF%BC%9A%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E4%B8%AD%E8%BA%AB%E3%82%92%E3%82%B3%E3%83%94%E3%83%BC%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95%EF%BC%88memberwiseclone%E3%83%A1/">C#：オブジェクトの中身をコピーする方法（MemberwiseCloneメソッド実装） – サイゼントの技術ブログ</a><br>
 <a href="https://www.atmarkit.co.jp/ait/articles/1705/24/news040.html">オブジェクトや配列などの複製を作るには？（ディープコピー編）［C#／VB］：.NET TIPS - ＠IT</a><br>
 <a href="https://www.atmarkit.co.jp/ait/articles/1705/17/news017.html">配列の複製を作るには？（シャローコピー編）［C#／VB］：.NET TIPS - ＠IT</a><br>
+
+<!-- 関連ページ -->
 <h5>関連 :</h5>
 <a href="TIPS/dotNET・C Sharp/参照渡し.html">参照渡し</a><br>
+
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
 <hr>
+
 <!-- 本文ここから -->
 
 <h2>C#におけるオブジェクトの代入</h2>
@@ -31,7 +42,7 @@ C#のクラスは参照型であり、クラスオブジェクトの「代入」
 このため、<b>代入後に一方のメンバを書き換えた場合、他方にも影響が及ぶ</b>。<br>
 これはメソッド(関数)の引数としてクラスオブジェクトを渡した場合も同様である。<br>
 構造体(struct)や、組み込み型(intなど)は値型であり、上記には当てはまらない。<br>
-文字列(string)は厳密には参照型であるが、例外的に値型と同様に扱われる。
+文字列(string = System.String)は参照型であるが、代入演算子がオーバーロードされているため値型と同様に扱われる。
 
 <p class="code">
 <cmt>// クラス cMyClass 定義</cmt>
