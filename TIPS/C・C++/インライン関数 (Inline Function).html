@@ -1,20 +1,28 @@
 <!DOCTYPE html>
+
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
+
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
+
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
+
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
+
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
+
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
+
 <!-- 出典・関連ページ -->
 <h5>関連 :</h5>
-<a href="TIPS/C%E3%83%BBC%2B%2B/[C]C99.html">[C]C99</a><br>
+<a href="TIPS/C%E3%83%BBC%2B%2B/C99.html">C99</a><br>
+
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
@@ -22,8 +30,7 @@
 <!-- 本文ここから -->
 
 <h2>インライン関数とは</h2>
-関数の処理内容を呼び出し箇所に展開する機構。Cにおける関数型マクロと類似する。<br>
-本来はC++の機能であるが、C99に逆移植された。<br>
+関数の処理内容を呼び出し箇所に展開する機構。C++の機能であったが、C99に逆移植された。<br>
 
 <h2>インライン関数の特徴</h2>
 インライン関数は通常の関数呼び出しと異なり <b>オーバーヘッドが発生しないので、通常の関数よりもはるかに高速に実行できる</b> 。<br>
