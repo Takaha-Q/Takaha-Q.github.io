@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典・関連ページ -->
+<h5>出典 :</h5>
+<a href="https://exceljoshi.cocoo.co.jp/media/excel-spill">スピルとは？Excel（エクセル）の常識が変わる革新的な機能！</a>
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>数式のスピル(spill)</h2>
+数式を入力したセルだけでなく、隣接するセルにも結果を表示する機能。<br>
+Excel2011以降、またはOffice365で使用可能。
+
+<h3>スピルの基本</h3>
+
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MS Excel/spill/01.png" alt="画像"><br>
+セル範囲【B2:B5】に値が入力されている。セル【C2】に「=B2:B5」と入力すると、セル範囲【C2:C5】全てに結果が表示される。<br>
+このように数式を入力したセルだけでなく、後続のセルにも結果がこぼれ落ちる機能がスピルである。<br>
+スピルを用いたい場合は以下のようにする。
+<ul>
+    <li>セル範囲を計算対象(項)とする</li>
+    <li>スピルの起点(範囲の左上端)に数式を入力する</li>
+</ul>
+
+<h2>ゴースト</h2>
+
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MS Excel/spill/02.png" alt="画像"><br>
+セル【C2】に入力した数式の結果がこぼれた先のセル【C3】にカーソルを合わせると、数式バーには【C2】に入力した数式がそのまま表示されている。<br>
+このようなスピル先に表示される数式を「ゴースト」と呼ぶ。ゴーストは単体で編集(および削除)ができず、編集する際はスピル元(この場合はセル【C2】)を操作する必要がある。
+
+<h2>スピル失敗</h2>
+
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MS Excel/spill/03.png" alt="画像"><br>
+数式を入力した際に、スピル先に値や別の数式が存在するとスピルできずエラーとなる。<br>
+この場合は、セル【C4】に値が存在する状態でセル【C2】に結果がスピルする数式を入力したため、スピルに失敗し「#スピル!」と表示されている。
+
+<h2>スピル範囲演算子(#)</h2>
+
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MS Excel/spill/04.png" alt="画像"><br>
+スピルされた範囲全体を参照したい場合は、スピルの起点(左上端)セルの末尾に <b>#</b> を付与する。<br>
+この場合セル【C2】がスピルの起点であり、セル【C5】までスピルが行われているが、<br>
+「C2#」とすることで【C2】を起点とするスピル範囲全体を参照することができる。<br>
+(即ち、「SUM(C2#)」は「SUM(C2:C5)」と等しくなる。)
+
+<h2>応用 : 九九の表</h2>
+
+掛け算の九九の表を作成する場合を考える。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MS Excel/spill/05.png" alt="画像">
+
+<h3>スピルを使用しない場合</h3>
+
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MS Excel/spill/06.png" alt="画像"><br>
+相対参照と絶対参照を組み合わせた数式を左上端に記述し、範囲全体にコピー&ペーストという手順を経る。
+
+<h3>スピルを使用する場合</h3>
+
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MS Excel/spill/07.png" alt="画像"><br>
+左上端にスピル数式を記述するのみで完結する。
+
+<h2>スピルを用いる利点</h2>
+スピルを用いることで、相対参照や絶対参照を考慮することなく簡単に範囲計算を行うことが可能となる。<br>
+また、数式のコピーやペーストも不要である。<br>
+さらにスピル範囲演算子を用いることでスピル範囲を抽象化できるため、メンテナンスの負担も軽減される。
