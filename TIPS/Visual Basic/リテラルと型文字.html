@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<h5>出典 :</h5>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/visual-basic/programming-guide/language-features/data-types/type-characters">型文字 - Visual Basic | Microsoft Learn</a>
+
+<!-- 関連ページ -->
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>識別子の型文字</h2>
+変数、または定数の宣言時にデータ型を指定するために「型文字」を使用できる。<br>
+型文字は識別子の直後に付与するが、型文字自体は識別子(変数名、定数名)には含まれない。<br>
+例えば、宣言文 Dim L% には型文字 <b>%</b> が付与されているが、変数名は L である。これは型を明示的に指定した
+<div class="vba">
+<kwd>Dim</kwd> L <kwd>As Integer</kwd>
+</div>
+と等価である。<br>
+<br>
+以下に使用できる型文字の一覧を示す。下表に含まれない型( Boolean など)には識別子の型文字が存在しない。
+
+<table>
+    <tr class="row1">
+        <td class="col1">型</td>
+        <td>識別子の型文字</td>
+        <td>記述例</td>
+    </tr>
+
+    <tr>
+        <td class="col1">Integer</td>
+        <td class="center b red">%</td>
+        <td>Dim L<b class="red">%</b></td>
+    </tr>
+
+    <tr>
+        <td class="col1">Long</td>
+        <td class="center b blue">&</td>
+        <td>Dim M<b class="blue">&</b></td>
+    </tr>
+
+    <tr>
+        <td class="col1">Decimal</td>
+        <td class="center b red">@</td>
+        <td>Const W<b class="red">@</b> = 37.5</td>
+    </tr>
+
+    <tr>
+        <td class="col1">Single</td>
+        <td class="center b blue">!</td>
+        <td>Dim Q<b class="blue">!</b></td>
+    </tr>
+
+    <tr>
+        <td class="col1">Double</td>
+        <td class="center b red">#</td>
+        <td>Dim X<b class="red">#</b></td>
+    </tr>
+
+    <tr>
+        <td class="col1">String</td>
+        <td class="center b blue">$</td>
+        <td>Dim V<b class="blue">$</b> = "Secret"</td>
+    </tr>
+</table>
+
+<h2>リテラルの型文字</h2>
+リテラルの末尾に付与することで、型を強制的に固定できる。
+
+<table>
+    <tr class="row1">
+        <td class="col1">型</td>
+        <td>リテラルの型文字</td>
+        <td>記述例</td>
+    </tr>
+
+    <tr>
+    	<td class="col1">Short</td>
+    	<td class="center b blue">S</td>
+    	<td>I = 347<b class="blue">S</b></td>
+    </tr>
+    <tr>
+    	<td class="col1">Integer</td>
+    	<td class="center b red">I<br>%</td>
+    	<td>J = 347<b class="red">I</b><br>J = 347<b class="red">%</b></td>
+    </tr>
+    <tr>
+    	<td class="col1">Long</td>
+    	<td class="center b blue">L<br>&</td>
+    	<td>K = 347<b class="blue">L</b><br>K = 347<b class="blue">&</b></td>
+    </tr>
+    <tr>
+    	<td class="col1">Decimal</td>
+    	<td class="center b red">D<br>@</td>
+    	<td>X = 347<b class="red">D</b><br>X = 347<b class="red">@</b></td>
+    </tr>
+    <tr>
+    	<td class="col1">Single</td>
+    	<td class="center b blue">F<br>!</td>
+    	<td>Y = 347<b class="blue">F</b><br>Y = 347<b class="blue">!</b></td>
+    </tr>
+    <tr>
+    	<td class="col1">Double</td>
+    	<td class="center b red">R<br>#</td>
+    	<td>Z = 347<b class="red">R</b><br>Z = 347<b class="red">#</b></td>
+    </tr>
+    <tr>
+    	<td class="col1">UShort</td>
+    	<td class="center b blue">US</td>
+    	<td>L = 347<b class="blue">US</b></td>
+    </tr>
+    <tr>
+    	<td class="col1">UInteger</td>
+    	<td class="center b red">UI</td>
+    	<td>M = 347<b class="red">UI</b></td>
+    </tr>
+    <tr>
+    	<td class="col1">ULong</td>
+    	<td class="center b blue">UL</td>
+    	<td>N = 347<b class="blue">UL</b></td>
+    </tr>
+    <tr>
+    	<td class="col1">Char</td>
+    	<td class="center b red">C</td>
+    	<td>Q = "."<b class="red">C</b></td>
+    </tr>
+</table>
+
+<h2>既定のリテラル型</h2>
+型を明示しない場合、リテラルの値によってデータ型が決まる。
+<table>
+    <tr class="row1">
+        <td class="col1">形式</td>
+        <td>既定の型</td>
+        <td>例</td>
+    </tr>
+
+    <tr>
+    <td class="col1">整数( Integer に格納可能)</td>
+    <td class="center">Integer</td>
+    <td>2147483647</td>
+    </tr>
+
+    <tr>
+    <td class="col1">整数( Integer の範囲外)</td>
+    <td class="center">Long</td>
+    <td>2147483648</td>
+    </tr>
+
+    <tr>
+    <td class="col1">小数部のある数値</td>
+    <td class="center">Double</td>
+    <td>1.2</td>
+    </tr>
+
+    <tr>
+    <td class="col1">二重引用符で囲まれている</td>
+    <td class="center">String</td>
+    <td><b class="red">"</b>A<b class="red">"</b></td>
+    </tr>
+
+    <tr>
+    <td class="col1">ナンバーサインで囲まれている</td>
+    <td class="center">Date</td>
+    <td><b class="blue">#</b>5/17/1993 9:32 AM<b class="blue">#</b></td>
+    </tr>
+</table>
