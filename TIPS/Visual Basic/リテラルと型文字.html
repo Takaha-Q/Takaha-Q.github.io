@@ -188,3 +188,55 @@
     <td><b class="blue">#</b>5/17/1993 9:32 AM<b class="blue">#</b></td>
     </tr>
 </table>
+
+<h2>16真数、2進数、8進数のリテラル</h2>
+通常、整数リテラルは10進数として解釈されるが、プレフィックスを付与することで基数を変更して表現できる。<br>
+「リテラルの型文字」を併用できる。
+
+<table>
+    <tr class="row1">
+        <td class="col1">基数</td>
+        <td>プレフィックス</td>
+        <td>記述例</td>
+    </tr>
+
+    <tr>
+        <td class="col1">16進数</td>
+        <td class="center b blue">&H</td>
+        <td><b class="blue">&H</b>FFFF</td>
+    </tr>
+
+    <tr>
+        <td class="col1">2進数</td>
+        <td class="center b red">&B</td>
+        <td><b class="red">&B</b>01111100</td>
+    </tr>
+
+    <tr>
+        <td class="col1">8進数</td>
+        <td class="center b blue">&O</td>
+        <td><b class="blue">&O</b>077</td>
+    </tr>
+</table>
+
+<h3>アンダースコアによる補助表現</h3>
+Visual Basic 2017以降では、グループ区切り記号としてアンダースコア( _ )を使用して桁数を判別しやすくできる。
+
+<h5>例</h5>
+<div class="vba">
+<cmt>' 2進数を8ビットずつのグループに区切る</cmt>
+<kwd>Dim</kwd> number <kwd>As Integer</kwd> = &B00100010_11000101_11001111_11001101
+</div>
+
+またVisual Basic 15.5以降では、プレフィックスと数値との間にアンダースコアを使用できる。<br>
+但し、この場合はプロジェクトファイル(VBPROJ)に以下の記述を追加する必要がある。
+<div class="xaml">
+&lt;PropertyGroup&gt;
+  &lt;LangVersion&gt;<ltr>15.5</ltr>&lt;/LangVersion&gt;
+&lt;/PropertyGroup&gt;
+</div>
+
+<h5>例</h5>
+<div class="vba">
+<kwd>Dim</kwd> number <kwd>As Integer</kwd> = &H_C305_F860
+</div>
