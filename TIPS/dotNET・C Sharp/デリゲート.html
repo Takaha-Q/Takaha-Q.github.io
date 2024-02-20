@@ -60,7 +60,7 @@
     <cmt>// デリゲート変数に代入されるメソッド A</cmt>
     <kwd>static void</kwd> A(<kwd>int</kwd> n)
     {
-        <knw>Console</knw>.WriteLine("A({n}) が呼ばれました。");
+        <knw>Console</knw>.WriteLine($"A({n}) が呼ばれました。");
     }
 }
 </p>
@@ -83,7 +83,7 @@ C++の関数ポインタと異なり、デリゲートにはクラスメソッ�
     <kwd>public</kwd> Person(<kwd>string</kwd> name){<kwd>this</kwd>.name = name;}
     <kwd>public void</kwd> ShowName()
     {
-        <knw>Console</knw>.WriteLine("名前: {name}");
+        <knw>Console</knw>.WriteLine($"名前: {name}");
     }
 };
 
