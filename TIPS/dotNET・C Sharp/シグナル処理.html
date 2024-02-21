@@ -20,11 +20,11 @@
 <a href="https://qiita.com/laughter/items/1e64ab8712e410a8f047">[.NET] Monitor.Wait/PulseよりもManualResetEventSlimを使う - Qiita</a><br>
 <h5>関連 :</h5>
 <a href="TIPS/ソフトウェア開発一般/[並列処理]タスク(スレッド)間通信.html">[並列処理]タスク(スレッド)間通信</a><br>
-<a href="TIPS/ソフトウェア開発一般/イベント駆動型プログラミング.html">イベント駆動型プログラミング</a><br>
 <a href="TIPS/ソフトウェア開発一般/[並列処理]セマフォとミューテックス.html">[並列処理]セマフォとミューテックス</a><br>
+<a href="TIPS/ソフトウェア開発一般/イベント駆動型プログラミング.html">イベント駆動型プログラミング</a><br>
 <a href="TIPS/ソフトウェア開発一般/有限状態機械(FSM).html">有限状態機械(FSM)</a><br>
-<a href="TIPS/dotNET・C Sharp/イベント処理.html">イベント処理</a><br>
-<a href="TIPS/dotNET・C Sharp/[コレクション]コレクション.html">コレクション</a><br>
+<a href="TIPS/dotNET・C Sharp/デリゲートとイベント.html">[.NET]デリゲートとイベント</a>
+
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
@@ -32,11 +32,11 @@
 
 <!-- 本文ここから -->
 
-<h2>C#におけるシグナル処理</h2>
+<h2>シグナル処理</h2>
 シグナル処理の概念に関しては<a href="TIPS/ソフトウェア開発一般/[並列処理]タスク(スレッド)間通信.html">ここ</a>を参照のこと。<br>
 あるタスクが別タスクからのシグナル(イベントフラグ)を待機し、シグナルを契機として処理を再開するような処理の場合、<br>
 シグナル(イベント)の待機には<b>「イベント待機ハンドラ」</b>を用いる。<br>
-(イベント待機ハンドラはセマフォやミューテックスと同様、「同期オブジェクト(シンクロナイザー)」に含まれる。「<a href="TIPS/dotNET・C Sharp/イベント処理.html">イベントハンドラ</a>」との混同に注意。)<br>
+(イベント待機ハンドラはセマフォやミューテックスと同様、「同期オブジェクト(シンクロナイザー)」に含まれる。「<a href="TIPS/dotNET・C Sharp/デリゲートとイベント.html">イベントハンドラ</a>」との混同に注意。)<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Software%20Development/InterTask_Communication/development-inter-task-communication_03.png"><br>
 
 <h2>実装例</h2>
