@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典・関連ページ -->
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>Windows10の環境変数</h2>
+
+<table>
+<tr class="row1">
+<th>環境変数</th>
+<th>説明</th>
+<th>環境変数が示す場所又は値の例</th>
+</tr>
+<tr>
+<td><kbd>%ALLUSERSPROFILE%</kbd></td>
+<td>All Usersのプロファイルフォルダ</td>
+<td>C:\ProgramData</td>
+</tr>
+<tr>
+<td><kbd>%APPDATA%</kbd></td>
+<td>アプリケーションデータ</td>
+<td>C:\Users\【ユーザ名】\AppData\Roaming</td>
+</tr>
+<tr>
+<td><kbd>%CommonProgramFiles%</kbd></td>
+<td>プログラム用共通フォルダ</td>
+<td>C:\Program Files\Common Files</td>
+</tr>
+<tr>
+<td><kbd>%CommonProgramFiles(x86)%</kbd></td>
+<td>プログラム用共通フォルダ(x86)</td>
+<td>C:\Program Files (x86)\Common Files</td>
+</tr>
+<tr>
+<td><kbd>%CommonProgramW6432%</kbd></td>
+<td>プログラム用共通フォルダ(WOW64)</td>
+<td>C:\Program Files\Common Files</td>
+</tr>
+<tr>
+<td><kbd>%COMPUTERNAME%</kbd></td>
+<td>コンピュータ名</td>
+<td>【コンピュータ名】</td>
+</tr>
+<tr>
+<td><kbd>%ComSpec%</kbd></td>
+<td>cmd.exeのパス</td>
+<td>C:\WINDOWS\system32\cmd.exe</td>
+</tr>
+<tr>
+<td><kbd>%DriverData%</kbd></td>
+<td>ドライバーデータフォルダ</td>
+<td>C:\Windows\System32\Drivers\DriverData</td>
+</tr>
+<tr>
+<td><kbd>%HOMEDRIVE%</kbd></td>
+<td>ホームドライブ</td>
+<td>C:</td>
+</tr>
+<tr>
+<td><kbd>%HOMEPATH%</kbd></td>
+<td>ホームパス</td>
+<td>\Users\【ユーザ名】</td>
+</tr>
+<tr>
+<td><kbd>%LOCALAPPDATA%</kbd></td>
+<td>ローカルのアプリケーションデータ</td>
+<td>C:\Users\【ユーザ名】\AppData\Local</td>
+</tr>
+<tr>
+<td><kbd>%LOGONSERVER%</kbd></td>
+<td>ログオン先のサーバー名</td>
+<td>\\【コンピュータ名】</td>
+</tr>
+<tr>
+<td><kbd>%NUMBER_OF_PROCESSORS%</kbd></td>
+<td>CPUの論理コア数</td>
+<td>8</td>
+</tr>
+<tr>
+<td><kbd>%OneDrive%</kbd></td>
+<td>OneDriveフォルダ</td>
+<td>C:\Users\【ユーザ名】\OneDrive – 【OneDriveユーザ名】</td>
+</tr>
+<tr>
+<td><kbd>%OS%</kbd></td>
+<td>OS名</td>
+<td>Windows_NT</td>
+</tr>
+<tr>
+<td><kbd>%Path%</kbd></td>
+<td>パスの一覧</td>
+<td>C:\WINDOWS\system32;C:\WINDOWS;（※以下省略）</td>
+</tr>
+<tr>
+<td><kbd>%PATHEXT%</kbd></td>
+<td>拡張子無しで実行可能なファイル</td>
+<td>.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC</td>
+</tr>
+<tr>
+<td><kbd>%PROCESSOR_ARCHITECTURE%</kbd></td>
+<td>アーキテクチャ</td>
+<td>x86</td>
+</tr>
+<tr>
+<td><kbd>%PROCESSOR_ARCHITEW6432%</kbd></td>
+<td>アーキテクチャ</td>
+<td>AMD64</td>
+</tr>
+<tr>
+<td><kbd>%PROCESSOR_IDENTIFIER%</kbd></td>
+<td>CPUの詳細</td>
+<td>Intel64 Family 6 Model 30 Stepping 5, GenuineIntel</td>
+</tr>
+<tr>
+<td><kbd>%PROCESSOR_LEVEL%</kbd></td>
+<td>CPUのFamily 値</td>
+<td>6</td>
+</tr>
+<tr>
+<td><kbd>%PROCESSOR_REVISION%</kbd></td>
+<td>CPUのリビジョン</td>
+<td>1e05</td>
+</tr>
+<tr>
+<td><kbd>%ProgramData%</kbd></td>
+<td>プログラム用データフォルダ</td>
+<td>C:\ProgramData</td>
+</tr>
+<tr>
+<td><kbd>%ProgramFiles%</kbd></td>
+<td>プログラム用フォルダ</td>
+<td>C:\Program Files</td>
+</tr>
+<tr>
+<td><kbd>%ProgramFiles(x86)%</kbd></td>
+<td>プログラム用フォルダ(x86)</td>
+<td>C:\Program Files (x86)</td>
+</tr>
+<tr>
+<td><kbd>%ProgramW6432%</kbd></td>
+<td>プログラム用フォルダ(WOW64)</td>
+<td>C:\Program Files</td>
+</tr>
+<tr>
+<td><kbd>%PROMPT%</kbd></td>
+<td>コマンドプロンプトの出力タイプ</td>
+<td>$P$G</td>
+</tr>
+<tr>
+<td><kbd>%PSModulePath%</kbd></td>
+<td>PowerShellモジュールのパス</td>
+<td>C:\Program Files\WindowsPowerShell\Modules;（※以下省略）</td>
+</tr>
+<tr>
+<td><kbd>%PUBLIC%</kbd></td>
+<td>Publicフォルダ</td>
+<td>C:\Users\Public</td>
+</tr>
+<tr>
+<td><kbd>%SESSIONNAME%</kbd></td>
+<td>セッション名</td>
+<td>Console</td>
+</tr>
+<tr>
+<td><kbd>%SystemDrive%</kbd></td>
+<td>システムドライブ</td>
+<td>C:</td>
+</tr>
+<tr>
+<td><kbd>%SystemRoot%</kbd></td>
+<td>システムルート</td>
+<td>C:\WINDOWS</td>
+</tr>
+<tr>
+<td><kbd>%TEMP%</kbd></td>
+<td>TMPフォルダ</td>
+<td>C:\Users\【ユーザ省略名】~1\AppData\Local\Temp</td>
+</tr>
+<tr>
+<td><kbd>%TMP%</kbd></td>
+<td>TMPフォルダ</td>
+<td>C:\Users\【ユーザ省略名】~1\AppData\Local\Temp</td>
+</tr>
+<tr>
+<td><kbd>%USERDOMAIN%</kbd></td>
+<td>ログオンしているドメイン名</td>
+<td>【ドメイン名】</td>
+</tr>
+<tr>
+<td><kbd>%USERDOMAIN_ROAMINGPROFILE%</kbd></td>
+<td>ログオンしているドメイン名</td>
+<td>【ドメイン名】</td>
+</tr>
+<tr>
+<td><kbd>%USERNAME%</kbd></td>
+<td>ユーザ名</td>
+<td>【ユーザ名】</td>
+</tr>
+<tr>
+<td><kbd>%USERPROFILE%</kbd></td>
+<td>ユーザープロファイルフォルダ</td>
+<td>C:\Users\【ユーザ名】</td>
+</tr>
+<tr>
+<td><kbd>%windir%</kbd></td>
+<td>Windowsフォルダ</td>
+<td>C:\WINDOWS</td>
+</tr>
+</table>
