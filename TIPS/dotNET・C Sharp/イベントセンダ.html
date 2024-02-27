@@ -38,12 +38,12 @@ sender は object 型にラップされているため、<b>メンバにアク�
 //                                               ↓ イベントセンダ</cmt>
 <kwd>private void</kwd> radioButton_CheckedChanged(<kwd>object</kwd> <b>sender</b>, EventArgs e)
 {
-	<cmt>// センダがチェックされた場合に限り
-	// Hoge() をコール</cmt>
-	<kwd>if</kwd> ( ((RadioButton)<b>sender</b>).Checked )	<cmt>//< ((RadioButton)sender) で sender を実際の型に変換</cmt>
-	{
-		Hoge();
-	}
+    <cmt>// センダがチェックされた場合に限り
+    // Hoge() をコール</cmt>
+    <kwd>if</kwd> ( ((RadioButton)<b>sender</b>).Checked )	<cmt>//< ((RadioButton)sender) で sender を実際の型に変換</cmt>
+    {
+        Hoge();
+    }
 }
 </p>
 
@@ -59,12 +59,12 @@ sender は object 型にラップされているため、<b>メンバにアク�
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = -</cmt>
 <kwd>private void</kwd> textBox_TextChanged(<kwd>object</kwd> <b>sender</b>, EventArgs e)
 {
-	<cmt>// 複数のテキストボックスでこのメソッドを共用していても、
-	// sender を参照することで発行元を特定できる</cmt>
-	<kwd>if</kwd> ( ((TextBox)<b>sender</b>).Text == "Hoge" )
-	{
-		Hoge();
-	}
+    <cmt>// 複数のテキストボックスでこのメソッドを共用していても、
+    // sender を参照することで発行元を特定できる</cmt>
+    <kwd>if</kwd> ( ((TextBox)<b>sender</b>).Text == "Hoge" )
+    {
+        Hoge();
+    }
 }
 </p>
 また、前節の例にあるように、RadioButton.CheckChanged は<br>

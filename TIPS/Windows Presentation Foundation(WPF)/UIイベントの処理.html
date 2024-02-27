@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<h5>出典 :</h5>
+<a href="https://blog.okazuki.jp/entry/2014/08/22/211021">WPF4.5入門 その46 「WPFのイベントシステム」 - かずきのBlog@hatena</a><br>
+<a href="https://learn.microsoft.com/ja-jp/windows/apps/design/input/handle-pointer-input">ポインター入力の処理 - Windows apps | Microsoft Learn</a><br>
+<a href="https://learn.microsoft.com/ja-jp/windows/apps/design/input/keyboard-events">キーボード イベント - Windows apps | Microsoft Learn</a><br>
+
+<!-- 関連ページ -->
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+<h2>WPFのイベントシステム : ルーティングイベント</h2>
+WPFにおいては、コントロールの階層構造における親(外側の)要素から子(内側の)要素、およびその逆方向のイベント伝播が発生する。<br>
+これにより、発生元(子)のコントロールに限らず、親コントロールでもイベントを捕捉することができる。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_RootingEvent/01.png"><br>
+
+<h2>Preview イベント</h2>
+親要素から子要素へ伝わるトンネルイベントは、いずれも <b>Preview</b> から始まっている。それ以外はバブルイベントで、子要素から親要素へ伝わる。<br>
+この Preview イベントは、キーやマウスを操作した際に発生するイベント(以下「本イベント」)と対になっており、本イベントの直前に発生する。<br>
+例えば、キーを押下した際に発生する KeyDown イベントには、対応する PreviewKeyDown イベントが用意されており、<br>
+PreviewKeyDown がイベント発生元まで伝播した後に KeyDown が逆方向に伝播する。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_RootingEvent/02.png"><br>
+<br>
+なお、イベント引数( KeyDown イベントであれば KeyEventArgs 型)のプロパティ <b>Handled</b> をいずれかのハンドラ内で true にセットすると、<br>
+イベントが「処理済」となり、後続のイベントは発生しなくなる。<br>
+(上図の例では(2)内で KeyEventArgs.Handled = true とすると、(3)～(6)のイベントが発生しなくなる。)<br>
+
+<h2>捕捉できない操作</h2>
+コントロールによっては、矢印、Tab、Enter、Escなどのキーは押されても KeyDown 、KeyUp のイベントが発生しない。<br>
+(例えば、TextBox の場合矢印キーが押下されても捕捉できない。)<br>
+PreviewKeyDown 、PreviewKeyUp ではこれらを捕捉することができる。<br>
+MouseDown などのマウスイベントも同様で、Preview イベントで捕捉できる。
