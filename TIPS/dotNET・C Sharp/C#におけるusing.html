@@ -50,6 +50,9 @@
 }
 </p>
 
+上記のコードにおいて、List&lt;T&gt; は System.Collections.Generic 名前空間に定義されている。<br>
+このため、正確には System.Collections.Generic.List だが、using ディレクティブを用いているため単に List と記述できる。
+
 <h3>using エイリアスディレクティブ</h3>
 型に別名を付与することができる。<a href="TIPS/C・C%2B%2B/typedefとusing.html">C++と同様</a>。
 <p class="code">
@@ -69,6 +72,8 @@
     }   
 }
 </p>
+
+上記のコードでは System.Collections.Generic.List&lt;T&gt; に Ints という別名を付与している。<br>
 
 <h3>using 静的ディレクティブ</h3>
 C#6.0以降で使用可能。<br>
@@ -118,8 +123,9 @@ using static ディレクティブを用いることで省略可能となる。
 明示的に使用権の破棄を行わないと使用権を握ったままとなり、他からのアクセスができないなどの不都合が生じる。<br>
 しかし、using ステートメントを用いると、<b>using 節を抜ける際に自動的にリソースの破棄( Dispose() )が行われる</b>。<br>
 <b>使用できるのは IDisposable インタフェースを実装するクラスに限定される</b>。<br>
-(そうでないクラスはそもそも Dispose が不要で、実行できない。)<br>
-C++における<a href="TIPS/C・C%2B%2B/RAIIと地蔵インスタンス.html">RAII</a>と同様、例外発生時にも有効で、例外安全なコードとなる。
+(そうでないクラスはそもそも Dispose() が不要で、実装されていない。)<br>
+C++等における<a href="TIPS/C・C%2B%2B/RAIIと地蔵インスタンス.html">RAII</a>と同様、例外安全なコードとなる。<br>
+(例外発生時にも確実にリソースを解放できる。)
 
 <p class="code">
 <kwd>namespace</kwd> Test
@@ -129,7 +135,7 @@ C++における<a href="TIPS/C・C%2B%2B/RAIIと地蔵インスタンス.html">R
         <kwd>static void</kwd> Main(<kwd>string</kwd>[] args)
         {
             <cmt>// using ステートメントにより、ストリームの寿命を設定</cmt>
-            <cmt>// ⇒ スコープを抜ける際に、ストリームが破棄される</cmt>
+            <cmt>// ⇒ スコープを抜ける際にストリームが破棄される</cmt>
             <kwd>using</kwd> (<knw>FileStream</knw> fs = <kwd>new</kwd> <knw>FileStream</knw>(<ltr>"hoge.txt"</ltr>, FileMode.Open, FileAccess.Read, FileShare.None))
             {   <cmt>//< fs の寿命ここから</cmt>
 
