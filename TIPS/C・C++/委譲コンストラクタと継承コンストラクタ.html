@@ -1,21 +1,30 @@
 <!DOCTYPE html>
+
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
+
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
+
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
+
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
+
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
+
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-<!-- 出典・関連ページ -->
+
+<!-- 出典ページ -->
 <h5>出典 :</h5>
 <a href="https://cpprefjp.github.io/lang/cpp11/delegating_constructors.html">委譲コンストラクタ - cpprefjp C++日本語リファレンス</a><br>
 <a href="https://cpprefjp.github.io/lang/cpp11/inheriting_constructors.html">継承コンストラクタ - cpprefjp C++日本語リファレンス</a><br>
+
+<!-- 関連ページ -->
 <h5>関連 :</h5>
 <a href="TIPS/C・C%2B%2B/C%2B%2B11.html">C++11</a><br>
 <a href="TIPS/C・C%2B%2B/親クラスの関数をコール.html">親クラスの関数をコール</a><br>
@@ -181,3 +190,6 @@ Derived(int) や Derived(const std::string) はそのまま Base1(int) 、Base2(
     }
 }
 </div>
+
+上記の例では、Derived は Base1 および Base2 のコンストラクタを継承しつつ、Derived(const std::string) のみはオーバーライドを行っている。<br>
+委譲コンストラクタを用いて Base2(const std::string) を呼ぶとともに、Derived 独自の処理を行うことを目論んでいる。
