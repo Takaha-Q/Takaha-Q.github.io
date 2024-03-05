@@ -57,7 +57,7 @@
         }
 
         <cmt>// ----------------------------------------</cmt>
-        <cmt>// 「OK」ボタンが押されるまで処理を中断</cmt>
+        <cmt>// この部分の実装が変化</cmt>
         <cmt>// (シグナル待ち状態に移行)</cmt>
         <cmt>// ----------------------------------------</cmt>
 
@@ -71,7 +71,8 @@
 <kwd>public void</kwd> DownloadAcceppted(<kwd>object</kwd> sender, <knw>EventArgs</knw> args)
 {
     <cmt>// ----------------------------------------</cmt>
-    <cmt>// シグナル送信 ⇒ シグナル状態に移行</cmt>
+    <cmt>// この部分の実装が変化</cmt>
+    <cmt>// (シグナル送信 ⇒ シグナル状態に移行)</cmt>
     <cmt>// ----------------------------------------</cmt>
 }
 </div>
@@ -96,7 +97,7 @@ CountdownEvent は、オブジェクト生成時に指定した回数だけシ�
             <kwd>var</kwd> first = stream.ReadLine();
         }
 
-        <cmt>// 「OK」ボタンが押されるまで処理を中断</cmt>
+        <cmt>// シグナル待ち状態に移行</cmt>
         condition.Wait();
 
         <cmt>// シグナル状態を解除</cmt>
@@ -136,7 +137,7 @@ CountdownEvent は、オブジェクト生成時に指定した回数だけシ�
             <kwd>var</kwd> first = stream.ReadLine();
         }
 
-        <cmt>// 「OK」ボタンが押されるまで処理を中断</cmt>
+        <cmt>// シグナル待ち状態に移行</cmt>
         condition.WaitOne();
 
         <cmt>// タスクの待ちが解除されると自動的にシグナル解除</cmt>
@@ -155,7 +156,8 @@ CountdownEvent は、オブジェクト生成時に指定した回数だけシ�
 }
 </div>
 
-AutoResetEvent はシグナル状態に移行すると、シグナル待ちのタスクが再開された時点で自動的にシグナル状態が解除される。
+AutoResetEvent はシグナル状態に移行すると、シグナル待ちのタスクが再開された時点で自動的にシグナル状態が解除される。<br>
+(明示的に Reset() を呼ぶ必要が無い。)
 
 <h3>System.Threading.ManualResetEvent による実装</h3>
 CountdownEvent と同様、手動でシグナル状態を解除する必要がある。以下のメソッドを使用する。<br>
