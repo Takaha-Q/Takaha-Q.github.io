@@ -39,29 +39,33 @@ C++に限らず、オブジェクト指向言語においては一般的な概�
 
 <h2>例外処理の原則</h2>
 C++における例外処理の原則は以下の通りである。
-<ol>
+<ul>
     <li>例外(エラー)の発生を監視したい処理を try 節内に記述すると、例外が発生した場合即座に try 節を抜け、直後の catch 節にジャンプする。
-        <ol>
+        <ul>
             <li>try 節内における、例外発生箇所より後の処理は実行されない。</li>
             <li>catch 節は必ず try 節の直後に記述する必要がある。</li>
-        </ol>
+        </ul>
     </li>
     <li value="2">catch 節では宣言した型の例外のみ捕捉可能。複数の catch 節を書き連ねることで、発生した例外の型に応じて後処理を区分できる。
-        <ol>
-            <li>即ち、実行される catch 節は常に一つだけ。</li>
+        <ul>
+            <li>即ち、実行される catch 節は最大でも1つ。</li>
             <li>捕捉できない型の例外が発生した場合は、プログラムが不正終了する。</li>
-        </ol>
+        </ul>
     </li>
     <li value="3">catch 節以降に処理が存在する場合、例外が発生しなければ try 節実行後、例外が発生すれば catch 節実行後に実行される。
-        <ol>
+        <ul>
             <li>即ち、記述された通りの順序で実行される。</li>
-        </ol>
+        </ul>
     </li>
     <li value="4">システム内部で発生する例外以外に、throw 句を用いることで任意の例外を発生させる(投げる)ことができる。</li>
-</ol>
+</ul>
 
 <h2>基本的な例</h2>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/CPP/exception_handling/exception_handling_01.png" alt="画像"><br>
+
+上記の例では、関数 func() 中の try 節に含まれる func2() 、DoSomething() が例外監視対象となる。<br>
+func2() では内部で int 型例外を投げ( throw )ており、try 節に続く catch (int ex) 節で例外が捕捉される。<br>
+(int 型と異なる型の例外が投げられた場合は、後続の catch (string ex) 節、または catch (...) 節で捕捉される。)
 
 <h2>例外の投げなおし</h2>
 try ブロックで発生した例外を処理した後、さらに外側に例外を投げることができる。<br>
