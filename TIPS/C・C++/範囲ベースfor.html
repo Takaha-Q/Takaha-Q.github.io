@@ -53,7 +53,7 @@ C#やJavaの foreach 文と同様の機能で、C++では for 文の別構文を
 <cmt>// ar を走査、各要素を出力</cmt>
 <kwd>for</kwd> ( <kwd>int</kwd> x : ar )
 {
-    <kwd>std</kwd>::cout &lt;&lt; x &lt;&lt; <ltr>"/n"<ltr>;
+    <kwd>std</kwd>::cout &lt;&lt; x &lt;&lt; <ltr>"/n"</ltr>;
 }
 </div>
 
@@ -162,7 +162,7 @@ C#やJavaの foreach 文と同様の機能で、C++では for 文の別構文を
 
 <cmt>// ar を走査</cmt>
 <cmt>// (x は参照変数)</cmt>
-<kwd>for</kwd> ( <kwd>int</kwd> &amp;x : ar )
+<kwd>for</kwd> ( <kwd>int</kwd>&amp; x : ar )
 {
     <cmt>// x の値が 1 であれば 123 に書き換える</cmt>
     <kwd>if</kwd> ( x == 1 )
