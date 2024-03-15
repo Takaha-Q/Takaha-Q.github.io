@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<h5>出典 :</h5>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/csharp/programming-guide/classes-and-structs/object-and-collection-initializers">オブジェクト初期化子とコレクション初期化子 - C# プログラミング ガイド - C# | Microsoft Learn</a><br>
+
+<!-- 関連ページ -->
+<h5>関連 :</h5>
+<a href="TIPS/dotNET・C Sharp/[コレクション]コレクション.html">コレクション</a><br>
+<a href="TIPS/dotNET・C Sharp/[プロパティ]オブジェクト初期化子とinitアクセサ.html">オブジェクト初期化子とinitアクセサ</a><br>
+<a href="TIPS/C・C%2B%2B/一様初期化.html">[C++]一様初期化</a><br>
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>コレクション初期化子</h2>
+IEnumerable インタフェースを実装するコレクションを初期化する際に、1つ以上の要素にまとめて初期値を割り当てることができる。<br>
+<a href="TIPS/dotNET・C Sharp/[プロパティ]オブジェクト初期化子とinitアクセサ.html">オブジェクト初期化子</a>と似た概念である。
+
+<h2>基本的な例</h2>
+<div class="cs">
+<knw>List</knw>&lt;<kwd>int</kwd>&gt; digits  = <kwd>new</kwd> <knw>List</knw>&lt;<kwd>int</kwd>&gt; { <ltr>0</ltr>, <ltr>1</ltr>, <ltr>2</ltr>, <ltr>3</ltr>, <ltr>4</ltr>, <ltr>5</ltr>, <ltr>6</ltr>, <ltr>7</ltr>, <ltr>8</ltr>, <ltr>9</ltr> };  
+</div>
+
+上記は単純な List の初期化の例で、初期値をコレクション初期化子として渡している。<br>
+これにより、複数の要素を1行で初期化することができる。<br>
+なお上記のコードは以下と等価で、Add() の繰り返しが自動化される。
+
+<div class="cs">
+<knw>List</knw>&lt;<kwd>int</kwd>&gt; digits = <kwd>new</kwd> <knw>List</knw>&lt;<kwd>int</kwd>&gt();
+
+digits.Add( <ltr>0</ltr> );
+digits.Add( <ltr>1</ltr> );
+digits.Add( <ltr>2</ltr> );
+digits.Add( <ltr>3</ltr> );
+digits.Add( <ltr>4</ltr> );
+digits.Add( <ltr>5</ltr> );
+digits.Add( <ltr>6</ltr> );
+digits.Add( <ltr>7</ltr> );
+digits.Add( <ltr>8</ltr> );
+digits.Add( <ltr>9</ltr> );
+</div>
+
+<h2>オブジェクト初期化子との組み合わせ</h2>
+コレクションの要素がオブジェクトの場合、コレクション初期化子の要素にオブジェクト初期化子を含めることができる。<br>
+<a href="TIPS/dotNET・C Sharp/[プロパティ]オブジェクト初期化子とinitアクセサ.html">オブジェクト初期化子とinitアクセサ</a>を参照のこと。
+
+<div class="cs">
+<kwd>public class</kwd> Cat
+{
+    <cmt>// init アクセサが定義されたプロパティ</cmt>
+    <kwd>public int</kwd>     Age  { <kwd>get</kwd>; <kwd>init</kwd>; }
+    <kwd>public string</kwd>? Name { <kwd>get</kwd>; <kwd>init</kwd>; }
+
+    <kwd>public</kwd> Cat()
+    {
+    }
+}
+
+:
+
+{
+    <cmt>// コレクション初期化子を用いた cats の初期化</cmt>
+    <cmt>// (要素はカンマで区切られている)</cmt>
+    <knw>List</knw>&lt;Cat&gt; cats = <kwd>new</kwd> <knw>List</knw>&lt;Cat&gt;
+    {
+        <kwd>new</kwd> Cat { Name = <ltr>"Sylvester"</ltr>, Age = <ltr>8</ltr>  } ,
+        <kwd>new</kwd> Cat { Name = <ltr>"Whiskers"</ltr>,  Age = <ltr>2</ltr>  } ,
+        <kwd>new</kwd> Cat { Name = <ltr>"Sasha"</ltr>,     Age = <ltr>14</ltr> }
+    };
+}
+</div>
+
+<h2>要素が null を含む場合</h2>
+コレクションの Add() メソッドが 引数として null を取れる場合、コレクション初期化子に null を含めることができる。
+
+<div class="cs">
+<cmt>// null 許容型 List</cmt>
+<knw>List</knw>&lt;Cat?&gt; moreCats = <kwd>new</kwd> <knw>List</knw>&lt;Cat?&gt;
+{
+    <kwd>new</kwd> Cat { Name = <ltr>"Furrytail"</ltr>, Age = <ltr>5</ltr> } ,
+    <kwd>new</kwd> Cat { Name = <ltr>"Peaches"</ltr>,   Age = <ltr>4</ltr> } ,
+    <kwd>null</kwd>
+};
+</div>
+
+<h2>インデクス(キー値)を指定できる場合</h2>
+Dictionary など、インデクス(キー値)を指定できる場合は以下のように記述できる。
+
+<div class="cs">
+<kwd>var</kwd> numbers = <kwd>new</kwd> <knw>Dictionary</knw>&lt;<kwd>int</kwd>, <kwd>string</kwd>&gt;
+{
+    [<ltr>7</ltr>]  = <ltr>"seven"</ltr>    ,
+    [<ltr>9</ltr>]  = <ltr>"nine"</ltr>     ,
+    [<ltr>13</ltr>] = <ltr>"thirteen"</ltr>
+};
+</div>
+
+これは以下のコードと等価で、Dictionary のプロパティ Item[TKey] への代入が行われる。
+
+<div class="cs">
+<kwd>var</kwd> numbers = <kwd>new</kwd> <knw>Dictionary</knw>&lt;<kwd>int</kwd>, <kwd>string</kwd>&gt;();
+
+numbers.Item[<ltr>7</ltr>]  = <ltr>"seven"</ltr>;
+numbers.Item[<ltr>9</ltr>]  = <ltr>"nine"</ltr>;
+numbers.Item[<ltr>13</ltr>] = <ltr>"thirteen"</ltr>;
+</div>
+
+また、以下のようにも記述できる。これは List と同様 Add(TKey, TValue) を繰り返す。
+
+<div class="cs">
+<kwd>var</kwd> numbers = <kwd>new</kwd> <knw>Dictionary</knw>&lt;<kwd>int</kwd>, <kwd>string</kwd>&gt;
+{
+    { <ltr>7</ltr> , <ltr>"seven"</ltr>    },
+    { <ltr>9</ltr> , <ltr>"nine"</ltr>     },
+    { <ltr>13</ltr>, <ltr>"thirteen"</ltr> }
+};
+</div>
+
+<h2>コレクションが読み取り専用の場合</h2>
+以下のコードはオブジェクト初期化子とコレクション初期化子を組み合わせている。
+
+<h5>不正なコード</h5>
+<div class="cs">
+<cmt>// 読み取り専用コレクションを含む CatOwner クラス</cmt>
+<kwd>public class</kwd> CatOwner
+{
+    <cmt>// プロパティ Cats は get のみが定義されている</cmt>
+    <kwd>public</kwd> IList&lt;Cat&gt; Cats { <kwd>get</kwd>; } = <kwd>new</kwd> <knw>List</knw>&lt;Cat&gt;();
+}
+
+:
+
+{
+    CatOwner owner = <kwd>new</kwd> CatOwner
+    {
+        <cmt>// 読み取り専用の Cats に新しい List を割り当てようとしている ⇒ エラー</cmt>
+        Cats = <kwd>new</kwd> <knw>List</knw>&lt;Cat&gt;
+        {
+            <kwd>new</kwd> Cat{ Name = <ltr>"Sylvester"</ltr>, Age = <ltr>8</ltr>  },
+            <kwd>new</kwd> Cat{ Name = <ltr>"Whiskers"</ltr> , Age = <ltr>2</ltr>  },
+            <kwd>new</kwd> Cat{ Name = <ltr>"Sasha"</ltr>    , Age = <ltr>14</ltr> }
+        }
+    };
+}
+</div>
+
+ここでは CatOwner 型オブジェクトの初期化時にコレクション初期化子を用いているが、対象となるプロパティ Cats は読み取り専用であり、新しい List を割り当てることができない。<br>
+この場合、new List&lt;Cat&gt; を省略することで対応できる。
+
+<h5>修正したコード</h5>
+<div class="cs">
+:
+
+{
+    CatOwner owner = <kwd>new</kwd> CatOwner
+    {
+        <cmt>// new List&lt;Cat&gt; を省略</cmt>
+        Cats = 
+        {
+            <kwd>new</kwd> Cat{ Name = <ltr>"Sylvester"</ltr>, Age = <ltr>8</ltr>  },
+            <kwd>new</kwd> Cat{ Name = <ltr>"Whiskers"</ltr> , Age = <ltr>2</ltr>  },
+            <kwd>new</kwd> Cat{ Name = <ltr>"Sasha"</ltr>    , Age = <ltr>14</ltr> }
+        }
+    };
+}
+</div>
