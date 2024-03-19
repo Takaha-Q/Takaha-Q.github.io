@@ -1,23 +1,35 @@
 <!DOCTYPE html>
+
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
+
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
+
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
+
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
+
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
+
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-<!-- 出典・関連ページ -->
+
+<!-- 出典ページ -->
 <h5>出典 :</h5>
 <a href="https://docs.microsoft.com/ja-jp/dotnet/api/system.windows.controls.grid?view=windowsdesktop-6.0">Grid クラス (System.Windows.Controls) | Microsoft Docs</a><br>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/desktop/wpf/controls/panel?view=netframeworkdesktop-4.8&viewFallbackFrom=netdesktop-8.0">パネル - WPF .NET Framework | Microsoft Learn</a><br>
 <a href="https://anderson02.com/cs/wpf/wpf-3/">C#WPFの道#3！Gridの使い方をわかりやすく解説！｜ピーコックアンダーソン</a><br>
+
+<!-- 関連ページ -->
 <h5>関連 :</h5>
-<a href="TIPS/Windows Presentation Foundation(WPF)/DockPanelとStackPanel.html">[WPF]DockPanelとStackPanel</a>
+<a href="TIPS/Windows Presentation Foundation(WPF)/[パネル]DockPanelとStackPanel.html">[パネル]DockPanelとStackPanel</a><br>
+<a href="TIPS/Windows Presentation Foundation(WPF)/DataGrid.html">DataGrid</a><br>
+
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
@@ -26,8 +38,8 @@
 <!-- 本文ここから -->
 
 <h2>Gridコントロール</h2>
-行と列で構成されるグリッド領域を規定する。コントロール配置の下地となる。<br>
-DataGrid とは異なる。
+コントロール配置の下地となる <a href="https://learn.microsoft.com/ja-jp/dotnet/desktop/wpf/controls/panel?view=netframeworkdesktop-4.8&viewFallbackFrom=netdesktop-8.0">Panel</a> の一種で、行と列からなる格子領域を規定する。<br>
+なお、<a href="TIPS/Windows Presentation Foundation(WPF)/DataGrid.html">DataGrid</a> とは異なる。
 
 <h2>具体例</h2>
 下図のような3行3列の配置を考える。<br>
