@@ -28,8 +28,8 @@
 
 <!-- 関連 -->
 <h5>関連 :</h5>
-<a href="TIPS\Microsoft Visual Studio・.NET\[WPF]データバインディング.html">[WPF]データバインディング</a><br>
-<a href="TIPS\Microsoft Visual Studio・.NET\[WPF]リソースとスタイル.html">[WPF]リソースとスタイル</a><br>
+<a href="TIPS\Windows Presentation Foundation(WPF)\データバインディング.html">データバインディング</a><br>
+<a href="TIPS\Windows Presentation Foundation(WPF)\[外観]リソース.html">リソース</a><br>
 
 <!-- 目次 -->
 <h5>目次 :</h5>
@@ -39,7 +39,7 @@
 <!-- 本文ここから -->
 
 <h2>コンバーターとは</h2>
-WPFの<a href="TIPS\Microsoft Visual Studio・.NET\[WPF]データバインディング.html">データバインディング</a>において、バインドされるデータ(ソース)と画面表示(ターゲット)との間で形式(型や書式など)を変換する機構のこと。<br>
+WPFの<a href="TIPS\Windows Presentation Foundation(WPF)\データバインディング.html">データバインディング</a>において、バインドされるデータ(ソース)と画面表示(ターゲット)との間で形式(型や書式など)を変換する機構のこと。<br>
 例えば TextBox に DateTime 型をバインドし、そのうち年、月、日のみを表示するよう変換する、といったことが可能となる。
 
 <h2>コンバーターの実装</h2>
@@ -117,7 +117,7 @@ PropertyChanged 、Reactive の実装は省略。
 <kwd>using</kwd> <knw>System</knw>.Globalization;
 <kwd>using</kwd> <knw>System</knw>.<knw>Windows</knw>.Data;
 
-<kwd>namespace</kwd> _Converter;
+<kwd>namespace</kwd> _Converter
 
 <cmt>// 列挙体の定義</cmt>
 <kwd>public enum</kwd> mode

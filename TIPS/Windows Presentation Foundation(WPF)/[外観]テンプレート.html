@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<h5>出典 :</h5>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/desktop/wpf/controls/how-to-create-apply-template?view=netdesktop-8.0">テンプレートを作成する方法 - WPF .NET | Microsoft Learn</a><br>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/desktop/wpf/controls/creating-a-control-that-has-a-customizable-appearance?view=netframeworkdesktop-4.8">外観をカスタマイズできるコントロールの作成 - WPF .NET Framework | Microsoft Learn</a><br>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/desktop/wpf/controls/styles-templates-overview?view=netdesktop-7.0">スタイルとテンプレート - WPF .NET | Microsoft Learn</a><br>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.frameworkelement.onapplytemplate?view=windowsdesktop-8.0">FrameworkElement.OnApplyTemplate メソッド (System.Windows) | Microsoft Learn</a><br>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.frameworkelement.applytemplate?view=windowsdesktop-8.0%23system-windows-frameworkelement-applytemplate">FrameworkElement.ApplyTemplate メソッド (System.Windows) | Microsoft Learn</a><br>
+<a href="https://atmarkit.itmedia.co.jp/ait/articles/1009/07/news096.html">第4回　WPFの「リソース、スタイル、テンプレート」を習得しよう：連載：WPF入門 - ＠IT</a><br>
+<a href="https://blog.okazuki.jp/entry/2014/09/08/221209">WPF4.5入門 その54 「カスタムコントロール」 - かずきのBlog@hatena</a><br>
+<a href="https://threeshark3.com/usercontrol-to-customcontrol/">【WPF】ユーザーコントロールをカスタムコントロールに変える手順 | さんさめのC＃ブログ</a><br>
+
+<!-- 関連ページ -->
+<h5>関連 :</h5>
+<a href="TIPS/Windows Presentation Foundation(WPF)/[外観]リソース.html">リソース</a><br>
+<a href="TIPS/Windows Presentation Foundation(WPF)/[外観]スタイル.html">スタイル</a><br>
+<a href="TIPS/Windows Presentation Foundation(WPF)/[データバインディング]データバインディング.html">データバインディング</a><br>
+<a href="TIPS/Windows Presentation Foundation(WPF)/[データバインディング]依存関係プロパティ.html">依存関係プロパティ</a><br>
+<a href="TIPS/Windows Presentation Foundation(WPF)/UIイベントの処理.html">UIイベントの処理</a><br>
+<a href="TIPS/Windows Presentation Foundation(WPF)/ユーザーコントロール.html">ユーザーコントロール</a><br>
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>テンプレート(コントロール・テンプレート)とは</h2>
+コントロールの機能を残したまま、外観を任意に変更できる仕組み。<br>
+WinFormsなどの従来のフレームワークでは「ボタンのクリック」といった機能を残しながら外観を一新したい場合、コントロールを一から作成する必要があった。<br>
+これは外観の新規作成に加え、「ボタンのクリック」や「テキストの選択」など標準のコントロールに実装されている機能を作り直すことになり、開発負荷が非常に高かった。<br>
+WPFではこのコントロール・テンプレートを用いることで外観のみを変更(カスタマイズ)することが可能である。<br>
+テンプレートは強力で、カスタマイズできる内容は多岐に渡る。詳細は出典元を参照のこと。<br>
+尚、このコントロール・テンプレートを用いて作成されたカスタマイズ可能なコントロールを「カスタムコントロール」と呼ぶ。<br>
+
+<h2>基本的な例</h2>
+<div class="xaml">
+&lt;Button&gt;
+    <cmt>&lt;!-- Button.Template に ControlTemplate を設定 --&gt;</cmt>
+    &lt;Button.Template&gt;
+        &lt;ControlTemplate TargetType=<ltr>"Button"</ltr>&gt;
+            &lt;Ellipse Fill=<ltr>"LightBlue"</ltr> Width=<ltr>"80"</ltr> Height=<ltr>"30"</ltr>/&gt;
+        &lt;/ControlTemplate&gt;
+    &lt;/Button.Template&gt;
+&lt;/Button&gt;
+</div>
+
+上記は、テンプレートを用いてボタンの外観を水色の楕円に変更している。<br>
+コントロール(ここでは Button )の Template プロパティに ControlTemplate クラスのインスタンスを設定するのがテンプレート適用の基本的な手順となる。<br>
+
+<h2>ControlTemplate クラス</h2>
+ControlTemplate クラスはコントロールの<b>「視覚的な構造と動作」</b>を司る。<br>
+<ul>
+    <li>視覚的構造 : コントロールがどのような要素( FrameworkElement )で構成されているか</li>
+    <li>視覚的動作 : コントロールが特定の状態になったときにどのように表示するか</li>
+</ul>
+既存のコントロールは Background (背景色)、Foreground (前景色 : フォントの色)、FontFamily (フォント種別)などの外観に関わるプロパティを備えているが、<br>
+これらの変更だけでは必要な外観を得られない場合に ControlTemplate を作成することになる。
+
+<h3>ControlTemplate の作成例</h3>
+下図のような NumericUpDown コントロールを作成する場合を考える。(<a href="https://learn.microsoft.com/ja-jp/dotnet/desktop/wpf/controls/creating-a-control-that-has-a-customizable-appearance?view=netframeworkdesktop-4.8%23defining-the-visual-structure-and-visual-behavior-of-a-control-in-a-controltemplate">出典</a>)<br>
+( NumericUpDown はWinFormsでは標準コントロールに含まれているが、WPFでは除外されている。)<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/WPF/Control_Template/01.png" alt="画像"><br>
+
+<h5>XAML(特定のコントロールに紐づかない - 例 : themes/generic.xaml)</h5>
+<div class="xaml">
+<cmt>&lt;!-- リソース定義 --&gt;</cmt>
+&lt;ResourceDictionary
+    xmlns=<ltr>"http://schemas.microsoft.com/winfx/2006/xaml/presentation"</ltr>
+    xmlns:x=<ltr>"http://schemas.microsoft.com/winfx/2006/xaml"</ltr>
+    xmlns:local=<ltr>"clr-namespace:VSMCustomControl"</ltr>&gt;
+
+    <cmt>&lt;!-- スタイル定義 --&gt;</cmt>
+    <cmt>&lt;!-- ( VSMCustomControl.NumericUpDown 向け) --&gt;</cmt>
+    &lt;Style TargetType=<ltr>"{x:Type local:NumericUpDown}"</ltr>&gt;
+        &lt;Setter Property=<ltr>"Template"</ltr>&gt;
+            &lt;Setter.Value&gt;
+
+                <cmt>&lt;!-- コントロール・テンプレート定義 --&gt;</cmt>
+                <cmt>&lt;!-- ( VSMCustomControl.NumericUpDown 向け) --&gt;</cmt>
+                &lt;ControlTemplate TargetType=<ltr>"local:NumericUpDown"</ltr>&gt;
+
+                    &lt;Grid Margin=<ltr>"3"</ltr> 
+                          Background=<ltr>"{TemplateBinding Background}"</ltr>&gt;
+
+                        <cmt>&lt;!-- 視覚的動作( VisualState )の定義 --&gt;</cmt>
+                        &lt;VisualStateManager.VisualStateGroups&gt;
+                            &lt;VisualStateGroup Name=<ltr>"ValueStates"</ltr>&gt;
+
+                                <cmt>&lt;!-- Value が負ならば TextBlock のフォントを赤字にする --&gt;</cmt>
+                                &lt;VisualState Name=<ltr>"Negative"</ltr>&gt;
+                                    &lt;Storyboard&gt;
+                                        &lt;ColorAnimation To=<ltr>"Red"</ltr>
+                                                        Storyboard.TargetName=<ltr>"TextBlock"</ltr> 
+                                                        Storyboard.TargetProperty="(Foreground).(Color)"/&gt;
+                                    &lt;/Storyboard&gt;
+                                &lt;/VisualState&gt;
+
+                                <cmt>&lt;!-- Value が正ならば TextBlock のフォントを黒字にする(デフォルトに戻す) --&gt;</cmt>
+                                &lt;VisualState Name=<ltr>"Positive"</ltr>/&gt;
+
+                            &lt;/VisualStateGroup&gt;
+                        &lt;/VisualStateManager.VisualStateGroups&gt;
+                        <cmt>&lt;!-- 視覚的動作の定義 ここまで --&gt;</cmt>
+
+                        &lt;Grid&gt;
+                            &lt;Grid.RowDefinitions&gt;
+                                &lt;RowDefinition/&gt;
+                                &lt;RowDefinition/&gt;
+                            &lt;/Grid.RowDefinitions&gt;
+                            &lt;Grid.ColumnDefinitions&gt;
+                                &lt;ColumnDefinition/&gt;
+                                &lt;ColumnDefinition/&gt;
+                            &lt;/Grid.ColumnDefinitions&gt;
+
+                            &lt;Border BorderThickness=<ltr>"1"</ltr> BorderBrush=<ltr>"Gray"</ltr> Margin=<ltr>"7,2,2,2"</ltr> Grid.RowSpan=<ltr>"2"</ltr> 
+                                    Background=<ltr>"#E0FFFFFF"</ltr>
+                                    VerticalAlignment=<ltr>"Center"</ltr> 
+                                    HorizontalAlignment=<ltr>"Stretch"</ltr>&gt;
+
+                                <cmt>&lt;!-- TextBlock : 数値の表示 --&gt;</cmt>
+                                <cmt>&lt;!-- ( Value プロパティにバインド) --&gt;</cmt>
+                                &lt;TextBlock Name=<ltr>"TextBlock"</ltr>
+                                           Width=<ltr>"60"</ltr> TextAlignment=<ltr>"Right"</ltr> Padding=<ltr>"5"</ltr>
+                                           Text="{Binding RelativeSource={RelativeSource FindAncestor, 
+                                                                          AncestorType={x:Type src:NumericUpDown}}, 
+                                                          Path=Value}"/&gt;
+                            &lt;/Border&gt;
+
+                            <cmt>&lt;!-- RepeatButton : 加算 --&gt;</cmt>
+                            &lt;RepeatButton Name=<ltr>"UpButton"</ltr> Content=<ltr>"Up"</ltr> 
+                                          Margin=<ltr>"2,5,5,0"</ltr> Grid.Column=<ltr>"1"</ltr> Grid.Row=<ltr>"0"</ltr>/&gt;
+
+                            <cmt>&lt;!-- RepeatButton : 減算 --&gt;</cmt>
+                            &lt;RepeatButton Name=<ltr>"DownButton"</ltr> Content=<ltr>"Down"</ltr> 
+                                          Margin=<ltr>"2,0,5,5"</ltr> Grid.Column=<ltr>"1"</ltr> Grid.Row=<ltr>"1"</ltr>/&gt;
+
+                        &lt;/Grid&gt;
+
+                    &lt;/Grid&gt;
+                &lt;/ControlTemplate&gt;
+                <cmt>&lt;!-- コントロール・テンプレート定義 ここまで --&gt;</cmt>
+
+            &lt;/Setter.Value&gt;
+        &lt;/Setter&gt;
+    &lt;/Style&gt;
+&lt;/ResourceDictionary&gt;
+</div>
+
+<h5>NumericUpDown のコード(XAMLに紐づかない)</h5>
+<div class="cs">
+<kwd>using</kwd> <knw>System</knw>.<knw>Windows</knw>;
+<kwd>using</kwd> <knw>System</knw>.<knw>Windows</knw>.Controls;
+<kwd>using</kwd> <knw>System</knw>.<knw>Windows</knw>.Controls.Primitives;
+<kwd>using</kwd> <knw>System</knw>.<knw>Windows</knw>.Input;
+<kwd>using</kwd> <knw>System</knw>.<knw>Windows</knw>.Media;
+
+<kwd>namespace</kwd> VSMCustomControl
+{
+    <cmt>// テンプレート宣言</cmt>
+    [TemplatePart(Name = <ltr>"UpButtonElement"</ltr>, Type = <kwd>typeof</kwd>(RepeatButton))]
+    [TemplatePart(Name = <ltr>"DownButtonElement"</ltr>, Type = <kwd>typeof</kwd>(RepeatButton))]
+    [TemplateVisualState(Name = <ltr>"Positive"</ltr>, GroupName = <ltr>"ValueStates"</ltr>)]
+    [TemplateVisualState(Name = <ltr>"Negative"</ltr>, GroupName = <ltr>"ValueStates"</ltr>)]
+
+    <kwd>public class</kwd> NumericUpDown : Control
+    {
+        <cmt>// コンストラクタ</cmt>
+        <kwd>public</kwd> NumericUpDown()
+        {
+            DefaultStyleKey = <kwd>typeof</kwd>(NumericUpDown);
+            <kwd>this</kwd>.IsTabStop = <kwd>true</kwd>;
+        }
+
+        <cmt>// 依存関係プロパティ ValueProperty 宣言</cmt>
+        <cmt>// (プロパティ変更時のコールバックとして ValueChangedCallback() を登録)</cmt>
+        <kwd>public static readonly</kwd> DependencyProperty ValueProperty = 
+            DependencyProperty.Register( <ltr>"Value"</ltr>, 
+                                         <kwd>typeof</kwd>(<kwd>int</kwd>), 
+                                         <kwd>typeof</kwd>(NumericUpDown),
+                                         <kwd>new</kwd> PropertyMetadata( <kwd>new</kwd> PropertyChangedCallback(ValueChangedCallback) ) );
+
+        <cmt>// プロパティ Value 宣言</cmt>
+        <cmt>// ( ValueProperty のラッパープロパティ)</cmt>
+        <kwd>public int</kwd> Value
+        {
+            <kwd>get</kwd> { <kwd>return</kwd> (<kwd>int</kwd>)GetValue( ValueProperty ); }
+            <kwd>set</kwd> { SetValue( ValueProperty, value ); }
+        }
+
+        <cmt>// Value 変更時のコールバック</cmt>
+        <kwd>private static void</kwd> ValueChangedCallback( DependencyObject obj,
+                                                  DependencyPropertyChangedEventArgs args)
+        {
+            NumericUpDown ctl = (NumericUpDown)obj;
+            <kwd>int</kwd> newValue = (<kwd>int</kwd>)args.NewValue;
+
+            <cmt>// 表示状態を更新</cmt>
+            ctl.UpdateStates(<kwd>true</kwd>);
+
+            <cmt>// ValueChanged イベントを発生させるために OnValueChanged() をコール</cmt>
+            ctl.OnValueChanged( <kwd>new</kwd> ValueChangedEventArgs(NumericUpDown.ValueChangedEvent, newValue) );
+        }
+
+        <cmt>// ValueChanged ルーティングイベント</cmt>
+        <kwd>public static readonly</kwd> RoutedEvent ValueChangedEvent =
+            EventManager.RegisterRoutedEvent( <ltr>"ValueChanged"</ltr>, 
+                                              RoutingStrategy.Direct,
+                                              <kwd>typeof</kwd>(ValueChangedEventHandler), 
+                                              <kwd>typeof</kwd>(NumericUpDown) );
+
+        <cmt>// イベントプロパティ ValueChanged</cmt>
+        <kwd>public event</kwd> ValueChangedEventHandler ValueChanged
+        {
+            add    { AddHandler(ValueChangedEvent, value); }
+            remove { RemoveHandler(ValueChangedEvent, value); }
+        }
+
+        <cmt>// Value 変更時の処理</cmt>
+        <kwd>protected virtual void</kwd> OnValueChanged(ValueChangedEventArgs e)
+        {
+            <cmt>// Value の変更を親子に通知するため ValueChanged イベントを発行</cmt>
+            RaiseEvent(e);
+        }
+
+        <cmt>// 表示状態の更新</cmt>
+        <kwd>private void</kwd> UpdateStates( <kwd>bool</kwd> useTransitions )
+        {
+            <cmt>// Value が 0 以上ならば "Positive" 、そうでなければ "Negative" を適用する</cmt>
+            <kwd>if</kwd> (Value >= <ltr>0</ltr>)
+            {
+                VisualStateManager.GoToState(<kwd>this</kwd>, <ltr>"Positive"</ltr>, useTransitions);
+            }
+            <kwd>else</kwd>
+            {
+                VisualStateManager.GoToState(<kwd>this</kwd>, <ltr>"Negative"</ltr>, useTransitions);
+            }
+        }
+
+        <cmt>// テンプレート適用時の処理</cmt>
+        <kwd>public override void</kwd> OnApplyTemplate()
+        {
+            UpButtonElement   = GetTemplateChild(<ltr>"UpButton"</ltr>)   as RepeatButton;
+            DownButtonElement = GetTemplateChild(<ltr>"DownButton"</ltr>) as RepeatButton;
+
+            UpdateStates(<kwd>false</kwd>);
+        }
+
+        <cmt>// 「Up」ボタン(フィールド / プロパティ)</cmt>
+        <kwd>private</kwd> RepeatButton upButtonElement;
+        <kwd>private</kwd> RepeatButton UpButtonElement
+        {
+            <kwd>get</kwd> { <kwd>return</kwd> upButtonElement; }
+            <kwd>set</kwd>
+            {
+                <cmt>// Click ハンドラを削除、再割り当て</cmt>
+                <kwd>if</kwd> (upButtonElement != <kwd>null</kwd>)
+                {
+                    upButtonElement.Click -= <kwd>new</kwd> RoutedEventHandler(upButtonElement_Click);
+                }
+                upButtonElement = value;
+
+                <kwd>if</kwd> (upButtonElement != <kwd>null</kwd>)
+                {
+                    upButtonElement.Click += <kwd>new</kwd> RoutedEventHandler(upButtonElement_Click);
+                }
+            }
+        }
+
+        <cmt>// 「Up」ボタンクリック時の処理</cmt>
+        <kwd>void</kwd> upButtonElement_Click(<kwd>object</kwd> sender, <knw>RoutedEventArgs</knw> e)
+        {
+            Value++;
+        }
+
+        <cmt>// 「Down」ボタン(フィールド / プロパティ)</cmt>
+        <kwd>private</kwd> RepeatButton downButtonElement;
+        <kwd>private</kwd> RepeatButton DownButtonElement
+        {
+            <kwd>get</kwd> { <kwd>return</kwd> downButtonElement; }
+            <kwd>set</kwd>
+            {
+                <cmt>// Click ハンドラを削除、再割り当て</cmt>
+                <kwd>if</kwd> (downButtonElement != <kwd>null</kwd>)
+                {
+                    downButtonElement.Click -= <kwd>new</kwd> RoutedEventHandler(downButtonElement_Click);
+                }
+                downButtonElement = value;
+
+                <kwd>if</kwd> (downButtonElement != <kwd>null</kwd>)
+                {
+                    downButtonElement.Click += <kwd>new</kwd> RoutedEventHandler(downButtonElement_Click);
+                }
+            }
+        }
+
+        <cmt>// 「Down」ボタンクリック時の処理</cmt>
+        <kwd>void</kwd> downButtonElement_Click(<kwd>object</kwd> sender, <knw>RoutedEventArgs</knw> e)
+        {
+            Value--;
+        }
+    }
+}
+</div>
+
+<h5>解説</h5>
+テンプレート( ControlTemplate )の定義をXAMLのみで完結させることがポイント。このファイルは特定のコントロールに紐づかず、一つのファイルに複数のテンプレート定義を格納することも可能。<br>
+視覚的動作( VisualState )として、表示値が正および負になった際のフォント色をそれぞれ規定している。<br>
+<b>XAMLでは外観のみを規定</b>し、視覚的動作の適用はコードに一任していることに注意。即ち、想定通りの視覚的動作となるかはコードの実装に依る。<br>
+(表示値が正の場合に黒字、負の場合に赤字とすることを想定しているが、コードの実装次第では逆、もしくはさらに異なる動作も可能である。)<br>
+視覚的構造( TextBlock 、RepeatButton 、Border の配置)の定義も同様にテンプレートに含まれている。<br>
+尚ここでは、テンプレートを<a href="TIPS/Windows Presentation Foundation(WPF)/[外観]スタイル.html">スタイル</a>に含め、かつスタイルを<a href="TIPS/Windows Presentation Foundation(WPF)/[外観]リソース.html">リソース</a>として定義している。<br>
+これはテンプレートの定義としては一般的な手法で、スタイル / リソース化で複数のコントロールへの適用が容易となる。<br>
+<br>
+コードではコントロール全体の動作と、テンプレートの適用方法を規定している。コントロールの状態は主に以下のタイミングで変化するため、それらに対応する処理を記述している。<br>
+<ul>
+    <li>テンプレートがコントロールに適用されたとき ⇒ OnApplyTemplate()</li>
+    <li>プロパティが変化したとき ⇒ ValueChangedCallback()</li>
+    <li>イベント(主にユーザ操作)が発生したとき ⇒ downButtonElement_Click() / upButtonElement_Click()</li>
+</ul>
+ここで <a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.frameworkelement.onapplytemplate?view=windowsdesktop-8.0">Control.OnApplyTemplate()</a> は、コントロールにテンプレートが適用された際のコールバックである。<br>
+冒頭のテンプレート宣言と OnApplyTemplate() とで、テンプレートの適用方法を規定している。
+
+<h2>カスタムコントロールとユーザーコントロールとの比較</h2>
+前述のように、テンプレートを用いて作成したコントロールをカスタムコントロールと呼ぶが、これは「<a href="TIPS/Windows Presentation Foundation(WPF)/ユーザーコントロール.html">ユーザーコントロール</a>」とは異なる。<br>
+ユーザーコントロールは複数のコントロールを比較的簡単に一つにまとめることができるが、カスタムコントロールのような外観のカスタマイズは不可能である。<br>
+これは、Control から派生したオブジェクトには ControlTemplate が適用できるが、UserControl は例外的に ControlTemplate が適用できないことによる。<br>
+テンプレートの仕様は多岐に渡るため、特に複雑なカスタマイズが必要ないのであれば、ユーザーコントロールを用いるほうが簡便である。<br>
+(前述の NumericUpDown 程度であれば、ユーザーコントロールでも作成が可能である。)

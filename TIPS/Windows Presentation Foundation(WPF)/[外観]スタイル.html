@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<h5>出典 :</h5>
+<a href="https://docs.microsoft.com/ja-jp/dotnet/desktop/wpf/controls/styles-templates-overview?view=netdesktop-6.0">スタイルとテンプレート - WPF .NET | Microsoft Docs</a><br>
+<a href="https://docs.microsoft.com/ja-jp/dotnet/desktop/wpf/controls/how-to-create-apply-style?view=netdesktop-6.0">コントロールのスタイルを作成する方法 - WPF .NET | Microsoft Docs</a><br>
+<a href="https://atmarkit.itmedia.co.jp/ait/articles/1009/07/news096.html">第4回　WPFの「リソース、スタイル、テンプレート」を習得しよう：連載：WPF入門 - ＠IT</a><br>
+<a href="https://qiita.com/tera1707/items/cb8ad4c40107ae25b565">[WPF] Styleでできることと書き方 - Qiita</a><br>
+<a href="https://qiita.com/daiten0/items/d5f9a137491f83344695">【WPF】スタイルの共通化方法 - Qiita</a><br>
+<a href="https://livealoneblog.com/wpf-default-style/">WPF デフォルトのスタイルの適用について | live-alone blog</a>
+
+<!-- 関連ページ -->
+<h5>関連 :</h5>
+<a href="TIPS/Windows Presentation Foundation(WPF)/[外観]リソース.html">リソース</a><br>
+<a href="TIPS/Windows Presentation Foundation(WPF)/[外観]テンプレート.html">テンプレート</a><br>
+<a href="TIPS/Windows Presentation Foundation(WPF)/Tagプロパティ.html">Tagプロパティ</a><br>
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>スタイルとは</h2>
+一連のプロパティ値を複数の要素に適用するための機構。活用することで、デザインに統一性を持たせることが容易となる。<br>
+<a href="TIPS/Windows Presentation Foundation(WPF)/[外観]リソース.html">リソース</a>として定義することで、効率的な適用と再利用が可能となる。<br>
+HTMLに対するCSSに類似する。
+
+<h2>基本形</h2>
+<div class="xaml">
+&lt;Style TargetType="Button"&gt;
+    &lt;Setter Property="Background" Value="DarkSeaGreen" /&gt;
+    &lt;Setter Property="Foreground" Value="LightPink" /&gt;
+    &lt;EventSetter Event="Click" Handler="DoSomething" /&gt;
+&lt;/Style&gt;
+</div>
+Style 要素の TargetType には、適用先の型名を指定する。<br>
+Setter 要素の Property 、Value には対象となるプロパティ名と設定する値を指定する。<br>
+この場合は Button 型が適用対象となり、Background 、Foreground がそれぞれ設定される。<br>
+また、EventSetter 要素を用いることでイベントおよび対応するハンドラを設定できる。<br>
+ここでは Click イベントに DoSomething() メソッドをハンドラとして割り付けている。
+
+<h2>スタイルの記述</h2>
+System.Windows.FrameworkElement 型の Style プロパティに値を設定することでも適用できるが、<br>
+<a href="TIPS/Windows Presentation Foundation(WPF)/[外観]リソース.html">リソース</a>として定義することで複数の要素に適用しやすくなる。<br>
+
+<h5>(XAML)</h5>
+<div class="xaml">
+&lt;StackPanel&gt;
+
+    &lt;StackPanel.Resources&gt;
+<bg_lb>        <cmt>&lt;!-- x:Key なしのスタイルを定義することで、
+             TargetType で指定した型すべてにスタイルを適用する --&gt;</cmt>
+        &lt;Style TargetType="Button"&gt;
+            &lt;Setter Property="Background" Value="LightBlue" /&gt;
+            &lt;Setter Property="Foreground" Value="Red" /&gt;
+        &lt;/Style&gt;</bg_lb>
+
+<bg_lg>        <cmt>&lt;!-- x:Key の明示 --&gt;</cmt>
+        &lt;Style x:Key="MyButtonStyle" TargetType="Button"&gt;
+            &lt;Setter Property="Background" Value="DarkSeaGreen" /&gt;
+            &lt;Setter Property="Foreground" Value="LightPink" /&gt;
+        &lt;/Style&gt;</bg_lg>
+    &lt;/StackPanel.Resources&gt;
+
+<bg_lb>    <cmt>&lt;!-- スタイルの自動適用 --&gt;</cmt>
+    &lt;Button Content="ボタン1" /&gt;</bg_lb>
+
+<bg_lg>    <cmt>&lt;!-- x:Key を指定して明示的にスタイルを適用 --&gt;</cmt>
+    &lt;Button Style="{StaticResource ResourceKey=MyButtonStyle}"
+            Content="ボタン2" /&gt;</bg_lg>
+
+    <cmt>&lt;!-- スタイルを直接記述 --&gt;</cmt>
+    &lt;Button Content="ボタン3"&gt;
+        &lt;Button.Style&gt;
+            &lt;Style TargetType="Button"&gt;
+                &lt;Setter Property="Background" Value="Gray" /&gt;
+            &lt;/Style&gt;
+        &lt;/Button.Style&gt;
+    &lt;/Button&gt;
+
+&lt;/StackPanel&gt;
+</div>
+
+<h5>(表示)</h5>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_Resource_Style_Template/02.png" alt=""><br>
+
+<h5>解説</h5>
+ここでは、StackPanel の Resource としてスタイルを定義している。<br>
+<bg_lb>青地</bg_lb>は TargetType のみを指定したスタイルで、原則として StackPanel に含まれるすべての Button に適用される(デフォルトスタイル)。<br>
+<bg_lg>緑地</bg_lg>は TargetType に加えて x:Key を指定しており、「ボタン2」は x:Key を指定することで、適用するスタイルを選択している。<br>
+「ボタン3」は Button.Style を直接記述している。この場合、親要素( StackPanel )に対して指定されたスタイルは無視される。
+
+<h2>スタイルの適用除外</h2>
+<b>Style={x:Null}</b> とすることで、そのコントロールをスタイル自動適用の対象外とすることができる。
+
+<h5>(XAML)</h5>
+<div class="xaml">
+&lt;StackPanel&gt;
+
+    &lt;StackPanel.Resources&gt;
+<bg_lb>        <cmt>&lt;!-- 自動適用(デフォルト)スタイルの定義 --&gt;</cmt>
+        &lt;Style TargetType="Button"&gt;
+            &lt;Setter Property="Background" Value="LightBlue" /&gt;
+            &lt;Setter Property="Foreground" Value="Red" /&gt;
+        &lt;/Style&gt;</bg_lb>
+
+<bg_lb>    &lt;Button Content="ボタン1" /&gt;</bg_lb>
+
+    &lt;Button Content="ボタン2" Style={x:Null}/&gt;
+
+<bg_lb>    &lt;Button Content="ボタン3" /&gt;</bg_lb>
+
+&lt;/StackPanel&gt;
+</div>
+
+スタイルの指定を行っていない「ボタン1」、「ボタン3」にはデフォルトスタイル(<bg_lb>青地</bg_lb>)が適用されるが、Style={x:Null} を指定した「ボタン2」にはデフォルトスタイルが適用されない。
+
+<h2>スタイルの継承</h2>
+スタイルは BasedOn プロパティを指定することで、他のスタイルを継承できる。<br>
+これにより、スタイルの部分的な変更が可能。<br>
+
+<h5>(XAML)</h5>
+<div class="xaml">
+&lt;StackPanel Width="90"&gt;
+
+    &lt;StackPanel.Resources&gt;
+        &lt;Style TargetType="Button"&gt;
+            &lt;Setter Property="Background" Value="LightBlue" /&gt;
+            &lt;Setter Property="Foreground" Value="Red" /&gt;
+        &lt;/Style&gt;
+<bg_lg>
+        <cmt>&lt;!-- デフォルトスタイルを基に、新たにスタイルを作成 --&gt;</cmt>
+        &lt;Style x:Key="MyButtonStyle" TargetType="Button"
+               <b>BasedOn="{StaticResource ResourceKey={x:Type Button}}"</b>&gt;
+            &lt;Setter Property="FontSize" Value="20" /&gt;
+        &lt;/Style&gt;</bg_lg>
+    &lt;/StackPanel.Resources&gt;
+
+    <cmt>&lt;!-- x:Key を指定していないため、デフォルトスタイルが適用される --&gt;</cmt>
+    &lt;Button Content="ボタン1" /&gt;
+<bg_lg>
+    <cmt>&lt;!-- MyButtonStyle を適用 --&gt;</cmt>
+    &lt;Button Style="{StaticResource ResourceKey=MyButtonStyle}"
+            Content="ボタン2" /&gt;</bg_lg>
+
+&lt;/StackPanel&gt;
+</div>
+
+<h5>(表示)</h5>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_Resource_Style_Template/03.png" alt=""><br>
+
+<h2>トリガー</h2>
+特定の条件下でのみスタイルを適用したい場合、その条件をトリガー( Style.Trigger )として指定することができる。<br>
+例えば、マウスオーバー時やクリック時にボタンスタイルを変更する、といったことが可能である。
+
+<div class="xaml">
+&lt;StackPanel Width="60"&gt;
+
+    &lt;StackPanel.Resources&gt;
+        &lt;Style TargetType="TextBox"&gt;
+            &lt;Setter Property="Background" Value="LightGray" /&gt;
+
+            <cmt>&lt;!-- トリガー条件の指定 --&gt;</cmt>
+            &lt;Style.Triggers&gt;
+                <cmt>&lt;!-- トリガー : マウスオーバー時 --&gt;</cmt>
+                &lt;Trigger Property="IsMouseOver" Value="True"&gt;
+                    &lt;Setter Property="Background" Value="LightBlue" /&gt;
+                &lt;/Trigger&gt;
+
+                <cmt>&lt;!-- トリガー : フォーカス時 --&gt;</cmt>
+                &lt;Trigger Property="IsFocused" Value="True"&gt;
+                    &lt;Setter Property="Background" Value="LightPink" /&gt;
+                &lt;/Trigger&gt;
+            &lt;/Style.Triggers&gt;
+        &lt;/Style&gt;
+    &lt;/StackPanel.Resources&gt;
+
+    &lt;TextBox Text="テキスト" /&gt;
+
+&lt;/StackPanel&gt;
+</div>
+
+上記の例では、マウスオーバー時に背景が薄青、フォーカス時に薄ピンクとなるテキストボックスが得られる。
