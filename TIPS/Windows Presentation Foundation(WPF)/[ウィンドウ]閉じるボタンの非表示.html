@@ -1,25 +1,30 @@
 <!DOCTYPE html>
+
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
+
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
+
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
+
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
+
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
+
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-<!-- 出典・関連ページ -->
-<h5>出典 :</h5>
-<a href="https://docs.microsoft.com/ja-jp/dotnet/api/system.windows.window.windowstyle?view=windowsdesktop-6.0">Window.WindowStyle プロパティ (System.Windows) | Microsoft Docs</a><br>
-<a href="https://docs.microsoft.com/ja-jp/dotnet/api/system.windows.window.resizemode?view=windowsdesktop-6.0">Window.ResizeMode プロパティ (System.Windows) | Microsoft Docs</a><br>
-<a href="https://docs.microsoft.com/ja-jp/dotnet/api/system.windows.window.windowstate?view=windowsdesktop-6.0">Window.WindowState プロパティ (System.Windows) | Microsoft Docs</a><br>
-<a href="https://docs.microsoft.com/ja-jp/dotnet/api/system.windows.window.sizetocontent?view=windowsdesktop-6.0">Window.SizeToContent プロパティ (System.Windows) | Microsoft Docs</a><br>
-<a href="https://docs.microsoft.com/ja-jp/dotnet/api/system.windows.window.windowstartuplocation?view=windowsdesktop-6.0">Window.WindowStartupLocation プロパティ (System.Windows) | Microsoft Docs</a>
+
+<!-- 出典ページ -->
+
+<!-- 関連ページ -->
 <h5>関連 :</h5>
+<a href="TIPS/Windows Presentation Foundation(WPF)/[ウィンドウ]ウィンドウの表示に関するプロパティ.html">ウィンドウの表示に関するプロパティ</a><br>
+
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
@@ -151,8 +156,10 @@ WindowState の値が変化した場合、 StateChanged イベントが発生す
 WindowStyle プロパティで最大化、最小化ボタンを非表示にすることはできるが、閉じるボタンのみはプロパティの設定では非表示にできない。<br>
 コードビハインドを以下のように記述することで実現できる。#region ～ #endregion が該当箇所。<br>
 System.Runtime.InteropServices および System.Windows.Interop の参照を行うため、using で指定している。<br>
-<br>
-<b>MainWindow.xaml.cs (コードビハインド)</b>
+(.NETのサポート範囲に無いためWin32 APIをコールする。)
+
+<h5>MainWindow.xaml.cs (コードビハインド)</h5>
+
 <div class="code">
 <kwd>using</kwd> <knw>System</knw>;
 <kwd>using</kwd> <knw>System</knw>.<knw>Windows</knw>;
