@@ -160,9 +160,9 @@ color &= ~MultiHue.Green;                              <cmt>//< Black, Red</cmt>
 但し、HasFlag() は値型(enum)を参照型(Enum)にボックス化するため、パフォーマンスへの影響が発生する。
 
 <h2>列挙子と文字列リテラル</h2>
-列挙子を複合文字列、または文字列補完に含めた場合、基となる値ではなくラベルが埋め込まれる。即ち、後述の GetName() や ToString() を行う必要が無い。<br>
-(実際は暗黙的に ToString() が実行されるため、ToString() をオーバーロードすることで出力形式を変化させることができる。)<br>
-複合文字列、文字列補完の詳細は<a href="TIPS/dotNET・C Sharp/文字列リテラル.html">リンク先</a>を参照のこと。
+列挙子に対して ToString() を実行すると、基となる値ではなくラベルが取得できる。<br>
+このため列挙子を<a href="TIPS/dotNET・C Sharp/文字列リテラル.html">複合文字列、または文字列補完</a>に含めた場合はラベルが埋め込まれる。<br>
+( ToString() を暗黙的にコールしているため。ToString() をオーバーロードすることで異なる出力を得ることもできる。)<br>
 
 <div class="code">
 <kwd>using</kwd> <knw>System</knw>;
@@ -182,7 +182,6 @@ color &= ~MultiHue.Green;                              <cmt>//< Black, Red</cmt>
 
         <cmt>// 文字列補完</cmt>
         <knw>Console</knw>.WriteLine( $"c2 は {c2} です。" );
-
     }
 }
 
@@ -220,7 +219,7 @@ value が enumType に含まれない場合は null を返す。
 
 <h4>注意が必要な点</h4>
 value で指定された値が複数のメンバに該当する(複数のメンバが同じ値を持つ)場合、GetName() はそのうちのいずれかを返すが、いずれのメンバが返されるかは不定である。<br>
-(尤も、値が重複するような用途は適切ではなく、特殊な場合を除いて発生しない)
+(尤も、値が重複するような用途はそもそも適切ではない。)
 
 <h3>string? Enum.GetName&lt;TEnum&gt;(TEnum value)</h3>
 列挙値 value のラベルを文字列形式で返却する。
