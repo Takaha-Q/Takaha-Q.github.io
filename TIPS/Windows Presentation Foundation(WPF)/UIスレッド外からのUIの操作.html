@@ -14,7 +14,7 @@
 <a href="index.html">ホームに戻る</a><br>
 <!-- 出典・関連ページ -->
 <h5>関連 :</h5>
-<a href="TIPS/Microsoft Visual Studio・.NET/[WinForm]UI(コントロール)とデリゲート.html">[WinForm]UI(コントロール)とデリゲート</a><br>
+<a href="TIPS/Visual Studio・.NET/[WinForms]UI(コントロール)とデリゲート.html">[WinForms]UI(コントロール)とデリゲート</a><br>
 <a href="TIPS/Windows Presentation Foundation(WPF)/ウィンドウの再描画.html">[WPF]ウィンドウの再描画</a><br>
 <a href="TIPS/dotNET・C Sharp/イベント処理.html">[C#]イベント処理</a>
 <!-- 目次 -->
@@ -25,12 +25,12 @@
 <!-- 本文ここから -->
 
 <h2>コントロールの操作に関する制約</h2>
-WPFでは、WinFormと同様に<b>コントロールに対する操作はUIスレッドから行う必要がある</b>。<br>
+WPFでは、WinFormsと同様に<b>コントロールに対する操作はUIスレッドから行う必要がある</b>。<br>
 UIスレッドには、各ウィンドウに関連付けられたイベントハンドラが該当する。<br>
 即ち原則として、コントロールの操作はイベントハンドラ(と同一のスレッド)からでなければ実行することができない。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/UI_delegate/UiControl_and_Delegate_01.png" alt="画像"><br>
 別スレッド(ワーカースレッド)からコントロールの操作を行う場合、UIスレッドに処理を委譲する必要がある。<br>
-尚、WinFormと異なり、InvokeRequired プロパティは存在しない。
+尚、WinFormsと異なり、InvokeRequired プロパティは存在しない。
 
 <h2>処理の委譲先</h2>
 <ul>

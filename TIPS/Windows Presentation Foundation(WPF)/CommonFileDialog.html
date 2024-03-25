@@ -23,11 +23,11 @@
 <!-- 本文ここから -->
 
 <h2>WPFで使用できるファイル選択・保存ダイアログ</h2>
-Windows Formでは OpenFileDialog 、SaveFileDialog が標準で使用できたが、<br>
+WinFormsでは OpenFileDialog 、SaveFileDialog が標準で使用できたが、<br>
 これはWPFと組み合わせて使用されることは想定されておらず、オーナーウィンドウが指定できないなど不便な点が存在する。<br>
 Windows API Code Packに含まれる CommonFileDialog は当初から.NETおよびWPFでの使用を前提としているため、WPFとの相性が良い。<br>
-(Windows Formは.NETを謳ってはいるものの、実際はWin32をラッピングしたもので、パフォーマンス等の最適化が十分でない。)<br>
-尚、使用できる機能自体はWindows Formのものと相違は無い。
+(WinFormsは.NETを謳ってはいるものの、実際はWin32をラッピングしたもので、パフォーマンス等の最適化が十分でない。)<br>
+尚、使用できる機能自体はWinFormsのものと相違は無い。
 
 <h2>準備</h2>
 CommonFileDialog の使用に際しては、Windows API Code Pack を組み込む必要がある。<br>

@@ -55,41 +55,38 @@ value = <kwd>null</kwd>;
 </p>
 
 <h2>Null条件演算子</h2>
-検査対象がnullでない場合はメンバにアクセスし、対象がnullの場合は<b>式全体の評価値がnullとなる</b>。<br>
-(Null条件演算子は代入式の左辺に用いることはできない？要調査。)
+検査対象が null でない場合はメンバにアクセスし、null の場合は<b>式全体の評価値が null となる</b>。<br>
+(代入式の左辺に用いることはできない？要調査。)
 
-<h3>オブジェクト</h3>
-<table>
+<table class="center">
+    <tr class="row0">
+        <td class="col1" rowspan="2">評価式</td>
+        <td colspan="2">検査対象( object または array )の状態</td>
+
+    </tr>
     <tr class="row1">
-        <td class="col1" colspan="2"></td>
-        <td width="160">object.member</td>
-        <td width="160">object<b><red>?</red></b>.member</td>
+
+        <td>非 null</td>
+        <td>null</td>
     </tr>
     <tr>
-        <th rowspan="2">評価値</th>
-        <td class="col1">object != null</td>
-        <td colspan="2">object.member の値</td>
+        <td class="col1" width="160">object.member</td>
+        <td rowspan="2" width="160">object.member の値</td>
+        <td width="160"><b>評価不能(ヌルポインタ例外)</b></td>
     </tr>
-        <td class="col1">object == null</td>
-        <td><b>評価不能(ヌルポインタ例外)</b></td>
+    <tr>
+        <td class="col1">object<b><red>?</red></b>.member</td>
+
         <td><b>null</b></td>
     </tr>
-</table>
-
-<h3>配列</h3>
-<table>
-    <tr class="row1">
-        <td class="col1" colspan="2"></td>
-        <td width="160">array[m]</td>
-        <td width="160">array<b><red>?</red></b>[m]</td>
+    <tr>
+        <td class="col1">array[m]</td>
+        <td rowspan="2">array[m] の値</td>
+        <td><b>評価不能(ヌルポインタ例外)</b></td>
     </tr>
     <tr>
-        <th rowspan="2">評価値</th>
-        <td class="col1">array != null</td>
-        <td colspan="2">array[m] の値</td>
-    </tr>
-        <td class="col1">array == null</td>
-        <td><b>評価不能(ヌルポインタ例外)</b></td>
+        <td class="col1">array<b><red>?</red></b>[m]</td>
+
         <td><b>null</b></td>
     </tr>
 </table>
