@@ -44,13 +44,16 @@ WPFにおける、ウィンドウ表示に関連するプロパティを以下�
 <h2>WindowStyle : ウィンドウの境界線</h2>
 WindowStyle プロパティはウィンドウの境界線(枠)を規定する。<br>
 型は WindowStyle 列挙型、既定値は SingleBorderWindow 。<br>
-<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_Window_Appearance/01.png"><br>
 
 <ul>
-    <li><b>None</b> : 枠なし。ウィンドウを最大化した場合はコンテンツのみが全画面に表示される。</li>
-    <li><b>SingleBorderWindow</b> : 既定値。標準の枠。</li>
-    <li><b>ThreeDBorderWindow</b> : 3Dの枠。</li>
-    <li><b>ToolWindow</b> : 最大化、最小化ボタンを表示しない。</li>
+    <li><b>None</b> : <br>クライアント領域のみが表示され、タイトルバーと境界線が表示されない。ウィンドウを最大化した場合はクライアント領域のみが全画面に表示される。<br>
+    <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/WPF/Window_Appearance/01.png"></li>
+    <li><b>SingleBorderWindow</b> : <br>平面的な枠。既定値。<br>
+    <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/WPF/Window_Appearance/02.png"></li>
+    <li><b>SingleBorderWindow</b> : <br>立体的な枠。<br>
+    <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/WPF/Window_Appearance/03.png"></li>
+    <li><b>ToolWindow</b> : <br>固定ツールウィンドウ。<br>
+    <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/WPF/Window_Appearance/04.png"></li>
 </ul>
 
 
@@ -69,30 +72,30 @@ ResizeMode プロパティはウィンドウのリサイズの可否を規定す
     <tr>
         <td class="col1">NoResize</td>
         <td>リサイズ不可。最大化、最小化ボタンが表示されない。</td>
-        <td>不可</td>
-        <td>非表示</td>
-        <td>非表示</td>
+        <td class="center bg_lh">不可</td>
+        <td class="center bg_lh">非表示</td>
+        <td class="center bg_lh">非表示</td>
     </tr>
     <tr>
         <td class="col1">CanMinimize</td>
         <td>最小化のみ可能。最大化ボタンは表示されるが無効。</td>
-        <td>不可</td>
-        <td>有効</td>
-        <td>無効</td>
+        <td class="center bg_lh">不可</td>
+        <td class="center bg_lg">有効</td>
+        <td class="center">無効</td>
     </tr>
     <tr>
         <td class="col1">CanResize</td>
         <td>既定値。リサイズ、最小化、最大化が可能。</td>
-        <td>可</td>
-        <td>有効</td>
-        <td>有効</td>
+        <td class="center bg_lg">可</td>
+        <td class="center bg_lg">有効</td>
+        <td class="center bg_lg">有効</td>
     </tr>
     <tr>
         <td class="col1">CanResizeWithGrip</td>
-        <td>CanResize の機能に加え、リサイズ可能であることを示すグリップが右下隅に表示される。</td>
-        <td>可</td>
-        <td>有効</td>
-        <td>有効</td>
+        <td>CanResize に加え、リサイズ可能であることを示すグリップが右下隅に表示される。</td>
+        <td class="center bg_lg">可</td>
+        <td class="center bg_lg">有効</td>
+        <td class="center bg_lg">有効</td>
     </tr>
 </table>
 
@@ -126,26 +129,26 @@ WindowState の値が変化した場合、 StateChanged イベントが発生す
     <tr>
         <td class="col1">Normal</td>
         <td>既定値。サイズが自動調整されない。</td>
-        <td>有効</td>
-        <td>有効</td>
+        <td class="center bg_lg">有効</td>
+        <td class="center bg_lg">有効</td>
     </tr>
     <tr>
         <td class="col1">Width</td>
         <td>幅のみ自動調整される。Width の設定は無視される。</td>
-        <td>無効</td>
-        <td>有効</td>
+        <td class="center bg_lh">無効</td>
+        <td class="center bg_lg">有効</td>
     </tr>
     <tr>
         <td class="col1">Height</td>
         <td>高さのみ自動調整される。Height の設定は無視される。</td>
-        <td>有効</td>
-        <td>無効</td>
+        <td class="center bg_lg">有効</td>
+        <td class="center bg_lh">無効</td>
     </tr>
     <tr>
         <td class="col1">WidthAndHeight</td>
         <td>幅と高さの両方が自動調整される。Width 、Height の設定が無視される。</td>
-        <td>無効</td>
-        <td>無効</td>
+        <td class="center bg_lh">無効</td>
+        <td class="center bg_lh">無効</td>
     </tr>
 </table>
 
