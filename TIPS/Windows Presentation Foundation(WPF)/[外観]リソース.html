@@ -39,7 +39,7 @@
 <h2>リソースとは</h2>
 複数のコントロール(UI要素)でひとつのオブジェクトを共有するための仕組み。<br>
 例えば背景色を指定するためのブラシをリソースとして作成しておき、複数の Button で共有するといった使い方ができる。<br>
-リソースは、<a href="TIPS/Windows Presentation Foundation(WPF)/[外観]スタイル.html">スタイル</a>の指定に用いられることが多い。<br>
+<a href="TIPS/Windows Presentation Foundation(WPF)/[外観]スタイル.html">スタイル</a>の指定に用いられるのが一般的である。<br>
 
 <h2>リソースの定義</h2>
 リソースは( System.Windows.FrameworkElement 型を継承する) Window 等の要素の、Resources プロパティ内に定義する。<br>
@@ -70,7 +70,7 @@
 &lt;/Window&gt;
 </div>
 
-ここで、"ResourceKey=" は省略可能。以下も同様。
+ここで "ResourceKey=" は省略可能。以下も同様。
 
 <h5>(表示)</h5>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_Resource_Style_Template/01.png" alt=""><br>
@@ -167,6 +167,8 @@
 <h2>外部リソース</h2>
 リソースは ####.Resources タグ中に直接定義する以外に、別途用意したXAMLファイル中に定義したリソースをインポートすることが可能である。<br>
 外部リソースのルート要素は <b>ResourceDictionary</b> とし、配下にリソースの各要素を定義する。<br>
+Visual Studioで外部リソースを新規作成する場合は、「リソース ディクショナリ(WPF)」を選択する。<br>
+(XAMLファイルが新規に作成される。)
 
 <h5>外部リソース(Styles.xaml)</h5>
 
