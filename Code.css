@@ -44,46 +44,56 @@ span.xaml
   padding:              3px 5px;
 }
 
-/* キーワード (<keyword>、<kwd>) */
-.code keyword, .code kwd,
-.cpp  keyword, .cpp  kwd,
-.cs   keyword, .cs   kwd,
-.java keyword, .java kwd,
-.vba  keyword, .vba  kwd,
-.xaml keyword, .xaml kwd
+/* キーワード (<kwd>) */
+.code kwd,
+.cpp  kwd,
+.cs   kwd,
+.java kwd,
+.vba  kwd
 {
   color:                #0000FF;
 }
   
-/* 既知のクラス (<known>、<knw>) */
-.code known, .code knw,
-.cpp  known, .cpp  knw,
-.cs   known, .cs   knw,
-.java known, .java knw,
-.vba  known, .vba  knw,
-.xaml known, .xaml knw
+/* タグ (<tag>) */
+.xaml kwd
+{
+  color:                #0000FF;
+}
+  
+/* 既知のクラス (<knw>) */
+.code knw,
+.cpp  knw,
+.cs   knw,
+.java knw,
+.vba  knw
 {
   color:                #20B0D0;
 }
 
-/* コメント (<comment>、<cmt>) */
-.code comment, .code cmt,
-.cpp  comment, .cpp  cmt,
-.cs   comment, .cs   cmt,
-.java comment, .java cmt,
-.vba  comment, .vba  cmt,
-.xaml comment, .xaml cmt
+/* プロパティ (<prp>) */
+.xaml prp
+{
+  color:                #20B0D0;
+}
+
+/* コメント (<cmt>) */
+.code cmt,
+.cpp  cmt,
+.cs   cmt,
+.java cmt,
+.vba  cmt,
+.xaml cmt
 {
   color:                #009000;
 }
 
-/* リテラル (<literal>、<ltr>) */
-.code literal, .code ltr,
-.cpp  literal, .cpp  ltr,
-.cs   literal, .cs   ltr,
-.java literal, .java ltr,
-.vba  literal, .vba  ltr,
-.xaml literal, .xaml ltr
+/* リテラル (<ltr>) */
+.code ltr,
+.cpp  ltr,
+.cs   ltr,
+.java ltr,
+.vba  ltr,
+.xaml ltr
 {
   color:                #990000;
 }

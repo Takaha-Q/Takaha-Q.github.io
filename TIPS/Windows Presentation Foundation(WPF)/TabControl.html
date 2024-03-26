@@ -54,17 +54,17 @@
 
 <h5>XAML</h5>
 <div class="xaml">
-&lt;TabControl&gt;
-    &lt;TabItem Header="TabItem1"&gt;
-        &lt;TextBlock Text="TabItem1 Content" /&gt;
-    &lt;/TabItem&gt;
-    &lt;TabItem Header="TabItem2"&gt;
-        &lt;TextBlock Text="TabItem2 Content" /&gt;
-    &lt;/TabItem&gt;
-    &lt;TabItem Header="TabItem3"&gt;
-        &lt;TextBlock Text="TabItem3 Content" /&gt;
-    &lt;/TabItem&gt;
-&lt;/TabControl&gt;
+&lt;<tag>TabControl</tag>&gt;
+    &lt;<tag>TabItem</tag> <prp>Header</prp>=<ltr>"TabItem1"</ltr>&gt;
+        &lt;<tag>TextBlock</tag> <prp>Text</prp>=<ltr>"TabItem1 Content"</ltr> /&gt;
+    &lt;/<tag>TabItem</tag>&gt;
+    &lt;<tag>TabItem</tag> <prp>Header</prp>=<ltr>"TabItem2"</ltr>&gt;
+        &lt;<tag>TextBlock</tag> <prp>Text</prp>=<ltr>"TabItem2 Content"</ltr> /&gt;
+    &lt;/<tag>TabItem</tag>&gt;
+    &lt;<tag>TabItem</tag> <prp>Header</prp>=<ltr>"TabItem3"</ltr>&gt;
+        &lt;<tag>TextBlock</tag> <prp>Text</prp>=<ltr>"TabItem3 Content"</ltr> /&gt;
+    &lt;/<tag>TabItem</tag>&gt;
+&lt;/<tag>TabControl</tag>&gt;
 </div>
 
 <h5>画面表示</h5>
@@ -76,69 +76,69 @@ TabControl クラスは Selector を継承しているため、 ItemsSource プ�
 
 <h5>Model(CS)</h5>
 <div class="cs">
-// コレクションの要素として用いる Person クラス
-public class Person
+<cmt>// コレクションの要素として用いる Person クラス</cmt>
+<kwd>public class</kwd> Person
 {
-    public string Name { get; set; }
-    public int Age { get; set; }
+    <kwd>public string</kwd> Name { <kwd>get</kwd>; <kwd>set</kwd>; }
+    <kwd>public int</kwd> Age { <kwd>get</kwd>; <kwd>set</kwd>; }
 }
 </div>
 
 <h5>View(MainWindow.cs.xaml)</h5>
 <div class="xaml">
-&lt;!-- TabControl : "tabControl" --&gt;
-&lt;TabControl x:Name="tabControl"&gt;
-    &lt;!-- ItemTemplate : タブの表題( Header )に関連 --&gt;
-    &lt;TabControl.ItemTemplate&gt;
-        &lt;DataTemplate&gt;
-            &lt;!-- タブ表題を TextBlock として表示 --&gt;
-            &lt;!-- TextBlock.Text を Person.Name にバインド --&gt;
-            &lt;TextBlock Text="{Binding Name}" /&gt;
-        &lt;/DataTemplate&gt;
-    &lt;/TabControl.ItemTemplate&gt;
+<cmt>&lt;!-- TabControl : "tabControl" --&gt;</cmt>
+&lt;<tag>TabControl</tag> <prp>x:Name</prp>=<ltr>"tabControl"</ltr>&gt;
+    <cmt>&lt;!-- ItemTemplate : タブの表題( Header )に関連 --&gt;</cmt>
+    &lt;<tag>TabControl.ItemTemplate</tag>&gt;
+        &lt;<tag>DataTemplate</tag>&gt;
+            <cmt>&lt;!-- タブ表題を TextBlock として表示 --&gt;</cmt>
+            <cmt>&lt;!-- TextBlock.Text を Person.Name にバインド --&gt;</cmt>
+            &lt;<tag>TextBlock</tag> <prp>Text</prp>=<ltr>"{Binding Name}"</ltr> /&gt;
+        &lt;/<tag>DataTemplate</tag>&gt;
+    &lt;/<tag>TabControl.ItemTemplate</tag>&gt;
 
-    &lt;!-- ContentTemplate : タブの内容( Content )に関連 --&gt;
-    &lt;TabControl.ContentTemplate&gt;
-        &lt;DataTemplate&gt;
-            &lt;Grid&gt;
-                &lt;Grid.RowDefinitions&gt;
-                    &lt;RowDefinition Height="Auto" /&gt;
-                    &lt;RowDefinition Height="Auto" /&gt;
-                &lt;/Grid.RowDefinitions&gt;
-                &lt;Grid.ColumnDefinitions&gt;
-                    &lt;ColumnDefinition Width="Auto" /&gt;
-                    &lt;ColumnDefinition/&gt;
-                &lt;/Grid.ColumnDefinitions&gt;
+    <cmt>&lt;!-- ContentTemplate : タブの内容( Content )に関連 --&gt;</cmt>
+    &lt;<tag>TabControl.ContentTemplate</tag>&gt;
+        &lt;<tag>DataTemplate</tag>&gt;
+            &lt;<tag>Grid</tag>&gt;
+                &lt;<tag>Grid.RowDefinitions</tag>&gt;
+                    &lt;<tag>RowDefinition</tag> <prp>Height</prp>=<ltr>"Auto"</ltr> /&gt;
+                    &lt;<tag>RowDefinition</tag> <prp>Height</prp>=<ltr>"Auto"</ltr> /&gt;
+                &lt;/<tag>Grid.RowDefinitions</tag>&gt;
+                &lt;<tag>Grid.ColumnDefinitions</tag>&gt;
+                    &lt;<tag>ColumnDefinition</tag> <prp>Width</prp>=<ltr>"Auto"</ltr> /&gt;
+                    &lt;<tag>ColumnDefinition</tag>/&gt;
+                &lt;/<tag>Grid.ColumnDefinitions</tag>&gt;
 
-                &lt;Label      Grid.Row="0" Grid.Column="0" Content="名前" /&gt;
+                &lt;<tag>Label</tag>      <prp>Grid.Row</prp>=<ltr>"0"</ltr> <prp>Grid.Column</prp>=<ltr>"0"</ltr> <prp>Content</prp>=<ltr>"名前"</ltr> /&gt;
 
-                &lt;!-- TextBlock.Text を Person.Name にバインド --&gt;
-                &lt;TextBlock  Grid.Row="0" Grid.Column="1" Text="{Binding Name}" /&gt;
+                <cmt>&lt;!-- TextBlock.Text を Person.Name にバインド --&gt;</cmt>
+                &lt;<tag>TextBlock</tag>  <prp>Grid.Row</prp>=<ltr>"0"</ltr> <prp>Grid.Column</prp>=<ltr>"1"</ltr> <prp>Text</prp>=<ltr>"{Binding Name}"</ltr> /&gt;
 
-                &lt;Label      Grid.Row="1" Grid.Column="0" Content="年齢" /&gt;
+                &lt;<tag>Label</tag>      <prp>Grid.Row</prp>=<ltr>"1"</ltr> <prp>Grid.Column</prp>=<ltr>"0"</ltr> <prp>Content</prp>=<ltr>"年齢"</ltr> /&gt;
 
-                &lt;!-- TextBlock.Text を Person.Age にバインド --&gt;
-                &lt;TextBlock  Grid.Row="1" Grid.Column="1" Text="{Binding Age}" /&gt;
+                <cmt>&lt;!-- TextBlock.Text を Person.Age にバインド --&gt;</cmt>
+                &lt;<tag>TextBlock</tag>  <prp>Grid.Row</prp>=<ltr>"1"</ltr> <prp>Grid.Column</prp>=<ltr>"1"</ltr> <prp>Text</prp>=<ltr>"{Binding Age}"</ltr> /&gt;
 
-            &lt;/Grid&gt;
-        &lt;/DataTemplate&gt;
-    &lt;/TabControl.ContentTemplate&gt;
+            &lt;/<tag>Grid</tag>&gt;
+        &lt;/<tag>DataTemplate</tag>&gt;
+    &lt;/<tag>TabControl.ContentTemplate</tag>&gt;
 
-&lt;/TabControl&gt;
+&lt;/<tag>TabControl</tag>&gt;
 </div>
 
 <h5>ViewModel(MainWindow.cs)</h5>
 <div class="cs">
-public MainWindow()
+<kwd>public</kwd> MainWindow()
 {
     InitializeComponent();
 
-    // コレクション source の初期化
-    var source = Enumerable.Range(1, 10)
-        .Select(i => new Person { Name = "おおた" + i, Age = 20 + i });
+    <cmt>// コレクション source の初期化</cmt>
+    <kwd>var</kwd> source = <knw>Enumerable</knw>.Range(<ltr>1</ltr>, <ltr>10</ltr>)
+        .Select(i => <kwd>new</kwd> Person { Name = <ltr>"おおた"</ltr> + i, Age = <ltr>20</ltr> + i });
 
-    // tabControl の ItemsSource にコレクション source を指定
-    this.tabControl.ItemsSource = source;
+    <cmt>// tabControl の ItemsSource にコレクション source を指定</cmt>
+    <kwd>this</kwd>.tabControl.ItemsSource = source;
 }
 </div>
 
