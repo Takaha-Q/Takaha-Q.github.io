@@ -151,3 +151,7 @@ TabControl クラスは Selector を継承しているため、 ItemsSource プ�
 Person 型のコレクション source を TabControl の ItemsSource プロパティに代入すると、TabControl では source の要素ごとにタブを割り当てる。<br>
 ( source の初期化時に<a href="TIPS/dotNET・C Sharp/LINQ (Language Integrated Query).html">LINQ( Select() )</a>を使用している点に注意。)<br>
 TabControl.ItemsSource が割り当てられているため、XAML側では<a href="TIPS/Windows Presentation Foundation(WPF)/[データバインディング]データバインディング.html">データバインディング</a>により値を参照できる。<br>
+
+<h2>タブの高さを揃える</h2>
+通常、TabItem の高さは内容によって変化するため、タブを選択するたびに TabControl 全体の高さが変わってしまう。<br>
+<a href="TIPS/Windows Presentation Foundation(WPF)/[パネル]Grid#Grid 要素間のサイズ共有.html">Grid</a> の機能を用いることで、高さの変化をある程度抑制できる。
