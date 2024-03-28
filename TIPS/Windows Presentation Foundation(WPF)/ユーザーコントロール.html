@@ -1,26 +1,36 @@
 <!DOCTYPE html>
+
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
+
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
+
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
+
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
+
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
+
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
+
 <!-- 出典・関連ページ -->
 <h5>出典 :</h5>
 <a href="https://docs.microsoft.com/ja-jp/dotnet/api/system.windows.controls.usercontrol?view=netframework-4.8">UserControl クラス (System.Windows.Controls) | Microsoft Docs</a><br>
 <a href="https://docs.microsoft.com/ja-jp/dotnet/desktop/wpf/controls/control-authoring-overview?view=netframeworkdesktop-4.8">コントロールの作成の概要 - WPF .NET Framework | Microsoft Docs</a><br>
+
 <h5>関連 :</h5>
 <a href="TIPS/Windows Presentation Foundation(WPF)/データバインディング.html">データバインディング</a><br>
 <a href="TIPS/Windows Presentation Foundation(WPF)/RelativeSource.html">RelativeSource</a><br>
 <a href="TIPS/Windows Presentation Foundation(WPF)/依存関係プロパティ (DependencyProperty).html">依存関係プロパティ (DependencyProperty)</a><br>
 <a href="TIPS/Windows Presentation Foundation(WPF)/[外観]テンプレート.html">テンプレート</a><br>
+<a href="TIPS/Windows Presentation Foundation(WPF)/[外観]リソース.html">リソース</a><br>
+<a href="TIPS/Windows Presentation Foundation(WPF)/[外観]スタイル.html">スタイル</a><br>
 
 <!-- 目次 -->
 <h5>目次 :</h5>
@@ -100,3 +110,8 @@
 すぐ内側のユーザーコントロール上の FugaProperty に伝播する。<br>
 同様に FugaProperty の変化は Fuga を介して HogeProperty に伝播し、結果として表示に反映される。<br>
 (プロパティ Mogo を操作した場合も同様。)
+
+<h2>注意が必要な点 : UserControl へのスタイル適用</h2>
+UserControl に対して、スタイルを定義した外部リソースを適用する際は注意が必要となる。<br>
+詳細は<a href="TIPS/Windows Presentation Foundation(WPF)/[外観]リソース.html%23注意が必要な点 : Window へのスタイル適用">リンク先</a>を参照のこと。<br>
+(リンク先の Window は UserControl と読み替えられたし。)

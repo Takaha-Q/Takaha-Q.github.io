@@ -48,11 +48,11 @@ HTMLに対するCSSに類似する。
 
 <h2>基本形</h2>
 <div class="xaml">
-&lt;Style TargetType="Button"&gt;
-    &lt;Setter Property="Background" Value="DarkSeaGreen" /&gt;
-    &lt;Setter Property="Foreground" Value="LightPink" /&gt;
-    &lt;EventSetter Event="Click" Handler="DoSomething" /&gt;
-&lt;/Style&gt;
+&lt;<tag>Style</tag> <prp>TargetType</prp>=<ltr>"Button"</ltr>&gt;
+    &lt;<tag>Setter</tag> <prp>Property</prp>=<ltr>"Background"</ltr> <prp>Value</prp>=<ltr>"DarkSeaGreen"</ltr> /&gt;
+    &lt;<tag>Setter</tag> <prp>Property</prp>=<ltr>"Foreground"</ltr> <prp>Value</prp>=<ltr>"LightPink"</ltr> /&gt;
+    &lt;<tag>EventSetter</tag> <prp>Event</prp>=<ltr>"Click"</ltr> <prp>Handler</prp>=<ltr>"DoSomething"</ltr> /&gt;
+&lt;/<tag>Style</tag>&gt;
 </div>
 Style 要素の TargetType には、適用先の型名を指定する。<br>
 Setter 要素の Property 、Value には対象となるプロパティ名と設定する値を指定する。<br>
@@ -66,40 +66,40 @@ System.Windows.FrameworkElement 型の Style プロパティに値を設定す�
 
 <h5>(XAML)</h5>
 <div class="xaml">
-&lt;StackPanel&gt;
+&lt;<tag>StackPanel</tag>&gt;
 
-    &lt;StackPanel.Resources&gt;
-<bg_lb>        <cmt>&lt;!-- x:Key なしのスタイルを定義することで、
+    &lt;<tag>StackPanel.Resources</tag>&gt;
+<bg_lb><cmt>        &lt;!-- x:Key なしのスタイルを定義することで、
              TargetType で指定した型すべてにスタイルを適用する --&gt;</cmt>
-        &lt;Style TargetType="Button"&gt;
-            &lt;Setter Property="Background" Value="LightBlue" /&gt;
-            &lt;Setter Property="Foreground" Value="Red" /&gt;
-        &lt;/Style&gt;</bg_lb>
+        &lt;<tag>Style</tag> <prp>TargetType</prp>=<ltr>"Button"</ltr>&gt;
+            &lt;<tag>Setter</tag> <prp>Property</prp>=<ltr>"Background"</ltr> <prp>Value</prp>=<ltr>"LightBlue"</ltr> /&gt;
+            &lt;<tag>Setter</tag> <prp>Property</prp>=<ltr>"Foreground"</ltr> <prp>Value</prp>=<ltr>"Red"</ltr> /&gt;
+        &lt;/<tag>Style</tag>&gt;</bg_lb>
 
 <bg_lg>        <cmt>&lt;!-- x:Key の明示 --&gt;</cmt>
-        &lt;Style x:Key="MyButtonStyle" TargetType="Button"&gt;
-            &lt;Setter Property="Background" Value="DarkSeaGreen" /&gt;
-            &lt;Setter Property="Foreground" Value="LightPink" /&gt;
-        &lt;/Style&gt;</bg_lg>
-    &lt;/StackPanel.Resources&gt;
+        &lt;<tag>Style</tag> <prp>x:Key</prp>=<ltr>"MyButtonStyle"</ltr> <prp>TargetType</prp>=<ltr>"Button"</ltr>&gt;
+            &lt;<tag>Setter</tag> <prp>Property</prp>=<ltr>"Background"</ltr> <prp>Value</prp>=<ltr>"DarkSeaGreen"</ltr> /&gt;
+            &lt;<tag>Setter</tag> <prp>Property</prp>=<ltr>"Foreground"</ltr> <prp>Value</prp>=<ltr>"LightPink"</ltr> /&gt;
+        &lt;/<tag>Style</tag>&gt;</bg_lg>
+    &lt;/<tag>StackPanel.Resources</tag>&gt;
 
 <bg_lb>    <cmt>&lt;!-- スタイルの自動適用 --&gt;</cmt>
-    &lt;Button Content="ボタン1" /&gt;</bg_lb>
+    &lt;<tag>Button</tag> <prp>Content</prp>=<ltr>"ボタン1"</ltr> /&gt;</bg_lb>
 
 <bg_lg>    <cmt>&lt;!-- x:Key を指定して明示的にスタイルを適用 --&gt;</cmt>
-    &lt;Button Style="{StaticResource ResourceKey=MyButtonStyle}"
-            Content="ボタン2" /&gt;</bg_lg>
+    &lt;<tag>Button</tag> <prp>Style</prp>=<ltr>"{StaticResource <prp>ResourceKey</prp>=MyButtonStyle}"</ltr>
+            <prp>Content</prp>=<ltr>"ボタン2"</ltr> /&gt;</bg_lg>
 
     <cmt>&lt;!-- スタイルを直接記述 --&gt;</cmt>
-    &lt;Button Content="ボタン3"&gt;
-        &lt;Button.Style&gt;
-            &lt;Style TargetType="Button"&gt;
-                &lt;Setter Property="Background" Value="Gray" /&gt;
-            &lt;/Style&gt;
-        &lt;/Button.Style&gt;
-    &lt;/Button&gt;
+    &lt;<tag>Button</tag> <prp>Content</prp>=<ltr>"ボタン3"</ltr>&gt;
+        &lt;<tag>Button.Style</tag>&gt;
+            &lt;<tag>Style</tag> <prp>TargetType</prp>=<ltr>"Button"</ltr>&gt;
+                &lt;<tag>Setter</tag> <prp>Property</prp>=<ltr>"Background"</ltr> <prp>Value</prp>=<ltr>"Gray"</ltr> /&gt;
+            &lt;/<tag>Style</tag>&gt;
+        &lt;/<tag>Button.Style</tag>&gt;
+    &lt;/<tag>Button</tag>&gt;
 
-&lt;/StackPanel&gt;
+&lt;/<tag>StackPanel</tag>&gt;
 </div>
 
 <h5>(表示)</h5>
@@ -116,22 +116,22 @@ System.Windows.FrameworkElement 型の Style プロパティに値を設定す�
 
 <h5>(XAML)</h5>
 <div class="xaml">
-&lt;StackPanel&gt;
+&lt;<tag>StackPanel</tag>&gt;
 
-    &lt;StackPanel.Resources&gt;
+    &lt;<tag>StackPanel.Resources</tag>&gt;
 <bg_lb>        <cmt>&lt;!-- 自動適用(デフォルト)スタイルの定義 --&gt;</cmt>
-        &lt;Style TargetType="Button"&gt;
-            &lt;Setter Property="Background" Value="LightBlue" /&gt;
-            &lt;Setter Property="Foreground" Value="Red" /&gt;
-        &lt;/Style&gt;</bg_lb>
+        &lt;<tag>Style</tag> <prp>TargetType</prp>=<ltr>"Button"</ltr>&gt;
+            &lt;<tag>Setter</tag> <prp>Property</prp>=<ltr>"Background"</ltr> <prp>Value</prp>=<ltr>"LightBlue"</ltr> /&gt;
+            &lt;<tag>Setter</tag> <prp>Property</prp>=<ltr>"Foreground"</ltr> <prp>Value</prp>=<ltr>"Red"</ltr> /&gt;
+        &lt;/<tag>Style</tag>&gt;</bg_lb>
 
-<bg_lb>    &lt;Button Content="ボタン1" /&gt;</bg_lb>
+<bg_lb>    &lt;<tag>Button</tag> <prp>Content</prp>=<ltr>"ボタン1"</ltr> /&gt;</bg_lb>
 
-    &lt;Button Content="ボタン2" Style={x:Null}/&gt;
+    &lt;<tag>Button</tag> <prp>Content</prp>=<ltr>"ボタン2"</ltr> <prp>Style</prp>={x:Null}/&gt;
 
-<bg_lb>    &lt;Button Content="ボタン3" /&gt;</bg_lb>
+<bg_lb>    &lt;<tag>Button</tag> <prp>Content</prp>=<ltr>"ボタン3"</ltr> /&gt;</bg_lb>
 
-&lt;/StackPanel&gt;
+&lt;/<tag>StackPanel</tag>&gt;
 </div>
 
 スタイルの指定を行っていない「ボタン1」、「ボタン3」にはデフォルトスタイル(<bg_lb>青地</bg_lb>)が適用されるが、Style={x:Null} を指定した「ボタン2」にはデフォルトスタイルが適用されない。
@@ -142,29 +142,29 @@ System.Windows.FrameworkElement 型の Style プロパティに値を設定す�
 
 <h5>(XAML)</h5>
 <div class="xaml">
-&lt;StackPanel Width="90"&gt;
+&lt;<tag>StackPanel</tag> <prp>Width</prp>=<ltr>"90"</ltr>&gt;
 
-    &lt;StackPanel.Resources&gt;
-        &lt;Style TargetType="Button"&gt;
-            &lt;Setter Property="Background" Value="LightBlue" /&gt;
-            &lt;Setter Property="Foreground" Value="Red" /&gt;
-        &lt;/Style&gt;
+    &lt;<tag>StackPanel.Resources</tag>&gt;
+        &lt;<tag>Style</tag> <prp>TargetType</prp>=<ltr>"Button"</ltr>&gt;
+            &lt;<tag>Setter</tag> <prp>Property</prp>=<ltr>"Background"</ltr> <prp>Value</prp>=<ltr>"LightBlue"</ltr> /&gt;
+            &lt;<tag>Setter</tag> <prp>Property</prp>=<ltr>"Foreground"</ltr> <prp>Value</prp>=<ltr>"Red"</ltr> /&gt;
+        &lt;/<tag>Style</tag>&gt;
 <bg_lg>
         <cmt>&lt;!-- デフォルトスタイルを基に、新たにスタイルを作成 --&gt;</cmt>
-        &lt;Style x:Key="MyButtonStyle" TargetType="Button"
-               <b>BasedOn="{StaticResource ResourceKey={x:Type Button}}"</b>&gt;
-            &lt;Setter Property="FontSize" Value="20" /&gt;
-        &lt;/Style&gt;</bg_lg>
-    &lt;/StackPanel.Resources&gt;
+        &lt;<tag>Style</tag> <prp>x:Key</prp>=<ltr>"MyButtonStyle"</ltr> <prp>TargetType</prp>=<ltr>"Button"</ltr>
+               <b><prp>BasedOn</prp>=<ltr>"{StaticResource <prp>ResourceKey</prp>={x:Type Button}}"</ltr></b>&gt;
+            &lt;<tag>Setter</tag> <prp>Property</prp>=<ltr>"FontSize"</ltr> <prp>Value</prp>=<ltr>"20"</ltr> /&gt;
+        &lt;/<tag>Style</tag>&gt;</bg_lg>
+    &lt;/<tag>StackPanel.Resources</tag>&gt;
 
     <cmt>&lt;!-- x:Key を指定していないため、デフォルトスタイルが適用される --&gt;</cmt>
-    &lt;Button Content="ボタン1" /&gt;
+    &lt;<tag>Button</tag> <prp>Content</prp>=<ltr>"ボタン1"</ltr> /&gt;
 <bg_lg>
     <cmt>&lt;!-- MyButtonStyle を適用 --&gt;</cmt>
-    &lt;Button Style="{StaticResource ResourceKey=MyButtonStyle}"
-            Content="ボタン2" /&gt;</bg_lg>
+    &lt;<tag>Button</tag> <prp>Style</prp>=<ltr>"{StaticResource <prp>ResourceKey</prp>=MyButtonStyle}"</ltr>
+            <prp>Content</prp>=<ltr>"ボタン2"</ltr> /&gt;</bg_lg>
 
-&lt;/StackPanel&gt;
+&lt;/<tag>StackPanel</tag>&gt;
 </div>
 
 <h5>(表示)</h5>
@@ -175,30 +175,34 @@ System.Windows.FrameworkElement 型の Style プロパティに値を設定す�
 例えば、マウスオーバー時やクリック時にボタンスタイルを変更する、といったことが可能である。
 
 <div class="xaml">
-&lt;StackPanel Width="60"&gt;
+&lt;<tag>StackPanel</tag> <prp>Width</prp>=<ltr>"60"</ltr>&gt;
 
-    &lt;StackPanel.Resources&gt;
-        &lt;Style TargetType="TextBox"&gt;
-            &lt;Setter Property="Background" Value="LightGray" /&gt;
+    &lt;<tag>StackPanel.Resources</tag>&gt;
+        &lt;<tag>Style</tag> <prp>TargetType</prp>=<ltr>"TextBox"</ltr>&gt;
+            &lt;<tag>Setter</tag> <prp>Property</prp>=<ltr>"Background"</ltr> <prp>Value</prp>=<ltr>"LightGray"</ltr> /&gt;
 
             <cmt>&lt;!-- トリガー条件の指定 --&gt;</cmt>
-            &lt;Style.Triggers&gt;
+            &lt;<tag>Style.Triggers</tag>&gt;
                 <cmt>&lt;!-- トリガー : マウスオーバー時 --&gt;</cmt>
-                &lt;Trigger Property="IsMouseOver" Value="True"&gt;
-                    &lt;Setter Property="Background" Value="LightBlue" /&gt;
-                &lt;/Trigger&gt;
+                &lt;<tag>Trigger</tag> <prp>Property</prp>=<ltr>"IsMouseOver"</ltr> <prp>Value</prp>=<ltr>"True"</ltr>&gt;
+                    &lt;<tag>Setter</tag> <prp>Property</prp>=<ltr>"Background"</ltr> <prp>Value</prp>=<ltr>"LightBlue"</ltr> /&gt;
+                &lt;/<tag>Trigger</tag>&gt;
 
                 <cmt>&lt;!-- トリガー : フォーカス時 --&gt;</cmt>
-                &lt;Trigger Property="IsFocused" Value="True"&gt;
-                    &lt;Setter Property="Background" Value="LightPink" /&gt;
-                &lt;/Trigger&gt;
-            &lt;/Style.Triggers&gt;
-        &lt;/Style&gt;
-    &lt;/StackPanel.Resources&gt;
+                &lt;<tag>Trigger</tag> <prp>Property</prp>=<ltr>"IsFocused"</ltr> <prp>Value</prp>=<ltr>"True"</ltr>&gt;
+                    &lt;<tag>Setter</tag> <prp>Property</prp>=<ltr>"Background"</ltr> <prp>Value</prp>=<ltr>"LightPink"</ltr> /&gt;
+                &lt;/<tag>Trigger</tag>&gt;
+            &lt;/<tag>Style.Triggers</tag>&gt;
+        &lt;/<tag>Style</tag>&gt;
+    &lt;/<tag>StackPanel.Resources</tag>&gt;
 
-    &lt;TextBox Text="テキスト" /&gt;
+    &lt;<tag>TextBox</tag> <prp>Text</prp>=<ltr>"テキスト"</ltr> /&gt;
 
-&lt;/StackPanel&gt;
+&lt;/<tag>StackPanel</tag>&gt;
 </div>
 
 上記の例では、マウスオーバー時に背景が薄青、フォーカス時に薄ピンクとなるテキストボックスが得られる。
+
+<h2>注意が必要な点 : Window へのスタイル適用</h2>
+Window に対して、スタイルを定義した外部リソースを適用する際は注意が必要となる。<br>
+詳細は<a href="TIPS/Windows Presentation Foundation(WPF)/[外観]リソース.html%23注意が必要な点 : Window へのスタイル適用">リンク先</a>を参照のこと。

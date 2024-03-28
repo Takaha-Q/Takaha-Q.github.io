@@ -28,6 +28,7 @@
 <h5>関連 :</h5>
 <a href="TIPS/Windows Presentation Foundation(WPF)/[外観]スタイル.html">スタイル</a><br>
 <a href="TIPS/Windows Presentation Foundation(WPF)/[外観]テンプレート.html">テンプレート</a><br>
+<a href="TIPS/Windows Presentation Foundation(WPF)/ユーザーコントロール.html">ユーザーコントロール</a><br>
 <a href="TIPS/Windows Presentation Foundation(WPF)/Tagプロパティ.html">Tagプロパティ</a><br>
 
 <!-- 目次 -->
@@ -55,7 +56,7 @@
         <prp>Title</prp>=<ltr>"MainWindow"</ltr> <prp>Height</prp>=<ltr>"100"</ltr> <prp>Width</prp>=<ltr>"200"</ltr>&gt;
 
     <cmt>&lt;!-- リソース(SolidColorBrush)の定義 --&gt;</cmt>
-    <cmt>&lt;!-- キー(x:Key)に <b <prp>class</prp>="blue">MyBrush</b> を指定 --&gt;</cmt>
+    <cmt>&lt;!-- キー(x:Key)に <b class="blue">MyBrush</b> を指定 --&gt;</cmt>
     &lt;<tag>Window.Resources</tag>&gt;
         <b>&lt;<tag>SolidColorBrush</tag> <prp>x:Key</prp>=<ltr>"<blue>MyBrush</blue>"</ltr> <prp>Color</prp>=<ltr>"Blue"</ltr>/&gt;</b>
     &lt;/<tag>Window.Resources</tag>&gt;
@@ -86,7 +87,7 @@
     <cmt>&lt;!-- リソース(SolidColorBrush)の定義 --&gt;</cmt>
     <cmt>&lt;!-- (コントロールごとにオブジェクトを作成する) --&gt;</cmt>
     &lt;<tag>Window.Resources</tag>&gt;
-        <b>&lt;<tag>SolidColorBrush</tag> <b <prp>class</prp>=<ltr>"red"</ltr>><prp>x:Shared</prp>=<ltr>"False"</ltr></b> <prp>x:Key</prp>=<ltr>"MyBrush"</ltr> <prp>Color</prp>=<ltr>"Blue"</ltr>/&gt;</b>
+        <b>&lt;<tag>SolidColorBrush</tag> <prp>x:Shared</prp>=<ltr>"False"</ltr> <prp>x:Key</prp>=<ltr>"MyBrush"</ltr> <prp>Color</prp>=<ltr>"Blue"</ltr>/&gt;</b>
     &lt;/<tag>Window.Resources</tag>&gt;
 
     :
@@ -106,24 +107,24 @@
         <prp>xmlns</prp>=<ltr>"http://schemas.microsoft.com/winfx/2006/xaml/presentation"</ltr>
         <prp>xmlns:x</prp>=<ltr>"http://schemas.microsoft.com/winfx/2006/xaml"</ltr>&gt;
 
-    <cmt>&lt;!-- (Window) <b <prp><prp>class</prp></prp>="red">Brush1</b> 、<b <prp><prp>class</prp></prp>="red">Brush2</b> の定義 --&gt;</cmt>
+    <cmt>&lt;!-- (Window) <b class="red">Brush1</b> 、<b class="red">Brush2</b> の定義 --&gt;</cmt>
     &lt;<tag>Window.Resources</tag>&gt;
-        &lt;<tag>SolidColorBrush</tag> <prp>x:Key</prp>=<ltr>"<b <prp>class</prp>="</ltr>red<ltr>">Brush1</b>"</ltr> <prp>Color</prp>=<ltr>"Red"</ltr> /&gt;
-        &lt;<tag>SolidColorBrush</tag> <prp>x:Key</prp>=<ltr>"<b <prp>class</prp>="</ltr>red<ltr>">Brush2</b>"</ltr> <prp>Color</prp>=<ltr>"Red"</ltr> /&gt;
+        &lt;<tag>SolidColorBrush</tag> <prp>x:Key</prp>=<ltr>"<b class="red">Brush1</b>"</ltr> <prp>Color</prp>=<ltr>"Red"</ltr> /&gt;
+        &lt;<tag>SolidColorBrush</tag> <prp>x:Key</prp>=<ltr>"<b class="red">Brush2</b>"</ltr> <prp>Color</prp>=<ltr>"Red"</ltr> /&gt;
     &lt;/<tag>Window.Resources</tag>&gt;
 
     &lt;<tag>StackPanel</tag>&gt;
-        <cmt>&lt;!-- (StackPanel) <b <prp>class</prp>="blue">Brush2</b> の定義 --&gt;</cmt>
+        <cmt>&lt;!-- (StackPanel) <b class="blue">Brush2</b> の定義 --&gt;</cmt>
         &lt;<tag>StackPanel.Resources</tag>&gt;
-            &lt;<tag>SolidColorBrush</tag> <prp>x:Key</prp>=<ltr>"<b <prp>class</prp>="</ltr>blue<ltr>">Brush2</b>"</ltr> <prp>Color</prp>=<ltr>"Blue"</ltr> /&gt;
+            &lt;<tag>SolidColorBrush</tag> <prp>x:Key</prp>=<ltr>"<b class="blue">Brush2</b>"</ltr> <prp>Color</prp>=<ltr>"Blue"</ltr> /&gt;
         &lt;/<tag>StackPanel.Resources</tag>&gt;
 
         &lt;<tag>Button</tag> <prp>Content</prp>=<ltr>"ボタン1"</ltr>
-                <prp>Background</prp>=<ltr>"{StaticResource <prp>ResourceKey</prp>=<b <prp>class</prp>="</ltr>red<ltr>">Brush1</b>}"</ltr>/&gt;
+                <prp>Background</prp>=<ltr>"{StaticResource <prp>ResourceKey</prp>=<b class="red">Brush1</b>}"</ltr>/&gt;
 
-        <cmt>&lt;!-- より内側にある StackPanel の <b <prp>class</prp>="blue">Brush2</b> を参照する --&gt;</cmt>
+        <cmt>&lt;!-- より内側にある StackPanel の <b class="blue">Brush2</b> を参照する --&gt;</cmt>
         &lt;<tag>Button</tag> <prp>Content</prp>=<ltr>"ボタン2"</ltr>
-                <prp>Background</prp>=<ltr>"{StaticResource <prp>ResourceKey</prp>=<b <prp>class</prp>="</ltr>blue<ltr>">Brush2</b>}"</ltr>/&gt;
+                <prp>Background</prp>=<ltr>"{StaticResource <prp>ResourceKey</prp>=<b class="blue">Brush2</b>}"</ltr>/&gt;
     &lt;/<tag>StackPanel</tag>&gt;
 
 &lt;/<tag>Window</tag>&gt;
@@ -299,7 +300,109 @@ ResourceDictionary に別の ResourceDictionary を含めること(リソース�
 親リソースでは、ResourceDictionary 中に <b>ResourceDictionary.MergedDictionaries</b> を記述し、その中で子リソースを読み込んでいる。<br>
 これにより親リソースに子リソースが取り込まれるため、ウィンドウでは(子リソースが含まれた)親リソースのみを取り込めばよい。<br>
 
-<h2>注意が必要な点</h2>
+<h2>注意が必要な点 : Window へのスタイル適用</h2>
+Window に対して、スタイルを定義した外部リソースを適用する際は注意が必要となる。<br>
+( <a href="TIPS/Windows Presentation Foundation(WPF)/ユーザーコントロール.html">UserControl</a> も同様。)
+
+<h3>誤った方法</h3>
+
+<h5>リソース : General.xaml</h5>
+<div class="xaml">
+&lt;<tag>ResourceDictionary</tag> <prp>xmlns</prp>=<ltr>"http://schemas.microsoft.com/winfx/2006/xaml/presentation"</ltr>
+                    <prp>xmlns:x</prp>=<ltr>"http://schemas.microsoft.com/winfx/2006/xaml"</ltr>&gt;
+
+    <cmt>&lt;!-- TargetType = "Window" でスタイルを定義 --&gt;</cmt>
+    &lt;<tag>Style</tag> <prp>TargetType</prp>=<ltr>"Window"</ltr>&gt;
+        &lt;<tag>Setter</tag> <prp>Property</prp>=<ltr>"FontFamily"</ltr> <prp>Value</prp>=<ltr>"Yu Gothic"</ltr>/&gt;
+        &lt;<tag>Setter</tag> <prp>Property</prp>=<ltr>"SizeToContent"</ltr> <prp>Value</prp>=<ltr>"WidthAndHeight"</ltr>/&gt;
+    &lt;/<tag>Style</tag>&gt;
+
+     ：
+    (略)
+     ：
+
+&lt;/<tag>ResourceDictionary</tag>&gt;
+</div>
+
+<h5>ウィンドウ : MainWindow.xaml</h5>
+<div class="xaml">
+&lt;<tag>Window</tag> <prp>x:Class</prp>=<ltr>"FileTreeMaker.MainWindow"</ltr>
+        <prp>xmlns</prp>=<ltr>"http://schemas.microsoft.com/winfx/2006/xaml/presentation"</ltr>
+        <prp>xmlns:x</prp>=<ltr>"http://schemas.microsoft.com/winfx/2006/xaml"</ltr>
+        <prp>xmlns:d</prp>=<ltr>"http://schemas.microsoft.com/expression/blend/2008"</ltr>
+        <prp>xmlns:mc</prp>=<ltr>"http://schemas.openxmlformats.org/markup-compatibility/2006"</ltr>&gt;
+
+    &lt;<tag>Window.Resources</tag>&gt;
+        <cmt>&lt;!-- リソース(General.xaml)をインポート --&gt;</cmt>
+        &lt;<tag>ResourceDictionary</tag> <prp>Source</prp>=<ltr>"_Assets\_Styles\General.xaml"</ltr>/&gt;
+    &lt;/<tag>Window.Resources</tag>&gt;
+
+     ：
+    (略)
+     ：
+
+&lt;/<tag>Window</tag>&gt;
+</div>
+
+<h5>Visual Studioのデザイナ表示 : MainWindow.xaml</h5>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_Resource_Style_Template/05.png" alt="画像"><br>
+
+<h5>実際の表示(50%縮尺)</h5>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_Resource_Style_Template/06.png" alt="画像"><br>
+
+<h5>解説</h5>
+ここでは、Window に対して、外部リソースとして定義したスタイルを適用しようとしている。<br>
+Window.Resource としてファイル(General.xaml)を読み込んでおり、デザイナ上ではスタイルが正しく適用されているように見えるが、実際はスタイルが適用されていない。<br>
+( Window に対して定義したスタイルは適用されないが、子要素に対して定義したスタイルはこの方法でも適用される。)
+
+<h3>正しい方法</h3>
+
+<h5>リソース : General.xaml</h5>
+<div class="xaml">
+&lt;<tag>ResourceDictionary</tag> <prp>xmlns</prp>=<ltr>"http://schemas.microsoft.com/winfx/2006/xaml/presentation"</ltr>
+                    <prp>xmlns:x</prp>=<ltr>"http://schemas.microsoft.com/winfx/2006/xaml"</ltr>&gt;
+
+    <cmt>&lt;!-- TargetType に加え <b>x:Key を指定</b> --&gt;</cmt>
+    &lt;<tag>Style</tag> <prp>TargetType</prp>=<ltr>"Window"</ltr> <b><prp>x:Key</prp>=<ltr>"Window_General"</ltr></b>&gt;
+        &lt;<tag>Setter</tag> <prp>Property</prp>=<ltr>"FontFamily"</ltr> <prp>Value</prp>=<ltr>"Yu Gothic"</ltr>/&gt;
+        &lt;<tag>Setter</tag> <prp>Property</prp>=<ltr>"SizeToContent"</ltr> <prp>Value</prp>=<ltr>"WidthAndHeight"</ltr>/&gt;
+    &lt;/<tag>Style</tag>&gt;
+
+     ：
+    (略)
+     ：
+
+&lt;/<tag>ResourceDictionary</tag>&gt;
+</div>
+
+<h5>ウィンドウ : MainWindow.xaml</h5>
+<div class="xaml">
+&lt;<tag>Window</tag> <prp>x:Class</prp>=<ltr>"FileTreeMaker.MainWindow"</ltr>
+        <prp>xmlns</prp>=<ltr>"http://schemas.microsoft.com/winfx/2006/xaml/presentation"</ltr>
+        <prp>xmlns:x</prp>=<ltr>"http://schemas.microsoft.com/winfx/2006/xaml"</ltr>
+        <prp>xmlns:d</prp>=<ltr>"http://schemas.microsoft.com/expression/blend/2008"</ltr>
+        <prp>xmlns:mc</prp>=<ltr>"http://schemas.openxmlformats.org/markup-compatibility/2006"</ltr>
+        <b><prp>Style</prp>=<ltr>"{DynamicResource ResourceKey=Window_General}"</ltr></b>&gt;
+        <cmt>&lt;!--    ↑ <b>キーを指定して DynamicResource で割り当て</b> --&gt;</cmt>
+
+    &lt;<tag>Window.Resources</tag>&gt;
+        <cmt>&lt;!-- リソース(General.xaml)をインポート --&gt;</cmt>
+        &lt;<tag>ResourceDictionary</tag> <prp>Source</prp>=<ltr>"_Assets\_Styles\General.xaml"</ltr>/&gt;
+    &lt;/<tag>Window.Resources</tag>&gt;
+
+     ：
+    (略)
+     ：
+
+&lt;/<tag>Window</tag>&gt;
+</div>
+
+<h5>解説</h5>
+Window.Resource としてファイル(General.xaml)を読み込む点は変わらないが、ここでは Window のスタイルに対して<b>キー( x:Key )を追加している</b>。<br>
+参照側ではキーを指定して <b>DynamicResource として割り当てる</b>ことで、スタイルが正しく適用される。<br>
+( StaticResource として割り当てようとすると、プログラムが異常終了する。),<br>
+
+<h2>余談 : 「リソース」の呼称について</h2>
 Windowsアプリケーションにおいてはアセンブリ中に画像などのバイナリファイルを埋め込むための機構が存在し、<br>
 これは同様に「リソース(アセンブリ・リソースまたはバイナリ・リソース)」と呼ばれ、WPFでも使用可能である。<br>
 当記事で解説する「リソース(オブジェクト・リソース)」との混同に注意すること。
