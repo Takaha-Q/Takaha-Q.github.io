@@ -22,6 +22,7 @@
 <!-- 出典ページ -->
 <h5>出典 :</h5>
 <a href="https://atmarkit.itmedia.co.jp/ait/articles/1009/07/news096.html">第4回　WPFの「リソース、スタイル、テンプレート」を習得しよう：連載：WPF入門 - ＠IT</a><br>
+<a href="https://araramistudio.jimdo.com/2016/12/01/wpf%E3%81%A7%E3%82%88%E3%81%8F%E4%BD%BF%E3%81%86xaml%E3%81%AE%E5%AE%9A%E7%BE%A9%E3%82%92%E5%88%A5%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AB%E3%81%99%E3%82%8B/">C#のWPFでよく使うXAMLの定義を別ファイルにする - Ararami Studio</a><br>
 
 <!-- 関連ページ -->
 <h5>関連 :</h5>
@@ -204,6 +205,99 @@ Visual Studioで外部リソースを新規作成する場合は、「リソー�
 
 &lt;/Window&gt;    
 </div>
+
+<h2>ResourceDictionary の統合( MergedDictionaries )</h2>
+ResourceDictionary に別の ResourceDictionary を含めること(リソースの階層化)ができる。<br>
+これは外部リソースでも同様で、親リソースに含めたい子リソースを Source として参照すればよい。
+
+<h3>例</h3>
+ここでは以下のようなフォルダ構成を持つプロジェクトにおいて、「親スタイル」に「子スタイル」を統合する場合を考える。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_Resource_Style_Template/04.png" alt="画像"><br>
+
+<h5>親リソース : General.xaml</h5>
+<div class="xaml">
+&lt;ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;
+
+    &lt;!-- Window --&gt;
+    &lt;Style TargetType="Window"&gt;
+        &lt;Setter Property="FontFamily" Value="Meiryo UI"/&gt;
+        &lt;Setter Property="FontSize" Value="9"/&gt;
+        &lt;Setter Property="SizeToContent" Value="WidthAndHeight"/&gt;
+    &lt;/Style&gt;
+
+     ：
+    (略)
+     ：
+
+    &lt;!-- 個別コントロールごとのスタイル定義をマージ --&gt;
+    &lt;ResourceDictionary.MergedDictionaries&gt;
+        &lt;ResourceDictionary Source="_Control_Specified\DataGrid.xaml"/&gt;
+    &lt;/ResourceDictionary.MergedDictionaries&gt;
+
+&lt;/ResourceDictionary&gt;
+</div>
+
+<h5>子リソース : DataGrid.xaml</h5>
+<div class="xaml">
+&lt;ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;
+
+    &lt;!-- DataGrid : グリッド本体 --&gt;
+    &lt;Style TargetType="DataGrid"&gt;
+        &lt;Setter Property="Margin" Value="3"/&gt;
+    &lt;/Style&gt;
+
+    &lt;!-- DataGridColumnHeader : 列ヘッダ--&gt;
+
+    &lt;!-- フォント太字 : Bold --&gt;
+    &lt;Style TargetType="DataGridColumnHeader" x:Key="Bold"&gt;
+        &lt;Setter Property="FontWeight" Value="Bold"/&gt;
+    &lt;/Style&gt;
+
+     ：
+    (略)
+     ：
+
+&lt;/ResourceDictionary&gt;
+</div>
+
+<h5>ウィンドウ : MainWindow.xaml</h5>
+<div class="xaml">
+&lt;Window x:Class="FileTreeMaker.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"&gt;
+
+    &lt;Window.Resources&gt;
+        &lt;!-- 親リソース(General.xaml)をインポート --&gt;
+        &lt;ResourceDictionary Source="_Assets\_Styles\General.xaml"/&gt;
+    &lt;/Window.Resources&gt;
+
+    &lt;StackPanel Orientation="Vertical"&gt;
+
+         ：
+        (略)
+         ：
+
+        &lt;DataGrid&gt;
+            &lt;DataGrid.Columns&gt;
+
+                &lt;!-- スタイル「Bold」を適用(子リソースにて定義) --&gt;
+                &lt;DataGridCheckBoxColumn Header="太字" HeaderStyle="{StaticResource ResourceKey=Bold}"/&gt;
+
+            &lt;/DataGrid.Columns&gt;
+        &lt;/DataGrid&gt;
+
+    &lt;/StackPanel&gt;
+&lt;/Window&gt;
+</div>
+
+<h5>解説</h5>
+親リソースでは、ResourceDictionary 中に <b>ResourceDictionary.MergedDictionaries</b> を記述し、その中で子リソースを読み込んでいる。<br>
+これにより親リソースに子リソースが取り込まれるため、ウィンドウでは(子リソースが含まれた)親リソースのみを取り込めばよい。<br>
+(リソースファイルを参照する際は相対パスを使用できる。)<br>
 
 <h2>注意が必要な点</h2>
 Windowsアプリケーションにおいてはアセンブリ中に画像などのバイナリファイルを埋め込むための機構が存在し、<br>
