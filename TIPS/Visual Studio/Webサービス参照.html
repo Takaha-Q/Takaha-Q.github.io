@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典・関連ページ -->
+<h5>出典 :</h5>
+<a href="https://learn.microsoft.com/ja-jp/visualstudio/data-tools/how-to-add-update-or-remove-a-wcf-data-service-reference?view=vs-2022">WCF データ サービス参照を追加、更新、または削除する - Visual Studio (Windows) | Microsoft Learn</a><br>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/core/additional-tools/wcf-web-service-reference-guide">WCF Web Service Reference を追加する - .NET | Microsoft Learn</a><br>
+<a href="https://atmarkit.itmedia.co.jp/fdotnet/netdict/netdict002/netdict002_07.html">特集：NetDictionaryで始めるWebサービス・プログラミング　6．Web参照を追加する - ＠IT</a><br>
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+※ この記事は書きかけです。
+
+<h2>.NETアプリケーションからのWebサービス呼び出し</h2>
+.NET Frameworkで作成するアプリケーションからWebサービスを呼び出す場合、「サービス参照」をプロジェクトに追加する必要がある。<br>
+(VSの旧バージョンでは「Web参照」と呼ばれていた。)<br>
+尚、.NET Core、.NET 5以降は類似の機構として「WCF Web Service Reference」が使用できる。
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/WebReferences/01.png" alt="画像"><br>
+
+<h2>参照追加の手順</h2>
+<h3>Visual Studio 2010 / .NET Framework 4.x</h3>
+<ol>
+    <li>追加する先のプロジェクトを右クリックし、「サービス参照の追加」を選択する。
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/WebReferences/02.png" alt="画像"></li>
+    <li>ダイアログに必要な項目を入力する。
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/WebReferences/03.png" alt="画像"></li>
+</ol>
+
+<h3>Visual Studio 2022 / .NET 6</h3>
+<ol>
+    <li>追加する先のプロジェクトを右クリックし、「追加」>「サービス参照」を選択する。
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/WebReferences/04.png" alt="画像"></li>
+    <li>「WCF Web Service」を選択し、「次へ」を押す。</li>
+    <li>ダイアログに必要な項目を入力する。
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/WebReferences/05.png" alt="画像"></li>
+</ol>
