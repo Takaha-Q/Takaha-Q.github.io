@@ -23,6 +23,8 @@
 <h5>出典 :</h5>
 <a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets?view=vs-2022">コード ブロック スニペットを作成して再利用する - Visual Studio (Windows) | Microsoft Learn</a><br>
 <a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022">コード スニペット スキーマ リファレンス - Visual Studio (Windows) | Microsoft Learn</a><br>
+<a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/visual-csharp-code-snippets?view=vs-2022">C# コード スニペット - Visual Studio (Windows) | Microsoft Learn</a><br>
+<a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/visual-cpp-code-snippets?view=vs-2022">Visual C++ のコード スニペット - Visual Studio (Windows) | Microsoft Learn</a><br>
 <a href="https://qiita.com/IKD-Member/items/550ff4d3ecf1d53b42dc">[VisualStudio] よく書くコードはスニペットにまとめて爆速コーディング - Qiita</a><br>
 <a href="https://qiita.com/shirasaya0201/items/4dabb22a8d8ec2729dc6">【VisualStudio】VisualStudioで自作コメント挿入したい #VisualStudio - Qiita</a><br>
 
@@ -92,24 +94,24 @@ C++、C#以外の言語では使用できない点に注意。
 
 <h4>手動で入力する場合</h4>
 より複雑で高機能なスニペットを作成することができる。<br>
-XMLの主要な要素を以下に記す。
+XMLの要素(抜粋)を以下に記す。
 詳細は<a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022">リンク先</a>を参照。
 
 <table>
     <tr class="row1">
-        <td class="col1" colspan="5">要素(タグ)</td>
+        <td class="col1" colspan="6">要素(タグ)</td>
         <td>必須</td>
         <td>説明</td>
         <td>備考</td>
     </tr>
     <tr>
-        <td class="col1 left" colspan="5"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#codesnippets-element">CodeSnippets</a></td>
+        <td class="col1 left" colspan="6"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#codesnippets-element">CodeSnippets</a></td>
         <td></td>
         <td>1つ以上の CodeSnippet 要素のグループ</td>
         <td></td>
     </tr>
     <tr>
-        <th class="border_v_dotted">┗</th><td class="col1 left" colspan="4"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#codesnippet-element">CodeSnippet</a></td>
+        <th class="border_dashed">┗</th><td class="col1 left" colspan="5"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#codesnippet-element">CodeSnippet</a></td>
         <td class="center bg_lg">○</td>
         <td>コードスニペットのルート要素</td>
         <td>
@@ -120,55 +122,55 @@ XMLの主要な要素を以下に記す。
         </td>
     </tr>
     <tr>
-        <th class="border_v_dotted"></th><th class="border_v_dotted">┣</th><td class="col1 left" colspan="3"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#header-element">Header</a></td>
+        <th class="border_dashed"></th><th class="border_dashed">┣</th><td class="col1 left" colspan="4"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#header-element">Header</a></td>
         <td class="center bg_lg">○</td>
         <td>コードスニペットに関する情報</td>
         <td></td>
     </tr>
     <tr>
-        <th class="border_v_dotted"></th><th class="border_v_dotted">┃</th><th class="border_v_dotted">┣</th><td class="col1 left" colspan="2"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#title-element">Title</a></td>
+        <th class="border_dashed"></th><th class="border_dashed">┃</th><th class="border_dashed">┣</th><td class="col1 left" colspan="3"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#title-element">Title</a></td>
         <td class="center bg_lg">○</td>
         <td>コードスニペットの表示名</td>
         <td></td>
     </tr>
     <tr>
-        <th class="border_v_dotted"></th><th class="border_v_dotted">┃</th><th class="border_v_dotted">┣</th><td class="col1 left" colspan="2"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#author-element">Author</a></td>
+        <th class="border_dashed"></th><th class="border_dashed">┃</th><th class="border_dashed">┣</th><td class="col1 left" colspan="3"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#author-element">Author</a></td>
         <td></td>
         <td>コードスニペットの作者</td>
         <td></td>
     </tr>
     <tr>
-        <th class="border_v_dotted"></th><th class="border_v_dotted">┃</th><th class="border_v_dotted">┣</th><td class="col1 left" colspan="2"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#description-element">Description</a></td>
+        <th class="border_dashed"></th><th class="border_dashed">┃</th><th class="border_dashed">┣</th><td class="col1 left" colspan="3"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#description-element">Description</a></td>
         <td></td>
         <td>コードスニペットの概要</td>
         <td></td>
     </tr>
     <tr>
-        <th class="border_v_dotted"></th><th class="border_v_dotted">┃</th><th class="border_v_dotted"th>┣</th><td class="col1 left" colspan="2"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#keywords-element">Keywords</a></td>
+        <th class="border_dashed"></th><th class="border_dashed">┃</th><th class="border_dashed"th>┣</th><td class="col1 left" colspan="3"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#keywords-element">Keywords</a></td>
         <td></td>
         <td>1つ以上の Keyword 要素のグループ</td>
         <td></td>
     </tr>
     <tr>
-        <th class="border_v_dotted"></th><th class="border_v_dotted">┃</th><th class="border_v_dotted">┃</th><th class="border_v_dotted">┗</th><td class="col1 left"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#keyword-element">Keyword</a></td>
+        <th class="border_dashed"></th><th class="border_dashed">┃</th><th class="border_dashed">┃</th><th class="border_dashed">┗</th><td class="col1 left" colspan="2"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#keyword-element">Keyword</a></td>
         <td></td>
-        <td>Visual Studioが検索・分類に用いるカスタムキーワード</td>
+        <td>Visual Studioが検索・分類に用いる<br>カスタムキーワード</td>
         <td>Keywords 省略時はHeader 直下に記述可能</td>
     </tr>
     <tr>
-        <th class="border_v_dotted"></th><th class="border_v_dotted">┃</th><th class="border_v_dotted"h>┣</th><td class="col1 left" colspan="2"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#shortcut-element">Shortcut</a></td>
+        <th class="border_dashed"></th><th class="border_dashed">┃</th><th class="border_dashed"h>┣</th><td class="col1 left" colspan="3"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#shortcut-element">Shortcut</a></td>
         <td></td>
-        <td>コードスニペットを呼び出す際に入力するショートカットテキスト</td>
+        <td>コードスニペットを呼び出す際に入力する<br>ショートカットテキスト</td>
         <td>英数字とアンダースコアを使用可能<br>(但しC++はアンダースコアを使用できない)</td>
     </tr>
     <tr>
-        <th class="border_v_dotted"></th><th class="border_v_dotted">┃</th><th class="border_v_dotted">┗</th><td class="col1 left" colspan="2"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#snippettypes-element">SnippetTypes</a></td>
+        <th class="border_dashed"></th><th class="border_dashed">┃</th><th class="border_dashed">┗</th><td class="col1 left" colspan="3"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#snippettypes-element">SnippetTypes</a></td>
         <td></td>
         <td>1つ以上の SnippetType 要素のグループ</td>
         <td></td>
     </tr>
     <tr>
-        <th class="border_v_dotted"></th><th class="border_v_dotted">┃</th><th class="border_v_dotted"></th><th class="border_v_dotted">┗</th><td class="col1 left"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#snippettype-element">SnippetType</a></td>
+        <th class="border_dashed"></th><th class="border_dashed">┃</th><th class="border_dashed"></th><th class="border_dashed">┗</th><td class="col1 left" colspan="2"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#snippettype-element">SnippetType</a></td>
         <td></td>
         <td>コードスニペットの挿入方法(値は以下のいずれか)
             <ul>
@@ -179,41 +181,56 @@ XMLの主要な要素を以下に記す。
         <td>SnippetTypes 省略時はHeader 直下に記述可能</td>
     </tr>
     <tr>
-        <th class="border_v_dotted"></th><th class="border_v_dotted">┗</th><td class="col1 left" colspan="3"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#snippet-element">Snippet</a></td>
+        <th class="border_dashed"></th><th class="border_dashed">┗</th><td class="col1 left" colspan="4"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#snippet-element">Snippet</a></td>
         <td class="center bg_lg">○</td>
         <td>コードスニペットの本体</td>
         <td></td>
     </tr>
     <tr>
-        <th class="border_v_dotted"></th><th class="border_v_dotted"></th><th class="border_v_dotted">┣</th><td class="col1 left" colspan="2"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#code-element">Code</a></td>
+        <th class="border_dashed"></th><th class="border_dashed"></th><th class="border_dashed">┣</th><td class="col1 left" colspan="3"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#code-element">Code</a></td>
         <td class="center bg_lg">○</td>
         <td>コードスニペットとして実際に展開されるコード</td>
         <td></td>
     </tr>
     <tr>
-        <th class="border_v_dotted"></th><th class="border_v_dotted"></th><th class="border_v_dotted">┣</th><td class="col1 left" colspan="2"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#declarations-element">Declarations</a></td>
+        <th class="border_dashed"></th><th class="border_dashed"></th><th class="border_dashed">┗</th><td class="col1 left" colspan="3"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#declarations-element">Declarations</a></td>
         <td></td>
-        <td>コードスニペット中の編集可能要素(リテラルとオブジェクト)</td>
-        <td>※1</td>
-    </tr>
-    <tr>
-        <th class="border_v_dotted"></th><th class="border_v_dotted"></th><th class="border_v_dotted">┃</th><th class="border_v_dotted">┣</th><td class="col1 left"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#literal-element">Literal</a></td>
-        <td></td>
-        <td></td>
+        <td>コードスニペット中の編集可能要素<br>(リテラルとオブジェクト)</td>
         <td></td>
     </tr>
     <tr>
-        <th class="border_v_dotted"></th><th class="border_v_dotted"></th><th class="border_v_dotted">┃</th><th class="border_v_dotted">┗</th><td class="col1 left"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#object-element">Object</a></td>
+        <th class="border_dashed"></th><th class="border_dashed"></th><th class="border_dashed"></th><th class="border_dashed">┗</th><td class="col1 left" colspan="2"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#literal-element">Literal</a></td>
         <td></td>
         <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <th class="border_dashed"></th><th class="border_dashed"></th><th class="border_dashed"></th><th class="border_dashed"></th><th class="border_dashed">┣</th><td class="col1 left"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#default-element">Default</a></td>
+        <td class="center bg_lg">○</td>
+        <td>既定で使用されるリテラル値</td>
+        <td></td>
+    </tr>
+    <tr>
+        <th class="border_dashed"></th><th class="border_dashed"></th><th class="border_dashed"></th><th class="border_dashed"></th><th class="border_dashed">┣</th><td class="col1 left"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#id-element">Id</a></td>
+        <td class="center bg_lg">○</td>
+        <td>リテラルの一意な識別子</td>
+        <td></td>
+    </tr>
+    <tr>
+        <th class="border_dashed"></th><th class="border_dashed"></th><th class="border_dashed"></th><th class="border_dashed"></th><th class="border_dashed">┣</th><td class="col1 left"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#function-element">Function</a></td>
+        <td></td>
+        <td>リテラルがVisual Studioでフォーカスを受け取った際に<br>実行される関数</td>
+        <td></td>
+    </tr>
+    <tr>
+        <th class="border_dashed"></th><th class="border_dashed"></th><th class="border_dashed"></th><th class="border_dashed"></th><th class="border_dashed">┗</th><td class="col1 left"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#tooltip-element">ToolTip</a></td>
+        <td></td>
+        <td>リテラルが取り得る値と使用法に関する説明</td>
         <td></td>
     </tr>
 </table>
 
-
-
 ※1 : Format="x.x.x" 形式でスキーマバージョンを指定する。指定が正しくない場合、コードスニペットは無視される。
-
 
 <h3>スニペットのインポート</h3>
 <ol>
@@ -230,7 +247,12 @@ XMLの主要な要素を以下に記す。
         <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/VS_Snippets/08.png"></li>
 </ol>
     
-<h2>C#で使用できるスニペットの例</h2>
+<h2>組み込み済のスニペット</h2>
+Visual Studioには多数のスニペットが組み込まれており、特殊な手順を経ずに利用できる。ここではその一部を記す。
+
+<h3>C#</h3>
+リファレンスは<a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/visual-csharp-code-snippets?view=vs-2022">リンク先</a>を参照。
+
 <table>
     <tr class="row1">
         <td class="col1">スニペット</td>
@@ -290,3 +312,6 @@ XMLの主要な要素を以下に記す。
         <td class="code"><kwd>public int</kwd> MyProperty { <kwd>get</kwd>; <kwd>private set</kwd>; }</td>
     </tr>
 </table>
+
+<h3>C++</h3>
+<a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/visual-cpp-code-snippets?view=vs-2022">リファレンス</a>を参照。
