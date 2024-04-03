@@ -83,6 +83,7 @@ C++、C#以外の言語では使用できない点に注意。
 <h3>スニペットXMLの作成</h3>
 
 <h4>Visual Studio Snippet Generator(Webサイト)を用いる場合</h4>
+機能は限定されるが、スニペットを簡便に作成できる。
 
 <ol>
     <li><a href="http://tools.unitycoder.com/VisualStudioSnippetsGenerator/">Visual Studio Snippet Generator</a>を開く。</li>
@@ -94,8 +95,24 @@ C++、C#以外の言語では使用できない点に注意。
 
 <h4>手動で入力する場合</h4>
 より複雑で高機能なスニペットを作成することができる。<br>
-XMLの要素(抜粋)を以下に記す。
-詳細は<a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022">リンク先</a>を参照。
+
+<h5>作例</h5>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/VS_Snippets/14.png"><br>
+
+上記はスニペットを記述したXMLの例である。各要素の詳細な解説は後述する。<br>
+まず任意の場所にXMLファイルを作成し、拡張子を <b>.snippet</b> に変更する。<br>
+スニペットとして展開したい内容は <b>&lt;![CDATA[]]&gt;</b> で囲み、Code 要素に記述する。<br>
+$ で囲まれた語句は特殊な働きをし、$end$ (予約語)はスニペット展開後のカーソル位置を示す。<br>
+$comment$ は ID に comment を指定した Literal に紐づけられ、リテラルとして扱われる。<br>
+スニペット内に ID が等しいリテラルが複数存在する場合、ひとつを書き換えると他の箇所も連動して書き換わる。<br>
+Default は comment リテラルの初期値を示す。このため、実際に展開されるスニペットは
+<div class="code">
+/// &lt;summary&gt;コメント&lt;/summary&gt;
+</div>
+となる。<br>
+また、Shortcut が設定されているため、"com" と入力し、Tabキーを2回押すことでスニペットを呼び出すことができる。<br>
+<br>
+主要なXMLの要素を以下に記す。すべての項目は<a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022">リンク先</a>を参照。
 
 <table>
     <tr class="row1">
@@ -152,7 +169,7 @@ XMLの要素(抜粋)を以下に記す。
         <td></td>
     </tr>
     <tr>
-        <th class="border_dashed"></th><th class="border_dashed">┃</th><th class="border_dashed">┃</th><th class="border_dashed">┗</th><td class="col1 left" colspan="2"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#keyword-element">Keyword</a></td>
+        <th class="border_dashed"></th><th class="border_dashed">┃</th><th class="border_dashed">┃</th><th class=order_dashed">┗</th><td class="col1 left" colspan="2"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#keyword-element">Keyword</a></td>
         <td></td>
         <td>Visual Studioが検索・分類に用いる<br>カスタムキーワード</td>
         <td>Keywords 省略時はHeader 直下に記述可能</td>
@@ -190,7 +207,13 @@ XMLの要素(抜粋)を以下に記す。
         <th class="border_dashed"></th><th class="border_dashed"></th><th class="border_dashed">┣</th><td class="col1 left" colspan="3"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#code-element">Code</a></td>
         <td class="center bg_lg">○</td>
         <td>コードスニペットとして実際に展開されるコード</td>
-        <td></td>
+        <td>
+        <ul>
+            <li>Language 属性が必須(※2)</li>
+            <li>CDATA[] の大括弧の内容が展開される(作例参照)</li>
+            <li>$ で囲まれた語句は特殊な働きをする(※3)</li>
+        </ul>
+        </td>
     </tr>
     <tr>
         <th class="border_dashed"></th><th class="border_dashed"></th><th class="border_dashed">┗</th><td class="col1 left" colspan="3"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#declarations-element">Declarations</a></td>
@@ -230,7 +253,64 @@ XMLの要素(抜粋)を以下に記す。
     </tr>
 </table>
 
-※1 : Format="x.x.x" 形式でスキーマバージョンを指定する。指定が正しくない場合、コードスニペットは無視される。
+※1 : Format="x.x.x" 形式でスキーマバージョンを指定する。指定が正しくない場合、コードスニペットは無視される。<br>
+※2 : Language 属性で指定した言語に対応したファイルでのみ展開可能となる。指定できる値は以下のとおり。
+
+<table>
+    <tr class="row1">
+        <td class="col1">値</td>
+        <td>対応する言語</td>
+    </tr>
+    <tr>
+        <td class="col1">CPP</td>
+        <td>C++</td>
+    </tr>
+    <tr>
+        <td class="col1">CSharp</td>
+        <td>C#</td>
+    </tr>
+    <tr>
+        <td class="col1">HTML</td>
+        <td>HTML</td>
+    </tr>
+    <tr>
+        <td class="col1">JavaScript</td>
+        <td>JavaScript</td>
+    </tr>
+    <tr>
+        <td class="col1">SQL</td>
+        <td>SQL</td>
+    </tr>
+    <tr>
+        <td class="col1">TypeScript</td>
+        <td>TypeScript</td>
+    </tr>
+    <tr>
+        <td class="col1">VB</td>
+        <td>Visual Basic</td>
+    </tr>
+    <tr>
+        <td class="col1">XAML</td>
+        <td>XAML</td>
+    </tr>
+    <tr>
+        <td class="col1">XML</td>
+        <td>XML</td>
+    </tr>
+</table>
+
+※3 : 以下は予約語で、ひとつのスニペット内に複数回記述できない。それ以外はリテラルまたはオブジェクトとして扱われる。
+
+<table>
+    <tr>
+        <td class="col1">$end$</td>
+        <td>スニペット展開後のカーソル位置を表す</td>
+    </tr>
+    <tr>
+        <td class="col1">$selected$</td>
+        <td>選択された範囲を表す(プレースホルダ)</td>
+    </tr>
+</table>
 
 <h3>スニペットのインポート</h3>
 <ol>
