@@ -40,9 +40,8 @@
 
 <h2>タプルとは</h2>
 
-複数個の値をまとめて管理できるデータ型。<br>
-構造体やクラスと異なり事前の型定義が必要なく、簡便に用いることができる。<br>
-C++11で追加された。
+複数個の値をまとめて管理できるデータ型。<a href="TIPS/C・C%2B%2B/C%2B%2B11.html">C++11</a>で追加された。<br>
+構造体やクラスと異なり事前の型定義が必要なく、簡便に用いることができる。
 
 <h2>一般形</h2>
 
@@ -121,17 +120,17 @@ a = 20;
 
 <b>std::tie()</b> 関数を使用すると、既存の変数をタプルとして管理できるようになる。<br>
 make_tuple() は値のみがコピーされるが、<b>tie() では元の変数への参照をタプルが保持する</b>。<br>
-このため tie() の引数に指定できるのは変数のみで、値は指定できない。
+このため tie() の引数に指定できるのは変数のみで、値(リテラル)は指定できない。
 
 <h2>複数のタプルを連結 ( tuple_cat() )</h2>
 
 <div class="code">
 <cmt>// タプル変数 tuple1 、tuple2 を生成</cmt>
-<kwd>auto</kwd> tuple1 = <kwd>std</kwd>::make_tuple(10, 3.3, "aa");
-<kwd>auto</kwd> tuple2 = <kwd>std</kwd>::make_tuple(3.2f, "bb");
+<kwd>auto</kwd> tuple1 = <kwd>std</kwd>::make_tuple(10, 3.3, "aa");             <cmt>//< 要素数 : 3</cmt>
+<kwd>auto</kwd> tuple2 = <kwd>std</kwd>::make_tuple(3.2f, "bb");                <cmt>//< 要素数 : 2</cmt>
 
 <cmt>// tuple1 、tuple2 を連結した tuple3 を生成</cmt>
-<kwd>auto</kwd> tuple3 = <kwd>std</kwd>::tuple_cat(tuple1, tuple2);
+<kwd>auto</kwd> tuple3 = <kwd>std</kwd>::tuple_cat(tuple1, tuple2);             <cmt>//< 要素数 : 3 + 2 = 5</cmt>
 
 <kwd>auto</kwd> value0 = <kwd>std</kwd>::<kwd>get</kwd>&lt;0&gt;(tuple3);        <cmt>//< value0 == 10</cmt>
 <kwd>auto</kwd> value1 = <kwd>std</kwd>::<kwd>get</kwd>&lt;1&gt;(tuple3);        <cmt>//< value1 == 3.3</cmt>

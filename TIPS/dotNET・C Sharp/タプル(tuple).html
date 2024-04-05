@@ -1,27 +1,41 @@
 <!DOCTYPE html>
+
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
+
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
+
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
+
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
+
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
+
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-<!-- 出典・関連ページ -->
+
+<!-- 出典ページ -->
 <h5>出典 :</h5>
 <a href="https://yaspage.com/prog/csharp/cs-tuple/">[C# 入門] タプル（tuple）の使い方まとめ</a><br>
 <a href="https://www.fenet.jp/dotnet/column/language/2282/">【C#入門】C#のタプル(tuple)を使ってできることとは | .NETコラム</a><br>
 <a href="https://qiita.com/dyoneda/items/e45fcd9a379922e8484a">ValueTupleをTuple・匿名型と比較してみる - Qiita</a><br>
 <a href="https://ufcpp.net/study/csharp/datatype/tuples/?p=2">タプル - C# によるプログラミング入門 | ++C++; // 未確認飛行 C</a><br>
+
+<h5>関連 :</h5>
+<a href="TIPS/C・C++/タプル.html">[C++]タプル</a>
+
+<!-- 関連ページ -->
+
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
 <hr>
+
 <!-- 本文ここから -->
 
 <h2>タプル(tuple)とは</h2>
@@ -34,7 +48,7 @@ C#ではTuple型、匿名型を用いることができたが、C#7.0よりValue
 (逆に、Tuple 型では要素名を割り当てることができない。)<br>
 構造体と異なり事前に型定義を必要としないため、特に関数の戻り値として用いる場合に有用である。
 
-<h4>構造体を用いた場合</h4>
+<h4>構造体</h4>
 関数の戻り値として用いる場合、事前に型定義が必要となる。
 <p class="code">
 <cmt>// 構造体型 Hoge 定義</cmt>
@@ -57,7 +71,9 @@ C#ではTuple型、匿名型を用いることができたが、C#7.0よりValue
 }
 </p>
 	
-<h4>タプル(ValueTuple)を用いた場合</h4>
+<h4>タプル(ValueTuple)</h4>
+関数の戻り値に用いる場合も、事前の型定義が不要で、簡便に記述できる。
+
 <p class="code">
 <cmt>// タプルを返すメソッド Func()</cmt>
 <kwd>public</kwd> (<kwd>int</kwd> no, <kwd>string</kwd> name) Func()
