@@ -27,6 +27,9 @@
 <h5>関連 :</h5>
 <a href="TIPS/dotNET・C Sharp/[プロパティ]オブジェクト初期化子とinitアクセサ.html">オブジェクト初期化子とinitアクセサ</a><br>
 <a href="TIPS/dotNET・C Sharp/[プロパティ]インデクサー.html">インデクサー</a><br>
+<a href="TIPS/dotNET・C Sharp/[型]配列.html">配列</a><br>
+<a href="TIPS/dotNET・C Sharp/[型]コレクション.html">コレクション</a><br>
+<a href="TIPS/dotNET・C Sharp/C%23のアクセス修飾子.html">C#のアクセス修飾子</a><br>
 
 <!-- 目次 -->
 <h5>目次 :</h5>
@@ -90,10 +93,66 @@ C# 3.0からは、単に値を読み書きする場合の記述を省略でき�
 前節の例と意味的には等価である(フィールドが暗黙的に生成される)。ここでも同様に、get / set いずれかのみの定義も可能。<br>
 フィールドを明示的に宣言する必要が無く、管理が簡便となる。
 
+<h2>添字付きプロパティ</h2>
+添字アクセスを行う配列、またはコレクション要素もプロパティ化することができる。<br>
+<a href="TIPS/dotNET・C Sharp/[プロパティ]インデクサー.html">インデクサー</a>とは異なる。
+
+<h5>コード例</h5>
+<div class="cs">
+<cmt>// 配列要素を含むサンプルクラス</cmt>
+<kwd>public class</kwd> SampleData
+{
+    <kwd>private int</kwd> _Size = <ltr>2</ltr>;
+
+    <cmt>// 配列型のフィールド _ArrayData</cmt>
+    <kwd>private int</kwd>[] _ArrayData;
+
+    <cmt>// _ArrayData を操作するプロパティ ArrayData</cmt>
+    <kwd>public int</kwd>[] ArrayData
+    {
+        <kwd>set</kwd> { _ArrayData = value; }
+        <kwd>get</kwd> { <kwd>return</kwd> _ArrayData; }
+    }
+
+    <cmt>// コンストラクタ</cmt>
+    <kwd>public</kwd> SampleData()
+    {
+        <cmt>// _ArrayData の初期化</cmt>
+        _ArrayData = <kwd>new int</kwd>[_Size];
+    }
+}
+
+:
+
+{
+    <cmt>// SampleData のテスト用メソッド</cmt>
+    <kwd>void</kwd> DoSomething()
+    {
+        <cmt>// SampleData 型オブジェクト生成</cmt>
+        SampleData sampleData = <kwd>new</kwd> SampleData();
+
+        <cmt>// 添字付きプロパティを用いて値を書き込み</cmt>
+        sampleData.ArrayData[<ltr>0</ltr>] = <ltr>32</ltr>;
+        sampleData.ArrayData[<ltr>1</ltr>] = <ltr>34</ltr>;
+
+        <cmt>// 添字付きプロパティを用いて値を読み出し</cmt>
+        <knw>Console</knw>.WriteLine(sampleData.ArrayData[<ltr>0</ltr>]);
+        <knw>Console</knw>.WriteLine(sampleData.ArrayData[<ltr>1</ltr>]);
+    }
+}
+</div>
+
+<h5>実行結果</h5>
+<div class="code">
+<ltr>32</ltr>
+<ltr>34</ltr>
+</div>
+
 <h2>プロパティの get / set それぞれに異なるアクセス制限を設定</h2>
 C# 2.0以降、get と set で異なるアクセスレベルを設定できるようになった。<br>
 注意が必要な点として、<b>プロパティ全体に設定されたアクセスレベルよりも、アクセサ個別のアクセスレベルのほうが厳しくないとエラーとなる</b>。<br>
-(「アクセサのレベル」を「プロパティのレベル」よりも緩めることはできない。)
+(「アクセサのレベル」を「プロパティのレベル」よりも緩めることはできない。)<br>
+アクセス修飾子の詳細は<a href="TIPS/dotNET・C Sharp/C%23のアクセス修飾子.html">リンク先</a>を参照。
 
 <p class="code">
 <cmt>// プロパティ Sample01 のアクセスレベル : public</cmt>
@@ -108,4 +167,4 @@ C# 2.0以降、get と set で異なるアクセスレベルを設定できる�
 
 <h2>init アクセサ</h2>
 初期化時にのみ使用できるアクセサ。C# 9.0で追加された。<br>
-詳細は<a href="TIPS/dotNET・C Sharp/オブジェクト初期化子とinitアクセサ.html">ここ</a>を参照。
+詳細は<a href="TIPS/dotNET・C Sharp/オブジェクト初期化子とinitアクセサ.html">リンク先</a>を参照。

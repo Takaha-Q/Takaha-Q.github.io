@@ -106,3 +106,9 @@ LINQが提供する Where() などのメソッドを「クエリ演算子」と�
 OfType&lt;RadioButton&gt;() メソッドにより、「RadioButton」に該当するもののみを抽出している。<br>
 ここまでの groupBox1.Controls.OfType&lt;RadioButton&gt;() がLINQの対象シーケンス(集合 : グループボックス内のラジオボタン)となる。<br>
 緑線がLINQの提供する Single() メソッドで、ラムダ式を満たす唯一のオブジェクトを結果として返す。<br>
+
+<h2>クエリ式との比較</h2>
+LINQと同様、<a href="TIPS/dotNET・C Sharp/クエリ式(select、from、where).html">クエリ式</a>でもクエリを実行することができる。<br>
+しかしクエリ式はSQLの知識が要求され、また記述も煩雑となりがちである。<br>
+LINQはクエリ式の弱点を補うべく開発された経緯から、よりプログラミング言語との親和性が高く、簡潔に記述できる利点がある。<br>
+逆にSQLに慣れているのであれば、クエリ式を用いることも選択肢となり得る。
