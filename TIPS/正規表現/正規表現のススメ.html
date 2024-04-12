@@ -1,18 +1,30 @@
 <!DOCTYPE html>
+
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
+
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
+
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
+
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
+
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
+
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-<!-- 出典・関連ページ -->
+
+<!-- 出典ページ -->
+<h5>出典 :</h5>
+
+<!-- 関連ページ -->
+<h5>関連 :</h5>
+
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
@@ -54,18 +66,133 @@ Microsoft Officeは未対応(但しVBAでは使用可)。<br>
 <h3>文字種を表すもの</h3>
 <table>
 <tr class="row1">
-	<td colspan="2" class="border_r_double"></td>	<td width="9.5%">英字</td><td width="9.5%">数字</td><td width="9.5%">_<br>(アンダー<br>スコア)</td><td width="9.5%">その他の<br>記号</td><td width="9.5%"><br>(ブランク)</td><td width="9.5%">\t<br>(タブ)</td><td width="9.5%">\r<br>(CR)</td><td width="9.5%">\n<br>(LF)</td></tr>
-<tr><th>. (ドット)</td>		<th class="border_r_double">(改行を除く)すべての文字</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="bg_lh"></td><td class="bg_lh"></td></tr>
-<tr><th>\w</td>				<th class="border_r_double">単語を構成する文字</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="bg_lh"></td><td class="bg_lh"></td><td class="bg_lh"></td><td class="bg_lh"></td><td class="bg_lh"></td></tr>
-<tr><th>\W</td>				<th class="border_r_double">単語を構成する文字以外</td><td class="bg_lh"></td><td class="bg_lh"></td><td class="bg_lh"></td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td></tr>
-<tr><th>\s</td>				<th class="border_r_double">空白文字</td><td class="bg_lh"></td><td class="bg_lh"></td><td class="bg_lh"></td><td class="bg_lh"></td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td></tr>
-<tr><th>\S</td>				<th class="border_r_double">空白文字以外</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="bg_lh"></td><td class="bg_lh"></td><td class="bg_lh"></td><td class="bg_lh"></td></tr>
-<tr><th>\d</td>				<th class="border_r_double">数字</td><td class="bg_lh"></td><td class="center">○</td><td class="bg_lh"></td><td class="bg_lh"></td><td class="bg_lh"></td><td class="bg_lh"></td><td class="bg_lh"></td><td class="bg_lh"></td></tr>
-<tr><th>\D</td>				<th class="border_r_double">数字以外</td><td class="center">○</td><td class="bg_lh"></td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td><td class="center">○</td></tr>
-<tr><th>\t</td>				<th class="border_r_double">タブ</td><td class="bg_lh"></td><td class="bg_lh"></td><td class="bg_lh"></td><td class="bg_lh"></td><td class="bg_lh"></td><td class="center">○</td><td class="bg_lh"></td><td class="bg_lh"></td></tr>
-<tr><th>\r</td>				<th class="border_r_double">CR (復帰)</td><td class="bg_lh"></td><td class="bg_lh"></td><td class="bg_lh"></td><td class="bg_lh"></td><td class="bg_lh"></td><td class="bg_lh"></td><td class="center">○</td><td class="bg_lh"></td></tr>
-<tr><th>\n</td>				<th class="border_r_double">LF (改行)</td><td class="bg_lh"></td><td class="bg_lh"></td><td class="bg_lh"></td><td class="bg_lh"></td><td class="bg_lh"></td><td class="bg_lh"></td><td class="bg_lh"></td><td class="center">○</td></tr>
+    <td colspan="2" class="col1"></td>
+    <td width="8.5%">文字<br>*1</td>
+    <td width="8.5%">数字<br>*2</td>
+    <td width="8.5%">_<br>(アンダー<br>スコア)<br>*2</td>
+    <td width="8.5%">その他の<br>記号<br>*3</td>
+    <td width="8.5%"><br>(スペース)<br>*2</td>
+    <td width="8.5%">\t<br>(タブ)</td>
+    <td width="8.5%">\r<br>(CR)</td>
+    <td width="8.5%">\n<br>(LF)</td>
+</tr>
+<tr>
+    <th>. (ドット)</th>		
+    <td class=col1>(改行を除く)すべての文字</td>
+    <td class="center">○</td><!-- 文字 -->
+    <td class="center">○</td><!-- 数字 -->
+    <td class="center">○</td><!-- アンダースコア -->
+    <td class="center">○</td><!-- その他の記号 -->
+    <td class="center">○</td><!-- スペース -->
+    <td class="center">○</td><!-- タブ -->
+    <td class="bg_lh"></td><!-- CR -->
+    <td class="bg_lh"></td><!-- LF -->
+</tr>
+<tr>
+    <th>\w</th>				
+    <td class=col1>単語を構成する文字</td>
+    <td class="center">○</td><!-- 文字 -->
+    <td class="center">○</td><!-- 数字 -->
+    <td class="center">○</td><!-- アンダースコア -->
+    <td class="bg_lh"></td><!-- その他の記号 -->
+    <td class="bg_lh"></td><!-- スペース -->
+    <td class="bg_lh"></td><!-- タブ -->
+    <td class="bg_lh"></td><!-- CR -->
+    <td class="bg_lh"></td><!-- LF -->
+</tr>
+<tr>
+    <th>\W</th>				
+    <td class=col1>単語を構成する文字以外</td>
+    <td class="bg_lh"></td><!-- 文字 -->
+    <td class="bg_lh"></td><!-- 数字 -->
+    <td class="bg_lh"></td><!-- アンダースコア -->
+    <td class="center">○</td><!-- その他の記号 -->
+    <td class="center">○</td><!-- スペース -->
+    <td class="center">○</td><!-- タブ -->
+    <td class="center">○</td><!-- CR -->
+    <td class="center">○</td><!-- LF -->
+</tr>
+<tr>
+<th>\s</th>				
+<td class=col1>空白文字</td>
+<td class="bg_lh"></td>
+<td class="bg_lh"></td>
+<td class="bg_lh"></td>
+<td class="bg_lh"></td>
+<td class="center">○</td>
+<td class="center">○</td>
+<td class="center">○</td>
+<td class="center">○</td></tr>
+<tr>
+<th>\S</th>				
+<td class=col1>空白文字以外</td>
+<td class="center">○</td>
+<td class="center">○</td>
+<td class="center">○</td>
+<td class="center">○</td>
+<td class="bg_lh"></td>
+<td class="bg_lh"></td>
+<td class="bg_lh"></td>
+<td class="bg_lh"></td></tr>
+<tr>
+<th>\d</th>				
+<td class=col1>数字</td>
+<td class="bg_lh"></td>
+<td class="center">○</td>
+<td class="bg_lh"></td>
+<td class="bg_lh"></td>
+<td class="bg_lh"></td>
+<td class="bg_lh"></td>
+<td class="bg_lh"></td>
+<td class="bg_lh"></td></tr>
+<tr>
+<th>\D</th>				
+<td class=col1>数字以外</td>
+<td class="center">○</td>
+<td class="bg_lh"></td>
+<td class="center">○</td>
+<td class="center">○</td>
+<td class="center">○</td>
+<td class="center">○</td>
+<td class="center">○</td>
+<td class="center">○</td></tr>
+<tr>
+<th>\t</th>				
+<td class=col1>タブ</td>
+<td class="bg_lh"></td>
+<td class="bg_lh"></td>
+<td class="bg_lh"></td>
+<td class="bg_lh"></td>
+<td class="bg_lh"></td>
+<td class="center">○</td>
+<td class="bg_lh"></td>
+<td class="bg_lh"></td></tr>
+<tr>
+<th>\r</th>				
+<td class=col1>CR (復帰)</td>
+<td class="bg_lh"></td>
+<td class="bg_lh"></td>
+<td class="bg_lh"></td>
+<td class="bg_lh"></td>
+<td class="bg_lh"></td>
+<td class="bg_lh"></td>
+<td class="center">○</td>
+<td class="bg_lh"></td></tr>
+<tr>
+<th>\n</th>				
+<td class=col1>LF (改行)</td>
+<td class="bg_lh"></td>
+<td class="bg_lh"></td>
+<td class="bg_lh"></td>
+<td class="bg_lh"></td>
+<td class="bg_lh"></td>
+<td class="bg_lh"></td>
+<td class="bg_lh"></td>
+<td class="center">○</td></tr>
 </table>
+*1 : 英字、ひらがな、カタカナ、漢字、ギリシャ文字、キリル文字など、数字と記号を除くすべて(半角および全角)<br>
+*2 : 半角および全角<br>
+*3 : アンダースコアを除くすべての記号(半角および全角)<br>
 \s (空白文字)が改行(\r / \n)にもヒットする点に注意。
 
 <h3>位置を表すもの</h3>
@@ -100,8 +227,10 @@ Microsoft Officeは未対応(但しVBAでは使用可)。<br>
 <table>
 <tr><td class="col1">[abc]</td><td>"a","b","c"いずれかの文字にマッチ</td></tr>
 <tr><td class="col1">[^abc]</td><td>"a","b","c"以外の文字にマッチ</td></tr>
-<tr><td class="col1">[A-Z]</td><td>"A"～"Z"(英大文字)にマッチ</td></tr>
-<tr><td class="col1">[0-9]</td><td>"0"～"9"(数字)にマッチ</td></tr>
+<tr><td class="col1">[A-Z]</td><td>"A"～"Z"(英大文字 : 半角)にマッチ</td></tr>
+<tr><td class="col1">[ａ-ｚ]</td><td>"ａ"～"ｚ"(英小文字 : 全角)にマッチ</td></tr>
+<tr><td class="col1">[0-9]</td><td>"0"～"9"(半角数字)にマッチ</td></tr>
+<tr><td class="col1">[０-９]</td><td>"０"～"９"(全角数字)にマッチ</td></tr>
 <tr><td class="col1">klm|xyz</td><td>"klm"または"xyz"にマッチ</td></tr>
 <tr><td class="col1">(Upp|Low)er</td><td>"Upper"または"Lower"にマッチ</td></tr>
 </table>
