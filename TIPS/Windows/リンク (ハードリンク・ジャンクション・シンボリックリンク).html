@@ -14,8 +14,13 @@
 <a href="index.html">ホームに戻る</a><br>
 <!-- 出典・関連ページ -->
 <h5>出典 :</h5>
+<a href="https://learn.microsoft.com/ja-jp/powershell/module/microsoft.powershell.management/new-item?view=powershell-7.4">New-Item (Microsoft.PowerShell.Management) - PowerShell | Microsoft Learn</a><br>
 <a href="https://dev.classmethod.jp/etc/make_windows_symbolic_link/">Windowsでシンボリックリンクを作る - Developers.IO</a><br>
 <a href="https://www.atmarkit.co.jp/ait/articles/1306/07/news111.html">Windowsのシンボリックリンクとジャンクションとハードリンクの違い - @IT</a><br>
+<a href="https://qiita.com/SAITO_Keita/items/eae21799fd3d136cb813">Windowsのハードリンクとジャンクションとシンボリックリンクについて #Windows - Qiita</a><br>
+<a href="https://qiita.com/go_astrayer/items/ab993cdc420d4f7f50d4">シンボリックリンクの使い方と落とし穴 #Windows - Qiita</a><br>
+<a href="https://zetamatta.hatenablog.com/entry/2020/07/27/100424">（事例）ネットワークフォルダーをシンボリックリンクで参照すると Visual C++ が内部エラーを起こす - 標準愚痴出力</a>
+
 <h5>関連 :</h5>
 <a href="TIPS/Windows/ネットワークドライブ.html">ネットワークドライブ</a>
 <!-- 目次 -->
@@ -40,8 +45,7 @@ WindowsではUNIX/Linux系OSと同様のリンク機能を利用することが�
 <h3>ジャンクション</h3>
 同一のローカルPC上にあるフォルダに対して、別のパスを作成するという機能。<br>
 本来のパスと同様、ジャンクションとして作成されたパスでもフォルダへのアクセスが可能となる。<br>
-リンク先のフォルダを削除すると「リンク先不明」となる。逆に言えば、存在しないフォルダへのジャンクションも作成可能である。<br>
-後述のシンボリックリンクはジャンクションの欠点を補っているため、敢えてジャンクションを作成する必要性は薄い。
+リンク先のフォルダを削除すると「リンク先不明」となる。逆に言えば、存在しないフォルダへのジャンクションも作成可能である。
 
 <h3>シンボリックリンク</h3>
 ジャンクションとは異なり、ファイル、フォルダのいずれにも別のパスを作成可能。<br>
