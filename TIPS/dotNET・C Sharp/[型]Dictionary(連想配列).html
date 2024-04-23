@@ -39,22 +39,19 @@ C# の Dictionary&lt;TKey, TValue&gt; の使い方 - PG日誌</a><br>
 <hr>
 <!-- 本文ここから -->
 
-<h2>Dictionary とは</h2>
+<h2>Dictionary ( System.Collections.Generic.Dictionary )とは</h2>
 .NETにおける連想配列クラス。キーと値を関連付けて、キーから値を検索できる。<br>
-C++(STL)における std::map と共通の概念。<br>
-
-<h2>依存する名前空間</h2>
-System.Collections.Generic<br>
+C++(STL)における std::map と共通の概念。
 
 <h2>通常の配列との比較</h2>
-いずれもC#における例。<br>
+以下、コード例はいずれもC#。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/DotNet_Dictionary/dictionary_01.png" alt="画像"><br>
 Dictionary は要素を自由に追加( Add() )、削除( Remove() )できる。<br>
 
 <h2>基本形(宣言・初期化・参照)</h2>
 Dictionary&lt;TKey, TValue&gt;<br>
 TKey 、TValue ともに <b>任意の型を指定できる</b>(「文字列をキーに数値を検索」など)。<br>
-いずれもC#における例。<a href="TIPS/dotNET・C Sharp/[型]コレクション初期化子.html">コレクション初期化子</a>を用いている。
+<a href="TIPS/dotNET・C Sharp/[型]コレクション初期化子.html">コレクション初期化子</a>を用いている。<br>
 
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/DotNet_Dictionary/dictionary_02.png" alt="画像"><br>
 
