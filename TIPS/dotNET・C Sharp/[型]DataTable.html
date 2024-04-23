@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<h5>出典 :</h5>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.data.datatable?view=net-8.0">DataTable クラス (System.Data) | Microsoft Learn</a><br>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.data.datarelation?view=net-7.0">DataRelation クラス (System.Data) | Microsoft Learn</a><br>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.data.dataset?view=net-7.0">DataSet クラス (System.Data) | Microsoft Learn</a><br>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.data.datacolumn?view=net-8.0">DataColumn クラス (System.Data) | Microsoft Learn</a><br>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.data.datarow?view=net-7.0">DataRow クラス (System.Data) | Microsoft Learn</a><br>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.data.dataview?view=net-8.0">DataView クラス (System.Data) | Microsoft Learn</a><br>
+<a href="https://www.sejuku.net/blog/58187">【C#入門】DataTableの使い方(Select、Sort、Compute、LINQも解説) | 侍エンジニアブログ</a><br>
+<a href="https://qiita.com/voidProc/items/810b519951961dead2a2">WPFでDataGridにデータ(DataTable,DataView)を表示して絞り込み表示したり数値順ソートしたりその他色々 #C# - Qiita</a><br>
+
+
+<!-- 関連ページ -->
+<h5>関連 :</h5>
+<a href="TIPS/dotNET・C Sharp/LINQ (Language Integrated Query).html">LINQ (Language Integrated Query)</a><br>
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>DataTable とは</h2>
+表形式のデータを格納できる型。System.Data 名前空間に属する。<br>
+データベースから取得したテーブルを格納することを前提としており、集計用の各種メソッドを備えている。<br>
+また、DataGridView(WindowsForms)やDataGrid(WPF)とデータバインディングで連携することが可能である。
+
+<h2>DataTable と関連クラスの構成</h2>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/dotNET/DataTable/01.png" alt="画像"><br>
+DataTable は DataRelation によって一方を親、他方を子として関連付けることができる。これはデータベースにおける主キーと外部キーの関係に等しい(詳細は割愛)。<br>
+DataTable と、DataTable を関連付ける DataRelation は DataSet でまとめて管理することが可能である。DataSet はひとつのデータベースに相当する。<br>
+DataTable の任意の列または行を抽出することができ、それぞれ DataColumn 、DataRow 型として取り扱われる。<br>
+DataTable のビューとして DataView を作成することもできる。DataView はソートやフィルタリングにより、元データである DataTable の異なる見方(サブセット)を提供できる。<br>
+(詳細は<a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.data.dataview?view=net-8.0">リファレンス</a>を参照のこと。)<br>
+いずれの型も DataTable 同様、System.Data 名前空間に属する。<br>
+<br>
+まとめると、
+<ul>
+    <li>DataTable はデータベースにおけるひとつのテーブル(またはビュー)に相当する</li>
+    <li>DataSet はひとつのデータベースに相当し、複数の DataTable と、DataTable 同士の関係である DataRelation を保持できる</li>
+    <li>DataTable の列は DataColumn 、行は DataRow である</li>
+</ul>
+となる。
+
+<h2>DataTable の実装例</h2>
+
+<h3>テーブルの作成</h3>
+
+<h5>C#</h5>
+<div class="cs">
+<kwd>using</kwd> <knw>System</knw>;
+<kwd>using</kwd> <knw>System</knw>.Data;
+
+<kwd>class</kwd> Program
+{
+    <kwd>static void</kwd> Main(<kwd>string</kwd>[] args)
+    {
+        <cmt>// DataSet の生成</cmt>
+        DataSet dataSet = <kwd>new</kwd> DataSet();
+
+        <cmt>// DataTable (テーブル名 : 「成績」)の生成</cmt>
+        DataTable table = <kwd>new</kwd> DataTable(<ltr>"成績"</ltr>);
+
+        <cmt>// DataTable に列を追加</cmt>
+        table.Columns.Add( <ltr>"教科"</ltr> );
+        table.Columns.Add( <ltr>"点数"</ltr>, Type.GetType(<ltr>"System.Int32"</ltr>) );
+        table.Columns.Add( <ltr>"氏名"</ltr> );
+        table.Columns.Add( <ltr>"クラス名"</ltr> );
+
+        <cmt>// DataTable に行(データ)を追加</cmt>
+        <cmt>//               教科   点数      氏名     クラス名</cmt>
+        table.Rows.Add( <ltr>"数学"</ltr>,  <ltr>80</ltr>,  <ltr>"田中 一郎"</ltr>,   <ltr>"A"</ltr>    );
+        table.Rows.Add( <ltr>"英語"</ltr>,  <ltr>70</ltr>,  <ltr>"田中 一郎"</ltr>,   <ltr>"A"</ltr>    );
+        table.Rows.Add( <ltr>"国語"</ltr>,  <ltr>60</ltr>,  <ltr>"鈴木 二郎"</ltr>,   <ltr>"A"</ltr>    );
+        table.Rows.Add( <ltr>"数学"</ltr>,  <ltr>50</ltr>,  <ltr>"鈴木 二郎"</ltr>,   <ltr>"A"</ltr>    );
+        table.Rows.Add( <ltr>"英語"</ltr>,  <ltr>80</ltr>,  <ltr>"鈴木 二郎"</ltr>,   <ltr>"A"</ltr>    );
+        table.Rows.Add( <ltr>"国語"</ltr>,  <ltr>70</ltr>,  <ltr>"佐藤 三郎"</ltr>,   <ltr>"B"</ltr>    );
+        table.Rows.Add( <ltr>"数学"</ltr>,  <ltr>80</ltr>,  <ltr>"佐藤 三郎"</ltr>,   <ltr>"B"</ltr>    );
+        table.Rows.Add( <ltr>"英語"</ltr>,  <ltr>90</ltr>,  <ltr>"佐藤 三郎"</ltr>,   <ltr>"B"</ltr>    );
+
+        <cmt>// DataSet に DataTable を追加</cmt>
+        dataSet.Tables.Add(table);
+    }
+}
+</div>
+
+上記は DataTable の基本的な実装例である。<br>
+作成した DataTable に DataTable.Columns.Add() メソッドで列(属性)を追加している。第1引数は列の名前、第2引数は列に格納する型である。<br>
+型を省略した場合は、既定値である string が列の型となる。<br>
+同様に DataTable.Rows.Add() で行(データ)を追加している。引数で指定した値が、列の追加順に各列に割り当てられる。
+
+<h3>データの抽出と並び替え</h3>
+
+<h5>C#</h5>
+<div class="cs">
+:
+
+<cmt>// DataTable.Select() でデータを抽出</cmt>
+<cmt>// 「教科」==「国語」、「点数」で降順に並び替え</cmt>
+DataRow[] dRows = table.Select(<ltr>"教科 = '国語'"</ltr>, <ltr>"点数 DESC"</ltr>);
+<kwd>foreach</kwd> (<kwd>var</kwd> row <kwd>in</kwd> dRows)
+{
+    <knw>Console</knw>.WriteLine( $"点数 : {row[1]}点、氏名 : {row[2]}、クラス : {row[3]}" );
+}
+</div>
+
+<h5>実行結果</h5>
+<div class="code"><ltr>
+点数 : 90点、氏名 : 田中 一郎、クラス : A
+点数 : 70点、氏名 : 佐藤 三郎、クラス : B
+点数 : 60点、氏名 : 鈴木 二郎、クラス : A</ltr>
+</div>
+
+DataTable.Select() メソッドで、条件に合致するデータを抽出できる。これはSQLのSELECT文に相当する。<br>
+Select() の戻り値は DataRow のコレクションとなる。<br>
+<span class="code">[列名]='[値]'</span>形式で記述する(値を単一引用符で囲む)。<br>
+<span class="code">[列名] ASC / DESC</span>と記述すると、指定した列の値を用いて昇順(ASC)または降順(DESC)で並び替える。<br>
+(上記の場合は "点数 DESC" のため、「点数」が降順となるよう並び替える。)<br>
+<br>
+また、データの抽出には Select() のほかに<a href="TIPS/dotNET・C Sharp/LINQ (Language Integrated Query).html">LINQ</a>も使用できる。詳細は<a href="https://www.sejuku.net/blog/58187">出典元</a>を参照。
+
+<h3>データの集計</h3>
+
+<h5>C#</h5>
+<div class="cs">
+:
+
+<cmt>// DataTable.Compute() でデータを集計</cmt>
+<cmt>// 「教科」==「国語」の「点数」のうち最大の値</cmt>
+<kwd>object</kwd> obj = table.Compute("Max(点数)", <ltr>"教科 = '国語'"</ltr>);
+<knw>Console</knw>.WriteLine( $"国語の最高点 : {(<kwd>int</kwd>)obj}点" );
+</div>
+
+<h5>実行結果</h5>
+<div class="code">
+<ltr>国語の最高点 : 90点</ltr>
+</div>
+
+DataTable.Compute() メソッドで、データの最大(Max)、最小(Min)、合計(Sum)、平均(Ave)を算出することができる。<br>
+これはSQLのSELECT文で集約関数を用いた場合に相当する。<br>
+戻り値は object 型であるため、キャストにより所望の形式に変換している。<br>
+
+<h2>(WPF)DataGrid での表示</h2>
+
+<h5>ViewModel : C#</h5>
+<div class="cs">
+<kwd>private</kwd> DataTable _data;
+<kwd>public</kwd> DataView Data { <kwd>get</kwd>; <kwd>private set</kwd>; }      <cmt>//&lt; DataGrid のデータソースとして用いる DataView </cmt>
+
+:
+
+_data = <kwd>new</kwd> DataTable();
+
+_data.Columns.Add(<ltr>"Name"</ltr>);
+_data.Columns.Add(<ltr>"Price"</ltr>, <kwd>typeof</kwd>(<kwd>int</kwd>));    <cmt>//&lt; ソートを数値順にする</cmt>
+
+_data.Rows.Add(<ltr>"商品A"</ltr>, <ltr>500</ltr>);
+_data.Rows.Add(<ltr>"商品B"</ltr>, <ltr>1200</ltr>);
+_data.Rows.Add(<ltr>"商品C"</ltr>, DBNull.Value);      <cmt>//&lt; 金額無し(null)</cmt>
+_data.Rows.Add(<ltr>"商品D"</ltr>, <ltr>2000</ltr>);
+
+<cmt>// DataTable を基に DataView を作成</cmt>
+Data = <kwd>new</kwd> DataView(_data);
+</div>
+
+<h5>View : XAML</h5>
+<div class="xaml">
+&lt;<tag>DataGrid</tag> <prp>ItemsSource</prp>=<ltr>"{Binding Data}"</ltr> <prp>AutoGenerateColumns</prp>=<ltr>"False"</ltr> &gt;
+    &lt;<tag>DataGrid.Columns</tag> &gt;
+        &lt;<tag>DataGridTextColumn</tag> <prp>Header</prp>=<ltr>"商品名"</ltr> <prp>Binding</prp>=<ltr>"{<prp>Binding</prp> Name}"</ltr> / &gt;
+        &lt;<tag>DataGridTextColumn</tag> <prp>Header</prp>=<ltr>"金額"</ltr> <prp>Binding</prp>=<ltr>"{<prp>Binding</prp> Price}, <prp>TargetNullValue</prp>='値がありません'"</ltr> / &gt;
+    &lt;/<tag>DataGrid.Columns</tag> &gt;
+&lt;/<tag>DataGrid</tag> &gt;
+</div>
+
+<h5>画面表示</h5>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/dotNET/DataTable/02.png" alt="画像"><br>
+DataGrid の ItemsSource に DataTable または DataView を指定することで、データを表形式で表示、編集ことができる。<br>
+DataGrid.AutoGenerateColumns の既定値は True で、データソースに基づいて列を自動生成するが、<br>
+False に設定することで列の順序やヘッダを自由に設定できる。<br>
+列ヘッダをクリックすることで、その列の値を基に昇順・降順に並び替えができるが、<br>
+列の属性が string (既定値)だと辞書順のソートとなるので、"Price" 列は数値の大小でソートするため型を明示的に int に指定している。<br>
+また、DataGridTextColumn.TargetNullValue に任意の文字列を設定すること、値が無い場合に表示される。<br>
+詳細は<a href="https://qiita.com/voidProc/items/810b519951961dead2a2">出典元</a>を参照。
