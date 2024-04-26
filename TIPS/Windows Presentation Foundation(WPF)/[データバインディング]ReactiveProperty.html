@@ -59,12 +59,12 @@ ReactiveProperty の改良版として、ReactivePropertySlim ( Reactive.Binding
 
 <h3>実装例</h3>
 
-<h5>SampleModel.cs</h5>
+<h5>ViewModel : SampleViewModel.cs</h5>
 <div class="code">
 <kwd>using</kwd> Reactive.Bindings;         <cmt>// ReactivePropertySlim を使用するための参照</cmt>
 
 <cmt>// データソース用クラス</cmt>
-<kwd>public class</kwd> SampleModel
+<kwd>public class</kwd> SampleViewModel
 {
     <cmt>// バインディングソース Count を ReactivePropertySlim として宣言</cmt>
     <cmt>// 初期値に 0 を指定</cmt>
@@ -74,7 +74,7 @@ ReactiveProperty の改良版として、ReactivePropertySlim ( Reactive.Binding
 }
 </div>
 
-<h5>MainWindow.xaml</h5>
+<h5>View : MainWindow.xaml</h5>
 <div class="code">
 &lt;StackPanel&gt;
     &lt;!-- TextBlock の Text を DataContext の Count に関連付け --&gt;
@@ -83,30 +83,26 @@ ReactiveProperty の改良版として、ReactivePropertySlim ( Reactive.Binding
 &lt;/StackPanel&gt;
 </div>
 
-<h5>MainWindow.xaml.cs (ViewModel : コードビハインド)</h5>
+<h5>View(コードビハインド) : MainWindow.xaml.cs</h5>
 <div class="code">
 <kwd>public partial class</kwd> MainWindow : Window
 {
-    <cmt>// データソースの実体</cmt>
-    <kwd>private</kwd> SampleModel dataSource;
-
     <cmt>// コンストラクタ</cmt>
     <kwd>public</kwd> MainWindow()
     {
         InitializeComponent();
 
         <cmt>// データソースの指定</cmt>
-        dataSource = <kwd>new</kwd> SampleViewModel()
+        <kwd>this</kwd>.DataContext</b> = <kwd>new</kwd> SampleViewModel()
         {
             Count.Value = 0
         };
-        <kwd>this</kwd>.DataContext</font></b> = dataSource;
     }
     
     <cmt>// ボタン「Count Up!」クリック時の処理</cmt>
     <kwd>private void</kwd> CountUp_Click(<kwd>object</kwd> sender, RoutedEventArgs e)
     {
-        dataSource.Count.Value++;
+        (SampleViewModel)DataContext.Count.Value++;
     }
 }
 </div>
@@ -114,4 +110,4 @@ ReactiveProperty の改良版として、ReactivePropertySlim ( Reactive.Binding
 ReactiveProperty / ReactivePropertySlim はジェネリクスであり、任意の型を実データとして用いることができる。<br>
 上記の例では、Count プロパティを ReactivePropertySlim として宣言しており、実データは int 型である。<br>
 コンストラクタ引数で初期値を与えることができる。<br>
-実データは Value プロパティを介して読み書きする。これはXAMLも同様。
+実データは Count プロパティを介してアクセスすることに注意( Count ではなく Count.Value )。
