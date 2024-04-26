@@ -30,11 +30,11 @@
 
 <!-- 関連ページ -->
 <h5>関連 :</h5>
-<a href="C:\Takahaqueue\4_TIPS&HowTo\html_tips_neo\TIPS\Windows Presentation Foundation(WPF)\[データバインディング]データバインディング.html">データバインディング</a><br>
-<a href="C:\Takahaqueue\4_TIPS&HowTo\html_tips_neo\TIPS\Windows Presentation Foundation(WPF)\[データバインディング]RelativeSource.html">RelativeSource</a><br>
-<a href="C:\Takahaqueue\4_TIPS&HowTo\html_tips_neo\TIPS\Windows Presentation Foundation(WPF)\[データバインディング]依存関係プロパティ.html">依存関係プロパティ</a><br>
-<a href="C:/Takahaqueue/4_TIPS&HowTo/html_tips_neo/TIPS/dotNET・C Sharp/デリゲートとイベント.html">デリゲートとイベント</a><br>
-<a href="C:\Takahaqueue\4_TIPS&HowTo\html_tips_neo\TIPS\Windows Presentation Foundation(WPF)\[データバインディング]ReactiveProperty.html">ReactiveProperty</a><br>
+<a href="TIPS/Windows Presentation Foundation(WPF)/[データバインディング]データバインディング.html">データバインディング</a><br>
+<a href="TIPS/Windows Presentation Foundation(WPF)/[データバインディング]RelativeSource.html">RelativeSource</a><br>
+<a href="TIPS/Windows Presentation Foundation(WPF)/[データバインディング]依存関係プロパティ.html">依存関係プロパティ</a><br>
+<a href="TIPS/Windows Presentation Foundation(WPF)/[データバインディング]ReactiveProperty.html">ReactiveProperty</a><br>
+<a href="TIPS/dotNET・C Sharp/デリゲートとイベント.html">[.NET]デリゲートとイベント</a><br>
 
 <!-- 目次 -->
 <h5>目次 :</h5>
@@ -51,9 +51,9 @@ MVVMは、Webアプリで主に用いられるMVC( Model - View - Controler )か
 View が外観を、Model が外観に直接関連しないデータを取り扱うという点は共通である。<br>
 
 <h2>MVVMの構成</h2>
-<img src="file:C:\Takahaqueue\4_TIPS&HowTo\html_tips_neo\_Img\WPF\MVVM\01.png" alt="画像"><br>
-(<a href="C:\Takahaqueue\4_TIPS&HowTo\html_tips_neo\TIPS\Windows Presentation Foundation(WPF)\[データバインディング]データバインディング.html">データバインディング</a>および
-<a href="C:\Takahaqueue\4_TIPS&HowTo\html_tips_neo\TIPS\Windows Presentation Foundation(WPF)\[データバインディング]依存関係プロパティ.html">依存関係プロパティ</a>も併せて参照のこと。)<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/WPF/MVVM/01.png" alt="画像"><br>
+(<a href="TIPS/Windows Presentation Foundation(WPF)/[データバインディング]データバインディング.html">データバインディング</a>および
+<a href="TIPS/Windows Presentation Foundation(WPF)/[データバインディング]依存関係プロパティ.html">依存関係プロパティ</a>も併せて参照のこと。)<br>
 View はXAMLとコードビハインド(XAML.CS)から成り、外観とUIイベントを司る。<br>
 一方、ViewModel は View とは独立しており、ViewModel のインスタンスが View の DataContext として関連付けられる。<br>
 これにより ViewModel のプロパティ(CLIプロパティ)と View の依存関係プロパティとがデータバインディングで関連付けられ、View の操作が ViewModel に、ViewModel の変更が View に伝播する。<br>
@@ -124,8 +124,9 @@ namespace Sample
 ViewModel で保持している情報が変化した際に View 側で何らかの動作を起こしたい場合は、<br>
 ViewModel に INotifyPropertyChanged インタフェースを実装したうえで PropertyChanged イベントを発生させる。<br>
 View 側は PropertyChanged イベントフックに、イベント発生時にコールしたいコールバック(イベントハンドラ)を登録する。<br>
+イベントについては<a href="TIPS/dotNET・C Sharp/デリゲートとイベント.html">リンク先</a>を参照。
 (データバインディングされたプロパティも PropertyChanged を契機として変化するため、INotifyPropertyChanged を実装しなければ連動しない。<br>
-但し、<a href="C:\Takahaqueue\4_TIPS&HowTo\html_tips_neo\TIPS\Windows Presentation Foundation(WPF)\[データバインディング]ReactiveProperty.html">ReactiveProperty</a> を用いることで、INotifyPropertyChanged の実装を省略することができる。)
+但し、<a href="TIPS/Windows Presentation Foundation(WPF)/[データバインディング]ReactiveProperty.html">ReactiveProperty</a> を用いることで、INotifyPropertyChanged の実装を省略することができる。)
 
 <h5>ViewModel : MainViewModel.cs</h5>
 
