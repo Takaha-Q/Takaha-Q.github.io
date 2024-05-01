@@ -70,13 +70,13 @@ Visual Studioで Window や UserControl を作成した際、対応するXAMLと
 <h5>ViewModel : MainViewModel.cs</h5>
 
 <div class="cs">
-namespace Sample
+<kwd>namespace</kwd> Sample
 {
-    // ViewModel の本体
-    class MainViewModel
+    <cmt>// ViewModel の本体</cmt>
+    <kwd>class</kwd> MainViewModel
     {
-        // プロパティ
-        public string Message { get; set; } = "サンプルメッセージ"
+        <cmt>// プロパティ</cmt>
+        <kwd>public string</kwd> Message { <kwd>get</kwd>; <kwd>set</kwd>; } = <ltr>"サンプルメッセージ"</ltr>
     }
 }
 </div>
@@ -86,35 +86,35 @@ namespace Sample
 <h5>View : MainWindow.xaml</h5>
 
 <div class="xaml">
-<Window
+&lt;<tag>Window</tag>
 (略)
->
-    <!-- MainViewModel を DataContext に設定 -->
-    <Window.DataContext>
-        <local:MainViewModel />
-    </Window.DataContext>
+&gt;
+    <cmt>&lt;!-- MainViewModel を DataContext に設定 --&gt;</cmt>
+    &lt;<tag>Window.DataContext</tag>&gt;
+        &lt;<tag>local</tag>:MainViewModel /&gt;
+    &lt;/<tag>Window.DataContext</tag>&gt;
 
     :
 
-    <!-- TextBlock の "Text" を DataContext ( MainViewModel )の Message とバインド -->
-    <TextBlock Text="{Binding Message}" />
+    <cmt>&lt;!-- TextBlock の "Text" を DataContext ( MainViewModel )の Message とバインド --&gt;</cmt>
+    &lt;<tag>TextBlock</tag> <prp>Text</prp>=<ltr>"{Binding Message}"</ltr> /&gt;
 </div>
 
 DataContext の指定はコードビハインドから行うことも可能。<br>
-コンストラクタ中で ViewModel のインスタンスを DataContext に代入する。
+その場合はコンストラクタ中で ViewModel のインスタンスを DataContext に代入する。
 
 <h5>View : MainWindow.xaml.cs</h5>
 
 <div class="cs">
-namespace Sample
+<kwd>namespace</kwd> Sample
 {
-    public partial class MainWindow : Window
+    <kwd>public partial class</kwd> MainWindow : <knw>Window</knw>
     {
-        // コンストラクタ
-        public MainWindow()
+        <cmt>// コンストラクタ</cmt>
+        <kwd>public</kwd> MainWindow()
         {
             InitializeComponent();
-            this.DataContext = new MainViewModel();
+            <kwd>this</kwd>.DataContext = <kwd>new</kwd> MainViewModel();
         }
     }
 }
@@ -131,37 +131,37 @@ View 側は PropertyChanged イベントフックに、イベント発生時に�
 <h5>ViewModel : MainViewModel.cs</h5>
 
 <div class="cs">
-namespace Sample
+<kwd>namespace</kwd> Sample
 {
-    // ViewModel の本体 : INotifyPropertyChanged を実装
-    class MainViewModel : INotifyPropertyChanged
+    <cmt>// ViewModel の本体 : INotifyPropertyChanged を実装</cmt>
+    <kwd>class</kwd> MainViewModel : INotifyPropertyChanged
     {
-        // フィールド
-        private string _message;
+        <cmt>// フィールド</cmt>
+        <kwd>private string</kwd> _message;
 
-        // プロパティ
-        public string Message 
+        <cmt>// プロパティ</cmt>
+        <kwd>public string</kwd> Message 
         {
-            get => _message;
-            set
+            <kwd>get</kwd> =&gt; _message;
+            <kwd>set</kwd>
             {
-                if( _message != value )
+                <kwd>if</kwd>( _message != value )
                 {
                     _message = value;
 
-                    // PropertyChanged イベントを発生させる
+                    <cmt>// PropertyChanged イベントを発生させる</cmt>
                     OnPropertyChanged();
                 }
             }
         }
 
-        // ( INotifyPropertyChanged )PropertyChanged イベントフック
-        public event PropertyChangedEventHandler PropertyChanged;
+        <cmt>// ( INotifyPropertyChanged )PropertyChanged イベントフック</cmt>
+        <kwd>public event</kwd> PropertyChangedEventHandler PropertyChanged;
 
-        // PropertyChanged イベントを発生させる
-        protected void OnPropertyChanged( [CallerMemberName]string propertyName = null )
+        <cmt>// PropertyChanged イベントを発生させる</cmt>
+        <kwd>protected void</kwd> OnPropertyChanged( [CallerMemberName]<kwd>string</kwd> propertyName = <kwd>null</kwd> )
         {
-            PropertyChanged?.Invoke( this, new PropertyChangedEventArgs(propertyName) );
+            PropertyChanged?.Invoke( <kwd>this</kwd>, <kwd>new</kwd> PropertyChangedEventArgs(propertyName) );
         }
     }
 }

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<h5>出典 :</h5>
+<a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/reference/settings-page-project-designer?view=vs-2022&f1url=%3FappId%3DDev16IDEF1%26l%3DJA-JP%26k%3Dk(ApplicationSettingsOverview)%26rd%3Dtrue">[設定] ページ (プロジェクト デザイナー) - Visual Studio (Windows) | Microsoft Learn</a>
+
+<!-- 関連ページ -->
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>アプリケーション設定</h2>
+アプリケーションの動作時に前回使用した値を再度使用する場合は、アプリケーション設定に保存する。<br>
+例えば、前回動作中に開いていたフォルダを保存しておき、次回の起動時に同じフォルダを開くといったことが可能である。
+
+<h2>Visual Studio 2022におけるアプリケーション設定</h2>
+Visual Studio 2022においては、アプリケーション設定の取り扱いが従来から変更されている。<br>
+以下、Visual Studio 2022においてアプリケーション設定を使用する手順を説明する。
+
+<h2>設定の追加</h2>
+<ol>
+    <li>プロジェクトファイルを右クリック、「プロパティ」を選択する。<br>
+    <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/AppSettings/01.png" alt="画像"></li>
+    <li>ダイアログが開くので、「設定」>「全般」を選択し、「アプリケーション設定を作成する/開く」をクリックする。<br>
+    <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/AppSettings/02.png" alt="画像"></li>
+    <li>Properties フォルダと、Settings.setting 、Setting.Designer.cs 、App.config の各ファイルが追加される。<br>
+    <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/AppSettings/04.png" alt="画像"><br>
+    設定グリッドが開くので、保存したい項目(ここでは RecentFolder )を追加し、各項目を入力する。<br>
+    項目は新たに作成された Settings クラスのプロパティ(正確にはインデクサー)となる。<br>
+    (「スコープ」、「アクセス修飾子」は通常は変更不要。)<br>
+    <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/AppSettings/03.png" alt="画像"></li>
+</ol>
+
+<h2>設定へのアクセスと保存</h2>
+設定項目は通常、Properties 名前空間の Settings クラスのプロパティとして追加される。<br>
+追加された RecentFolder プロパティにアクセスするには、
+<div class="code">
+Properties.Settings.Default.RecentFolder
+</div>
+と記述する。<br>
+設定を保存するには Save() メソッドを明示的に呼び出す必要がある(Visual Basicを除く)。
+<div class="code">
+Properties.Settings.Default.Save();
+</div>
+設定は App.config ファイルに保存される。読み込みは自動的に行われるため、明示的な操作は必要ない。
+
+<h2>設定の編集</h2>
+Settings.setting を開くと編集が可能。
