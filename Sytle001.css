@@ -198,34 +198,34 @@ hr {
 }
 
 /* ---------------------------------- */
-/* ブロック要素の回転                 */
+/* インライン要素の回転               */
 /* ---------------------------------- */
 /* 左90度回転 (<#### class="rotate_left">) */
 .rotate_left {
-  position: absolute;
+  display: inline-block;
   transform: rotate( -90deg );
 }
 
 /* 右90度回転 (<#### class="rotate_right">) */
 .rotate_right {
-  position: absolute;
+  display: inline-block;
   transform: rotate( 90deg );
 }
 
 /* 180度回転 (<#### class="rotate_180">) */
 .rotate_180 {
-  position: absolute;
+  display: inline-block;
   transform: rotate( 180deg );
 }
 
 /* 上下反転 (<#### class="rotate_ud">) */
 .rotate_ud {
-  position: absolute;
+  display: inline-block;
   transform: rotateX( 180deg );
 }
 
 /* 左右反転 (<#### class="rotate_lr">) */
 .rotate_ud {
-  position: absolute;
+  display: inline-block;
   transform: rotateY( 180deg );
 }
