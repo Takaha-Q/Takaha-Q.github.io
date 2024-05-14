@@ -33,11 +33,10 @@
 <!-- 本文ここから -->
 
 <h2>シグナル処理</h2>
-シグナル処理の概念に関しては<a href="TIPS/ソフトウェア開発一般/[並列処理]タスク(スレッド)間通信.html">ここ</a>を参照のこと。<br>
-あるタスクが別タスクからのシグナル(イベントフラグ)を待機し、シグナルを契機として処理を再開するような処理の場合、<br>
-シグナル(イベント)の待機には<b>「イベント待機ハンドラ」</b>を用いる。<br>
-(イベント待機ハンドラはセマフォやミューテックスと同様、「同期オブジェクト(シンクロナイザー)」に含まれる。「<a href="TIPS/dotNET・C Sharp/デリゲートとイベント.html">イベントハンドラ</a>」との混同に注意。)<br>
-<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Software%20Development/InterTask_Communication/development-inter-task-communication_03.png"><br>
+シグナル処理の概念に関しては<a href="TIPS/ソフトウェア開発一般/[並列処理]タスク(スレッド)間通信.html">タスク(スレッド)間通信</a>を参照のこと。<br>
+あるタスクが別タスクからのシグナル(イベントフラグ)を待機し、シグナルを契機として処理を再開するような処理の場合、シグナル(イベント)の待機には<b>「イベント待機ハンドラ」</b>を用いる。<br>
+(「<a href="TIPS/dotNET・C Sharp/デリゲートとイベント.html">イベントハンドラ</a>」とは異なる。イベント待機ハンドラはセマフォやミューテックスと同様、「同期オブジェクト(シンクロナイザー)」に含まれる。)<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Software%20Development/InterTask_Communication/development-inter-task-communication_03.png">
 
 <h2>実装例</h2>
 「コンテンツのダウンロードをいったん中断し、『OK』ボタン押下後に再開する」処理を行う。<br>
@@ -90,7 +89,7 @@ CountdownEvent は、オブジェクト生成時に指定した回数だけシ�
 {
     <kwd>using</kwd> (<kwd>var</kwd> client = <kwd>new</kwd> HttpClient())
     {
-        <kwd>var</kwd> response = <kwd>await</kwd> client.GetAsync(@"http:<cmt>//hoge.example.com/contents.dat");</cmt>
+        <kwd>var</kwd> response = <kwd>await</kwd> client.GetAsync(<ltr>@"http://hoge.example.com/contents.dat"</ltr>);
         <kwd>using</kwd> (<kwd>var</kwd> stream = <kwd>new</kwd> <knw>StreamReader</knw>(<kwd>await</kwd> response.Content.ReadAsStreamAsync()))
         {
             <cmt>// コンテンツの1行目のみを読み込む</cmt>
@@ -130,7 +129,7 @@ CountdownEvent は、オブジェクト生成時に指定した回数だけシ�
 {
     <kwd>using</kwd> (<kwd>var</kwd> client = <kwd>new</kwd> HttpClient())
     {
-        <kwd>var</kwd> response = <kwd>await</kwd> client.GetAsync(@"http:<cmt>//hoge.example.com/contents.dat");</cmt>
+        <kwd>var</kwd> response = <kwd>await</kwd> client.GetAsync(<ltr>@"http://hoge.example.com/contents.dat"</ltr>);
         <kwd>using</kwd> (<kwd>var</kwd> stream = <kwd>new</kwd> <knw>StreamReader</knw>(<kwd>await</kwd> response.Content.ReadAsStreamAsync()))
         {
             <cmt>// コンテンツの1行目のみを読み込む</cmt>
@@ -169,15 +168,15 @@ CountdownEvent と同様、手動でシグナル状態を解除する必要が�
 シグナル状態が自動で解除されないため、複数のタスクを待たせるのに使用できる。
 
 <h3>どのように使い分けるか</h3>
-CountdownEvent は.NET 4.0から使用可能となった比較的新しいクラスで、AutoResetEvent や ManualResetEvent と比較してオーバーヘッドが小さい(1/20程度)。<br>
-このため.NET 4.0移行の環境では、CountdownEvent の使用が推奨される。<br>
+CountdownEvent は AutoResetEvent や ManualResetEvent と比較してオーバーヘッドが小さい(1/20程度)。<br>
+このため.NET 4.0以降の環境では、CountdownEvent の使用が推奨される。<br>
 また、同じく.NET 4.0から追加された ManualResetEventSlim は ManualResetEvent よりもオーバーヘッドが小さく、以下の機能が追加されている。
 <ul>
     <li>ManualResetEventSlim.Wait() は即座にスレッドを中断させるのではなく、コンストラクタで指定された期間スピンウェイトを行う。<br>
     (スピンウェイト期間中にシグナル状態となれば高い応答性が得られるが、スピンウェイト中はCPU資源の消費が増える。)</li>
     <li>待ち状態のキャンセルが可能である。</li>
 </ul>
-詳細は出典元を参照。
+詳細は<a href="https://devlights.hatenablog.com/entry/20110323/p1">出典元</a>を参照。
 
 <table>
     <tr class="row1">
@@ -203,10 +202,10 @@ CountdownEvent は.NET 4.0から使用可能となった比較的新しいクラ
     </tr>
     <tr>
         <td class="col1">備考</td>
-        <td></td>
-        <td></td>
-        <td>.NET 4.0以降<br>オーバーヘッドが小さい</td>
-        <td>.NET 4.0以降<br>オーバーヘッドが小さい<br>スピンウェイトあり<br>待ち状態キャンセル可</td>
+        <td>旧式</td>
+        <td>旧式</td>
+        <td>オーバーヘッドが小さい</td>
+        <td>オーバーヘッドが小さい<br>スピンウェイトあり<br>待ち状態キャンセル可</td>
     </tr>
 </table>
 

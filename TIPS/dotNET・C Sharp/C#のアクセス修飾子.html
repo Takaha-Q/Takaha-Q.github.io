@@ -117,10 +117,97 @@ internal と public は、オブジェクトへのアクセスを同一のアセ
 
 <h2>アクセシビリティの指定可否</h2>
 名前空間に直接宣言される(他のクラスや構造体の入れ子でない)クラス、レコード、構造体、およびインタフェースには、public または internal を指定できる。既定値は internal 。<br>
-クラス、レコード、およびインタフェースのメンバにはすべてのアクセス修飾子を適用できる。<br>
-構造体メンバには protected 、protected internal 、private protected を適用できない。これは、構造体が継承をサポートしていないためである。<br>
-ここで原則として、メンバのアクセシビリティはそれを含む型のアクセシビリティよりも緩くなってはならない。<br>
-(例 : クラスのアクセシビリティが internal 、メンバのアクセシビリティが public はエラーとなる。)<br>
-但しインタフェースメソッドの実装(オーバーライド)は例外で、public で宣言されている場合は public とする必要がある。<br>
+クラス、レコード、およびインタフェースのメンバにはすべてのアクセス修飾子を適用できるが、構造体メンバには protected 、protected internal 、private protected を適用できない。<br>
+これは構造体が継承をサポートしていないことによる。
 
-<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/CSharp/Accessibility/01.png" alt=""><br>
+<table>
+  <tr class="row1">
+    <th class="col1"></th>
+    <th>クラス<br>(class)</th>
+    <th>レコード<br>(record)</th>
+    <th>インタフェース<br>(interface)</th>
+    <th>構造体<br>(struct)</th>
+    <th>クラス<br>メンバ</th>
+    <th>レコード<br>メンバ</th>
+    <th>インタフェース<br>メンバ</th>
+    <th>構造体<br>メンバ</th>
+  </tr>
+
+  <tr>
+    <td class="col1">public</td>
+    <td class="bg_lg center">可</td>
+    <td class="bg_lg center">可</td>
+    <td class="bg_lg center">可</td>
+    <td class="bg_lg center">可</td>
+    <td class="bg_lg center">可</td>
+    <td class="bg_lg center">可</td>
+    <td class="bg_lg center">可</td>
+    <td class="bg_lg center">可</td>
+  </tr>
+
+  <tr>
+    <td class="col1">protected internal</td>
+    <td class="bg_lr center">不可</td>
+    <td class="bg_lr center">不可</td>
+    <td class="bg_lr center">不可</td>
+    <td class="bg_lr center">不可</td>
+    <td class="bg_lg center">可</td>
+    <td class="bg_lg center">可</td>
+    <td class="bg_lg center">可</td>
+    <td class="bg_lr center">不可</td>
+  </tr>
+
+  <tr>
+    <td class="col1">protected</td>
+    <td class="bg_lr center">不可</td>
+    <td class="bg_lr center">不可</td>
+    <td class="bg_lr center">不可</td>
+    <td class="bg_lr center">不可</td>
+    <td class="bg_lg center">可</td>
+    <td class="bg_lg center">可</td>
+    <td class="bg_lg center">可</td>
+    <td class="bg_lr center">不可</td>
+  </tr>
+
+  <tr>
+    <td class="col1">internal</td>
+    <td class="bg_lg center">可</td>
+    <td class="bg_lg center">可</td>
+    <td class="bg_lg center">可</td>
+    <td class="bg_lg center">可</td>
+    <td class="bg_lg center">可</td>
+    <td class="bg_lg center">可</td>
+    <td class="bg_lg center">可</td>
+    <td class="bg_lg center">可</td>
+  </tr>
+
+  <tr>
+    <td class="col1">private protected</td>
+    <td class="bg_lr center">不可</td>
+    <td class="bg_lr center">不可</td>
+    <td class="bg_lr center">不可</td>
+    <td class="bg_lr center">不可</td>
+    <td class="bg_lg center">可</td>
+    <td class="bg_lg center">可</td>
+    <td class="bg_lg center">可</td>
+    <td class="bg_lr center">不可</td>
+  </tr>
+
+  <tr>
+    <td class="col1">private</td>
+    <td class="bg_lr center">不可</td>
+    <td class="bg_lr center">不可</td>
+    <td class="bg_lr center">不可</td>
+    <td class="bg_lr center">不可</td>
+    <td class="bg_lg center">可</td>
+    <td class="bg_lg center">可</td>
+    <td class="bg_lg center">可</td>
+    <td class="bg_lg center">可</td>
+  </tr>
+
+</table>
+
+<h3>注意が必要な点</h3>
+メンバのアクセシビリティはそれを含む型のアクセシビリティよりも緩くなってはならない。<br>
+(例 : クラスのアクセシビリティが internal で、メンバのアクセシビリティを public とするとエラーとなる。)<br>
+但し、インタフェースメソッドの実装(オーバーライド)は例外で、メソッドが public で宣言されている場合はクラスが internal でもメソッドを public とする必要がある。<br>

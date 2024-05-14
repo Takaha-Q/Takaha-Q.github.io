@@ -14,7 +14,9 @@
 <a href="index.html">ホームに戻る</a><br>
 <!-- 出典・関連ページ -->
 <h5>関連 :</h5>
+<a href="C:/Users/shinji.takahata/_Git_Local_Rep/Murasame Lab/html_tips/TIPS/C・C%2B%2B/継承 (Inheritance).html">[C++]継承 (Inheritance)</a><br>
 <a href="TIPS/C・C%2B%2B/仮想関数 (Virtual Function).html">[C++]仮想関数 (Virtual Function)</a><br>
+<a href="C:/Users/shinji.takahata/_Git_Local_Rep/Murasame Lab/html_tips/TIPS/C・C%2B%2B/C%2B%2B11.html/%23継承・オーバーライドの禁止 ( final )">[C++]C++11</a>
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
@@ -22,37 +24,37 @@
 
 <!-- 本文ここから -->
 
-<h2>C#における仮想関数・オーバーライド関数の定義</h2>
-C#における仮想関数、およびオーバーライド関数の定義に当たっては、キーワードの付与が必須となる。<br>
-仮想関数の概念は <a href="TIPS/C・C%2B%2B/仮想関数 (Virtual Function).html">ここ</a> を参照。
+<h2>C#における仮想メソッド・オーバーライドメソッドの定義</h2>
+仮想メソッドの概念は <a href="TIPS/C・C%2B%2B/仮想関数 (Virtual Function).html">[C++]仮想関数</a> を参照。<br>
+実体の無い「抽象メソッド」(Abstract Method : 純粋仮想関数と同義)を定義した場合、メソッドとそれを含むクラス(抽象クラス)の両方に abstract キーワードが必要となる。<br>
 
 <h3>実装例</h3>
 <p class="code">
 <cmt>// 基底クラスの定義</cmt>
-<cmt>// (抽象(純粋仮想)関数を含むため abstract キーワードを付与 ⇒ 抽象クラス)</cmt>
+<cmt>// (抽象(純粋仮想)メソッドを含むため abstract キーワードを付与 ⇒ 抽象クラス)</cmt>
 <kwd>public abstract class</kwd> Base
 {
-    <cmt>// 仮想関数の定義 ⇒ virtual キーワードを付与</cmt>
-    <kwd>protected virtual void</kwd> VirtualFunction01()
+    <cmt>// 仮想メソッドの定義 ⇒ virtual キーワードを付与</cmt>
+    <kwd>protected virtual void</kwd> VirtualMethod01()
     {
         :
     }
 
-    <cmt>// 抽象関数の定義 ⇒ abstract キーワードを付与</cmt>
-    <kwd>protected abstract void</kwd> AbstractFunction01();
+    <cmt>// 抽象メソッドの定義 ⇒ abstract キーワードを付与</cmt>
+    <kwd>protected abstract void</kwd> AbstractMethod01();
 }
 
 <cmt>// Base を継承した派生クラスの定義</cmt>
 <kwd>public class</kwd> Derived : Base
 {
-    <cmt>// VirtualFunction01() のオーバーライド ⇒ override キーワードを付与</cmt>
-    <kwd>protected override void</kwd> VirtualFunction01()
+    <cmt>// VirtualMethod01() のオーバーライド ⇒ override キーワードを付与</cmt>
+    <kwd>protected override void</kwd> VirtualMethod01()
     {
         :
     }
 
-    <cmt>// AbstractFunction01() のオーバーライド ⇒ override キーワードを付与</cmt>
-    <kwd>protected override void</kwd> AbstractFunction01()
+    <cmt>// AbstractMethod01() のオーバーライド ⇒ override キーワードを付与</cmt>
+    <kwd>protected override void</kwd> AbstractMethod01()
     {
         :
     }
@@ -66,54 +68,53 @@ C#における仮想関数、およびオーバーライド関数の定義に当
 <td class="col1"></td><td>C#</td><td>C++</td>
 </tr>
 <tr>
-<td class="col1">仮想関数</td><td colspan="2">virtual キーワード付与</td>
+<td class="col1">仮想メソッド<br>(仮想関数)</td><td colspan="2">virtual キーワード付与</td>
 </tr>
 <tr>
-<td class="col1">抽象(純粋仮想)関数</td><td>abstract キーワード付与<br>関数実体無し</td><td>virtual キーワード付与<br>関数実体無し( =0 )</td>
+<td class="col1">抽象メソッド<br>(純粋仮想関数)</td><td>abstract キーワード付与<br>実体無し</td><td>virtual キーワード付与<br>実体無し( = 0 )</td>
 </tr>
 <tr>
-<td class="col1">オーバーライド関数への<br>override キーワード付与</td><td>必須</td><td>任意</td>
+<td class="col1">オーバーライド時の<br>override キーワード付与</td><td>必須</td><td>任意(※)</td>
 </tr>
 <tr>
 <td class="col1">抽象クラス</td><td>abstract キーワード付与</td><td>-</td>
 </tr>
 </table>
 
-<h2>シールクラス (Sealed class)</h2>
-仮想関数( virtual 修飾)を含むクラスの派生クラスの定義時に sealed 修飾を行うことで、<br>
-そのクラスからさらに派生するクラスでは仮想関数のオーバーロードが禁止される。<br>
-(C++にて、仮想関数を final 修飾した場合と同様。)
+※ : <a href="https://takaha-q.github.io/TIPS/C%E3%83%BBC%2B%2B/C%2B%2B11.html%23%E6%98%8E%E7%A4%BA%E7%9A%84%E3%81%AA%E4%BB%AE%E6%83%B3%E9%96%A2%E6%95%B0%E3%82%AA%E3%83%BC%E3%83%90%E3%83%BC%E3%83%A9%E3%82%A4%E3%83%89%20(%20override%20)">override キーワード</a>はC++11以降で使用可能。非オーバーライド関数との区別のためには付与することが望ましい。
+
+<h2>sealed 修飾</h2>
+クラスを sealed 修飾すると、そのクラスは継承できなくなる。<br>
+(C++において、クラスを <a href="C:/Users/shinji.takahata/_Git_Local_Rep/Murasame Lab/html_tips/TIPS/C・C%2B%2B/C%2B%2B11.html/%23継承・オーバーライドの禁止 ( final )">final</a> 修飾した場合と同様。)
 
 <p class="code">
-    <cmt>// 基底クラス(親)の定義</cmt>
-    <kwd>public class</kwd> Base
+<cmt>// 基底クラス(親)の定義</cmt>
+<kwd>public class</kwd> Base
+{
+    <cmt>// 仮想関数の定義 ⇒ virtual キーワードを付与</cmt>
+    <kwd>protected virtual void</kwd> VirtualMethod01()
     {
-        <cmt>// 仮想関数の定義 ⇒ virtual キーワードを付与</cmt>
-        <kwd>protected virtual void</kwd> VirtualFunction01()
-        {
-            :
-        }
+        :
     }
-    
-    <cmt>// Base の派生クラス(子)の定義</cmt>
-    <cmt>// sealed 修飾あり</cmt>
-    <kwd>public</kwd> sealed <kwd>class</kwd> Derived1 : Base
-    {
-        <cmt>// VirtualFunction01() のオーバーライド</cmt>
-        <kwd>protected override void</kwd> VirtualFunction01()
-        {
-            :
-        }
-    }
+}
 
-    <cmt>// Derived1 の派生クラス(孫)の定義</cmt>
-    <kwd>public class</kwd> Derived2 : Derived1
+<cmt>// Base の派生クラス(子)の定義</cmt>
+<cmt>// sealed 修飾あり ⇒ それ以降の継承を禁止</cmt>
+<kwd>public sealed class</kwd> Derived1 : Base
+{
+    <cmt>// VirtualMethod01() のオーバーライド</cmt>
+    <kwd>protected override void</kwd> VirtualMethod01()
     {
-        <cmt>// Derived1 が sealed 修飾されているため、</cmt>
-        <cmt>// 下記はエラーとなる(オーバーライド不可)</cmt>
-        <kwd>protected override void</kwd> VirtualFunction01()
-        {
-            :
-        }
+        :
     }
+}
+
+<cmt>// Derived1 の派生クラス(孫)の定義
+// ⇒ Derived1 が sealed 修飾されているためエラー
+// public class Derived2 : Derived1
+// {
+//     :
+// }</cmt>
 </p>
+
+また、仮想メソッドや仮想プロパティを sealed 修飾した場合は、それらのオーバーライドが禁止される(C++において、関数を final 修飾した場合と同様)。

@@ -17,7 +17,8 @@
 <a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.idisposable?view=net-6.0">IDisposable インターフェイス (System) | Microsoft Learn</a><br>
 <a href="https://qiita.com/hkuno/items/e35c7e306e852ced375d">C# の Dispose を正しく実装する - Qiita</a>
 <h5>関連 :</h5>
-<a href="TIPS/dotNET・C Sharp/C%23におけるusing.html">C#におけるusing</a>
+<a href="TIPS/dotNET・C Sharp/C%23におけるusing.html">C#におけるusing</a><br>
+<a href="C:/Users/shinji.takahata/_Git_Local_Rep/Murasame Lab/html_tips/TIPS/dotNET・C Sharp/virtual・abstract・sealed.html">virtual・abstract・sealed</a>
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
@@ -26,9 +27,9 @@
 <!-- 本文ここから -->
 
 <h2>IDisposable と Dispose()</h2>
-GC言語であるC#は通常、C++のような非GC言語と異なり、任意のタイミングでオブジェクトを破棄してデストラクタを実行させることができない。<br>
+GC言語であるC#は非GC言語と異なり、任意のタイミングでオブジェクトを破棄してデストラクタを実行させることができない。<br>
 但し、IDisposable インタフェース(の Dispose() メソッド)を実装することで、当該オブジェクトの破棄に即した処理(主にリソースの解放)を実現することができる。<br>
-また、.NETの標準クラスライブラリには IDisposable が実装されているものも多く、それらは Dispose() (によるリソース解放)を実行することができる。<br>
+また、.NETの標準クラスライブラリの多くに IDisposable が実装されており、それらは Dispose() (によるリソース解放)を実行することができる。<br>
 ( using を用いることで明示的なコールを省略できる。詳細は<a href="TIPS/dotNET・C Sharp/C%23におけるusing.html">リンク先</a>を参照。)
 
 <h3>デストラクタとファイナライザ</h3>
@@ -42,10 +43,10 @@ C#はC++のデストラクタと同様、オブジェクトが破棄される際
 しかしファイナライザの実行タイミングはGCに依存し、リソースの解放に伴う処理が重い場合は、GCの負担が大きくなることがある。<br>
 オブジェクトの終了処理を一部肩代わりしてGCの負担を軽減することが、IDisposable 実装の目的である。<br>
 逆に<b>GCにファイナライズを任せるのであれば</b> IDisposable を実装する必要は無く、IDisposable が既に実装されているクラスオブジェクトについても Dispose() を実行する必要は無い。<br>
-( IDisposable は Dispose() が「実行できる」という意味しか持たず、Dispose() のコールが漏れたことでリソースリークが発生してはならない。)
+( IDisposable は Dispose() が「実行できる」という意味しか持たず、Dispose() のコールが漏れた場合でもリソースリークが発生してはならない。)
 
 <h2>IDisposable の定義と実装要件</h2>
-IDisposable.cs
+<h5>IDisposable.cs</h5>
 <div class="code">
 <kwd>namespace</kwd> <knw>System</knw> {
 [<knw>System</knw>.Runtime.InteropServices.ComVisible(<kwd>true</kwd>)]
@@ -67,8 +68,8 @@ IDisposable.cs の注釈では、以下が求められている。
         理想的には、Dispose() を呼ぶことでオブジェクトに問題が発生しないようにするべきである。</li>
 </ol>
 
-1. によれば、Dispose() を複数回コールした場合でもオブジェクトに問題が生じてはならない。<br>
-通常 Dispose() は 2. にあるようにリソースの解放が主目的のため、これはひとつのリソースが重複して解放されることがあってはならないことを意味する。
+1. にあるように、Dispose() を複数回コールした場合でもオブジェクトに問題が生じてはならない。<br>
+Dispose() は 2. にあるようにリソースの解放が主目的のため、これはひとつのリソースが重複して解放されることがあってはならないことを意味する。
 
 <h3>リソースとは</h3>
 ファイルストリームやデータベースコネクションなど、OSや外部DLLが管理するハンドルに紐づいたものを表す。<br>
@@ -78,15 +79,18 @@ IDisposable.cs の注釈では、以下が求められている。
 マネージドリソースは例外安全であるため、特段の理由が無い限りはマネージドリソースに変換して用いるのが良い。
 
 <h2>IDisposable の実装例</h2>
-<h3>アンマネージドリソースを持つ場合(disposeパターン)</h3>
-基底クラスの実装
+
+<h3>アンマネージドリソースを持つ場合</h3>
+
+<h5>基底クラスの実装</h5>
+
 <div class="code">
 <cmt>// IDisposable を実装する基底クラス</cmt>
 <kwd>public class</kwd> MyBaseClass : IDisposable
 {
-    <kwd>private</kwd> <knw>IntPtr</knw> _handle;              <cmt>//< アンマネージドリソースのハンドル</cmt>
-    <kwd>private</kwd> Stream _stream;              <cmt>//< マネージドリソース</cmt>
-    <kwd>private bool</kwd>   _disposed = <kwd>false</kwd>;    <cmt>//< Dispose() が呼ばれたかどうか</cmt>
+    <kwd>private</kwd> <knw>IntPtr</knw> mHandle;              <cmt>//< アンマネージドリソースのハンドル</cmt>
+    <kwd>private</kwd> Stream mStream;              <cmt>//< マネージドリソース</cmt>
+    <kwd>private bool</kwd>   mDisposed = <kwd>false</kwd>;    <cmt>//< Dispose() が呼ばれたかどうか</cmt>
 
     <cmt>// Dispose() (公開メソッド)</cmt>
     <kwd>public void</kwd> Dispose()
@@ -101,20 +105,20 @@ IDisposable.cs の注釈では、以下が求められている。
     <kwd>protected virtual void</kwd> Dispose_Core(<kwd>bool</kwd> disposing)
     {
         <cmt>// 既に Dispose() が呼ばれている場合は処置不要</cmt>
-        <kwd>if</kwd> (disposed) <kwd>return</kwd>;
+        <kwd>if</kwd> (mDisposed) <kwd>return</kwd>;
 
         <cmt>// マネージドリソースの解放</cmt>
         <kwd>if</kwd> (disposing)
         {
-            _stream.Dispose();
+            mStream.Dispose();
         }
 
         <cmt>// アンマネージドリソースの解放</cmt>
-        MyCloseHandle(_handle);
-        _handle = <knw>IntPtr</knw>.Zero;
+        MyCloseHandle(mHandle);
+        mHandle = <knw>IntPtr</knw>.Zero;
 
         <cmt>// Dispose() 実行済</cmt>
-        _disposed = <kwd>true</kwd>;
+        mDisposed = <kwd>true</kwd>;
     }
 
     <cmt>// ファイナライザ</cmt>
@@ -131,33 +135,34 @@ IDisposable.cs の注釈では、以下が求められている。
 }
 </div>
 
-派生クラスの実装
+<h5>派生クラスの実装</h5>
+
 <div class="code">
 <cmt>// MyBaseClass の派生クラス</cmt>
 <kwd>public class</kwd> MySubClass : MyBaseClass
 {
-    <kwd>private</kwd> <knw>IntPtr</knw> _handle2;             <cmt>//< アンマネージドリソースのハンドル</cmt>
-    <kwd>private</kwd> Stream _stream2;             <cmt>//< マネージドリソース</cmt>
-    <kwd>private bool</kwd>   _disposed = <kwd>false</kwd>;    <cmt>//< Dispose() が呼ばれたかどうか</cmt>
+    <kwd>private</kwd> <knw>IntPtr</knw> mHandle2;             <cmt>//< アンマネージドリソースのハンドル</cmt>
+    <kwd>private</kwd> Stream mStream2;             <cmt>//< マネージドリソース</cmt>
+    <kwd>private bool</kwd>   mDisposed = <kwd>false</kwd>;    <cmt>//< Dispose() が呼ばれたかどうか</cmt>
 
     <cmt>// Dispose() の主処理(オーバーライド)</cmt>
     <kwd>protected override void</kwd> Dispose_Core(<kwd>bool</kwd> disposing)
     {
         <cmt>// 既に Dispose() が呼ばれている場合は処置不要</cmt>
-        <kwd>if</kwd> (disposed) <kwd>return</kwd>;
+        <kwd>if</kwd> (mDisposed) <kwd>return</kwd>;
 
         <cmt>// マネージドリソースの解放</cmt>
         <kwd>if</kwd> (disposing)
         {
-            _stream2.Dispose();
+            mStream2.Dispose();
         }
 
         <cmt>// アンマネージドリソースの解放</cmt>
-        MyCloseHandle(_handle2);
-        _handle2 = <knw>IntPtr</knw>.Zero;
+        MyCloseHandle(mHandle2);
+        mHandle2 = <knw>IntPtr</knw>.Zero;
 
         <cmt>// Dispose() 実行済</cmt>
-        _disposed = <kwd>true</kwd>;
+        mDisposed = <kwd>true</kwd>;
 
         <cmt>// 基底クラスの Dispose_Core() を呼ぶ</cmt>
         base.Dispose_Core(disposing);
@@ -175,14 +180,14 @@ disposeパターンに基づく実装。<br>
 (マネージドリソースはCLRの管理下にあるため、Dispose() が呼ばれなかった場合でも解放漏れとなることはない。)<br>
 Dispose() とファイナライザの両方にアンマネージドリソースの解放処理を書くこともできるが、これはDRYの原則に反し、保守性が良くない。
 
-<h3>マネージドリソースのみ持つ場合(disposeパターン)</h3>
+<h3>マネージドリソースのみ持つ場合</h3>
 基底クラスの実装
 <div class="code">
 <cmt>// IDisposable を実装する基底クラス</cmt>
 <kwd>public class</kwd> MyBaseClass : IDisposable
 {
-    <kwd>private</kwd> Stream _stream;              <cmt>//< マネージドリソース</cmt>
-    <kwd>private bool</kwd>   _disposed = <kwd>false</kwd>;    <cmt>//< Dispose() が呼ばれたかどうか</cmt>
+    <kwd>private</kwd> Stream mStream;              <cmt>//< マネージドリソース</cmt>
+    <kwd>private bool</kwd>   mDisposed = <kwd>false</kwd>;    <cmt>//< Dispose() が呼ばれたかどうか</cmt>
 
     <cmt>// Dispose() (公開メソッド)</cmt>
     <kwd>public void</kwd> Dispose()
@@ -197,29 +202,30 @@ Dispose() とファイナライザの両方にアンマネージドリソース�
     <kwd>protected virtual void</kwd> Dispose_Core(<kwd>bool</kwd> disposing)
     {
         <cmt>// 既に Dispose() が呼ばれている場合は処置不要</cmt>
-        <kwd>if</kwd> (disposed) <kwd>return</kwd>;
+        <kwd>if</kwd> (mDisposed) <kwd>return</kwd>;
 
         <cmt>// マネージドリソースの解放</cmt>
         <kwd>if</kwd> (disposing)
         {
-            _stream.Dispose();
+            mStream.Dispose();
         }
 
         <cmt>// Dispose() 実行済</cmt>
-        _disposed = <kwd>true</kwd>;
+        mDisposed = <kwd>true</kwd>;
     }
 
     <cmt>// アンマネージドリソースを持たないため、ファイナライザの定義は不要</cmt>
 }
 </div>
 
-派生クラスの実装
+<h5>派生クラスの実装</h5>
+
 <div class="code">
 <cmt>// MyBaseClass の派生クラス</cmt>
 <kwd>public class</kwd> MySubClass : MyBaseClass
 {
-    <kwd>private</kwd> Stream _stream2;             <cmt>//< マネージドリソース</cmt>
-    <kwd>private bool</kwd>   _disposed = <kwd>false</kwd>;    <cmt>//< Dispose() が呼ばれたかどうか</cmt>
+    <kwd>private</kwd> Stream mStream2;             <cmt>//< マネージドリソース</cmt>
+    <kwd>private bool</kwd>   mDisposed = <kwd>false</kwd>;    <cmt>//< Dispose() が呼ばれたかどうか</cmt>
 
     <cmt>// Dispose() の主処理(オーバーライド)</cmt>
     <kwd>protected override void</kwd> Dispose_Core(<kwd>bool</kwd> disposing)
@@ -230,11 +236,11 @@ Dispose() とファイナライザの両方にアンマネージドリソース�
         <cmt>// マネージドリソースの解放</cmt>
         <kwd>if</kwd> (disposing)
         {
-            _stream2.Dispose();
+            mStream2.Dispose();
         }
 
         <cmt>// Dispose() 実行済</cmt>
-        _disposed = <kwd>true</kwd>;
+        mDisposed = <kwd>true</kwd>;
 
         <cmt>// 基底クラスの Dispose_Core() を呼ぶ</cmt>
         base.Dispose_Core(disposing);
@@ -245,32 +251,31 @@ Dispose() とファイナライザの両方にアンマネージドリソース�
 </div>
 
 <h4>解説</h4>
-前節同様、disposeパターンに基づく実装。<br>
 マネージドリソースはオブジェクト破棄の際に自動的に解放されるため、ファイナライザを記述する(マネージドリソースの Dispose() を呼ぶ)必要は無い。<br>
 ファイナライザ自体が存在しないため、Dispose() 中で GC.SuppressFinalize() を実行する必要も無い。
 
 <h3>マネージドリソースのみ持つ場合(簡易版)</h3>
 <b>アンマネージドリソースを持たず、かつ継承を行わない</b>のであれば更に簡略化できる。<br>
-ここでは、sealed 修飾を行うことで、派生クラスの作成を禁じている。
+ここでは、<a href="C:/Users/shinji.takahata/_Git_Local_Rep/Murasame Lab/html_tips/TIPS/dotNET・C Sharp/virtual・abstract・sealed.html">sealed</a> 修飾を行うことで、派生クラスの作成を禁じている。
 
 <div class="code">
 <cmt>// IDisposable を実装するクラス(継承不可)</cmt>
-sealed <kwd>public class</kwd> MyClass : IDisposable
+<kwd>public sealed class</kwd> MyClass : IDisposable
 {
-    <kwd>private</kwd> Stream _stream;              <cmt>//< マネージドリソース</cmt>
-    <kwd>private bool</kwd>   _disposed = <kwd>false</kwd>;    <cmt>//< Dispose() が呼ばれたかどうか</cmt>
+    <kwd>private</kwd> Stream mStream;              <cmt>//< マネージドリソース</cmt>
+    <kwd>private bool</kwd>   mDisposed = <kwd>false</kwd>;    <cmt>//< Dispose() が呼ばれたかどうか</cmt>
 
     <cmt>// Dispose() (公開メソッド)</cmt>
     <kwd>public void</kwd> Dispose()
     {
         <cmt>// 既に Dispose() が呼ばれている場合は処置不要</cmt>
-        <kwd>if</kwd> (disposed) <kwd>return</kwd>;
+        <kwd>if</kwd> (mDisposed) <kwd>return</kwd>;
 
         <cmt>// マネージドリソースの解放</cmt>
-        _stream.Dispose();
+        mStream.Dispose();
 
         <cmt>// Dispose() 実行済</cmt>
-        _disposed = <kwd>true</kwd>;
+        mDisposed = <kwd>true</kwd>;
     }
 }
 </div>
