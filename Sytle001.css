@@ -24,36 +24,12 @@ body {
 }
 
 /* ---------------------------------- */
-/* 強調                               */
+/* 目次(<div id="toc">)               */
 /* ---------------------------------- */
-/* ボールド (<#### class="b">, <b>, <#### class="strong">, <strong>) */
-.b, b, .strong, strong {
-  font-weight:          bold;
-}
-
-/* イタリック (<#### class="i">, <i>, <#### class="em">, <em>) */
-.i, i, .em, em {
-  font-style:           italic;
-  padding-left:         -1px;
-  padding-right:        3px;
-}
-
-/* 下線 (<#### class="u">, <u>) */
-.u, u {
-  text-decoration-line: underline;
-}
-  
-/* 取り消し線 (<#### class="s">, <s>, <#### class="del">, <del>) */
-.s, s, .del, del {
-  text-decoration-line: line-through;
-}
-
-/* ---------------------------------- */
-/* 段組み                             */
-/* ---------------------------------- */
-/* 段組み (<#### class="container">) */
-.container {
-  column-count: 3;
+div#toc ul
+{
+  margin-top:           0px;
+  margin-bottom:        0px;
 }
 
 /* ---------------------------------- */
@@ -113,6 +89,13 @@ h5 {
 }
 
 /* ---------------------------------- */
+/* 画像                               */
+/* ---------------------------------- */
+img {
+  margin:               10px;
+}
+
+/* ---------------------------------- */
 /* 横罫線                             */
 /* ---------------------------------- */
 hr {
@@ -120,6 +103,39 @@ hr {
   margin-bottom:        20px;
   margin-left:          -50px;
   color:                #CC9999;
+}
+
+/* ---------------------------------- */
+/* 文字装飾                           */
+/* ---------------------------------- */
+/* ボールド (<#### class="b">, <b>, <#### class="strong">, <strong>) */
+.b, b, .strong, strong {
+  font-weight:          bold;
+}
+
+/* イタリック (<#### class="i">, <i>, <#### class="em">, <em>) */
+.i, i, .em, em {
+  font-style:           italic;
+  padding-left:         -1px;
+  padding-right:        3px;
+}
+
+/* 下線 (<#### class="u">, <u>) */
+.u, u {
+  text-decoration-line: underline;
+}
+  
+/* 取り消し線 (<#### class="s">, <s>, <#### class="del">, <del>) */
+.s, s, .del, del {
+  text-decoration-line: line-through;
+}
+
+/* ---------------------------------- */
+/* 段組み                             */
+/* ---------------------------------- */
+/* 段組み (<#### class="container">) */
+.container {
+  column-count: 3;
 }
 
 /* ---------------------------------- */
@@ -140,13 +156,6 @@ hr {
 /* 解除 (<#### class="f_c">) */
 .f_c {
   clear:                both;  
-}
-
-/* ---------------------------------- */
-/* 画像                               */
-/* ---------------------------------- */
-img {
-  margin:               10px;
 }
 
 /* ---------------------------------- */
@@ -189,10 +198,34 @@ img {
 }
 
 /* ---------------------------------- */
-/* 目次(<div id="toc">)               */
+/* ブロック要素の回転                 */
 /* ---------------------------------- */
-div#toc ul
-{
-  margin-top:           0px;
-  margin-bottom:        0px;
+/* 左90度回転 (<#### class="rotate_left">) */
+.rotate_left {
+  position: absolute;
+  transform: rotate( -90deg );
+}
+
+/* 右90度回転 (<#### class="rotate_right">) */
+.rotate_right {
+  position: absolute;
+  transform: rotate( 90deg );
+}
+
+/* 180度回転 (<#### class="rotate_180">) */
+.rotate_180 {
+  position: absolute;
+  transform: rotate( 180deg );
+}
+
+/* 上下反転 (<#### class="rotate_ud">) */
+.rotate_ud {
+  position: absolute;
+  transform: rotateX( 180deg );
+}
+
+/* 左右反転 (<#### class="rotate_lr">) */
+.rotate_ud {
+  position: absolute;
+  transform: rotateY( 180deg );
 }
