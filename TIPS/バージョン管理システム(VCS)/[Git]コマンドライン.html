@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<h5>出典 :</h5>
+<a href="https://takanosho.wordpress.com/2012/02/19/git-japanese/">Git日本語対応備忘録 | be free</a><br>
+<a href="https://github.com/hrsh7th/vim-versions/issues/1">Windows 環境で 日本語ファイル名が文字化けする · Issue #1 · hrsh7th/vim-versions</a>
+
+<!-- 関連ページ -->
+<h5>関連 :</h5>
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>Windowsコマンドラインでファイル名が正しく表示されない場合の対応</h2>
+Windowsコマンドラインで git status や git diff を実行した場合、日本語などのマルチバイト文字がファイル名に含まれているとそのままでは正しく表示されない。
+<div class="code">
+<cmt>(本来のファイル名)</cmt>
+<ltr>てすと.html</ltr>
+
+<cmt>(コマンドラインでの表示)</cmt>
+<ltr>\343\201\246\343\201\231\343\201\250.html</ltr>
+</div>
+
+以下のコマンドを実行することで正しく表示されるようになる。
+<div class="code">
+git config --global core.quotepath false
+</div>
