@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+<!-- 出典・関連ページ -->
+<h6>出典 :</h6>
+<a href="https://docs.microsoft.com/ja-jp/dotnet/api/system.windows.window.owner">Window.Owner プロパティ (System.Windows) - Microsoft Docs</a><br>
+<a href="https://www.ipentec.com/document/csharp-wpf-set-window-owner">ウィンドウの Ownerを設定する (WPFプログラミング) - iPentec</a><br>
+<a href="https://blogs.itmedia.co.jp/mohno/2013/12/xaml10-0cbd.html">（XAML#10）「モーダル表示とオーナーの設定」</a><br>
+<!-- 目次 -->
+<h6>目次 :</h6>
+<div id="toc"></div>
+
+<hr>
+
+<!-- 本文ここから -->
+<h2>オーナーウィンドウの設定(Window.Owner)</h2>
+WPFでは ShowDialog() でウィンドウをモーダル表示した場合、WinFormsと異なり、新たに開くウィンドウと呼び元の(イベントハンドラを持つ)ウィンドウとは自動的には関連付けられない。<br>
+そうした場合、例えばタスクバーから呼び元のウィンドウを選択すると、そのウィンドウがアクティブとなってしまう。<br>
+(モーダル表示されているウィンドウが存在するため、操作はできない。)<br>
+このような現象を避けるには ShowDialog() を呼び出す前に、表示するウィンドウの Owner を明示的に指定する。
+
+<div class="code">
+<cmt>// ボタン押下時の処理</cmt>
+<cmt>// 新しいウィンドウを開く</cmt>
+<kwd>private void</kwd> Button_Click(<kwd>object</kwd> sender, <knw>RoutedEventArgs</knw> e)
+{
+    <cmt>// ウィンドウの生成・プロパティ設定</cmt>
+    <kwd>var</kwd> wnd = <kwd>new</kwd> <knw>Window</knw>();
+    wnd.Title = "dynamic window #1";
+    wnd.WindowStartupLocation = <knw>System</knw>.<knw>Windows</knw>.WindowStartupLocation.CenterOwner;
+    wnd.Width = <kwd>this</kwd>.Width / 2;
+    wnd.Height = <kwd>this</kwd>.Height / 2;
+
+    <cmt>// 新しいウィンドウの Owner を自身に指定する</cmt>
+    wnd.Owner = <kwd>this</kwd>;
+
+    <cmt>// ウィンドウを開く</cmt>
+    wnd.ShowDialog();
+}    
+</div>

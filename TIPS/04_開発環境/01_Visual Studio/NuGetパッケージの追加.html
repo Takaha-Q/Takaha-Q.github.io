@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+<!-- 出典・関連ページ -->
+<h6>出典 :</h6>
+<!-- 目次 -->
+<h6>目次 :</h6>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>NuGetとは</h2>
+.NETにおけるコード共有機構。Visual StudioからNuGetに公開されたライブラリを取得して、プロジェクトに組み込むことができる。<br>
+NuGetにはコンパイル済みのDLLだけでなく、ライブラリを使用するために必要なすべてのコンテンツを含めた「パッケージ」として公開されることが一般的で、<br>
+パッケージを取得すればそれだけでライブラリを使用できるため、煩雑な手順を必要としない。
+
+<h2>例 : プロジェクトへのパッケージの追加</h2>
+Microsoft-Windows10-APICodePack-Shell を追加する場合の例を示す。
+
+<ol>
+    <li>
+        Visual Studioの「プロジェクト」>「NuGet パッケージの管理」を選択する。<br>
+        <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_CommonFileDialog/01.png" alt="">
+    </li>
+    <li>
+        検索欄にパッケージを特定できるキーワードを入力し、表示された Microsoft-Windows10-APICodePack-Shell を選択、「インストール」を押下する。<br>
+        <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_CommonFileDialog/02.png" alt="">
+    </li>
+    <li>
+        プロジェクト配下の「パッケージ」に選択したパッケージが追加されていれば完了。<br>
+        <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_CommonFileDialog/03.png" alt="">
+    </li>
+</ol>

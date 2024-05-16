@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典 -->
+<h6>出典 :</h6>
+<a href="https://qiita.com/Rat_Its20/items/22233a63326ea3c96ad3">【C# / WPF】コマンド引数による起動条件の分岐 #C# - Qiita</a>
+
+<!-- 関連 -->
+<h6>関連 :</h6>
+<a href="TIPS/Windows Presentation Foundation(WPF)/WPFのエントリポイント.html">WPFのエントリポイント</a><br>
+<a href="TIPS/Windows Presentation Foundation(WPF)/スプラッシュスクリーン.html">スプラッシュスクリーン</a>
+
+<!-- 目次 -->
+<h6>目次 :</h6>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>WPFアプリケーションにおけるコマンドライン引数の取り扱い</h2>
+WinFormsでは Main() メソッドでコマンドライン引数を受け取るのが一般的だったが、WPFでは特殊な事情が無い限り、Main() メソッドをユーザ側で編集することは推奨されていない。<br>
+コマンドライン引数を受け取るためには<b>スタートアップハンドラ</b>を記述する。
+
+<h2>手順</h2>
+<ol>
+<li>App.xaml を開く。</li>
+<li>&lt; Application &gt; タグ中の StartupUri を削除し、Startup="[任意のイベントハンドラ名]" を書き加える。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/WPF/Startup/01.png" alt="画像"></li>
+<li>App.xaml.cs を開き、2. で追加したスタートアップハンドラを実装する。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/WPF/Startup/02.png" alt="画像"></li>
+</ol>
+
+<h2>注意が必要な点</h2>
+手順 2. で StartupUri を削除しているため、StartupUri で開こうとしていたウィンドウは別途、スタートアップハンドラ内で明示的に開く必要がある。<br>
+
+

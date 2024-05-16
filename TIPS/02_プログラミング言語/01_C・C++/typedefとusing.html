@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+<!-- 出典・関連ページ -->
+<h6>出典 :</h6>
+<a href="https://cpprefjp.github.io/lang/cpp11/alias_templates.html">エイリアステンプレート - cpprefjp C++日本語リファレンス</a><br>
+<a href="https://qiita.com/Linda_pp/items/44a67c64c14cba00eef1">typedef は C++11 ではオワコン - Qiita</a><br>
+<h6>関連 :</h6>
+<a href="TIPS/C・C%2B%2B/名前空間(namespace)">名前空間</a><br>
+<a href="TIPS/C・C%2B%2B/C%2B%2B11.html">C++11</a><br>
+<!-- 目次 -->
+<h6>目次 :</h6>
+<div id="toc"></div>
+<hr>
+<!-- 本文ここから -->
+
+
+<!-- ～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～ -->
+
+<h2>typedef と using (型エイリアス)</h2>
+C++03(およびC)では、既存の型に別名(エイリアス)を付ける際には <b>typedef</b> を用いていた。<br>
+C++11以降では同様に <b>using</b> (型エイリアス)を用いて別名を付与することができる。<br>
+typedef は、テンプレートを作ることができないという欠点があるが、using ではこの問題が解消されている。<br>
+
+<h2>型エイリアスの類型</h2>
+<h3>基本形</h3>
+既存の型 <b class="dgreen">oldtype</b> に別名 <b class="red">newtype</b> を付与する場合。<br>
+using では <b>=</b> (代入演算子)が必要な点に注意。
+
+<table>
+<tr>
+<td class="col1">typedef</td>
+<td><b class="blue">typedef</b> <b class="dgreen">oldtype</b> <b class="red">newtype</b>;</td>
+</tr>
+<tr>
+<td class="col1">using</td>
+<td><b class="blue">using</b> <b class="red">newtype</b> <b>=</b> <b class="dgreen">oldtype</b>;</td>
+</tr>
+</table>
+
+<h3>関数ポインタ型への別名付与</h3>
+別名として <b class="red">FuncAlias</b> を付与する場合。<br>
+
+<table>
+<tr>
+<td class="col1">typedef</td>
+<td><b class="blue">typedef</b> void (*<b class="red">FuncAlias</b>)(double);</td>
+</tr>
+<tr>
+<td class="col1">using</td>
+<td><b class="blue">using</b> <b class="red">FuncAlias</b> <b>=</b> void (*)(double);</td>
+</tr>
+</table>
+
+using は表記が幾分簡潔となる。
+
+<h3>テンプレートへの別名付与</h3>
+typedef では、<b>未知の型をテンプレート引数に含む汎用型</b>に対して別名を付与することができない。<br>
+<b>using では可能であり、typedef に対する利点となっている。</b><br>
+
+<p class="code">
+<cmt>// 汎用クラス SomeType1 , SomeType2 宣言</cmt>
+<kwd>template</kwd> &lt;<kwd>typename</kwd> First, <kwd>typename</kwd> Second, <kwd>int</kwd> Third&gt;
+<kwd>class</kwd> SomeType1;
+
+<kwd>template</kwd> &lt;<kwd>typename</kwd> Another&gt;
+<kwd>class</kwd> SomeType2;
+
+<cmt>// すべてのテンプレート引数を明示した SomeType に別名付与 (すべて既知の型)</cmt>
+<kwd>typedef</kwd> SomeType1&lt;KnownType1, KnownType2, <ltr>5</ltr>&gt; TypeAlias;  <cmt>//&lt; typedef による別名付与 ⇒ OK</cmt>
+<kwd>using</kwd> TypeAlias = SomeType1&lt;KnownType1, KnownType2, <ltr>5</ltr>&gt;;  <cmt>//&lt; using   による別名付与 ⇒ OK</cmt>
+
+<cmt>// テンプレートに別名付与 (Second は未知の型)</cmt>
+<kwd>tenplate</kwd> &lt;<kwd>typename</kwd> Second&gt;
+<kwd>typedef</kwd> SomeType1&lt;KnownType1, Second, <ltr>5</ltr>&gt; TypeAlias;      <cmt>//&lt; typedef による別名付与 ⇒ NG</cmt>
+<kwd>using</kwd> TypeAlias = SomeType1&lt;KnownType1, Second, <ltr>5</ltr>&gt;;      <cmt>//&lt; using   による別名付与 ⇒ OK</cmt>
+
+<cmt>// テンプレートに別名付与 (Another は未知の型)</cmt>
+<kwd>tenplate</kwd> &lt;<kwd>typename</kwd> Another&gt;
+<kwd>typedef</kwd> SomeType2&lt;Another&gt; TypeAlias;                    <cmt>//&lt; typedef による別名付与 ⇒ NG</cmt>
+<kwd>using</kwd> TypeAlias = SomeType2&lt;Another&gt;;                    <cmt>//&lt; using   による別名付与 ⇒ OK</cmt>
+</p>
+
+<h2>名前空間の使用(取り込み)</h2>
+名前空間を使用する際に using を用いる。詳細は<a href="TIPS/C・C%2B%2B/名前空間(namespace).html">名前空間(namespace)</a>を参照。
+
+<h2>継承コンストラクタの宣言</h2>
+using は継承コンストラクタの宣言にも用いる。詳細は<a href="TIPS/C・C%2B%2B/委譲コンストラクタと継承コンストラクタ#継承コンストラクタ.html">委譲コンストラクタと継承コンストラクタ</a>を参照。

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+<!-- 出典・関連ページ -->
+<h6>出典 :</h6>
+<a href="https://ja.wikipedia.org/wiki/%E7%84%A1%E5%90%8D%E9%96%A2%E6%95%B0">無名関数 - Wikipedia</a><br>
+<a href="https://qiita.com/Maerig/items/b5760c8ec63c10fbce93">無名関数 - Qiita</a><br>
+<h6>関連 :</h6>
+<a href="TIPS/dotNET・C Sharp/ラムダ式による省略記法.html">[C#]ラムダ式による省略記法</a><br>
+<a href="TIPS/dotNET・C Sharp/デリゲート.html">[C#]デリゲート</a><br>
+<a href="TIPS/dotNET・C Sharp/[型]Dictionary(辞書・連想配列).html">[C#]Dictionary</a><br>
+<a href="TIPS/dotNET・C Sharp/LINQ (Language Integrated Query).html">[C#]LINQ</a>
+<!-- 目次 -->
+<h6>目次 :</h6>
+<div id="toc"></div>
+<hr>
+<!-- 本文ここから -->
+
+<h2>無名関数(Anonymous Function / Nameless Function)とは</h2>
+名前を付けずに定義された関数のこと。匿名関数とも呼ばれる。<br>
+一度しか用いない関数であれば、名前を付けないことで名前の衝突を回避でき、また <b>無名関数(式)を関数の引数として直接渡すことができる</b> (むしろこれが主用途である)。<br>
+比較的新しい概念で、C++(C++11以降)、C#、Java、JavaScript、Python、Rubyなどのモダン言語で用いることができる。後述の <b>ラムダ式を用いた表現が一般的</b> 。<br>
+無名関数を用いることで、高階関数(関数を引数または戻り値とする関数)の記述がより容易となる。
+
+<h2>無名関数の記述例</h2>
+引数リストと式を対にした<b>「ラムダ式(Lambda Expression)」</b>が現在では主流となっている。<br>
+C# 2.0では「匿名メソッド式」がサポートされていたが、C# 3.0でより簡便かつ多用途なラムダ式が導入された。<br>
+
+<h3>C++(C++11以降) : ラムダ式</h3>
+通常の関数定義における関数名を "[]" に置き換える。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Software Development/Nameless_Function/01.png" alt="画像"><br>
+
+<h3>C#(C# 2.0) : 匿名メソッド式</h3>
+delegate キーワードが必要。C++のラムダ式と似た記述となる。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Software Development/Nameless_Function/03.png" alt="画像"><br>
+
+<h3>C#(C# 3.0) : ラムダ式</h3>
+引数と式を<span class="code">=&gt;</span>で結ぶ。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Software Development/Nameless_Function/04.png" alt="画像"><br>
+
+変数の型が推論できる場合はさらに簡略化できる。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Software Development/Nameless_Function/02.png" alt="画像"><br>
+    
+ラムダ式が単文の場合は、{} 、return 、; が省略できる。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Software Development/Nameless_Function/05.png" alt="画像"><br>
+
+さらに引数が一つだけの場合は引数リストの括弧 () も省略できる。<br>
+
+<h3>実際の用途</h3>
+無名関数(メソッド)自体を引数として、他の関数に渡すのが主な用途となる。<br>
+C#においては<a href="TIPS/dotNET・C Sharp/LINQ (Language Integrated Query).html">LINQ</a>が代表的。

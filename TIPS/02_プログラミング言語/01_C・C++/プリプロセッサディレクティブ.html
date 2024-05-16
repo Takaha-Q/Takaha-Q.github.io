@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<h6>出典 :</h6>
+<a href="https://learn.microsoft.com/ja-jp/cpp/preprocessor/preprocessor?view=msvc-170">プリプロセッサ | Microsoft Learn</a><br>
+<a href="https://learn.microsoft.com/ja-jp/cpp/preprocessor/preprocessor-directives?view=msvc-170">プリプロセッサ ディレクティブ | Microsoft Learn</a><br>
+<a href="https://learn.microsoft.com/ja-jp/cpp/preprocessor/hash-import-directive-cpp?view=msvc-170">#import ディレクティブ (C++) | Microsoft Learn</a><br>
+<a href="https://learn.microsoft.com/ja-jp/cpp/preprocessor/hash-include-directive-c-cpp?view=msvc-170">#include ディレクティブ (C/C++) | Microsoft Learn</a>
+
+<!-- 関連ページ -->
+<h6>関連 :</h6>
+<a href="TIPS/C・C%2B%2B/言語バージョンの確認.html">言語バージョンの確認</a><br>
+<a href="TIPS/C・C%2B%2B/標準の定義済みマクロ.html">標準の定義済みマクロ</a><br>
+<a href="TIPS/C・C%2B%2B/インライン関数 (Inline Function).html">インライン関数 (Inline Function)</a>
+
+<!-- 目次 -->
+<h6>目次 :</h6>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>プリプロセッサディレクティブとは</h2>
+コンパイルに先立ち、プリプロセッサによるソースファイルの編集が行われる。<br>
+プリプロセッサに編集を指示するための語句がプリプロセッサディレクティブである。<br>
+以下、標準C/C++におけるディレクティブについて解説する。
+
+<h2>マクロの定義に関するもの : #define / #undef</h2>
+<div class="cpp">
+<kwd>#define</kwd> SIMBOL01    <ltr>"VALUE"</ltr>                             <cmt>//< マクロ SIMBOL01 を定義 (値 "VALUE" を割り当て)</cmt>
+<kwd>#define</kwd> SIMBOL02                                        <cmt>//< マクロ SIMBOL02 を定義 (値を割り当てない)</cmt>
+
+<kwd>#define</kwd> max(x, y)   ( ( (x) > (y) ) ? ( (x) : (y) ) )   <cmt>//< 関数型マクロ max の定義</cmt>
+
+<kwd>void</kwd> DoSomething1()
+{
+    <kwd>string</kwd>  s = SIMBOL01;           <cmt>//< マクロ SIMBOL01 は "VALUE" に置換される</cmt>
+    <kwd>int</kwd>     i = max(<ltr>2</ltr>, <ltr>3</ltr>);          <cmt>//< 関数型マクロ max(2, 3) は ( ( (2) > (3) ) ? ( (2) : (3) ) ) に置換される</cmt>
+
+    :
+}
+
+<kwd>#undef</kwd> SIMBOL01                     <cmt>//< マクロ SIMBOL01 の定義を消去</cmt>
+
+<kwd>void</kwd> DoSomething2()
+{
+    <cmt>// string  s = SIMBOL01;           //< SIMBOL01 が定義されていないため、この文はエラーとなる</cmt>
+
+    :
+}
+</div>
+
+<b>#define</b> はマクロの定義、<b>#undef</b> は定義されたマクロの消去を行う。<br>
+上記のコード例では、シンボル SIMBOL01 がマクロとして定義されている。<br>
+以降に記述される SIMBOL01 はプリプロセッサによって、SIMBOL01 に割り当てられた値 "VALUE" に置換される。<br>
+つまり、DoSomething1() における
+
+<div class="cpp">
+<kwd>string</kwd>  s = SIMBOL01;
+</div>
+
+はコンパイル開始時点では
+
+<div class="cpp">
+<kwd>string</kwd>  s = <ltr>"VALUE"</ltr>;
+</div>
+
+となっている。<br>
+SIMBOL02 はマクロとして定義されているが、値は割り当てられていない。記述としては有効で、これは主に後述の条件付きコンパイルで用いる。<br>
+
+<h3>関数型マクロ</h3>
+上記のコード例における max(x, y) は仮引数 x 、y をとる関数形式となっており、関数型マクロと呼ばれる。<br>
+通常のマクロと同様にプリプロセッサによって展開される。<br>
+実引数には任意の式を用いることができるが、式が正しく展開されるためには上記のように括弧で囲む必要があり、可読性が良くない。<br>
+このため、近年では<a href="TIPS/C・C%2B%2B/インライン関数 (Inline Function).html">インライン関数</a>の使用が推奨されている。
+
+<h2>条件付きコンパイルに関するもの : #if / #ifdef / #ifndef / #else / #elif / #endif</h2>
+
+条件によってコードの有効・無効(コンパイル対象に含めるかどうか)を切り替える際に用いる。
+
+<h3>#if / #else / #elif / #endif</h3>
+
+<div class="cpp">
+<kwd>#define</kwd> SIMBOL01    <ltr>1</ltr>       <cmt>//< マクロ SIMBOL01 を定義 (値 1 を割り当て)</cmt>
+<kwd>#define</kwd> SIMBOL02            <cmt>//< マクロ SIMBOL02 を定義 (値を割り当てない)</cmt>
+
+<kwd>#if</kwd> SIMBOL01 == <ltr>1</ltr>           <cmt>//< (1)</cmt>
+    <cmt>// SIMBOL01 が 1 ならば、ここからのコードは有効                 ┓</cmt>
+    <cmt>:                                                              (A)</cmt>
+    <cmt>// ここまで                                                     ┛</cmt>
+<kwd>#elif</kwd> SIMBOL01 == <ltr>2</ltr>         <cmt>//< (2)</cmt>
+    <cmt>// SIMBOL01 が 1 でなく 2 ならば、ここからのコードは有効        ┓</cmt>
+    <cmt>:                                                              (B)</cmt>
+    <cmt>// ここまで                                                     ┛</cmt>
+<kwd>#else</kwd>                       <cmt>//< (3)</cmt>
+    <cmt>// SIMBOL01 が 1 でも 2 でもなければ、ここからのコードは有効    ┓</cmt>
+    <cmt>:                                                              (C)</cmt>
+    <cmt>// ここまで                                                     ┛</cmt>
+<kwd>#endif</kwd>
+
+<kwd>#if</kwd> <ltr>1</ltr>
+    <cmt>// ここからのコードは有効</cmt>
+    <cmt>:</cmt>
+    <cmt>// ここまで</cmt>
+<kwd>#endif</kwd>
+
+<kwd>#if</kwd> <ltr>0</ltr>                       <cmt>//< (4)</cmt>
+    <cmt>// ここからのコードは無効                                       ┓</cmt>
+    <cmt>:                                                              (D)</cmt>
+    <cmt>// ここまで                                                     ┛</cmt>
+<kwd>#endif</kwd>
+</div>
+
+<b>#if</b> および <b>#elif</b> (else if に相当)は続く式が真である場合に、次の #elif / #else / #endif までの行を有効とする。<br>
+<b>#else</b> は直前の #if または #elif の条件に該当しない場合にのみ、次の #endif までの行を有効とする。<br>
+上記の例においては、(1)の SIMBOL01 == 1 が真であれば、(A)のコードが有効となる。<br>
+(直前で SIMBOL01 に 1 が割り当てられているため、この式は真となる。)<br>
+SIMBOL01 == 1 が偽であれば、続く(2)の SIMBOL01 == 2 が判定され、その結果によって(B)、(C)のいずれかのコードが有効となる。<br>
+コード中と同様真は非零、偽は零であるため、(4)のように #if 0 を記述した場合、続くコード(D)は無効となる。<br>
+これはコードを削除することなく(一時的に)無効化したい場合に用いられる。<br>
+
+<h3>#ifdef / #ifndef</h3>
+
+<div class="cpp">
+<kwd>#define</kwd> SIMBOL02            <cmt>//< マクロ SIMBOL02 を定義 (値を割り当てない)</cmt>
+
+<kwd>#ifdef</kwd> SIMBOL02
+    <cmt>// SIMBOL02 が定義されていれば、ここからのコードは有効</cmt>
+    :
+    <cmt>// ここまで</cmt>
+<kwd>#endif</kwd>
+
+<kwd>#ifndef</kwd> SIMBOL03
+    <cmt>// SIMBOL03 が定義されていなければ、ここからのコードは有効</cmt>
+    :
+    <cmt>// ここまで</cmt>
+<kwd>#endif</kwd>
+
+<kwd>#if</kwd> defined SIMBOL02        <cmt>//< #ifdef SIMBOL02 と等価</cmt>
+    :
+<kwd>#elif</kwd> defined SIMBOL03
+    :
+<kwd>#endif</kwd>
+
+<kwd>#if</kwd> !defined SIMBOL03       <cmt>//< #ifndef SIMBOL03 と等価</cmt>
+    :
+<kwd>#elif</kwd> !defined SIMBOL02
+    :
+<kwd>#else</kwd>
+    :
+<kwd>#endif</kwd>
+</div>
+
+マクロが「定義されているか」(値は考慮しない)を判断する際に用いる。<br>
+<b>#ifdef</b> は指定されたシンボルが定義されている場合、<b>#ifndef</b> は定義されていない場合に後続のコードを有効とする。<br>
+#if 同様、#else 、#elif と組み合わせることも可能。<br>
+また、#ifdef <i>XXX</i> は #if <b>defined</b> <i>XXX</i> 、<br>#ifndef <i>XXX</i> は #if <b>!defined</b> <i>XXX</i> と等価である。
+
+<h2>ファイルの取り込み : #include</h2>
+
+<div class="cpp">
+<kwd>#include</kwd> &lt;stdio.h&gt;        <cmt>//< (1)</cmt>
+
+<kwd>#include</kwd> <ltr>"hoge.h"</ltr>         <cmt>//< (2)</cmt>
+</div>
+
+ヘッダファイルに記述された型・定数・マクロ定義、外部変数・関数の宣言を取り込むこと(インクルード)ができる。<br>
+二重引用符( "" )または山括弧( &lt;&gt; )でファイル名(場合によってはパスを含める必要あり)を指定する。<br>
+ここではヘッダファイル stdio.h および hoge.h の内容を、(1)および(2)の箇所に展開する。<br>
+尚、拡張子 .c や .cpp のファイルをインクルードすることも可能である。
+
+<h3>ファイルの指定方法と検索方式の違い</h3>
+二重引用符( "" )を用いる場合と山括弧( &lt;&gt; )を用いる場合では、指定されたパスが完全でない場合にプリプロセッサがファイルを検索する順序が異なる。<br>
+いずれの場合も、該当するファイルが見つかった時点で検索を停止する。
+
+<h6>検索順序の違い</h6>
+<table>
+    <tr>
+        <td>二重引用符<br>( #include "<i>file-path</i>" )</td>
+        <td>
+            <ol>
+                <li>#include ディレクティブを記述したファイルと同じディレクトリ(カレントディレクトリ)</li>
+                <li>1. の親、親の親…と親ディレクトリを順に辿る</li>
+                <li>コンパイラオプション( /I )で指定されたインクルードディレクトリ</li>
+                <li>環境変数 INCLUDE で指定されたパス</li>
+            </ol>
+        </td>
+    </tr>
+    <tr>
+        <td>山括弧<br>( #include &lt;<i>file-path</i>&gt; )</td>
+        <td>
+            <ol>
+                <li>コンパイラオプション( /I )で指定されたインクルードディレクトリ</li>
+                <li>環境変数 INCLUDE で指定されたパス(コマンドラインでのコンパイル時のみ)</li>
+            </ol>
+        </td>
+    </tr>
+</table>
+
+ソースファイルと同階層に配置することが多いユーザ定義のヘッダは二重引用符で、<br>
+標準ライブラリなど開発環境から提供されるヘッダは山括弧で指定するのが一般的である。<br>
+
+<h2>タイプライブラリの組み込み : #import</h2>
+<a href="https://learn.microsoft.com/ja-jp/cpp/preprocessor/hash-import-directive-cpp?view=msvc-170">出典元</a>を参照。
+
+<h2>行番号とファイル名の指定 : #line</h2>
+定義済みマクロである __FILE__ 、 __LINE__ はその箇所のファイル名および行番号を返すが、<b>#line</b> ディレクティブはこれらを変更することが可能である。<br>
+
+<div class="cpp">
+<cmt>// 本来のファイル名 : line_directive.cpp</cmt>
+
+<kwd>#include</kwd> &lt;stdio.h&gt;
+
+<kwd>int</kwd> main()
+{
+    printf( <ltr>"ここはファイル </ltr>%s<ltr> の </ltr>%d<ltr> 行です。\n"</ltr>, __FILE__, __LINE__ );
+
+<kwd>#line</kwd> <ltr>15</ltr>                <cmt>//< #line で行番号を変更</cmt>
+
+    printf( <ltr>"ここはファイル </ltr>%s<ltr> の </ltr>%d<ltr> 行です。\n"</ltr>, __FILE__, __LINE__ );
+
+<kwd>#line</kwd> <ltr>30 "hello.cpp"</ltr>    <cmt>//< #line で行番号とファイル名を変更</cmt>
+
+    printf( <ltr>"ここはファイル </ltr>%s<ltr> の </ltr>%d<ltr> 行です。\n"</ltr>, __FILE__, __LINE__ );
+    printf( <ltr>"ここはファイル </ltr>%s<ltr> の </ltr>%d<ltr> 行です。\n"</ltr>, __FILE__, __LINE__ );
+}
+</div>
+
+<h6>実行結果</h6>
+<div class="code">
+<ltr>ここはファイル line_directive.cpp の 7 行です。
+ここはファイル line_directive.cpp の 16 行です。
+ここはファイル hello.cpp の 31 行です。
+ここはファイル hello.cpp の 32 行です。</ltr>
+</div>
+
+設定した行番号は、ディレクティブの次行に反映される点に注意。<br>
+
+<h2>コンパイルの中断 : #error</h2>
+
+<div class="cpp">
+<kwd>#if</kwd> !defined(__cplusplus)
+<kwd>#error</kwd> C++ compiler required.
+<kwd>#endif</kwd>
+</div>
+
+<b>#error</b> は指定されたメッセージを出力してコンパイルを終了する。<br>
+ここでは、マクロ __cplusplus が定義されていなければ、"C++ compiler required." を出力してコンパイルを終了する(意図的にコンパイルエラーとする)。<br>
+コンパイルが継続できない場合に、その原因をプログラマに通知する際に有効。
+
+<h2>環境固有のコンパイラ機能呼び出し : #pragma</h2>
+オペレーティングシステムやコンパイラに固有の機能を呼び出す。プラグマを多用するとコンパイラへの依存が大きくなり、移植性が低下する。<br>
+詳細は割愛。
+
+
+
+

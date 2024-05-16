@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+<!-- 出典・関連ページ -->
+<h6>関連 :</h6>
+<a href="TIPS/Windows Presentation Foundation(WPF)/WPFのエントリポイント.html">WPFのエントリポイント</a><br>
+<a href="TIPS/dotNET・C Sharp/排他制御.html">[C#]排他制御</a>
+<!-- 目次 -->
+<h6>目次 :</h6>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>アプリケーションを多重起動させなくする手順</h2>
+同一アプリケーションの多重起動を抑止する方法は複数存在するが、ここではセマフォを用いる手順を紹介する。<br>
+Visual Studioの旧バージョンでは、プロジェクトの設定から「複数インスタンスを作成しない」ようにすることができたが、2022版では不可能となっている。<br>
+(プロジェクトファイルを直接編集すれば可能かもしれないが、詳細は不明。)
+
+<h3>セマフォによる多重起動抑止(WPF + C#)</h3>
+Main() メソッドを編集する。<br>
+Main() メソッドを編集可能とするための手順は<a href="TIPS/Windows Presentation Foundation(WPF)/WPFのエントリポイント.html">ここ</a>を参照のこと。<br>
+<br>
+(App.xaml.cs)
+<div class="code">
+<kwd>using</kwd> <knw>System</knw>;
+<kwd>using</kwd> <knw>System</knw>.Reflection;
+<kwd>using</kwd> <knw>System</knw>.<knw>Windows</knw>;
+
+<kwd>namespace</kwd> Console_ELP03;
+
+<cmt>// App クラス</cmt>
+<kwd>public partial class</kwd> App : <knw>Application</knw>
+{
+    <cmt>// アプリケーションのエントリポイント</cmt>
+    [STAThread]
+    <kwd>public static void</kwd> Main()
+    {
+        <cmt>// 多重起動防止に Semaphore を用いる</cmt>
+        <kwd>using var</kwd> semaphore = <kwd>new</kwd> <knw>System</knw>.<knw>Threading</knw>.Semaphore(1,
+                                                             1,
+                                                             Assembly.GetExecutingAssembly().GetName().Name,    <cmt>//< セマフォオブジェクト名 : アプリケーションのアセンブリ名</cmt>
+                                                             <kwd>out bool</kwd> createdNew);
+
+        <cmt>// 作成失敗(他のプロセスが既にセマフォを作成していた)</cmt>
+        <cmt>// エラーを表示して終了</cmt>
+        <kwd>if</kwd> ( !createdNew )
+        {
+            Util.MessageBoxFunc.ShowErrorMsgBox( "多重起動はできません。終了します。" );
+            <kwd>return</kwd>;
+        }
+
+        App app = <kwd>new</kwd> App();
+        app.InitializeComponent();
+        app.Run();
+    }
+}
+</div>
+
+<h4>解説</h4>
+セマフォオブジェクト名を指定することで、プロセス間で共有できるシステムセマフォを作成できる。<br>
+ここではアセンブリ名をセマフォオブジェクト名に用いているため、同一のアプリケーションを起動しようとすると同名のセマフォを作成することになる。<br>
+out 変数 createdNew には、システムセマフォの作成成否が格納されるが、既に同名のセマフォが作成されている( = 同名のアプリケーションが起動している)場合は失敗( false )となるため、<br>
+多重起動かどうかの判定が可能である。

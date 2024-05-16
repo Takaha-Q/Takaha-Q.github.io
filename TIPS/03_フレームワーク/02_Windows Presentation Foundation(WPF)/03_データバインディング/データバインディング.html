@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<h6>出典 :</h6>
+<a href="https://atmarkit.itmedia.co.jp/ait/articles/1010/08/news123.html">第5回　WPFの「データ・バインディング」を理解する：連載：WPF入門（1/3 ページ） - ＠IT</a><br>
+<a href="https://marikooota.hatenablog.com/entry/2017/05/30/002059">データ・バインディングを理解する - marikoootaの日記</a><br>
+<a href="https://threeshark3.com/wpf-binding-datacontext/">【WPF】Binding入門1。DataContextの伝搬 | さんさめのC＃ブログ</a><br>
+<a href="https://qiita.com/shunta01/items/ed46b904071841957f8a">MVCとMVVMの違いを理解する - Qiita</a><br>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/desktop/wpf/data/how-to-create-a-binding-in-code?view=netframeworkdesktop-4.8">方法: コードでバインディングを作成する - WPF .NET Framework | Microsoft Learn</a><br>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.frameworkelement.setbinding?view=windowsdesktop-7.0">FrameworkElement.SetBinding メソッド (System.Windows) | Microsoft Learn</a><br>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.data.bindingoperations.setbinding?view=windowsdesktop-7.0">BindingOperations.SetBinding メソッド (System.Windows.Data) | Microsoft Learn</a>
+
+<!-- 関連ページ -->
+<h6>関連 :</h6>
+<a href="TIPS/Windows Presentation Foundation(WPF)/[データバインディング]依存関係プロパティ.html">依存関係プロパティ</a><br>
+<a href="TIPS/Windows Presentation Foundation(WPF)/[データバインディング]ReactiveProperty.html">ReactiveProperty</a><br>
+<a href="TIPS/Windows Presentation Foundation(WPF)/[データバインディング]RelativeSource.html">RelativeSource</a><br>
+<a href="TIPS/Windows Presentation Foundation(WPF)/[データバインディング]コンバーター.html">コンバーター</a><br>
+
+<!-- 目次 -->
+<h6>目次 :</h6>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>WPFにおけるデータバインディング(Data Binding)とは</h2>
+データの提供元(データソース)とUI要素を結びつけること。<br>
+一度バインディングを構成しておくと、データソースの値が変化した場合もUIの表示を自動的に更新したり、<br>
+逆にUIからデータソースの値を更新できるようになる。<br>
+同様の概念はWinFormsにも存在するが、より手順が体系化され、使いやすくなっている。<br>
+
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/WPF/DataBinding/01.png" alt="画像">
+
+<h2>前提 : ソース(Source)とターゲット(Target)</h2>
+データバインディングには、ソース(参照元)とターゲット(反映先)があり、<br>
+通常、ソースに加えた変更がターゲットに反映される。(設定によっては逆方向や、双方向も可能。)<br>
+このとき、<b>ソースに設定できるのは(通常の)プロパティ、ターゲットに設定できるのは
+<a href="TIPS/Windows Presentation Foundation(WPF)/[データバインディング]依存関係プロパティ.html">依存関係プロパティ(DependencyProperty)</a>に
+限定される</b>。<br>
+即ち、<b>データバインディングは依存関係プロパティをプロパティに同期させる処置と言える</b>。<br>
+(<b>コントロール(UI要素)のプロパティはすべて依存関係プロパティとして実装されている</b>ため、いずれもターゲットに設定する際に特別な手順を必要としない。)<br>
+
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_DependencyProp/02.png"><br>
+
+<h2>データバインディングの実装例</h2>
+
+<h3>XAMLでバインディングを構成</h3>
+
+<h6>SampleModel.cs (Model)</h6>
+<div class="code">
+<kwd>using</kwd> Reactive.Bindings;         <cmt>// ReactivePropertySlim を使用するための参照</cmt>
+
+<cmt>// データソース用クラス</cmt>
+<kwd>public class</kwd> SampleModel
+{
+    <cmt>// バインディングソース <b>Count</b> を ReactivePropertySlim として宣言</cmt>
+    <kwd>public</kwd> ReactivePropertySlim&lt;<kwd>int</kwd>&gt; <b class="red">Count</b>
+    { <kwd>get</kwd>; }
+    = <kwd>new</kwd> ReactivePropertySlim&lt;<kwd>int</kwd>&gt;();
+}
+</div>
+データソースとして用いるためのクラスとして SampleModel を定義している。<br>
+プロパティを <a href="TIPS/Windows Presentation Foundation(WPF)/[データバインディング]ReactiveProperty.html">ReactiveProperty</a> としているのは、ソースからターゲットへの波及を容易に実装するため。
+
+<h6>MainWindow.xaml (View : XAML)</h6>
+<div class="code">
+&lt;StackPanel&gt;
+    &lt;!-- TextBlock の <b class="dgreen">Text</b> を <b><font color="darkorange">DataContext</font></b> の <b class="red">Count</b> に関連付け (<b><font color="purple">Binding</font></b>) --&gt;
+    &lt;TextBlock <b class="dgreen">Text</b>="{<b><font color="purple">Binding</font></b> <b class="red">Path=Count.Value</b>}"/&gt;
+    &lt;Button Click="CountUp_Click" Content="Count Up!"/&gt;
+&lt;/StackPanel&gt;
+</div>
+バインディングのターゲットとなる TextBlock の Text をデータソース (DataContext) の Count に紐づけている。<br>
+Count は ReactivePropertySlim であるため、値は Value で参照する。
+
+<h6>MainWindow.xaml.cs (ViewModel : コードビハインド)</h6>
+<div class="code">
+<kwd>public partial class</kwd> MainWindow : Window
+{
+    <cmt>// データソースの実体</cmt>
+    <kwd>private</kwd> SampleModel dataSource;
+
+    <cmt>// コンストラクタ</cmt>
+    <kwd>public</kwd> MainWindow()
+    {
+        InitializeComponent();
+
+        <cmt>// <b><font color="darkorange">DataContext</font></b> (データソース)の指定</cmt>
+        dataSource = <kwd>new</kwd> SampleViewModel()
+        {
+            <b class="red">Count.Value</b> = 0
+        };
+        <kwd>this</kwd>.<b><font color="darkorange">DataContext</font></b> = dataSource;
+    }
+    
+    <cmt>// ボタン「Count Up!」クリック時の処理</cmt>
+    <kwd>private void</kwd> CountUp_Click(<kwd>object</kwd> sender, RoutedEventArgs e)
+    {
+        dataSource.<b class="red">Count.Value</b>++;
+    }
+}
+</div>
+ウィンドウのデータソース( DataContext )に SampleModel 型のオブジェクト( dataSource )を指定している。<br>
+
+<h4>解説</h4>
+上記は Button を押すごとに TextBlock の表示(数値)がインクリメントされる Window の例である。<br>
+<br>
+WPFではデザインパターンとしてMVVM (Model - View - ViewModel) を推奨しており、これはWEB開発におけるMVCパターンと類似する。<br>
+MVVMの詳細は複雑であるためここでは割愛するが、
+<ul>
+<li>Model : データ(データソース)を定義</li>
+<li>View : 画面表示を担当(XAML)</li>
+<li>ViewModel : データソースと表示を結びつける(XAML.CS : コードビハインド)</li>
+</ul>
+と考えれば概ね正しい。<br>
+<br>
+データバインディングは上記のように <b>DataContext</b> を用いるのが基本である。<br>
+( DataContext を用いる以外の方法としては <a href="TIPS/Windows Presentation Foundation(WPF)/[データバインディング]RelativeSource.html">RelativeSource</a> が存在する。)<br>
+Window の DataContext を設定しておけば、Window 上の子要素は等しく DataContext (のメンバ)を参照できる。<br>
+DataContext には任意の型のオブジェクトを渡すことができ、ここでは SampleModel 型のオブジェクト( dataSource )を渡している。<br>
+以上のことから dataSource.Count.Value の値を変更すると、バインドされた TextBlock.Text は自動的に変化する。<br>
+<br>
+ここで、ソース( dataSource.Count.Value )の変更はターゲット( TextBlock.Text )に波及するが、逆は起こらない。<br>
+XAML上でバインディングの Mode を変更することで、逆方向への波及を行えるようになる(詳細は割愛)。
+
+<h3>コード(CS)でバインディングを構成</h3>
+
+<h4><a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.frameworkelement.setbinding?view=windowsdesktop-7.0">FrameworkElement.SetBinding() メソッド</a>を用いる場合</h4>
+TextBlock コントロール myText の Text プロパティをターゲット、MyData オブジェクトの MyDataProperty プロパティをソースとしてバインディングを行う場合の実装例を示す。
+
+<div class="code">
+<cmt>// ソースオブジェクトの作成
+// myDataObject.MyDataProperty をバインドソースとする</cmt>
+MyData myDataObject = <kwd>new</kwd> MyData(DateTime.Now);
+System.Windows.Data.Binding myBinding = <kwd>new</kwd> Binding(<ltr>"MyDataProperty"</ltr>);
+myBinding.Source = myDataObject;
+
+<cmt>// myText.Text をバインドターゲットとする
+// (ターゲットは依存関係プロパティに限定されるため、Text ではなく TextProperty を指定する)</cmt>
+myText.SetBinding(TextBlock.TextProperty, myBinding);
+</div>
+
+<h4><a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.data.bindingoperations.setbinding?view=windowsdesktop-7.0">BindingOperations.SetBinding() メソッド</a>を用いる場合</h4>
+ソースおよびターゲットは前節と同様。
+
+<div class="code">
+<cmt>// ソースオブジェクトの作成
+// myDataObject.MyDataProperty をバインドソースとする</cmt>
+MyData myDataObject = <kwd>new</kwd> MyData(DateTime.Now);
+System.Windows.Data.Binding myBinding = <kwd>new</kwd> Binding(<ltr>"MyDataProperty"</ltr>);
+myBinding.Source = myDataObject;
+
+<cmt>// myText.Text をバインドターゲットとする
+// (ターゲットは依存関係プロパティに限定されるため、Text ではなく TextProperty を指定する)</cmt>
+BindingOperations.SetBinding(myText, TextBlock.TextProperty, myBinding);
+</div>

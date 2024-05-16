@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<h6>出典 :</h6>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.[型]Timer(タイマ)s.[型]Timer(タイマ)?view=net-6.0">[型]Timer(タイマ) クラス (System.[型]Timer(タイマ)s) | Microsoft Learn</a>
+
+<!-- 関連ページ -->
+<h6>関連 :</h6>
+<a href="TIPS/Windows Presentation Foundation(WPF)/DispatcherTimer.html">[WPF]DispatcherTimer</a><br>
+<a href="TIPS/dotNET・C Sharp/[型]Stopwatch(ストップウォッチ).html">Stopwatch(ストップウォッチ)</a><br>
+<a href="TIPS/dotNET・C Sharp/[型]DateTime と TimeSpan.html">DateTime と TimeSpan</a><br>
+
+<!-- 目次 -->
+<h6>目次 :</h6>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>Timerクラス (System.Timers.Timer)</h2>
+指定時間経過後にイベントを生成するタイマ。
+
+<h2>基本的な使い方(C#)</h2>
+(コード)
+<div class="code">
+<kwd>using</kwd> <knw>System</knw>;
+<kwd>using</kwd> <knw>System</knw>.Timers;
+
+<kwd>public class</kwd> Example
+{
+    <cmt>// タイマの宣言</cmt>
+    <kwd>private static</kwd> <knw>System</knw>.Timers.Timer aTimer;
+    
+    <cmt>// Main() メソッド</cmt>
+    <kwd>public static void</kwd> Main()
+    {
+        <cmt>// タイマの生成</cmt>
+        <cmt>// 周期2000ms</cmt>
+        aTimer = <kwd>new</kwd> <knw>System</knw>.Timers.Timer(2000);
+
+        <cmt>// タイマハンドラの指定</cmt>
+        aTimer.Elapsed += OnTimedEvent;
+
+        <cmt>// オートリセットオン ⇒ Elapsed イベントが繰り返し発生する</cmt>
+        aTimer.AutoReset = <kwd>true</kwd>;
+
+        <cmt>// タイマ開始</cmt>
+        aTimer.Enabled = <kwd>true</kwd>;
+
+        <cmt>// ユーザ入力待ち</cmt>
+        <knw>Console</knw>.WriteLine("アプリケーションは {0:HH:mm:ss.fff} に開始されました。", <knw>DateTime</knw>.Now);
+        <knw>Console</knw>.WriteLine("終了する場合は、Enterキーを押してください...\n");
+        <knw>Console</knw>.ReadLine();
+
+        <cmt>// タイマ停止、破棄</cmt>
+        aTimer.Stop();
+        aTimer.Dispose();
+        
+        <knw>Console</knw>.WriteLine("\n終了します。");
+    }
+
+    <cmt>// タイマハンドラ</cmt>
+    <kwd>private static void</kwd> OnTimedEvent(Object source, ElapsedEventArgs e)
+    {
+        <cmt>// タイマが発火した時刻を出力</cmt>
+        <knw>Console</knw>.WriteLine("Elapsed イベントが {0:HH:mm:ss.fff} に発生しました。", e.SignalTime);
+    }
+}
+</div>
+
+(実行結果)
+<div class="code">
+<cmt>アプリケーションは 09:40:29.068 に開始されました。
+終了する場合は、Enterキーを押してください...
+
+Elapsed イベントが 09:40:31.084 に発生しました。
+Elapsed イベントが 09:40:33.100 に発生しました。
+Elapsed イベントが 09:40:35.100 に発生しました。
+Elapsed イベントが 09:40:37.116 に発生しました。
+Elapsed イベントが 09:40:39.116 に発生しました。
+Elapsed イベントが 09:40:41.117 に発生しました。
+:
+:
+
+終了します。</cmt>
+</div>
+    
+<h3>解説</h3>
+タイマの周期[ms]はコンストラクタ、または Interval プロパティで指定(および変更)できる。<br>
+(コンストラクタ引数を省略した場合は別途 Interval プロパティで指定する必要がある。)<br>
+Enabled プロパティが true の間タイマは計時を行い、指定された周期に到達すると Elapsed イベントを発行する。<br>
+ここで、AutoReset プロパティが false であれば Elapsed イベントは最初の1回のみ発生し、タイマは停止するが、<br>
+AutoReset プロパティが true の場合は、周期ごとに Elapsed イベントが繰り返し発生する。
+
+<h2>プロパティ</h2>
+主要なものを抜粋。
+<table>
+  <tr class="row1">
+    <td class="col1">定義名</td>
+    <td>型</td>
+    <td>説明</td>
+  </tr>
+  <tr>
+    <td class="col1">AutoReset</td>
+    <td>bool</td>
+    <td>タイマの発火時に、自動でリセットを行うかを表す。true の場合は Elapsed イベントが周期ごとに繰り返し発生する。<br>
+        false の場合は初回の Elapsed イベント発生時にタイマが停止する。既定値は true 。</td>
+  </tr>
+  <tr>
+    <td class="col1">Enabled</td>
+    <td>bool</td>
+    <td>タイマが動作中かどうかを表す。false の場合は計時を行わず、Elapsed イベントも発生しない。</td>
+  </tr>
+  <tr>
+    <td class="col1">Events</td>
+    <td>System.ComponentModel.EventHandlerList</td>
+    <td>関連付けられているイベントハンドラのリスト。</td>
+  </tr>
+  <tr>
+    <td class="col1">Interval</td>
+    <td>double</td>
+    <td>Elapsed イベントの発生間隔(ミリ秒)。0 より大きく、Int32.MaxValue 以下である必要がある。</td>
+  </tr>
+</table>
+
+<h2>メソッド</h2>
+主要なものを抜粋。いずれも引数、戻り値無し。
+<table>
+<tr class="row1">
+<td class="col1">定義名</td>
+<td>説明</td>
+</tr>
+<tr>
+<td class="col1">Dispose()</td>
+<td>Timer オブジェクトが使用しているすべてのリソースを解放する。</td>
+</tr>
+<tr>
+<td class="col1">Start()</td>
+<td>タイマを開始する。Enabled を true に設定することと等価。</td>
+</tr>
+<tr>
+<td class="col1">Stop()</td>
+<td>タイマを停止する。Enabled を false に設定することと等価。</td>
+</tr>
+</table>
+
+<h2>その他のタイマ</h2>
+.NET(.NET Framework / .NET Core を含む)には System.Timers.Timer 以外にもタイマクラスが存在するが、機能はそれぞれ異なる。
+<table>
+  <tr>
+    <td class="col1">System.Timers.Timer (当記事)</td>
+    <td>System.Threading.Timer を改善した、最も一般的なタイマ。<br>コールバックを複数登録でき、マルチスレッド環境での使用に適している。<br>
+    .NET Standard 1.6以降で使用可能。</td>
+  </tr>
+  <tr>
+    <td class="col1">System.Threading.Timer</td>
+    <td>単一のコールバックメソッドを実行できるタイマ。<br>旧式化しており、.NET Standard 1.6以降では上記の System.Timers.Timer の使用が推奨される。</td>
+  </tr>
+  <tr>
+    <td class="col1">
+        <a href="TIPS/Windows Presentation Foundation(WPF)/DispatcherTimer.html">System.Windows.Threading.DispatcherTimer</a>
+    </td>
+    <td>WPFで使用できるタイマ。タイマハンドラがUIスレッドで実行されるため、UIリソースを直接操作できる。</td>
+  </tr>
+</table>

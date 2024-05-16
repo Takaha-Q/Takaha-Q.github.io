@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<a href="https://learn.microsoft.com/ja-jp/windows-server/administration/windows-commands/robocopy">Robocopy | Microsoft Learn</a><br>
+<a href="https://atmarkit.itmedia.co.jp/ait/articles/0704/20/news130.html">Windowsの「robocopy」コマンドでフォルダをバックアップ／同期させる：Tech TIPS - ＠IT</a><br>
+<a href="https://atmarkit.itmedia.co.jp/ait/articles/1309/27/news116.html">Windowsのrobocopyコマンドでコピーするファイルの種類を選択／変更する：Tech TIPS - ＠IT</a><br>
+<a href="https://atmarkit.itmedia.co.jp/ait/articles/1404/30/news110.html">Windowsのrobocopyコマンドでファイルコピー中断後に自動再開させる：Tech TIPS - ＠IT</a><br>
+<a href="https://qiita.com/himrox/items/3dc7dec2c0e584a78e3d">robocopyコマンドでwindows端末のデータをバックアップする方法 #Windows - Qiita</a><br>
+
+<!-- 関連ページ -->
+
+<!-- 目次 -->
+<h6>目次 :</h6>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>Robocopy とは</h2>
+Windows OSに標準搭載されるファイルコピー用のアプリケーション。2つのフォルダの内容を同期させる。<br>
+コマンドプロンプトの copy や xcopy のコマンドに無い以下の特徴を持つ。
+<ul>
+    <li>エラー時の再試行回数の制限や待ち時間の指定</li>
+    <li>ネットワーク切断時のコピーの中断と再開</li>
+    <li>属性やセキュリティ設定のコピー</li>
+    <li>ファイルサイズや変更時刻などを限定してのコピー</li>
+    <li>コピー先にある余分なファイルの削除</li>
+    <li>256文字を超える長いパス名の処理</li>
+    <li>動作ログの記録</li>
+    <li>作業内容やオプション設定などの保存と再実行（ジョブ機能）</li>
+</ul>
+このため、堅牢で確実性の高いコピーが可能であり、元々の用途であるリモートサーバ同士での同期にも適している。<br>
+尚、"robo" は "robot" ではなく "robust" (堅牢)に由来する。
+
+<h2>Robocopy の詳細</h2>
+Robocopy はシェルの機能ではなく、独立したアプリケーション( Robocopy.exe )である。<br>
+このため、コマンドプロンプトだけでなくPowerShellやWSL、自作のアプリケーションからも利用できる。<br>
+System32 および SysWOW64 の配下に存在するため、32ビット / 64ビットそれぞれの環境で利用できる。<br>
+
+<h3>使用法</h3>
+コマンドラインから以下の形式で呼び出す。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Windows/Robocopy/01.png" alt="画像"><br>
+
+<ul>
+    <li>コピー元ディレクトリ : 必須(※)。ローカルまたはネットワーク上のディレクトリを指定。</li>
+    <li>コピー先ディレクトリ : 必須(※)。コピー元ディレクトリと同様。</li>
+    <li>ファイル : コピーするファイル。特定の名前またはワイルドカードを指定。既定値(省略時)は「*.*」(すべてのファイル)。</li>
+    <li>オプション : 後述。</li>
+</ul>
+
+※ : /NOSD 、または /NODD オプション指定時を除く。
+
+<h4>ディレクトリの指定例</h4>
+<ul>
+    <li>ローカル : "C:\Somewhere\Subdirectory" </li>
+    <li>ネットワーク(共有フォルダ) : "\\Server01\Rootdirectory\Subdirectory"</li>
+</ul>
+
+<h4>オプション一覧</h4>
+<a href="https://learn.microsoft.com/ja-jp/windows-server/administration/windows-commands/robocopy">リファレンス</a><br>
+
+<h6>コピーオプション</h6>
+<table>
+    <tr class=row1>
+        <td class=col1>オプション</td>
+        <td>説明</td>
+        <td>備考</td>
+        <td>記述例</td>
+    </tr>
+    <tr>
+        <td class=col1>/S</td>
+        <td>サブディレクトリをコピーするが、空のディレクトリはコピーしない</td>
+        <td>/E とは排他</td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+
+        <td class=col1>/E</td>
+        <td>空のディレクトリを含むサブディレクトリをコピーする</td>
+        <td>/S とは排他</td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+
+        <td class=col1>/LEV:n</td>
+        <td>コピー元ディレクトリツリーの上位 n レベルのみをコピーする</td>
+        <td>n は自然数</td>
+        <td class="code"><cmt># 上位 3 レベルのみをコピー</cmt>
+robocopy <i>source destination</i> <b>/LEV:3</b></td>
+    </tr>
+    <tr>
+        <td class=col1>/Z</td>
+        <td>再起動可能モードで実行する</td>
+        <td>/B 、/ZB とは排他</td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/B</td>
+        <td>バックアップモードで実行する</td>
+        <td>/Z 、/ZB とは排他</td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/ZB</td>
+        <td>再起動可能モードで実行する</td>
+        <td>/Z 、/B とは排他<br>アクセスが拒否された場合はバックアップモードを使用する</td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/J</td>
+        <td>バッファーなしI/Oを使用する</td>
+        <td>大きなファイルで推奨</td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/EFSRAW</td>
+        <td>暗号化されたすべてのファイルを EFS RAW モードでコピーする</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/COPY:&lt;copyflags&gt;</td>
+        <td>コピーするファイルのプロパティ</td>
+        <td>指定可能な &lt;copyflags&gt;
+        <ul>
+            <li>D : データ</li>
+            <li>A : 属性</li>
+            <li>T : タイムスタンプ</li>
+            <li>X : 代替データストリームをスキップ</li>
+            <li>S : NTFS アクセス制御リスト (ACL)</li>
+            <li>O : 所有者情報</li>
+            <li>U : 監査情報</li>
+        </ul>
+        既定値は DAT
+        </td>
+        <td class="code"><cmt># ファイルのデータ、属性、タイムスタンプ、所有者情報をコピー</cmt>
+robocopy <i>source destination</i> <b>/COPY:DATO</b></td>
+    </tr>
+    <tr>
+        <td class=col1>/DCOPY:&lt;copyflags&gt;</td>
+        <td>コピーするディレクトリのプロパティ</td>
+        <td>指定可能な &lt;copyflags&gt;
+        <ul>
+            <li>D : データ</li>
+            <li>A : 属性</li>
+            <li>T : タイムスタンプ</li>
+            <li>E : 拡張属性</li>
+            <li>X : 代替データストリームをスキップ</li>
+        </ul>
+        既定値は DA
+        </td>
+        <td class="code"><cmt># ディレクトリのデータ、属性、タイムスタンプ、拡張属性をコピー</cmt>
+robocopy <i>source destination</i> <b>/DCOPY:DATE</b></td>
+    </tr>
+    <tr>
+        <td class=col1>/SEC</td>
+        <td>セキュリティを使用してコピーする</td>
+        <td>/COPY:DATS と同等</td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/COPYALL</td>
+        <td>ファイル情報をすべてコピーする</td>
+        <td>/COPY:DATSOU</td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/NOCOPY</td>
+        <td>ファイル情報をコピーしない</td>
+        <td>/PURGE と共に使用すると便利</td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/SECFIX</td>
+        <td>すべてのファイルのファイルセキュリティを修正する</td>
+        <td>スキップしたファイルも含む</td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/TIMFIX</td>
+        <td>すべてのファイルのファイル時刻を修正する</td>
+        <td>スキップしたファイルも含む</td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/PURGE</td>
+        <td>既にコピー元に存在しないコピー先のファイル・ディレクトリを削除する</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/MIR</td>
+        <td>ディレクトリツリーをミラーリングする</td>
+        <td>/E /PURGE と同等</td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/MOV</td>
+        <td>ファイルをコピーではなく移動する</td>
+        <td>コピー元からは削除される</td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/MOVE</td>
+        <td>ファイルとディレクトリをコピーではなく移動する</td>
+        <td>コピー元からは削除される</td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/A+:&lt;attributes&gt;</td>
+        <td>コピーされたファイルに指定の属性を追加する</td>
+        <td rowspan="2">指定可能な &lt;attributes&gt;
+        <ul>
+            <li>R : 読み取り専用</li>
+            <li>A : アーカイブ</li>
+            <li>S : システム</li>
+            <li>H : 非表示</li>
+            <li>C : 圧縮</li>
+            <li>N : コンテンツインデックスなし</li>
+            <li>E : 暗号化</li>
+            <li>T : 一時</li>
+        </ul>
+        </td>
+        <td class="code"><cmt># ファイルを読み取り専用にして暗号化、圧縮</cmt>
+robocopy <i>source destination</i> <b>/A+:RCE</b></td>
+    </tr>
+    <tr>
+        <td class=col1>/A-:&lt;attributes&gt;</td>
+        <td>コピーされたファイルから指定の属性を削除する</td>
+
+        <td class="code">
+        </td>
+    </tr>
+    <tr>
+        <td class=col1>/CREATE</td>
+        <td>ディレクトリツリー、または長さ 0 のファイルのみを作成する</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/FAT</td>
+        <td>8.3 FAT ファイル名のみを使用してコピー先ファイルを作成する</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/256</td>
+        <td>256 文字を超えるパスのサポートをオフにする</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/MON:n</td>
+        <td>コピー元を監視し、n 回を超える変更があった場合に再度実行する</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/MOT:m</td>
+        <td>コピー元を監視し、変更があった場合は m 分後に再度実行する</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/RH:hhmm-hhmm</td>
+        <td>新しいコピーを開始できる時間帯</td>
+        <td></td>
+        <td class="code"><cmt># 10:30～12:10 の間でのみ開始可能</cmt>
+robocopy <i>source destination</i> <b>/RH:1030-1210</b></td>
+    </tr>
+    <tr>
+        <td class=col1>/PF</td>
+        <td>実行時間をファイルごとに確認する</td>
+        <td>パスごとではない</td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/IPG:n</td>
+        <td>低速回線で帯域幅を解放するためのパケット間ギャップ</td>
+        <td>n はミリ秒</td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/SJ</td>
+        <td>ジャンクションをそのままコピーする</td>
+        <td>接合先ではない</td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/SL</td>
+        <td>シンボリックリンクをそのままコピーする</td>
+        <td>リンク先ではない</td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/MT<br>/MT:n</td>
+        <td>コピーをマルチスレッドで実行する</td>
+        <td><ul>
+            <li>n はスレッド数(1～128)<br>省略時は8スレッド</li>
+            <li>/IPG および /EFSRAW とは排他</li>
+            <li>パフォーマンス向上のため、/LOG オプションによる出力のリダイレクトが推奨される</li>
+        </ul></td>
+        <td class="code"><cmt># 8スレッドでコピーを実行( n の指定を省略)</cmt>
+robocopy <i>source destination</i> <b>/MT</b>
+
+<cmt># 12スレッドでコピーを実行</cmt>
+robocopy <i>source destination</i> <b>/MT:12</b></td>
+    </tr>
+    <tr>
+        <td class=col1>/NODCOPY</td>
+        <td>ディレクトリ情報をコピーしない</td>
+        <td>既定では /DCOPY:DA が実行される</td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/NOOFFLOAD</td>
+        <td>Windows のオフロードメカニズムを使用せずにファイルをコピーする</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/COMPRESS</td>
+        <td>ファイル転送中にネットワーク圧縮を要求する</td>
+        <td>可能な場合のみ適用される</td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/SPARSE</td>
+        <td>コピー中にファイルのスパース状態を保持する</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+</table>
+
+<h6>ファイル調整オプション</h6>
+
+<table>
+    <tr class=row1>
+        <td class=col1>オプション</td>
+        <td>説明</td>
+        <td>備考</td>
+        <td>記述例</td>
+    </tr>
+    <tr>
+        <td class=col1>/IOMAXSIZE:n[KMG]</td>
+        <td>サイクル当たりの最大I/Oサイズを指定する</td>
+        <td rowspan="3">サイズ指定は以下の書式を用いる
+            <ul>
+                <li>n : 数値</li>
+                <li>K : キロバイト</li>
+                <li>M : メガバイト</li>
+                <li>G : ギガバイト</li>
+            </ul>
+        </td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/IORATE:n[KMG]</td>
+        <td>I/Oレート(サイズ/秒)を指定する</td>
+
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/THRESHOLD:n[KMG]</td>
+        <td>調整を適用するファイルの最小サイズを指定する</td>
+
+        <td class="code"></td>
+    </tr>
+</table>
+
+<h6>ファイル選択オプション</h6>
+
+<table>
+    <tr class=row1>
+        <td class=col1>オプション</td>
+        <td>説明</td>
+        <td>備考</td>
+        <td>記述例</td>
+    </tr>
+    <tr>
+        <td class=col1>/A</td>
+        <td>アーカイブ属性が設定されているファイルのみをコピーする</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/M</td>
+        <td>アーカイブ属性のあるファイルのみをコピーし、リセットする</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/IA:&lt;attributes&gt;</td>
+        <td>指定されたいずれかの属性が設定されているファイルのみを含める</td>
+        <td rowspan="2">指定可能な &lt;attributes&gt;
+        <ul>
+            <li>R : 読み取り専用</li>
+            <li>A : アーカイブ</li>
+            <li>S : システム</li>
+            <li>H : 非表示</li>
+            <li>C : 圧縮</li>
+            <li>N : コンテンツインデックスなし</li>
+            <li>E : 暗号化</li>
+            <li>T : 一時</li>
+            <li>O : オフライン</li>
+        </ul>
+        </td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/XA:&lt;attributes&gt;</td>
+        <td>指定されたいずれかの属性が設定されているファイルを除外する</td>
+
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/XF &lt;filename(s)&gt;</td>
+        <td>指定された名前 / パス / ワイルドカードに一致するファイルを除外する</td>
+        <td><ul>
+            <li>スペース区切りで複数指定可能</li>
+            <li>ワイルドカード( * および ? )が使用可能</li>
+        </ul>
+        </td>
+        <td class="code"><cmt># HTMLおよびCSSを除外してコピー</cmt>
+robocopy <i>source destination</i> <b>/XF *.html *.css</b></td>
+    </tr>
+    <tr>
+        <td class=col1>/XD &lt;directoryname(s)&gt;</td>
+        <td>指定された名前 / パスに一致するディレクトリを除外する</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/XC</td>
+        <td>変更されたファイルを除外する</td>
+        <td>タイムスタンプが同じだが、サイズが異なるファイルを指す</td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/XN</td>
+        <td>コピー先ディレクトリよりも新しいファイルとディレクトリを除外する</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/XO</td>
+        <td>コピー先ディレクトリよりも古いファイルとディレクトリを除外する</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/XX</td>
+        <td>コピー先にだけ存在するファイルとディレクトリを除外する</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/XL</td>
+        <td>コピー元にだけ存在するファイルとディレクトリを除外する</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/IS</td>
+        <td>同一ファイルを含める</td>
+        <td>名前、サイズ、時刻およびすべての属性が同一のファイルを指す</td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/IT</td>
+        <td>異常なファイルを含める</td>
+        <td>名前、サイズ、時刻が同一で、属性が異なるファイルを指す</td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/MAX:n</td>
+        <td>最大ファイルサイズ : 指定サイズより大きいファイルを除外する</td>
+        <td rowspan="2">n はバイト数</td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/MIN:n</td>
+        <td>最小ファイルサイズ : 指定サイズより小さいファイルを除外する</td>
+
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/MAXAGE:n</td>
+        <td>最長ファイル有効期間 : 指定日より古いファイルを除外する</td>
+        <td rowspan="4">n はYYYYMMDD形式<br>または今日から遡る日数(1900未満)</td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/MINAGE:n</td>
+        <td>最短ファイル有効期間 : 指定日より新しいファイルを除外する</td>
+
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/MAXLAD:n</td>
+        <td>最大最終アクセス日 : 指定日以降アクセスされていないファイルを除外する</td>
+
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/MINLAD:n</td>
+        <td>最小最終アクセス日 : 指定日以降アクセスされたファイルを除外する</td>
+
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/FFT</td>
+        <td>FATファイル時間を想定する</td>
+        <td>2秒以内の誤差を許容する</td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/DST</td>
+        <td>1時間のDST時間差を補正する</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/XJ</td>
+        <td>シンボリックリンクとジャンクションを除外する</td>
+        <td>ファイル、ディレクトリの両方</td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/XJD</td>
+        <td>ディレクトリのシンボリックリンクとジャンクションを除外する</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/XJF</td>
+        <td>ファイルのシンボリックリンクを除外する</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/IM</td>
+        <td>変更されたファイルを含める</td>
+        <td>タイムスタンプが異なるファイルを指す</td>
+        <td class="code"></td>
+    </tr>
+</table>
+
+<h6>再試行オプション</h6>
+<table>
+    <tr class=row1>
+        <td class=col1>オプション</td>
+        <td>説明</td>
+        <td>備考</td>
+        <td>記述例</td>
+    </tr>
+    <tr>
+        <td class=col1>/R:n</td>
+        <td>コピー失敗時の再試行回数を指定する</td>
+        <td>既定値は 1,000,000</td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/W:n</td>
+        <td>再試行と再試行の間の待機時間を指定する</td>
+        <td>n は秒数 : 既定値 30 (30秒)</td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/REG</td>
+        <td>/R:n と /W:n の設定を既定値としてレジストリに保存する</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/TBD</td>
+        <td>共有名が定義されるのを待機する</td>
+        <td>再試行エラー 67</td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/LFSM<br>/LFSM:n[KMG]</td>
+        <td>「空き領域不足モード(LFSM)」で動作し、コピーの一時停止と再開を有効にする</td>
+        
+        <td>
+        <ul>
+            <li>コピー先ボリュームの空き容量が「フロア値」を下回るごとにRobocopyが一時停止し、<br>容量が回復すると再開する</li>
+            <li>フロア値の指定は以下の書式を用いる
+            <ul>
+                <li>n : 数値</li>
+                <li>K : キロバイト</li>
+                <li>M : メガバイト</li>
+                <li>G : ギガバイト</li>
+            </ul>
+            </li>
+            <li>フロア値を明示的に指定しない場合、フロア値はボリュームサイズの 10% となる</li>
+        </ul>
+        </td>
+        <td class="code"><cmt># フロア値を明示的に指定せずLFSMで動作</cmt>
+robocopy <i>source destination</i> <b>/LFSM</b>
+<cmt># フロア値を365MBに指定してLFSMで動作</cmt>
+robocopy <i>source destination</i> <b>/LFSM:365M</b></td>
+    </tr>
+</table>
+
+<h6>ログ関連オプション</h6>
+<table>
+    <tr class=row1>
+        <td class=col1>オプション</td>
+        <td>説明</td>
+        <td>備考</td>
+        <td>記述例</td>
+    </tr>
+    <tr>
+        <td class=col1>/L</td>
+        <td>ファイル名のみを記録する</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/X</td>
+        <td>選択されたファイルに加え、すべての余分なファイルを記録する</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/V</td>
+        <td>詳細出力を作成し、スキップされたファイル示す</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/TS</td>
+        <td>出力にコピー元ファイルのタイムスタンプを含める</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/FP</td>
+        <td>出力にファイルの完全なパス名を含める</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/BYTES</td>
+        <td>サイズをバイトで出力する</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/NS</td>
+        <td>ファイルサイズを出力しない</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/NC</td>
+        <td>ファイルクラスを出力しない</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/NFL</td>
+        <td>ファイル名を出力しない</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/NDL</td>
+        <td>ディレクトリ名を出力しない</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/NP</td>
+        <td>コピーの進捗(コピー済ファイル・ディレクトリの数)を表示しない</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/ETA</td>
+        <td>コピーの推定完了時刻を表示する</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/LOG:&lt;filename&gt;</td>
+        <td>指定されたファイルにログを出力する(上書き)</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/LOG+:&lt;filename&gt;</td>
+        <td>指定されたファイルにログを出力する(追記)</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/UNILOG:&lt;filename&gt;</td>
+        <td>指定されたファイルにログを出力する(上書き・Unicode)</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/UNILOG+:&lt;filename&gt;</td>
+        <td>指定されたファイルにログを出力する(追記・Unicode)</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/TEE</td>
+        <td>コピーの状態をコンソールウィンドウとログファイルに出力する</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/NJH</td>
+        <td>ジョブヘッダーが無いことを示す</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/NJS</td>
+        <td>ジョブ概要が無いことを示す</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/UNICODE</td>
+        <td>状態をUNICODEで出力する</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+</table>
+
+<h6>ジョブオプション</h6>
+<table>
+    <tr class=row1>
+        <td class=col1>オプション</td>
+        <td>説明</td>
+        <td>備考</td>
+        <td>記述例</td>
+    </tr>
+    <tr>
+        <td class=col1>/JOB:&lt;jobname&gt;</td>
+        <td>指定されたジョブファイルからパラメーターを取得する</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/SAVE:&lt;jobname&gt;</td>
+        <td>指定されたジョブファイルにパラメーターを保存する</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/QUIT</td>
+        <td>コマンドラインの処理後に終了する</td>
+        <td>パラメーターの表示のため</td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/NOSD</td>
+        <td>コピー元ディレクトリを指定しない</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/NODD</td>
+        <td>コピー先ディレクトリを指定しない</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+    <tr>
+        <td class=col1>/IF</td>
+        <td>後続のファイルを含める</td>
+        <td></td>
+        <td class="code"></td>
+    </tr>
+</table>
+
+<h2>使用例</h2>
+Robocopyの有効な用途として、ディレクトリ間のミラーリングが挙げられる。<br>
+これにより不要な(コピー元に存在しない)ファイルを削除しつつ、バックアップを作成できる。<br>
+以下を共通設定とする。
+<ul>
+    <li>コピー元 : C:\Users\Admin\Records</li>
+    <li>コピー先 : D:\Backup</li>
+    <li>ログ出力先 : C:\Logs\Backup.log</li>
+</ul>
+
+<h3>コピー先をコピー元にミラーリング、再試行最大2回、再試行間隔5秒</h3>
+<div class="code">
+robocopy C:\Users\Admin\Records D:\Backup /MIR /R:2 /W:5 /LOG:C:\Logs\Backup.log
+</div>
+
+<h3>すべてのファイルとサブディレクトリ(空を含む)を再起動可能モードでコピー</h3>
+<div class="code">
+robocopy C:\Users\Admin\Records D:\Backup /E /ZB /LOG:C:\Logs\Backup.log
+</div>
+
+<h3>空のディレクトリを除くファイルとサブディレクトリを移動、ただし7日より前のファイルを除外</h3>
+<div class="code">
+robocopy C:\Users\Admin\Records D:\Backup /S /MAXAGE:7 /MOV /LOG:C:\Logs\Backup.log
+</div>
+
+<h3>空のディレクトリを除くファイルとサブディレクトリをコピー、16スレッド使用、ファイルのデータ、属性、タイムスタンプを保持</h3>
+<div class="code">
+robocopy C:\Users\Admin\Records D:\Backup /S /E /COPY:DAT /MT:16 /LOG:C:\Logs\Backup.log
+</div>

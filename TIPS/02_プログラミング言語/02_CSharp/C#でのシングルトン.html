@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<h6>出典 :</h6>
+<a href="https://qiita.com/rohinomiya/items/6bca22211d1bddf581c4">C# で シングルトンパターン #C# - Qiita</a><br>
+<a href="https://jp-seemore.com/sys/17625/">C#シングルトンの完全ガイド！初心者向けの7つのステップ – Japanシーモア</a><br>
+<a href="https://qiita.com/Damin3927/items/006b2ee21c2d26b2b52c">本当の継承シングルトンを見せてやんよ【C#】 #C# - Qiita</a><br>
+
+<!-- 関連ページ -->
+<h6>関連 :</h6>
+<a href="TIPS/ソフトウェア開発一般/[オブジェクト指向]シングルトン.html">シングルトン</a><br>
+<a href="TIPS/dotNET・C Sharp/virtual・abstract・sealed.html">virtual・abstract・sealed</a><br>
+<a href="TIPS/dotNET・C Sharp/参照渡し.html">参照渡し</a>
+
+<!-- 目次 -->
+<h6>目次 :</h6>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+<h2>C#でのシングルトン</h2>
+デザインパターンのひとつである<a href="TIPS/ソフトウェア開発一般/[オブジェクト指向]シングルトン.html">シングルトン</a>パターンを、C#で実装する場合の例を以下に挙げる。
+
+<div class="cs">
+<cmt>// シングルトンクラス</cmt>
+<kwd>public</kwd> sealed <kwd>class</kwd> SingletonClass
+{
+    <cmt>// 唯一の SingletonClass インスタンス</cmt>
+    <kwd>private static</kwd> SingletonClass _singleInstance = <kwd>new</kwd> SingletonClass();
+
+    <cmt>// インスタンスを取得するためのプロパティ</cmt>
+    <kwd>public static</kwd> SingletonClass Instance
+    {
+        <kwd>get</kwd>
+        {
+            <kwd>return</kwd> _singleInstance;
+        }
+    }
+
+    <cmt>// コンストラクタ</cmt>
+    <kwd>private</kwd> SingletonClass()
+    {
+        <cmt>// (生成時に行う処理を記述する)</cmt>
+    }
+}
+</div>
+
+要点は以下のとおり。
+<ul>
+    <li>SingletonClass は public かつ sealed 修飾により、継承不可とする</li>
+    <li>唯一のインスタンスは private かつ static とする</li>
+    <li>唯一のインスタンスを取得するための public かつ static なメソッドまたはプロパティ(ここでは Instance )を設ける<br>
+    (プロパティの場合は読み取り専用とする)</li>
+    <li>コンストラクタを private とし、インスタンスをクラス外で生成できなくする</li>
+</ul>
+
+<h2>C++との差異</h2>
+C++の場合はコピー・ムーブの各コンストラクタおよび演算子を明示的に「定義なし」とする必要があったが、<br>
+C#ではクラスオブジェクトは参照渡しで、ムーブの概念が無いことからいずれも記述は不要である。<br>
+(C#にもコピーコンストラクタの概念自体は存在するが、ここでは割愛する。)<br>
+その他はC++と同様である。
+
+<h2>汎用シングルトンクラス</h2>
+シングルトン基底クラスを継承することで、上記のようなシングルトン特有のボイラープレートを省略することができる。<br>
+<a href="https://qiita.com/Damin3927/items/006b2ee21c2d26b2b52c">出典元</a>を参照。

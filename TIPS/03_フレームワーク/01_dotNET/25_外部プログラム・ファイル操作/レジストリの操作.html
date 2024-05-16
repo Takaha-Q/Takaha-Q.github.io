@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<h6>出典 :</h6>
+<a href="https://dobon.net/vb/dotnet/system/registrykey.html">レジストリへの書き込み、読み込み、削除を行う - .NET Tips (VB.NET,C#...)</a><br>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/fundamentals/runtime-libraries/microsoft-win32-registry">Microsoft.Win32.Registry クラス - .NET | Microsoft Learn</a><br>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/api/microsoft.win32.registry?view=net-8.0">Registry クラス (Microsoft.Win32) | Microsoft Learn</a>
+
+<!-- 関連ページ -->
+
+<!-- 目次 -->
+<h6>目次 :</h6>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+<h2>レジストリの操作</h2>
+<b>Microsoft.Win32.Registry</b> および <b>RegistryKey</b> クラスを用いることで、Windowsレジストリの操作を行うことができる。<br>
+以下、コードはすべてC#での例。
+
+<h2>基本(ルート)キーの取得</h2>
+以下に記す Microsoft.Win32.Registry の各フィールドには、レジストリの基本キーが読み込まれる。<br>
+
+<table>
+    <tr class="row1">
+        <td class="col1">フィールド</td>
+        <td>対応する基本キー</td>
+        <td>格納される内容</td>
+    </tr>
+
+    <tr>
+        <td class="col1">ClassesRoot</td>
+        <td>HKEY_CLASSES_ROOT</td>
+        <td>ドキュメントの型(またはクラス)と、それらに関連付けられるプロパティ</td>
+    </tr>
+
+    <tr>
+        <td class="col1">CurrentConfig</td>
+        <td>HKEY_CURRENT_CONFIG</td>
+        <td>各ユーザに共通のハードウェア構成情報</td>
+    </tr>
+
+    <tr>
+        <td class="col1">CurrentUser</td>
+        <td>HKEY_CURRENT_USER</td>
+        <td>現在のユーザ設定に関する情報</td>
+    </tr>
+
+    <tr>
+        <td class="col1">LocalMachine</td>
+        <td>HKEY_LOCAL_MACHINE</td>
+        <td>ローカルコンピュータの構成データ</td>
+    </tr>
+
+    <tr>
+        <td class="col1">PerformanceData</td>
+        <td>HKEY_PERFORMANCE_DATA</td>
+        <td>ソフトウェアコンポーネントのパフォーマンス情報</td>
+    </tr>
+
+    <tr>
+        <td class="col1">Users</td>
+        <td>HKEY_USERS</td>
+        <td>既定のユーザ構成に関する情報</td>
+    </tr>
+</table>
+
+<h2>レジストリへの書き込み</h2>
+<b>RegistryKey.CreateSubKey()</b> メソッドでキーを開き、<b>RegistryKey.SetValue()</b> メソッドで書き込みを行う。
+
+<div class="cs">
+<cmt>// キー ( HKEY_CURRENT_USER\Software\test\sub ) を開く</cmt>
+Microsoft.Win32.RegistryKey regkey = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(<ltr>@"Software\test\sub"</ltr>);
+
+<cmt>// 文字列を書き込む ⇒ REG_SZ 型で書き込まれる</cmt>
+regkey.SetValue(<ltr>"string"</ltr>, <ltr>"StringValue"</ltr>);
+
+<cmt>// 整数(Int32)を書き込む ⇒ REG_DWORD 型で書き込まれる</cmt>
+regkey.SetValue(<ltr>"int"</ltr>, <ltr>100</ltr>);
+
+<cmt>// 文字列配列を書き込む ⇒ REG_MULTI_SZ 型で書き込まれる</cmt>
+<kwd>string</kwd>[] s = <kwd>new string</kwd>[] { <ltr>"1"</ltr>, <ltr>"2"</ltr>, <ltr>"3"</ltr> };
+regkey.SetValue(<ltr>"StringArray"</ltr>, s);
+
+<cmt>// バイト配列を書き込む ⇒ REG_BINARY 型で書き込まれる</cmt>
+<kwd>byte</kwd>[] bs = <kwd>new byte</kwd>[] { <ltr>0</ltr>, <ltr>1</ltr>, <ltr>2</ltr> };
+regkey.SetValue(<ltr>"Bytes"</ltr>, bs);
+
+<cmt>// キーを閉じる</cmt>
+regkey.Close();
+</div>
+
+<h6>結果 : HKEY_CURRENT_USER\Software\test\sub</h6>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/dotNET/ModifyRegistry/01.png" alt="画像"><br>
+「(既定)」、「(標準)」に書き込む場合は、SetValue() の第1引数(値の名前)に空文字列か null を指定する。
+
+<h3>注意が必要な点</h3>
+RegistryKey.CreateSubKey() メソッドは、引数で指定されたサブキーが存在しない場合は新たにサブキーを作成する。<br>
+新たにキーを作成したくない場合は、RegistryKey.OpenSubKey() メソッドを用いて以下のようにする。
+<div class="cs">
+<cmt>// キー ( HKEY_CURRENT_USER\Software\test\sub ) を開く</cmt>
+Microsoft.Win32.RegistryKey regkey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(<ltr>@"Software\test\sub"</ltr>, <kwd>true</kwd>);
+</div>
+
+<h2>レジストリへの書き込み(型を指定)</h2>
+前節のように型を指定せず書き込んだ場合、既定の型が割り当てられる。<br>
+(Int32 型整数は REG_DWORD となるが、それ以外の整数は REG_SZ となる。)<br>
+SetValue() の第3引数で書き込む型を指定することができる。但し、値が指定された型に適合しない場合はエラーとなる。
+
+<div class="cs">
+<cmt>// キー ( HKEY_CURRENT_USER\Software\test\sub ) を開く</cmt>
+Microsoft.Win32.RegistryKey regkey = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(<ltr>@"Software\test\sub"</ltr>);
+
+<cmt>// REG_EXPAND_SZ で書き込む</cmt>
+regkey.SetValue(<ltr>"ExpandString"</ltr>, <ltr>"%windir%"</ltr>, Microsoft.Win32.RegistryValueKind.ExpandString);
+
+<cmt>// REG_QWORD で書き込む</cmt>
+regkey.SetValue(<ltr>"QWord"</ltr>, <ltr>1000</ltr>, Microsoft.Win32.RegistryValueKind.QWord);
+
+<cmt>// キーを閉じる</cmt>
+regkey.Close();
+</div>
+
+第3引数は Microsoft.Win32.RegistryValueKind で、メンバは以下の通りである。
+<table>
+    <tr class="row1">
+        <td class="col1">メンバ</td>
+        <td>対応するデータ型</td>
+        <td>格納できる値</td>
+    </tr>
+
+    <tr>
+        <td class="col1">Binary</td>
+        <td>REG_BINARY</td>
+        <td>バイナリデータ</td>
+    </tr>
+
+    <tr>
+        <td class="col1">DWord</td>
+        <td>REG_DWORD</td>
+        <td>32ビットの数値</td>
+    </tr>
+
+    <tr>
+        <td class="col1">ExpandString</td>
+        <td>REG_EXPAND_SZ</td>
+        <td>値を取得するときに展開される、環境変数(%PATH%など)を含む文字列</td>
+    </tr>
+
+    <tr>
+        <td class="col1">MultiString</td>
+        <td>REG_MULTI_SZ</td>
+        <td>文字列の配列</td>
+    </tr>
+
+    <tr>
+        <td class="col1">QWord</td>
+        <td>REG_QWORD</td>
+        <td>64ビットの数値</td>
+    </tr>
+
+    <tr>
+        <td class="col1">String</td>
+        <td>REG_SZ</td>
+        <td>文字列</td>
+    </tr>
+
+    <tr>
+        <td class="col1">Unknown</td>
+        <td>-</td>
+        <td>サポート外のデータ型。既定値</td>
+    </tr>
+</table>
+
+<h2>レジストリの読み込み</h2>
+レジストリの値を読み込む際は、<b>RegistryKey.OpenSubKey()</b> メソッドでキーを開き、<b>RegistryKey.GetValue()</b> メソッドで読み込む。<br>
+「(既定)」、「(標準)」を読み込む場合は、GetValue() の第1引数(値の名前)に空文字列か null を指定する。
+
+<div class="cs">
+<cmt>// キー ( HKEY_CURRENT_USER\Software\test\sub ) を読み取り専用で開く</cmt>
+Microsoft.Win32.RegistryKey regkey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(<ltr>@"Software\test\sub"</ltr>, <kwd>false</kwd>);
+<cmt>// キーが存在しないときは null が返される</cmt>
+<kwd>if</kwd> (regkey == <kwd>null</kwd>) <kwd>return</kwd>;
+
+<cmt>// 文字列を読み込む</cmt>
+<cmt>// (指定した名前の値が存在しないときは null が返される)</cmt>
+<kwd>string</kwd> stringValue = (<kwd>string</kwd>)regkey.GetValue(<ltr>"string"</ltr>);
+
+<cmt>// キーに値が存在しないときに指定した値を返すようにするには、次のようにする</cmt>
+<cmt>// (ここでは"default"を返す)</cmt>
+<cmt>// string stringValue = (string)regkey.GetValue("string", "default");</cmt>
+
+<cmt>// 整数を読み込む</cmt>
+<kwd>int</kwd> intValue = (<kwd>int</kwd>)regkey.GetValue(<ltr>"int"</ltr>);
+<kwd>long</kwd> longVal = (<kwd>long</kwd>)regkey.GetValue(<ltr>"QWord"</ltr>);
+
+<cmt>// 文字列配列を読み込む</cmt>
+<kwd>string</kwd>[] strings = (<kwd>string</kwd>[])regkey.GetValue(<ltr>"StringArray"</ltr>);
+
+<cmt>// バイト配列を読み込む</cmt>
+<kwd>byte</kwd>[] bytes = (<kwd>byte</kwd>[])regkey.GetValue(<ltr>"Bytes"</ltr>);
+
+<cmt>// キーを閉じる</cmt>
+regkey.Close();
+</div>
+
+<h3>REG_EXPAND_SZ 型のデータをそのまま取得する</h3>
+GetValue() の第3引数に Microsoft.Win32.RegistryValueOptions.DoNotExpandEnvironmentNames を指定すると、環境変数を展開せずに値を取得できる。
+
+<h2>サブキーと値の名前を取得</h2>
+キーに存在するすべてのサブキーは <b>RegistryKey.GetSubKeyNames()</b> メソッド、すべての値の名前は <b>RegistryKey.GetValueNames()</b> メソッドで取得できる。<br>
+またサブキーおよび値の数は <b>RegistryKey.SubKeyCount()</b> 、<b>RegistryKey.ValueCount()</b> メソッドで取得できる。
+
+<div class="cs">
+<cmt>// キー ( HKEY_CURRENT_USER\Software\test\sub ) を読み取り専用で開く</cmt>
+Microsoft.Win32.RegistryKey regkey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(<ltr>@"Software\test\sub"</ltr>, <kwd>false</kwd>);
+
+<cmt>// キーにあるサブキーの数を表示</cmt>
+<knw>Console</knw>.WriteLine(<ltr>"サブキーの数:{0}"</ltr>, regkey.SubKeyCount);
+
+<cmt>// キーにあるすべてのサブキー名を表示</cmt>
+<kwd>string</kwd>[] keyNames = regkey.GetSubKeyNames();
+<kwd>foreach</kwd> (<kwd>string</kwd> k <kwd>in</kwd> keyNames)
+{
+    <knw>Console</knw>.WriteLine(k);
+}
+
+<cmt>// キーにある値の数を表示</cmt>
+<knw>Console</knw>.WriteLine(<ltr>"キーの値の数:{0}"</ltr>, regkey.ValueCount);
+
+<cmt>// キーにあるすべての値の名前を表示</cmt>
+<kwd>string</kwd>[] valueNames = regkey.GetValueNames();
+<kwd>foreach</kwd> (<kwd>string</kwd> v <kwd>in</kwd> valueNames)
+{
+    <knw>Console</knw>.WriteLine(v);
+}
+
+<cmt>// キーを閉じる</cmt>
+regkey.Close();
+</div>
+
+<h2>値の種類を取得</h2>
+<b>RegistryKey.GetValueKind()</b> メソッドで値の種類( RegistryValueKind 列挙体)を取得できる。
+
+<div class="cs">
+<cmt>// キー ( HKEY_CURRENT_USER\Software\test\sub ) を読み取り専用で開く</cmt>
+Microsoft.Win32.RegistryKey regkey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(<ltr>@"Software\test\sub"</ltr>, <kwd>false</kwd>);
+
+<cmt>// "string" の値が REG_SZ ならば</cmt>
+<cmt>// string型として取得する</cmt>
+<kwd>if</kwd>( regkey.GetValueKind(<ltr>"string"</ltr>) == Microsoft.Win32.RegistryValueKind.<knw>String</knw> )
+{
+    <kwd>string</kwd> stringValue = (<kwd>string</kwd>)regkey.GetValue(<ltr>"string"</ltr>);
+}
+
+<cmt>// キーを閉じる</cmt>
+regkey.Close();
+</div>
+
+<h2>レジストリの削除</h2>
+キーにある値は <b>RegistryKey.DeleteValue()</b> メソッドで削除できる。<br>
+キー自体は <b>RegistryKey.DeleteSubKey()</b> メソッドで削除できるが、指定されたキーがサブキーを持っていると失敗する。<br>
+<b>RegistryKey.DeleteSubKeyTree()</b> メソッドを用いると、サブキーの有無を問わず強制的に削除できる。
+
+<div class="cs">
+<cmt>// キー ( HKEY_CURRENT_USER\Software\test\sub ) を書き込み許可で開く</cmt>
+Microsoft.Win32.RegistryKey regkey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(<ltr>@"Software\test\sub"</ltr>, <kwd>true</kwd>);
+
+<cmt>// "HKEY_CURRENT_USER\Software\test" にある "string" という値を削除する</cmt>
+regkey.DeleteValue(<ltr>"string"</ltr>);
+<cmt>// 次のようにすると指定した値が見つからなくてもエラーが出ない</cmt>
+<cmt>// regkey.DeleteValue("string", false);</cmt>
+
+<cmt>// キー "HKEY_CURRENT_USER\Software\test\sub" を削除する</cmt>
+regkey.DeleteSubKey(<ltr>"sub"</ltr>);
+<cmt>// 次のようにすると指定したキーが見つからなくてもエラーが出ない</cmt>
+<cmt>// regkey.DeleteSubKey("sub", false);</cmt>
+
+<cmt>// キーを閉じる</cmt>
+regkey.Close();
+
+<cmt>// "HKEY_CURRENT_USER\Software\test" 以下を強制的に削除する</cmt>
+Microsoft.Win32.Registry.CurrentUser.DeleteSubKeyTree(<ltr>@"Software\test"</ltr>);
+</div>
+
+<h2>静的メソッドを用いた読み書き</h2>
+静的メソッド <b>Registry.GetValue()</b> 、<b>Registry.SetValue()</b> を用いることでも値の読み書きが可能である。<br>
+内部では RegistryKey.OpenSubKey() でキーを開き、値を RegistryKey.GetValue() で取得、または RegistryKey.SetValue() で更新した後 RegistryKey.Close() でキーを閉じている。
+一度の手順で簡便に読み書きができる。キーの指定方法が異なる点に注意。
+
+<div class="cs">
+<cmt>// キー HKEY_CURRENT_USER\Software\test\sub の値 "string" を読み込む</cmt>
+<kwd>string</kwd> stringValue = (<kwd>string</kwd>)Microsoft.Win32.Registry.GetValue(<ltr>@"HKEY_CURRENT_USER\Software\test\sub"</ltr>, <ltr>"string"</ltr>, <ltr>"<kwd>default</kwd>"</ltr>);
+
+<cmt>// キー HKEY_CURRENT_USER\Software\test\sub の値 "string" を書き込む</cmt>
+Microsoft.Win32.Registry.SetValue(<ltr>@"HKEY_CURRENT_USER\Software\test\sub"</ltr>, <ltr>"string"</ltr>, <ltr>"StringValue"</ltr>);
+</div>

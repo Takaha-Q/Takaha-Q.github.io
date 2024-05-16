@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<h6>出典 :</h6>
+<a href="https://docs.microsoft.com/ja-jp/dotnet/desktop/winforms/how-to-implement-the-inotifypropertychanged-interface?view=netframeworkdesktop-4.8&redirectedfrom=MSDN">方法: INotifyPropertyChanged インターフェイスを実装する - WinForms .NET Framework | Microsoft Docs</a><br>
+<a href="https://qiita.com/ledsun/items/6f4ef754e5ae2507e531">INotifyPropertyChanged実装のありえない面倒くささと、ReactivePropertyの信じられない素晴らしさ - Qiita</a><br>
+<a href="https://qiita.com/okazuki/items/7572f46848d0e93516b1">MVVM をリアクティブプログラミングで快適に ReactiveProperty オーバービュー 2020 年版 前編 - Qiita</a><br>
+<a href="https://github.com/runceel/reactiveproperty">runceel/ReactiveProperty: GitHub</a><br>
+
+<!-- 関連ページ -->
+<h6>関連 :</h6>
+<a href="TIPS/Windows Presentation Foundation(WPF)/[データバインディング]データバインディング.html">データバインディング</a><br>
+<a href="TIPS/Visual Studio/[Visual Studio]NuGetパッケージの追加.html">NuGetパッケージの追加</a><br>
+
+<!-- 目次 -->
+<h6>目次 :</h6>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>ReactiveProperty ( Reactive.Bindings.ReactiveProperty )とは</h2>
+WPFのデータバインディングにおいて、ソースとして用いることを前提につくられたクラス。<br>
+ReactiveProperty を用いることで、ソースの変更を容易にターゲットに反映させることができる。
+
+<h3>ReactiveProperty 誕生の背景</h3>
+<a href="TIPS/Windows Presentation Foundation(WPF)/[データバインディング]データバインディング.html">データバインディング</a>において、
+単にソースとターゲットを関連付けるだけではソースの変更がターゲットに反映されない。<br>
+従来は INotifyPropertyChanged インタフェースを実装することでこの問題を解決していたが、この実装は煩雑である。<br>
+(詳細は出典元ページを参照。)<br>
+このため <b>ReactiveProperty</b> が開発され、簡便な手順でデータバインディングを実現できるようになった。
+
+<h3>ReactiveProperty と ReactivePropertySlim</h3>
+ReactiveProperty の改良版として、ReactivePropertySlim ( Reactive.Bindings.ReactivePropertySlim )が存在する。<br>
+機能は ReactiveProperty と同等であるが、よりメモリ効率が良く高速であるため、特段の事情が無ければこちらを用いるのがよい。<br>
+
+<h2>ReactiveProperty の導入</h2>
+使用する際は、<a href="TIPS\Visual Studio・.NET\[Visual Studio]NuGetパッケージの追加.html">NuGet</a>から ReactiveProperty パッケージを取得する。<br>
+バージョン4.1.0以降は ReactivePropertySlim が同梱されている。
+
+<h3>実装例</h3>
+
+<h6>ViewModel : SampleViewModel.cs</h6>
+<div class="code">
+<kwd>using</kwd> Reactive.Bindings;         <cmt>// ReactivePropertySlim を使用するための参照</cmt>
+
+<cmt>// データソース用クラス</cmt>
+<kwd>public class</kwd> SampleViewModel
+{
+    <cmt>// バインディングソース Count を ReactivePropertySlim として宣言</cmt>
+    <cmt>// 初期値に 0 を指定</cmt>
+    <kwd>public readonly</kwd> <b class="red">ReactivePropertySlim</b>&lt;<kwd>int</kwd>&gt; Count
+    { <kwd>get</kwd>; }
+    = <kwd>new</kwd> <b class="red">ReactivePropertySlim</b>&lt;<kwd>int</kwd>&gt;(0);
+}
+</div>
+
+<h6>View : MainWindow.xaml</h6>
+<div class="code">
+&lt;StackPanel&gt;
+    &lt;!-- TextBlock の Text を DataContext の Count に関連付け --&gt;
+    &lt;TextBlock Text="{Binding Path=Count.Value}"/&gt;
+    &lt;Button Click="CountUp_Click" Content="Count Up!"/&gt;
+&lt;/StackPanel&gt;
+</div>
+
+<h6>View(コードビハインド) : MainWindow.xaml.cs</h6>
+<div class="code">
+<kwd>public partial class</kwd> MainWindow : Window
+{
+    <cmt>// コンストラクタ</cmt>
+    <kwd>public</kwd> MainWindow()
+    {
+        InitializeComponent();
+
+        <cmt>// データソースの指定</cmt>
+        <kwd>this</kwd>.DataContext</b> = <kwd>new</kwd> SampleViewModel()
+        {
+            Count.Value = 0
+        };
+    }
+    
+    <cmt>// ボタン「Count Up!」クリック時の処理</cmt>
+    <kwd>private void</kwd> CountUp_Click(<kwd>object</kwd> sender, RoutedEventArgs e)
+    {
+        (SampleViewModel)DataContext.Count.Value++;
+    }
+}
+</div>
+
+ReactiveProperty / ReactivePropertySlim はジェネリクスであり、任意の型を実データとして用いることができる。<br>
+上記の例では、Count プロパティを ReactivePropertySlim として宣言しており、実データは int 型である。<br>
+コンストラクタ引数で初期値を与えることができる。<br>
+実データは Count プロパティを介してアクセスすることに注意( Count ではなく Count.Value )。

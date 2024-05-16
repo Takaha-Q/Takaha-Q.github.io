@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典 -->
+<h6>出典 :</h6>
+<a href="https://ja.wikipedia.org/wiki/%E3%83%AF%E3%82%A4%E3%83%89%E6%96%87%E5%AD%97">ワイド文字 - Wikipedia</a><br>
+<a href="https://ja.wikipedia.org/wiki/Unicode">Unicode - Wikipedia</a><br>
+<a href="https://learn.microsoft.com/ja-jp/cpp/cpp/char-wchar-t-char16-t-char32-t?view=msvc-170">char、wchar_t、char8_t、char16_t、char32_t | Microsoft Learn</a><br>
+<a href="https://cpprefjp.github.io/lang/cpp11/char16_32.html">char16_tとchar32_t - cpprefjp C++日本語リファレンス</a><br>
+<a href="https://cpprefjp.github.io/lang/cpp20/char8_t.html">UTF-8エンコーディングされた文字の型として`char8_t`を追加 - cpprefjp C++日本語リファレンス</a><br>
+<a href="https://cpprefjp.github.io/lang/cpp20/make_char16t_char32t_string_literals_be_utf16_32.html">char16_tとchar32_tの文字・文字列リテラルを、文字コードUTF-16/32に規定 - cpprefjp C++日本語リファレンス</a><br>
+<a href="https://cpprefjp.github.io/reference/string/basic_string.html">basic_string - cpprefjp C++日本語リファレンス</a><br>
+<a href="https://cpprefjp.github.io/reference/string/basic_string/op_s.html">sリテラル - cpprefjp C++日本語リファレンス</a><br>
+<a href="https://www.sejuku.net/blog/52403">【C++入門】string型⇔char*型に変換する方法まとめ | 侍エンジニアブログ</a><br>
+
+<!-- 関連 -->
+<h6>関連 :</h6>
+<a href="TIPS\C・C++\stringとcharポインタの相互変換.html">stringとcharポインタの相互変換</a><br>
+<a href="TIPS\C・C++\stringstream.html">stringstream</a><br>
+
+<!-- 目次 -->
+<h6>目次 :</h6>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>C++における文字・文字列表現</h2>
+<h3>C++03以前</h3>
+Cでは文字型として <b>char</b> を用いている。これはシングルバイト(ASCIIまたはASCIIを包含するISO-8859)の1文字、およびマルチバイト文字の個々のバイトを格納する。<br>
+文字列は char [n] ( char 型の配列)で表現する。<br>
+C++では <b>std::string</b> が追加され、文字列をより簡便に扱えるようになった。この std::string は char 型を要素に取る動的配列である。<br>
+即ち char [n] 同様、1要素が1文字を表すとは限らない。<br>
+<br>
+char を用いた場合、仮名や漢字を扱うマルチバイト環境では本来1文字であっても文字列として扱わなければならないなどの不便があり、<br>
+1文字を1つの整数値として扱えるワイド文字( <b>wchar_t</b> )が後に追加された。wchar_t はCにおいては他の型のエイリアスだが、C++ではキーワード(予約語)である。<br>
+wchar_t の符号化形式(文字コード)はシステムによって異なり、2023年現在、WindowsではUTF-16、LinuxやmacOSではUTF-32である。<br>
+このため、符号化形式の異なるシステムへの移植の際に問題となることがあった。<br>
+
+<h3>C++11以降</h3>
+2000年代以降<a href="https://ja.wikipedia.org/wiki/Unicode">UCS/Unicode</a>が普及し、文字コードの標準化が進んだ。<br>
+これを受け、UTF-16およびUTF-32の1文字を格納するための <b>char16_t</b> 、<b>char32_t</b> が標準C++(C++11)に導入された。<br>
+さらにC++20ではUTF-8に対応した <b>char8_t</b> が追加された。この char8_t は unsigned char 型と同サイズであるが、char および unsigned char とは明確に区別される。<br>
+UTF-8は1文字が可変幅(割り当てられるバイト数が文字によって異なる)であり、char8_t は char 同様、1文字を表すとは限らない。
+
+<h2>basic_string</h2>
+<a href="https://cpprefjp.github.io/reference/string/basic_string.html">std::basic_string</a> クラスは、あらゆる文字型を使用できる文字クラスである。<br>
+先述の std::string の実態は std::basic_string&lt;char&gt; のエイリアスであり、他の文字型をテンプレートパラメータとするエイリアスも同様に用意されている。<br>
+使用する際は、<b>&lt;string&gt;</b> のインクルードが必要となる。<br>
+
+<h2>リテラル</h2>
+文字および文字列リテラルはプレフィックスを付与することで型を規定することができる。<br>
+また <b>s</b> サフィックスを付与すると配列ではなく、各文字型の basic_string オブジェクトを構築できる。<br>
+( s サフィックスは正しくは <b>""s</b> 演算子関数として std::literals::string_literals 名前空間に定義されている。詳細は<a href="https://cpprefjp.github.io/reference/string/basic_string/op_s.html">リンク先</a>を参照。)
+
+<div class="cpp">
+<kwd>#include</kwd> &lt;<kwd>string</kwd>&gt;
+
+<kwd>int</kwd> main()
+{
+    <kwd>using namespace std</kwd>::literals::string_literals;     <cmt>//< s サフィックスの名前解決</cmt>
+
+    <cmt>// L プレフィックスを付与 ⇒ wchar_t のシーケンス</cmt>
+    <kwd>wchar_t</kwd> s[] = <ltr>L"あいうえお"</ltr>;
+
+    <cmt>// u8 プレフィックスを付与 ⇒ char8_t のシーケンス</cmt>
+    <kwd>char8_t</kwd> s8[] = <ltr>u8"あいうえお"</ltr>;
+
+    <cmt>// u プレフィックスを付与 ⇒ char16_t のシーケンス</cmt>
+    <kwd>char16_t</kwd> s16[] = <ltr>u"あいうえお"</ltr>;
+
+    <cmt>// U プレフィックスを付与 ⇒ char32_t のシーケンス</cmt>
+    <kwd>char32_t</kwd> s32[] = <ltr>U"あいうえお"</ltr>;
+
+    <cmt>// s サフィックスを付与 ⇒ string リテラル( const char* ではない)</cmt>
+    <kwd>std</kwd>::<kwd>string</kwd> sx = <ltr>"hello"s</ltr>;
+
+    <cmt>// s と U の併用 ⇒ u16string リテラル</cmt>
+    <kwd>std</kwd>::<kwd>u16string</kwd> sy = <ltr>U"hello"s</ltr>;
+}
+</div>
+
+u8 プレフィックスを付与するとC++17までは const char* とされていたが、C++20以降では const char8_t* として扱われる。<br>
+
+<div class="cpp">
+</div>
+
+<h2>まとめ</h2>
+<table>
+    <tr class="row1">
+        <td class="col1"></td>
+        <td>文字型</td>
+        <td>サイズ<br>[byte]</td>
+        <td>文字列型( basic_string )</td>
+        <td>リテラル</td>
+        <td>備考</td>
+    </tr>
+
+    <tr>
+        <td class="col1">シングルバイト</td>
+        <td>char</td>
+        <td>1</td>
+        <td>std::string<br>
+            ( std::basic_string&lt;char&gt; )</td>
+        <td class="cpp"><kwd>char</kwd> c = <ltr>'a'</ltr>;
+<kwd>char</kwd> ca[] = <ltr>"abc"</ltr>;
+<kwd>std</kwd>::<kwd>string</kwd> s = <ltr>"abc"<b>s</b></ltr>;
+</td>
+        <td>文字コードは処理系依存<br>1要素が1文字を表すとは限らない</td>
+    </tr>
+
+    <tr>
+        <td class="col1">ワイド文字</td>
+        <td>wchar_t</td>
+        <td>(処理系依存)</td>
+        <td>std::wstring<br>
+            ( std::basic_string&lt;wchar_t&gt; )</td>
+        <td class="cpp"><kwd>wchar_t</kwd> c = <ltr><b>L</b>'神'</ltr>;
+<kwd>wchar_t</kwd> ca[] = <ltr><b>L</b>"神社"</ltr>;
+<kwd>std</kwd>::<kwd>wstring</kwd> s = <ltr><b>L</b>"神社"<b>s</b></ltr>;
+</td>
+        <td>文字コードは処理系依存</td>
+    </tr>
+
+    <tr>
+        <td class="col1">UTF-8</td>
+        <td>char8_t</td>
+        <td>1</td>
+        <td>std::u8string<br>
+            ( std::basic_string&lt;char8_t&gt; )</td>
+        <td class="cpp"><kwd>char8_t</kwd> c = <ltr><b>u8</b>'神'</ltr>;
+<kwd>char8_t</kwd> ca[] = <ltr><b>u8</b>"神社"</ltr>;
+<kwd>std</kwd>::<kwd>u8string</kwd> s = <ltr><b>u8</b>"神社"<b>s</b></ltr>;
+</td>
+        <td>C++20以降<br>1要素が1文字を表すとは限らない</td>
+    </tr>
+
+    <tr>
+        <td class="col1">UTF-16</td>
+        <td>char16_t</td>
+        <td>2</td>
+        <td>std::u16string<br>
+            ( std::basic_string&lt;char16_t&gt; )</td>
+        <td class="cpp"><kwd>char16_t</kwd> c = <ltr><b>u</b>'神'</ltr>;
+<kwd>char16_t</kwd> ca[] = <ltr><b>u</b>"神社"</ltr>;
+<kwd>std</kwd>::<kwd>u16string</kwd> s = <ltr><b>u</b>"神社"<b>s</b></ltr>;
+</td>
+        <td>C++11以降</td>
+    </tr>
+
+    <tr>
+        <td class="col1">UTF-32</td>
+        <td>char32_t</td>
+        <td>4</td>
+        <td>std::u32string<br>
+            ( std::basic_string&lt;char32_t&gt; )</td>
+        <td class="cpp"><kwd>char32_t</kwd> c = <ltr><b>U</b>'神'</ltr>;
+<kwd>char32_t</kwd> ca[] = <ltr><b>U</b>"神社"</ltr>;
+<kwd>std</kwd>::<kwd>u32string</kwd> s = <ltr><b>U</b>"神社"<b>s</b></ltr>;
+</td>
+        <td>C++11以降</td>
+    </tr>
+</table>

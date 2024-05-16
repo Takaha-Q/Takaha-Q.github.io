@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典 -->
+<h6>出典 :</h6>
+<a href="https://excel-ubara.com/excelvba1/EXCELVBA440.html">Property {Get|Let|Set} ステートメント｜VBA入門</a><br>
+<a href="https://excel-ubara.com/vba_class/VBA_CLASS_15.html">PropertyのSetはLetでも良い｜VBA技術解説</a>
+
+
+<!-- 関連 -->
+
+<!-- 目次 -->
+<h6>目次 :</h6>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>VBAにおけるプロパティ</h2>
+モジュール(オブジェクト)外部に対しては変数、内部に対してはメソッドとして振る舞うプロシージャのこと。C#などのプロパティと共通の概念である。<br>
+モジュール外からは変数のように、値の取得・設定が簡便に行える。<br>
+クラスモジュール、フォーム、標準モジュールのいずれにもプロパティ(カスタムプロパティ)を作成することができる。
+
+<h3>プロパティの例</h3>
+<span class="vba">Range("A1").Value</span>の Value は Range オブジェクトのプロパティである。<br>
+この Value プロパティは値の取得・設定が可能であるが、取得・設定のいずれかのみが可能なものも存在する。<br>
+カスタムプロパティにおいても取得(Get)・設定(Let / <kwd>Set</kwd>)を自由に定義することができる。
+
+<h2>カスタムプロパティの定義例</h2>
+
+<h3>対象がオブジェクト以外(プリミティブ型)</h3>
+<h6>SomeClass.cls (クラスモジュール)</h6>
+<div class="vba">
+<kwd>Option Explicit</kwd>
+
+<cmt>' プロパティで取得・設定する実体</cmt>
+<kwd>Private</kwd> m_Text <kwd>As String</kwd>
+
+<cmt>' 値の取得(Get)</cmt>
+<kwd>Public Property</kwd> Get Text() <kwd>As String</kwd>
+
+    <cmt>' m_Text の値を返す</cmt>
+    Text = m_Text
+
+<kwd>End Property</kwd>
+
+<cmt>' 値の設定(Let)</cmt>
+<kwd>Public Property</kwd> Let Text(val <kwd>As String</kwd>)
+
+    <cmt>' m_Text に書き戻す</cmt>
+    m_Text = val
+
+<kwd>End Property</kwd>
+</div>
+
+<h6>SomeModule.bas (標準モジュール)</h6>
+<div class="vba">
+<kwd>Option Explicit</kwd>
+
+<kwd>Private Sub</kwd> DoSomething()
+
+    <kwd>Dim</kwd> sc <kwd>As New</kwd> SomeClass
+
+    <cmt>' Text プロパティに値を設定 (Let を呼び出す)</cmt>
+    sc.Text = <ltr>"テスト"</ltr>
+
+    <kwd>Dim</kwd> ttt
+
+    <cmt>' Text プロパティの値を取得 (Get を呼び出す)</cmt>
+    ttt = sc.Text
+
+<kwd>End Sub</kwd>
+</div>
+
+上記は、基本的なカスタムプロパティの定義例である。<br>
+ここで「プリミティブ型」は数値型や文字列など、オブジェクト(クラス)以外を指す。<br>
+Get と Let のプロシージャ名(<knw>Text</knw>)を同一とすることで、一対のプロパティとして関連付けることができる。<br>
+この場合 Get の戻り値と Let の引数は型が同じでないとエラーとなる点に注意。
+
+<h3>対象がオブジェクト</h3>
+<h6>SomeClass.cls (クラスモジュール)</h6>
+<div class="vba">
+<kwd>Option Explicit</kwd>
+
+<cmt>' プロパティで取得・設定する実体</cmt>
+<kwd>Private</kwd> m_Obj <kwd>As Object</kwd>
+
+<cmt>' オブジェクト参照の取得(Get)</cmt>
+<kwd>Public Property</kwd> Get Obj() <kwd>As Object</kwd>
+
+    <cmt>' m_Obj (への参照)を返す</cmt>
+    <kwd>Set</kwd> Obj = m_Obj
+
+<kwd>End Property</kwd>
+
+<cmt>' オブジェクト参照の設定(Set)</cmt>
+<kwd>Public Property Set</kwd> Obj(val <kwd>As Object</kwd>)
+
+    <cmt>' m_Obj に書き戻す</cmt>
+    <kwd>Set</kwd> m_Obj = val
+
+<kwd>End Property</kwd>
+</div>
+
+<h6>SomeModule.bas (標準モジュール)</h6>
+<div class="vba">
+<kwd>Option Explicit</kwd>
+
+<kwd>Private Sub</kwd> DoSomething()
+
+    <kwd>Dim</kwd> sc <kwd>As New</kwd> SomeClass
+
+    <cmt>' Obj プロパティに値を設定 (Set を呼び出す)</cmt>
+    <kwd>Set</kwd> sc.Obj = <kwd>New</kwd> OtherClass
+
+    <kwd>Dim</kwd> ttt <kwd>As Object</kwd>
+
+    <cmt>' Obj プロパティの値を取得 (Get を呼び出す)</cmt>
+    <kwd>Set</kwd> ttt = sc.Obj
+
+<kwd>End Sub</kwd>
+</div>
+
+プリミティブ型では値の設定に Let を用いていたが、オブジェクトでは <kwd>Set</kwd> を用いる点が異なる。
+
+<h2>余談</h2>
+オブジェクトを対象とする場合、<kwd>Property Set</kwd> ではなく <kwd>Property</kwd> Let で定義しても問題なく動作する。<br>
+その場合は呼び出す際に <kwd>Set</kwd> ではなく Let を付与する。<br>
+ただ混乱のもととなりかねないため、特段の事情が無い限りは <kwd>Set</kwd> を用いるほうが望ましい。

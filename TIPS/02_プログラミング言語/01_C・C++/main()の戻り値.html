@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典・関連ページ -->
+
+<!-- 目次 -->
+<h6>目次 :</h6>
+<div id="toc"></div>
+<hr>
+<!-- 本文ここから -->
+
+<h2>main() 関数の戻り値</h2>
+C/C++の main() 関数はアプリケーションのエントリポイントであり、通常はオペレーティングシステムからコールされる。<br>
+この main() 関数の戻り値は一般的には int 型で、そのアプリケーションが正常に終了したかを表す。具体的な値を下表に示す。
+
+<table>
+    <tr class="row1">
+        <td>実行結果</td>
+        <td>戻り値</td>
+    </tr>
+
+    <tr>
+        <td>アプリケーションが正常終了</td>
+        <td>0 または<br>EXIT_SUCCESS (※)</td>
+    </tr>
+
+    <tr>
+        <td>アプリケーションが不正終了(失敗)</td>
+        <td>EXIT_FAILURE (※)</td>
+    </tr>
+</table>
+
+(※ : &lt;stdlib.h&gt; / &lt;cstdlib&gt; で定義)<br>
+<br>
+ここで、<b>戻り値を指定しない( return 文に到達しないまま main() 関数を終了した)場合は、暗黙的に 0 (正常終了)が返される</b>。<br>
+即ち、正常終了した旨を表す return 0; を明示的に記述する必要が無い。
+
+<div class="cpp">
+<kwd>#include</kwd> &lt;cstdlib&gt;
+
+<kwd>int</kwd> main (<kwd>int</kwd> argc, <kwd>char</kwd> *argv[])
+{
+   <cmt>// 何らかの処理</cmt>
+   :
+
+   <cmt>// return 文を記述しない場合は return 0; と等価</cmt>
+}
+</div>

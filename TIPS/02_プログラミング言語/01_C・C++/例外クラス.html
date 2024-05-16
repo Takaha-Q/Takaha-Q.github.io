@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<h6>出典 :</h6>
+<a href="https://programming-place.net/ppp/contents/cpp/library/017.html">例外クラス | Programming Place Plus　C++編【標準ライブラリ】　第１７章</a><br>
+<a href="https://cpprefjp.github.io/reference/exception/exception.html">exception - cpprefjp C++日本語リファレンス</a>
+
+<!-- 関連ページ -->
+<h6>関連 :</h6>
+<a href="TIPS\C・C%2B%2B\例外処理.html">例外処理</a>
+
+<!-- 目次 -->
+<h6>目次 :</h6>
+<div id="toc"></div>
+
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>C++標準の例外クラス</h2>
+C++の標準ライブラリには、例外として送出するためのクラス(例外オブジェクト)が定義されている。<br>
+いずれも std 名前空間に属しており、exception から派生する。
+
+<table>
+<tr class="row1">
+<td class="col1" colspan="3">クラス名</td>
+<td>インクルード<br>するヘッダ</td>
+<td>解説</td>
+</tr>
+
+<tr>
+<td class="col1 left" colspan="3">std::exception</td>
+<td class="center">&lt;exception&gt;</td>
+<td>以下のすべての例外クラスをラップできる。</td>
+</tr>
+
+<tr>
+<th>├</th>
+<td class="col1 left" colspan="2">std::bad_alloc</td>
+<td class="center">&lt;new&gt;</td>
+<td>new 演算子が失敗した際に送出される。<br>
+</td>
+</tr>
+
+<tr>
+<th>├</th>
+<td class="col1 left" colspan="2">std::bad_cast</td>
+<td class="center">&lt;typeinfo&gt;</td>
+<td>参照に対する dynamic_cast が失敗した際に送出される。</td>
+</tr>
+
+<tr>
+<th>├</th>
+<td class="col1 left" colspan="2">std::bad_typeid</td>
+<td class="center">&lt;typeinfo&gt;</td>
+<td>typeid 演算子にヌルポインタを渡した際に送出される。</td>
+</tr>
+
+<tr>
+<th>├</th>
+<td class="col1 left" colspan="2">std::bad_exception</td>
+<td class="center">&lt;exception&gt;</td>
+<td>例外指定で指定されていない種類の例外を送出した際に用いられる。</td>
+</tr>
+
+<tr>
+<th>├</th>
+<td class="col1 left" colspan="2">std::ios_base::failure</td>
+<td class="center">&lt;ios&gt;</td>
+<td>入出力ストリームでのエラー時に送出される。</td>
+</tr>
+
+<tr>
+<th>├</th>
+<td class="col1 left" colspan="2">std::logic_error</td>
+<td class="center" rowspan="5">&lt;stdexcept&gt;</td>
+<td>論理的なエラーを表現。以下のクラスは主に、関数の引数が不正である場合に送出される。</td>
+</tr>
+
+<tr>
+<th>│</th>
+<th>├</th>
+<td class="col1 left">std::out_of_range</td>
+<td>logic_error から派生。<br>関数が受け取った引数が有効範囲外である場合に送出される。</td>
+</tr>
+
+<tr>
+<th>│</th>
+<th>├</th>
+<td class="col1 left">std::invalid_argument</td>
+<td>logic_error から派生。<br>関数が受け取った引数が意味的に不正である場合に送出される。<br>
+例) bitset にビットを表現しない値を渡そうとした</td>
+</tr>
+
+<tr>
+<th>│</th>
+<th>├</th>
+<td class="col1 left">std::length_error</td>
+<td>logic_error から派生。<br>長さが上限を超えた場合に送出される。<br>
+例) 文字列の結合により、max_size() で取得できる最大長を超えてしまった</td>
+</tr>
+
+<tr>
+<th>│</th>
+<th>└</th>
+<td class="col1 left">std::domain_error</td>
+<td>logic_error から派生。<br>logic_error から派生する他の例外のいずれにも当てはまらない場合に使用される。<br>
+但し標準規格として、このクラスから作られた例外が送出される場面は存在しない。</td>
+</tr>
+
+<tr>
+<th>└</th>
+<td class="col1 left" colspan="2">std::runtime_error</td>
+<td class="center" rowspan="4">&lt;stdexcept&gt;</td>
+<td>実行時にしか検出できないエラーを表現。以下のクラスは主に、演算を行った際にエラーが発生すると送出される。</td>
+</tr>
+
+<tr>
+<th></th>
+<th>├</th>
+<td class="col1 left">std::range_error</td>
+<td>runtime_error から派生。<br>演算により範囲エラーが発生した場合に送出される。</td>
+</tr>
+
+<tr>
+<th></th>
+<th>├</th>
+<td class="col1 left">std::overflow_error</td>
+<td>runtime_error から派生。<br>数値演算でオーバーフローが発生した場合に送出される。</td>
+</tr>
+
+<tr>
+<th></th>
+<th>└</th>
+<td class="col1 left">std::underflow_error</td>
+<td>runtime_error から派生。<br>数値演算でアンダーフローが発生した場合に送出される。</td>
+</tr>
+
+</table>
+
+<h2>例外クラスの捕捉(catch)</h2>
+前述の例外クラスはいずれも std::exception から派生しているため、すべて std::exception で捕捉できる。<br>
+これは std::exception (およびその派生クラス)を継承するユーザ定義クラスを作成した場合も同様である。<br>
+std::exception のメンバ関数である <b>what()</b> は、例外の内容を表す文字列を返す。但し、戻り値は環境に依存するため一定ではない。<br>
+what() は仮想関数であるため、ユーザ定義クラスでオーバーライドすることも可能である。<br>
+
+<h3>例外オブジェクト捕捉の例 :</h3>
+<div class="code">
+<kwd>#include</kwd> &lt;iostream&gt;
+<kwd>#include</kwd> &lt;exception&gt;
+<kwd>#include</kwd> &lt;stdexcept&gt;      <cmt>//< std::runtime_error を使用するために必要</cmt>
+
+<kwd>void</kwd> main()
+{
+    <kwd>try</kwd> 
+    {
+        :
+        <cmt>// std::runtime_error を送出</cmt>
+        <cmt>// (例外メッセージを指定)</cmt>
+        <kwd>throw std</kwd>::runtime_error("エラーが発生しました。");
+    }
+    <cmt>// 例外捕捉</cmt>
+    <cmt>// (std::exception として)</cmt>
+    <kwd>catch</kwd> (<kwd>std</kwd>::exception& e) 
+    {
+        <cmt>// エラー理由( what() )を出力する</cmt>
+        <kwd>std</kwd>::cout << e.what() << <kwd>std</kwd>::endl;
+    }
+}
+</div>
+
+<h6>実行結果 :</h6>
+<div class="code">
+エラーが発生しました。
+</div>
+
+
+

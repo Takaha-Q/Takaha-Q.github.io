@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+<!-- 出典・関連ページ -->
+<h6>出典 :</h6>
+<a href="https://qiita.com/sigma_signature/items/3b61164d5119f542d550">キャスト演算子を理解する - Qiita</a><br>
+<a href="http://kaitei.net/cpp/casting/">キャスト - C++ 入門</a><br>
+<a href="https://programming.pc-note.net/cpp/cast.html">キャスト(C++) - 超初心者向けプログラミング入門</a><br>
+<a href="https://programming-place.net/ppp/contents/cpp/language/007.html">C++ の型とキャスト | Programming Place Plus : C++編【言語解説】: 第７章</a><br>
+<h6>関連 :</h6>
+<a href="TIPS/C・C%2B%2B/継承 (Inheritance).html">継承 (Inheritance)</a><br>
+<a href="TIPS/C・C%2B%2B/仮想関数 (Virtual Function).html">仮想関数 (Virtual Function)</a><br>
+<a href="TIPS/C・C%2B%2B/型推論.html">型推論</a><br>
+<a href="TIPS/dotNET・C Sharp/型キャストとas・is.html">[C#]型キャストとas・is</a><br>
+<!-- 目次 -->
+<h6>目次 :</h6>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>キャストとは</h2>
+プログラミングにおける型変換のうち、プログラマが明示的に行うものを指す。<br>
+コンパイラが行う暗黙的な型変換もキャストと呼ぶことがあるが、ここでは明示的な型変換のみを取り扱う。<br>
+
+<h2>アップキャストとダウンキャスト</h2>
+クラスの継承を行った場合、<b>基底クラスのポインタは、そのクラスから派生したすべてのクラスのインスタンスを指すことができる</b>。<br>
+この、派生クラスから基底クラスのキャストは「アップキャスト」と呼ばれ、明示的なキャストを必要としない。<br>
+
+<div class="code">
+Derived* dp = <kwd>new</kwd> Derived();
+Base* bp = dp;                  <cmt>// 派生クラスから基底クラスへのアップキャスト</cmt>
+</div>
+
+アップキャストとは逆に、基底クラスのインスタンスを派生クラスにキャストすることを「ダウンキャスト」と呼ぶ。<br>
+ダウンキャストは、存在しないメンバへのアクセスを許容する危険性があるため、特段の事情がある場合を除き行ってはならない。<br>
+(仮想関数を用いるなど、ダウンキャストに頼らない設計を行うべきである。)
+
+<h2>C準拠のキャスト</h2>
+
+<h3>() 演算子によるキャスト</h3>
+「式」の型を、括弧で指定されたものに変換する。最も基本的なキャスト。
+
+<div class="code">
+<kwd>int</kwd> si = 123;
+<kwd>short</kwd> ss = (<kwd>short</kwd>)si;
+</div>
+
+上記の例では、int 型変数 si の値を short 型に変換したものを変数 ss に代入している。<br>
+ここで明示的なキャスト( (short) )を行わない場合、コンパイラは代入時に int ⇒ short の変換を試みるが、<br>
+通常ならば short は int よりもサイズが小さく、情報が欠損する(値が変化する)可能性があるため、コンパイラは警告を発する。<br>
+キャストを行うことで、それが意図した型変換であることをコンパイラに伝えることができるが、<b>警告を抑制することはできても情報の欠損を防ぐものではない</b>。<br>
+このため、変換前後の値はプログラマが責任を持って管理する必要がある。
+
+<h4>() キャストの制約</h4>
+() 演算子を用いたキャストには、以下のような制約がある。<br>
+<ul>
+<li>任意の型から void 型への変換が可能</li>
+<li>スカラ型(数値型およびポインタ型)は任意のスカラ型に変換が可能<br>
+但し浮動小数点数型( float / double )とポインタ型は相互に変換不可</li>
+</ul>
+
+<div class="code">
+<kwd>void</kwd> main()
+{
+    <kwd>char</kwd> c = 0;                             <cmt>//< char 型変数 c</cmt>
+    <kwd>struct</kwd> { <kwd>int</kwd> mi; <kwd>char</kwd> mc; } st = {0};   <cmt>//< 構造体型変数 st</cmt>
+
+    <cmt>// 数値型 ⇒ 数値型</cmt>
+    <kwd>int</kwd> i           = (<kwd>int</kwd>)c;           <cmt>//< char        ⇒ int</cmt>
+    <kwd>long</kwd> l          = (<kwd>long</kwd>)i;          <cmt>//< int         ⇒ long</cmt>
+    <kwd>double</kwd> d        = (<kwd>double</kwd>)l;        <cmt>//< long        ⇒ double</cmt>
+    <kwd>long long</kwd> ll    = (<kwd>long long</kwd>)d;     <cmt>//< double      ⇒ long long</cmt>
+    i               = (<kwd>int</kwd>)ll;          <cmt>//< long long   ⇒ int</cmt>
+
+    <cmt>// 数値型 ⇔ ポインタ型 (警告が出る可能性あり)</cmt>
+    <kwd>void</kwd>* vp        = (<kwd>void</kwd>*)i;         <cmt>//< int         ⇒ void*           </cmt>
+    c               = (<kwd>char</kwd>)vp;         <cmt>//< void*       ⇒ char</cmt>
+
+    <cmt>// 構造体型 ⇒ void 型</cmt>
+    (<kwd>void</kwd>)st;
+
+    <cmt>// 以下はエラーとなる(規約違反)</cmt>
+    <cmt>// float f      = (float)vp;        //< void*       ⇒ float</cmt>
+    <cmt>// vp           = (void*)f;         //< float       ⇒ void*</cmt>
+    <cmt>// ll           = (long long)st;    //< 構造体型    ⇒ 数値型</cmt>
+}
+</div>
+
+<h3>関数形式キャスト</h3>
+<span class="code">型名(式)</span>の形式で行うもので、関数呼び出しのように見えることから「関数形式キャスト」と呼ばれる。<br>
+() 演算子によるキャストと機能的に同等。<br>
+
+<div class="code">
+<kwd>#include</kwd> &lt;iostream&gt;
+
+<kwd>void</kwd> main()
+{
+    <kwd>std</kwd>::cout << <kwd>int</kwd>(12.3) << <kwd>std</kwd>::endl;
+}
+</div>
+
+<b>実行結果</b>
+<div class="code">
+12
+</div>
+
+<h2>静的キャスト (static_cast)</h2>
+型変換を<b>コンパイル時に</b>行う。数値型同士やポインタ型同士といった、型がコンパイル時に判別している、比較的安全な型変換に用いる。<br>
+C++における基本的なキャスト。
+<div class="code">
+<kwd>double</kwd> p = 3.14;
+<kwd>int</kwd> n = static_cast&lt;<kwd>int</kwd>&gt;(p);
+</div>
+
+<h2>動的キャスト (dynamic_cast)</h2>
+型変換を<b>実行時に</b>行う。型がコンパイル時に判別しない場合に適している。<br>
+ダウンキャストを行う際には static_cast ではなくこちらを用いることが推奨されている。<br>
+(先述の通り、そもそもダウンキャスト自体が推奨されない手法ではある。)<br>
+dynamic_cast は変換前後の型の継承関係をチェックし、安全なキャストであると判断した場合にのみキャストが成功する。<br>
+このとき、ポインタ型への変換が失敗すると式の評価値は NULL となり、参照型への変換が失敗すると std::bad_cast 例外が投げられる。<br>
+(dynamic_cast はランタイム型情報(RTTI)を使用するため、開発環境での設定が必要となる。)<br>
+
+<div class="code">
+<kwd>#include</kwd> &lt;iostream&gt;
+
+<cmt>// 基底クラス定義</cmt>
+<kwd>class</kwd> Base
+{
+<kwd>public</kwd>:
+    <kwd>virtual</kwd> ~Base() { }
+};
+
+<cmt>// 派生クラス定義</cmt>
+<kwd>class</kwd> Derived : <kwd>public</kwd> Base
+{
+};
+
+<kwd>void</kwd> main()
+{
+    Base* bp = <kwd>new</kwd> Derived();
+
+    <cmt>// dynamic_cast によるダウンキャスト</cmt>
+    <cmt>// (失敗時は NULL)</cmt>
+    Derived* dp = dynamic_cast&lt;Derived*&gt;(bp);
+
+    dp ? <kwd>std</kwd>::cout << "dynamic_cast succeeded" << <kwd>std</kwd>::endl :
+         <kwd>std</kwd>::cout << "dynamic_cast failed" << <kwd>std</kwd>::endl;
+
+    <kwd>delete</kwd> bp;
+}
+</div>
+
+<b>実行結果</b>
+<div class="code">
+dynamic_cast succeeded
+</div>
+
+この例では、ダウンキャストに dynamic_cast を用いている。<br>
+変数 bp は元々が Derived のインスタンスを指しているため、ダウンキャストで Derived に戻す際に問題は発生しない。
+
+<div class="code">
+<kwd>void</kwd> main()
+{
+    Base* bp = <kwd>new</kwd> Base();
+
+    Derived* dp = dynamic_cast&lt;Derived*&gt;(bp);
+
+    dp ? <kwd>std</kwd>::cout << "dynamic_cast succeeded" << <kwd>std</kwd>::endl :
+         <kwd>std</kwd>::cout << "dynamic_cast failed" << <kwd>std</kwd>::endl;
+
+    <kwd>delete</kwd> bp;
+}
+</div>
+
+<b>実行結果</b>
+<div class="code">
+dynamic_cast failed
+</div>
+
+この例では、変数 bp は Base のインスタンスを指しており、出自の異なる Derived へのダウンキャストは失敗する。
+
+<div class="code">
+<kwd>void</kwd> main()
+{
+    Base* bp = <kwd>new</kwd> Base();
+
+    <kwd>try</kwd>
+    {
+        Derived& dp = dynamic_cast&lt;Derived&&gt;(*bp);
+        <kwd>std</kwd>::cout << "dynamic_cast succeeded" << <kwd>std</kwd>::endl :
+    }
+    <kwd>catch</kwd> ( <kwd>std</kwd>::bad_cast& )
+    {
+        <kwd>std</kwd>::cout << "dynamic_cast failed" << <kwd>std</kwd>::endl;
+    }
+}
+</div>
+
+この例では参照型へのキャストを行っており、失敗時に std::bad_cast 例外が投げられる。
+
+<h2>const キャスト (const_cast)</h2>
+const や volatile の指定を外す際に使用する。<br>
+
+<div class="code">
+<kwd>const int</kwd>* p;
+<kwd>int</kwd>* q = const_cast<<kwd>int</kwd>*>(p);       <cmt>//< const int* から int* への変換</cmt>
+</div>
+
+<h2>再解釈キャスト (reinterpret_cast)</h2>
+元のデータに一切変更を加えず、そのまま別の型として解釈する。<br>
+static_cast であれば、int 型の 10 を double 型に変換した場合、式の値は 10.0 となるが、<br>
+この (int)10 と (double)10.0 はビット表現が異なっており、キャストに伴ってビット表現が書き換えられる。<br>
+reinterpret_cast では値を一切操作せず、そのまま(強引に)解釈を行う。<br>
+(即ち、(int)10 を reinterpret_cast&lt;double&gt; で変換した結果は 10.0 にならない。)<br>

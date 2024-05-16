@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<h6>出典 :</h6>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/csharp/language-reference/keywords/init">init キーワード - C# リファレンス - C# | Microsoft Learn</a><br>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/csharp/programming-guide/classes-and-structs/object-and-collection-initializers">オブジェクト初期化子とコレクション初期化子 - C# プログラミング ガイド - C# | Microsoft Learn</a><br>
+<a href="https://qiita.com/yagi405/items/27814a0cf66c198fe926">C# 9.0 新機能 「init アクセサ （init 専用セッター）」 #C# - Qiita</a><br>
+<a href="https://blog.yucchiy.com/2020/12/object-initializer-and-init-only-setter-csharp/">C# 9.0のオブジェクト初期化子とInit Only Setter | Yucchiy's Note</a><br>
+
+<!-- 関連ページ -->
+<h6>関連 :</h6>
+<a href="TIPS/dotNET・C Sharp/[プロパティ]プロパティ.html">プロパティ</a><br>
+<a href="TIPS/dotNET・C Sharp/constとreadonly.html">constとreadonly</a><br>
+<a href="TIPS/dotNET・C Sharp/[プロパティ]インデクサー.html">インデクサー</a><br>
+<a href="TIPS/C・C%2B%2B/一様初期化.html">[C++]一様初期化</a><br>
+<a href="TIPS/C・C%2B%2B/コンストラクタ初期化子.html">[C++]コンストラクタ初期化子</a><br>
+
+<!-- 目次 -->
+<h6>目次 :</h6>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+※ <a href="TIPS/dotNET・C Sharp/[プロパティ]プロパティ.html">プロパティ</a>を併せて参照のこと。
+
+<h2>オブジェクト初期化子</h2>
+オブジェクトが書き換え可能なフィールドまたはプロパティを有している場合、オブジェクトの作成時に初期値をまとめて割り当てることができる。
+
+<div class="cs">
+<kwd>public class</kwd> Cat
+{
+    <cmt>// 書き換え可能プロパティ( set アクセサあり)</cmt>
+    <kwd>public int</kwd>     Age  { <kwd>get</kwd>; <kwd>set</kwd>; }
+    <kwd>public string</kwd>? Name { <kwd>get</kwd>; <kwd>set</kwd>; }
+
+    <cmt>// コンストラクタ</cmt>
+    <kwd>public</kwd> Cat()
+    {
+    }
+
+    <cmt>// コンストラクタ</cmt>
+    <kwd>public</kwd> Cat(<kwd>string</kwd> name)
+    {
+        <kwd>this</kwd>.Name = name;
+    }
+}
+
+:
+
+{
+    <cmt>// オブジェクト初期化子を用いて Age と Name を初期化</cmt>
+    Cat cat = <kwd>new</kwd> Cat { Age = <ltr>10</ltr>, Name = <ltr>"Fluffy"</ltr> };
+
+    <cmt>// オブジェクト初期化子を用いて Age を初期化</cmt>
+    <cmt>// ( Name はコンストラクタ引数として指定)</cmt>
+    Cat sameCat = <kwd>new</kwd> Cat(<ltr>"Fluffy"</ltr>) { Age = <ltr>10</ltr> };
+}
+</div>
+
+上記ではオブジェクト初期化子を用いて、Cat 型オブジェクトの各プロパティに初期値を与えている。<br>
+このようにプロパティ(またはフィールド)が書き換え可能であれば、コンストラクタに初期化文を記述する必要が無い。<br>
+但し、プロパティが読み取り専用の場合は同様の手法を用いることができない(後述)。
+
+<h2>読み取り専用プロパティの実装</h2>
+C# 8.0までは、以下の要領で読み取り専用データを実装していた。
+
+<ul>
+    <li>フィールドを readonly で宣言する</li>
+    <li>プロパティに get アクセサのみを定義する( set を定義しない)</li>
+</ul>
+
+<div class="cs">
+<kwd>struct</kwd> Point
+{
+    <cmt>// 読み取り専用フィールド</cmt>
+    <kwd>public readonly string</kwd> name;
+
+    <cmt>// 読み取り専用プロパティ</cmt>
+    <kwd>public int</kwd> X { <kwd>get</kwd>; }
+    <kwd>public int</kwd> Y { <kwd>get</kwd>; }
+
+    <cmt>// コンストラクタ</cmt>
+    <kwd>public</kwd> Point(<kwd>string</kwd> name, <kwd>int</kwd> x, <kwd>int</kwd> y)
+    {
+        <cmt>// 読み取り専用フィールドの初期化</cmt>
+        <kwd>this</kwd>.name = name;
+
+        <cmt>// 読み取り専用プロパティの初期化</cmt>
+        <kwd>this</kwd>.X    = x;
+        <kwd>this</kwd>.Y    = y;
+    }
+}
+
+:
+
+{
+    <cmt>// Point 型オブジェクト point の生成</cmt>
+    <kwd>var</kwd> point = <kwd>new</kwd> Point(<ltr>"Point A"</ltr>, <ltr>1</ltr>, <ltr>2</ltr>);
+
+    <cmt>// 以下のコードはエラーとなる</cmt>
+    <cmt>// (読み取り専用データを更新しようとしている)</cmt>
+    <cmt>// point.name = "new name";</cmt>
+    <cmt>// point.X = 3;</cmt>
+}
+</div>
+
+コンストラクタで初期値を受け取ってフィールドやプロパティに代入するボイラープレート的なコードが毎回必要であるため、<br>
+煩雑であるとともに、コンストラクタ実装やデータ初期化の自由度が低い。<br>
+
+<h2>init アクセサ</h2>
+前節の問題を解決するため、C# 9.0では init アクセサが追加された。<br>
+これは set とは異なり、プロパティの初期化時にのみ使用される。
+
+<div class="cs">
+<kwd>public class</kwd> Cat
+{
+    <cmt>// init アクセサを定義したプロパティ</cmt>
+    <kwd>public int</kwd>     Age  { <kwd>get</kwd>; <kwd>init</kwd>; }
+    <kwd>public string</kwd>? Name { <kwd>get</kwd>; <kwd>init</kwd>; }
+
+    <cmt>// コンストラクタ</cmt>
+    <kwd>public</kwd> Cat()
+    {
+    }
+
+    <cmt>// コンストラクタ</cmt>
+    <kwd>public</kwd> Cat(<kwd>string</kwd> name)
+    {
+        <kwd>this</kwd>.Name = name;
+    }
+}
+
+:
+
+{
+    <cmt>// オブジェクト初期化子を用いて Age と Name を初期化</cmt>
+    Cat cat = <kwd>new</kwd> Cat { Age = <ltr>10</ltr>, Name = <ltr>"Fluffy"</ltr> };
+
+    <cmt>// オブジェクト初期化子を用いて Age を初期化</cmt>
+    <cmt>// ( Name はコンストラクタ引数として指定)</cmt>
+    Cat sameCat = <kwd>new</kwd> Cat(<ltr>"Fluffy"</ltr>) { Age = <ltr>10</ltr> };
+
+    <cmt>// 以下のコードはエラーとなる</cmt>
+    <cmt>// ( set が定義されていないため)</cmt>
+    <cmt>// cat.Name = "other name"</cmt>
+}
+</div>
+
+init が定義されている場合、( set と同様に)オブジェクト初期化子を用いた初期値の割り当てが可能である。<br>
+これにより、読み取り専用プロパティでもオブジェクト初期化子を用いた初期化が可能で、簡便に記述ができる。

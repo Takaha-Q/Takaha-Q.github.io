@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<h6>出典 :</h6>
+<a href="https://blog.ue-y.me/vba2021/">Excel VBAの開発環境に絶望したので2021年のモダンな環境を構築する | MoreCuriosity</a>
+
+<!-- 関連ページ -->
+<h6>関連 :</h6>
+
+<!-- 目次 -->
+<h6>目次 :</h6>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>Excel VBAをVS Codeで編集するための手順</h2>
+後述の手順を経ることで、Excelのマクロ(VBA)をVS Codeで編集できるようになる。<br>
+これによりソースファイルをテキスト形式で管理できるため、バージョン管理システムの管理下に置いて比較することも可能である。<br>
+
+<h3>Excelの設定</h3>
+<ol>
+    <li>Excelを開き、「オプション」を選択する。<br>
+    <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/VSCode/Edit_ExcelVBA/01.png" alt="画像"></li>
+    <li>「トラスト センター」を選択し、「トラスト センターの設定」をクリックする。<br>
+    <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/VSCode/Edit_ExcelVBA/02.png" alt="画像"></li>
+    <li>「マクロの設定」を選択し、「VBA プロジェクト オブジェクト モデルへのアクセスを信頼する」にチェックを入れる。<br>
+    <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/VSCode/Edit_ExcelVBA/03.png" alt="画像"></li>
+</ol>
+
+<h3>VBACのダウンロード</h3>
+バイナリファイルであるExcelブックとソースファイルとの変換には、オープンソースソフトウェアのVBACを使用する。<br>
+<a href="https://github.com/vbaidiot/Ariawase">https://github.com/vbaidiot/Ariawase</a>にアクセスし、<b>vbac.wsf</b> をダウンロードする。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/VSCode/Edit_ExcelVBA/04.png" alt="画像">
+
+<h3>作業ディレクトリの作成</h3>
+任意のディレクトリ下にディレクトリ bin と src を作成し、ダウンロードした vbac.wsf 、および変換対象のExcelブックを以下のように配置する。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/VSCode/Edit_ExcelVBA/05.png" alt="画像">
+
+<h3>ソースファイルの抽出</h3>
+作成した作業ディレクトリ( sample )に移動し、PowerShellやコマンドプロンプトで以下のコマンドを実行すると src ディレクトリ下にソースファイルが出力される。
+<div class="code">
+cscript vbac.wsf decombine
+</div>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/VSCode/Edit_ExcelVBA/06.png" alt="画像"><br>
+
+<h3>VSCodeの設定</h3>
+ファイルが日本語などのマルチバイト文字を含む場合、そのままだと文字化けする可能性があるため、<br>
+エンコードをシフトJIS、改行コードをCRLFに変更する。<br>
+作業ディレクトリ下にディレクトリ .vscode を作成し、その下に settings.json を作成する。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/VSCode/Edit_ExcelVBA/07.png" alt="画像"><br>
+
+setting.json は以下のように記述する。
+<div class="code">
+{
+  "[markdown]": {
+    "editor.wordWrap": "on",
+    "editor.quickSuggestions": false,
+    "files.encoding": "utf8",
+  },
+  "files.encoding": "shiftjis",
+  "files.associations": {
+    "*.bas": "vb",
+    "*.cls": "vb",
+    "*.dcm": "vb",
+    "*.frm": "vb",
+  }
+}
+</div>
+
+<h3>Gitを用いる際の設定</h3>
+文字コードにシフトJISを用いているため、通常の git init は使用できない。<br>
+<a href="https://blog.ue-y.me/vba2021/">出典元</a>を参照。
+
+<h3>拡張機能のインストール</h3>
+VBAの編集をサポートする拡張機能
+<ul>
+    <li><a href="https://marketplace.visualstudio.com/items?itemName=local-smart.excel-live-server">XVBA - Live Server VBA</a></li>
+    <li><a href="https://marketplace.visualstudio.com/items?itemName=local-smart.xvba-ribbon">XVBA - Ribbon Menu</a></li>
+</ul>
+
+<h2>ブックへの書き戻しと動作確認</h2>
+マクロを実行する際は抽出時と同様、コマンドラインからソースファイルをブックに反映する必要がある。
+<div class="code">
+cscript vbac.wsf combine
+</div>

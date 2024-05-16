@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+<!-- 出典・関連ページ -->
+<h6>出典 :</h6>
+<a href="https://git-scm.com/book/ja/v2/Git-%E3%81%AE%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%9E%E3%82%A4%E3%82%BA-Git-%E3%83%95%E3%83%83%E3%82%AF">Git - Git フック</a><br>
+<a href="https://qiita.com/noraworld/items/c562de68a627ae792c6c">Git フックの基本的な使い方 - Qiita</a><br>
+<!-- 目次 -->
+<h6>目次 :</h6>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>Gitフックとは</h2>
+リポジトリに対する特定の操作が行われた際に、付随して実行したい処理を登録できる機構のこと。<br>
+例えば、コミットの際に特定のアプリケーションやスクリプトを実行するといったことができる。<br>
+このとき、使用者が登録する処理はイベントハンドラに相当し、処理の実行契機となるイベントにハンドラを関連づける(フッキング)ことになる。
+
+<h2>大別</h2>
+フックはクライアントサイドフックとサーバサイドフックに分けられる。<br>
+
+<table>
+<tr>
+<td class="col1">クライアントサイドフック</td>
+<td>ローカルリポジトリに関連付けられ、クライアントで実行される</td>
+</tr>
+<tr>
+<td class="col1">サーバサイドフック</td>
+<td>リモートリポジトリに関連付けられ、プッシュ時にサーバで実行される</td>
+</tr>
+</table>
+
+<h2>基本</h2>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/VCS/Git_Hook/01.png" alt="画像"><br>
+コミット、およびプッシュ時のイベント発生順は上図の通り。<br>
+クライアントサイドフックを<b><red>赤字</red></b>、サーバサイドフックは<b><dgreen>緑字</dgreen></b>で示している。<br>
+(一部割愛)<br>
+
+<table>
+<tr class="row1">
+<td class="col1">フック</td>
+<td>実行タイミング</td>
+<td>パラメータ</td>
+<td>解説</td>
+</tr>
+
+<tr>
+<td colspan="4" class="bg_lr center b">クライアントサイドフック</td>
+</tr>
+
+<tr>
+<td class="col1">pre-commit</td>
+<td>コミット操作直後</td>
+<td>なし</td>
+<td><ul>
+<li>コミットの前にファイルを検査することが可能</li>
+<li>非ゼロ返却でコミット中断</li>
+<li>git commit --no-verify<br>でスキップ可能</li>
+</ul></td>
+</tr>
+
+<tr>
+<td class="col1">prepare-commit-msg</td>
+<td>コミットメッセージエディタ<br>起動直前</td>
+<td><ul>
+<li>コミットメッセージ(デフォルト)の保存パス</li>
+<li>コミットタイプ</li>
+</ul></td>
+<td>デフォルトのコミットメッセージを<br>動的に上書きすることが可能</td>
+</tr>
+
+<tr>
+<td class="col1">commit-msg</td>
+<td>コミットメッセージ入力直後</td>
+<td>コミットメッセージの保存パス</td>
+<td>
+<ul>
+<li>コミットメッセージを検査することが可能</li>
+<li>非ゼロ返却でコミット中断</li>
+</ul></td>
+</tr>
+
+<tr>
+<td class="col1">post-commit</td>
+<td>コミット処理完了直後</td>
+<td>なし</td>
+<td></td>
+</tr>
+
+<tr>
+<td class="col1">pre-push</td>
+<td>プッシュ要求直後</td>
+<td><ul>
+<li>リモートの名前</li>
+<li>リモートの場所</li>
+<li>更新対象の参照のリスト(標準入力)</li>
+</ul></td>
+<td>非ゼロ返却でプッシュ中断</td>
+</tr>
+
+<tr>
+<td colspan="4" class="bg_lg center b">サーバサイドフック</td>
+</tr>
+
+<tr>
+<td class="col1">pre-receive</td>
+<td>プッシュ処理直前</td>
+<td>プッシュされた参照(ブランチ)のリスト(標準入力)</td>
+<td>非ゼロ返却でプッシュ中断</td>
+</tr>
+
+<tr>
+<td class="col1">update</td>
+<td>各ブランチの<br>プッシュ処理直前</td>
+<td>
+<ul>
+<li>参照(ブランチ)名</li>
+<li>プッシュ直前の参照のハッシュ</li>
+<li>プッシュされる参照のハッシュ</li>
+</ul>
+<td>非ゼロ返却で当該参照のプッシュ中断<br>それ以外の参照はプッシュ継続</td>
+</tr>
+
+<tr>
+<td class="col1">pre-receive</td>
+<td>全ブランチの<br>プッシュ処理完了直後</td>
+<td>プッシュされた参照(ブランチ)のリスト(標準入力)</td>
+<td>フック処理が終了するまで接続が継続される</td>
+</tr>
+
+</table>
+
+<h2>フック処理の実装</h2>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/VCS/Git_Hook/02.png" alt="画像"><br>
+フック処理を有効にするには、Gitディレクトリ下の <b>hooks ディレクトリに、フック名に対応したファイルを配置すればよい</b>。<br>
+(例 : pre-push を有効にする場合は pre-push ファイルを配置する。<b>拡張子を付与してはならない</b>。)<br>
+<br>
+通常、git init を行うと hooks ディレクトリ下にフック処理のひな形が [フック名].sample として生成される。<br>
+この sample ファイルの実態はシェルスクリプトであり、ファイル名の拡張子を削除して、処理を適宜修正すればそのままフックスクリプトとなる。<br>
+(UNIX / Linux 環境では実行権限の付与が別途必要。)<br>
+<br>
+フックスクリプトは命名さえ正しければ、シェルスクリプトに限らずあらゆる実行可能ファイルを使用できる。<br>
+(EXE、BAT、PS1、SH、Ruby、Perl、Pythonなど)<br>
+<br>
+また、フックが受け取るパラメータの内訳は、サンプルスクリプトから確認が可能である。<br>
+
+<h3>注意が必要な点</h3>
+リポジトリのプッシュ後に別のユーザが同じリポジトリをクローンしても、クライアントサイドフックはコピーされない。<br>
+このため、共通のポリシーを強制する場合はサーバサイドフックを用いるとよい。<br>

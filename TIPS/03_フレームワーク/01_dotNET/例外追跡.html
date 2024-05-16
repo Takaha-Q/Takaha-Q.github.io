@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+<!-- 出典・関連ページ -->
+<h6>出典 :</h6>
+<a href="https://cammy.co.jp/technical/c_tasktrace/">C# 例外が発生したときの情報を使う(スタックトレース) - テクニカルノート</a><br>
+<a href="https://mitosuya.net/exception-should-be-used-tostring">【.net】例外のログはStackTraceよりToStringを使うべき理由 | 水戸スヤのSE備忘録</a><br>
+<!-- 目次 -->
+<h6>目次 :</h6>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>スタックトレース情報の取得</h2>
+プログラム中の特定の時点において、スレッドが開始されてからそこに到達するまでの関数の呼び出し履歴をコールスタックと呼ぶ。<br>
+そのコールスタックを追跡することをスタックトレースと呼び、主に例外発生時の原因特定に用いられる。<br>
+
+<h2>例外発生時のスタックトレース情報出力 : Exception.StackTrace</h2>
+
+(C#)
+<div class="code">
+<kwd>class</kwd> Program
+{
+    <cmt>// Main() メソッド</cmt>
+    <cmt>// プログラムのエントリポイント</cmt>
+    <kwd>static void</kwd> Main(<kwd>string</kwd>[] args)
+    {
+        <kwd>try</kwd>
+        {
+            FuncC();
+        }
+        <kwd>catch</kwd> (<knw>Exception</knw> ex)
+        {
+            <cmt>// スタックトレース情報を画面に出力</cmt>
+            <knw>Console</knw>.WriteLine("例外メッセージ --> " + ex.Message);
+            <knw>Console</knw>.WriteLine("スタックトレース ");
+            <knw>Console</knw>.WriteLine(ex.StackTrace);
+        }
+    }
+
+    <kwd>static void</kwd> FuncC()
+    {
+        FuncB();
+    }
+
+    <kwd>static void</kwd> FuncB()
+    {
+        FuncA();
+    }
+
+    <kwd>static void</kwd> FuncA()
+    {
+        CallException();
+    }
+
+    <kwd>static void</kwd> CallException()
+    {
+        <kwd>throw new</kwd> <knw>Exception</knw>("ここで例外を発生させる");
+    }
+}    
+</div>
+
+(出力結果)<br>
+<div class="xaml">
+例外メッセージ --&gt; ここで例外を発生させる
+スタックトレース 
+場所 StackTraceTest.Program.CallException() 場所 D:\work\test\StackTraceTest\StackTraceTest\Program.cs:行 **
+場所 StackTraceTest.Program.FuncA() 場所 D:\work\test\StackTraceTest\StackTraceTest\Program.cs:行 **
+場所 StackTraceTest.Program.FuncB() 場所 D:\work\test\StackTraceTest\StackTraceTest\Program.cs:行 **
+場所 StackTraceTest.Program.FuncC() 場所 D:\work\test\StackTraceTest\StackTraceTest\Program.cs:行 **
+場所 StackTraceTest.Program.Main(String[] args) 場所 D:\work\test\StackTraceTest\StackTraceTest\Program.cs:行 **
+</div>
+<br>
+Exception.StackTrace プロパティには、スタックトレース情報が文字列形式(StackTrace 型ではない)で格納されている。<br>
+このスタックトレース情報は、例外発生時点から呼び元までコールスタックを遡る形で記録されており、メソッドの呼び出し経路を一覧できる。
+
+<h2>例外情報の文字出力 : Exception.ToString()</h2>
+Exception.ToString() をコールすることで、上記のスタックトレースに加え、現在の例外のクラス名とメッセージも取得することができる。<br>
+<ul>例) ゼロ除算例外
+    <li>Exception.StackTrace : スタックトレース情報のみ<br>
+    <div class="xaml">
+場所 Otameshi.Form1.Calculation() 場所 {プロジェクトのパス}\Otameshi\Form1.cs:行 80
+場所 Otameshi.Form1.button1_Click(Object sender, EventArgs e) 場所 {プロジェクトのパス}\Otameshi\Form1.cs:行 50</div>
+</li>
+<li>Exception.ToString() : 例外クラス名、メッセージ、スタックトレース情報<br>
+    <div class="xaml">
+System.DivideByZeroException: 0 で除算しようとしました。
+場所 Otameshi.Form1.Calculation() 場所 {プロジェクトのパス}\Otameshi\Form1.cs:行 80
+場所 Otameshi.Form1.button2_Click(Object sender, EventArgs e) 場所 {プロジェクトのパス}\Otameshi\Form1.cs:行 50
+</div>
+</li>
+</ul>

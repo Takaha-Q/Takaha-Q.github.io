@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典 -->
+<h6>出典 :</h6>
+<a href="https://docs.microsoft.com/ja-jp/dotnet/csharp/language-reference/operators/is">is 演算子 - C# リファレンス | Microsoft Docs</a><br>
+<a href="https://docs.microsoft.com/ja-jp/dotnet/csharp/language-reference/operators/type-testing-and-cast">型のテスト演算子とキャスト式 - C# リファレンス | Microsoft Docs</a><br>
+<a href="https://araramistudio.jimdo.com/2018/09/21/c-%E3%81%A7%E5%9E%8B%E3%82%92%E5%88%A4%E5%88%A5%E3%81%99%E3%82%8Btypeof%E3%81%A8is%E6%BC%94%E7%AE%97%E5%AD%90/">C#で型を判別するtypeofとis演算子 - Ararami Studio</a><br>
+<a href="https://araramistudio.jimdo.com/2018/09/13/c-%E3%81%A7%E3%82%AD%E3%83%A3%E3%82%B9%E3%83%88%E3%81%A8as%E6%BC%94%E7%AE%97%E5%AD%90%E3%82%92%E4%BD%BF%E3%81%84%E3%81%93%E3%81%AA%E3%81%99/">C#でキャストとas演算子を使いこなす - Ararami Studio</a>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/csharp/fundamentals/tutorials/safely-cast-using-pattern-matching-is-and-as-operators">パターン マッチング、is 演算子、as 演算子を使用して安全にキャストする方法 | Microsoft Learn</a><br>
+<a href="https://qiita.com/toshi0607/items/ec7f8f04f2453423d56f">C#におけるasによるキャストと()によるキャストの違い - Qiita</a><br>
+<a href="https://johobase.com/csharp-is-as-operator/">C#のis演算子とas演算子で型テストとキャストを行う</a>
+
+<!-- 関連 -->
+<h6>関連 :</h6>
+<a href="TIPS/dotNET・C Sharp/パターンマッチング.html">パターンマッチング</a><br>
+<a href="TIPS/dotNET・C Sharp/switch式.html">switch式</a><br>
+
+<!-- 目次 -->
+<h6>目次 :</h6>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>typeof 演算子による型取得</h2>
+typeof 演算子を用いることで、型から System.Type インスタンスを得ることができる。<br>
+これにより、型の比較・判別を行うことができる。<br>
+またオブジェクト(クラス)型インスタンスは GetType() メソッドにより、自身の型に対応する Type インスタンスを取得できる。
+<div class="code">
+<kwd>class</kwd> Base {}
+<kwd>class</kwd> Level1 : Base{}
+<kwd>class</kwd> Level2 : Level1{}
+<kwd>class</kwd> Level3 : Level2{}
+    
+<kwd>class</kwd> Test
+{
+    <kwd>static void</kwd> Main()
+    {
+        Base obj = <kwd>new</kwd> Level2();
+    
+        <kwd>bool</kwd> isBase   = obj.GetType() == <kwd>typeof</kwd>(Base);       <cmt>//< false</cmt>
+        <kwd>bool</kwd> isLevel1 = obj.GetType() == <kwd>typeof</kwd>(Level1);     <cmt>//< false</cmt>
+        <kwd>bool</kwd> isLevel2 = obj.GetType() == <kwd>typeof</kwd>(Level2);     <cmt>//< true</cmt>
+        <kwd>bool</kwd> isLevel3 = obj.GetType() == <kwd>typeof</kwd>(Level3);     <cmt>//< false</cmt>
+    }
+}
+</div>
+typeof 演算子と == による比較は、型が厳格に一致する場合のみ真となる。<br>
+typeof(T) (Tは任意の型)は定数式ではないため、switch - case 節で用いることはできない。
+
+<h2>型キャスト</h2>
+オブジェクトの型を、指定した別の型に変換すること。<br>
+C#ではC/C++と同様の () によるキャスト以外に、as / is 演算子を使用できる。<br>
+
+<h3>アップキャストとダウンキャスト</h3>
+派生クラスから基底クラスへの変換をアップキャスト、逆に、基底クラスから派生クラスへの変換をダウンキャストと呼ぶ。
+
+<h4>アップキャスト</h4>
+派生クラスから基底クラスへの型変換を指す。C#に限らず基底クラスは派生クラスをラップ可能であるため、明示的なキャストを行う必要はない。
+<div class="code">
+<kwd>class</kwd> Base {}
+<kwd>class</kwd> Derived : Base {}
+    
+<kwd>class</kwd> Test
+{
+    <kwd>static void</kwd> Main()
+    {
+        Base    a = <kwd>null</kwd>;
+        Derived b = <kwd>new</kwd> Derived();
+    
+        a = b;      <cmt>//< アップキャスト</cmt>
+                    <cmt>//< ( Base 型変数に Derived 型オブジェクトを格納 ⇒ 明示的キャスト不要)</cmt>
+    }
+}
+</div>
+
+<h4>ダウンキャスト</h4>
+基底クラスから派生クラスへの型変換を指す。<br>
+派生クラスのインスタンスをアップキャストした場合のみダウンキャストが可能である。<br>
+<b>( () 演算子でキャストを試みた場合、ダウンキャストできなければ例外( InvalidCastException )となる点に注意)</b><br>
+意図されたキャストであることを明示する必要がある。
+
+<div class="code">
+<kwd>class</kwd> Base {}
+<kwd>class</kwd> Derived1 : Base {}
+<kwd>class</kwd> Derived2 : Base {}
+    
+<kwd>class</kwd> Test
+{
+    <kwd>static void</kwd> Main()
+    {
+        Base     a = <kwd>new</kwd> Derived1();     <cmt>//< アップキャスト</cmt>
+            
+        Derived1 b = (Derived1)a;        <cmt>//< ダウンキャスト成功</cmt>
+        Derived2 c = (Derived2)a;        <cmt>//< ダウンキャスト失敗 ⇒ 例外</cmt>
+    }
+}
+</div>
+
+上記の例では a は Derived1 型のオブジェクトであるが、基底クラスの Base 型にアップキャストされている。<br>
+ダウンキャストにより Derived1 型に戻すことは可能であるが、素性の異なる Derived2 型への変換は不可能である。
+
+<div class="code">
+<kwd>class</kwd> Base {}
+<kwd>class</kwd> Derived1 : Base {}
+<kwd>class</kwd> Derived3 : Derived1 {}
+    
+<kwd>class</kwd> Test
+{
+    <kwd>static void</kwd> Main()
+    {
+        Base     a = <kwd>new</kwd> Derived3();     <cmt>//< アップキャスト</cmt>
+            
+        Derived3 b = (Derived3)a;        <cmt>//< ダウンキャスト成功</cmt>
+        Derived1 c = (Derived1)a;        <cmt>//< ダウンキャスト成功</cmt>
+    }
+}
+</div>
+上記の例では a は元々 Derived3 型のオブジェクトであるため、Derived3 型に戻すことも、1代前の基底クラス Derived1 型に変換することも可能である。
+
+<h2>as 演算子</h2>
+左辺のオブジェクトを右辺で指定された型に変換する。
+
+<div class="code">
+<kwd>using</kwd> <knw>System</knw>;
+
+<kwd>class</kwd> CastSample
+{
+    <kwd>public static void</kwd> Main() 
+    {
+        <cmt>// オブジェクトを宣言</cmt>
+        <kwd>object</kwd> nyanchu = "nyanchu"
+
+        <cmt>// as によるキャスト : object ⇒ CastSample</cmt>
+        <cmt>// キャスト失敗、cs1 = null となる</cmt>
+        CastSample cs1 = nyanchu <kwd>as</kwd> CastSample
+        <knw>Console</knw>.WriteLine(cs1 == <kwd>null</kwd>); <cmt>// True</cmt>
+
+        <kwd>try</kwd> 
+        {
+            <cmt>// () によるキャスト : object ⇒ CastSample</cmt>
+            <cmt>// キャスト失敗、例外が投げられる</cmt>
+            CastSample cs2 = (CastSample)nyanchu;
+        } 
+        <kwd>catch</kwd>(InvalidCastException e)
+        {
+            <knw>Console</knw>.WriteLine(e.ToString());  <cmt>// System.InvalidCastException: 指定されたキャストは有効ではありません。 at CastSample.Main()      </cmt>
+        }
+    }
+}
+</div>
+
+<h3>as と () の差異</h3>
+キャストの失敗時、() を用いた場合は例外となるのに対し、as では式の評価結果が null となる。<br>
+() によるキャストは値型・参照型を問わず使用できるのに対し、as は参照型にしか用いることができない。<br>
+但し as によるキャストは () を用いる場合と比べて高速である(後述)。
+
+<div class="code">
+<cmt>// 値型に対する () を用いたキャスト ⇒ OK</cmt>
+<kwd>int</kwd> i = (<kwd>int</kwd>)1;
+
+<cmt>// 値型に対する as を用いたキャスト ⇒ NG(コンパイルエラー)</cmt>
+<kwd>int</kwd> i = 1 <kwd>as int</kwd>;
+</div>
+
+<h2>is 演算子</h2>
+左辺のオブジェクトが右辺で指定された型に変換可能であるかを返す。右辺に新たな変数を指定した場合、変換可能であれば当該変数に変換後のオブジェクトが格納される。<br>
+後者の用法はパターンマッチングと呼ばれ、変換可否の確認と変数の初期化を一文で実行できる。C#7.0で追加された。<br>
+パターンマッチングの詳細は<a href="TIPS/dotNET・C Sharp/パターンマッチング.html">リンク先</a>を参照。
+
+<div class="code">
+<kwd>class</kwd> Base {}
+<kwd>class</kwd> Level1 : Base{}
+<kwd>class</kwd> Level2 : Level1{}
+<kwd>class</kwd> Level3 : Level2{}
+    
+<kwd>class</kwd> Test
+{
+    <kwd>static void</kwd> Main()
+    {
+        Base obj = <kwd>new</kwd> Level2();
+    
+        <kwd>bool</kwd> isBase   = (obj <kwd>is</kwd> Base);       <cmt>//< true ← typeof と異なる</cmt>
+        <kwd>bool</kwd> isLevel1 = (obj <kwd>is</kwd> Level1);     <cmt>//< true ← typeof と異なる</cmt>
+        <kwd>bool</kwd> isLevel2 = (obj <kwd>is</kwd> Level2);     <cmt>//< true</cmt>
+        <kwd>bool</kwd> isLevel3 = (obj <kwd>is</kwd> Level3);     <cmt>//< false</cmt>
+    }
+}
+</div>
+
+また、is 演算子はオブジェクトがnullであるかをテストすることも可能である。<br>
+( is not で非nullをテストすることも可能。)
+
+<div class="code">
+<kwd>int</kwd> i = 5;
+PatternMatchingNullable(i);
+
+<kwd>int</kwd>? j = <kwd>null</kwd>;
+PatternMatchingNullable(j);
+
+<kwd>double</kwd> d = 9.78654;
+PatternMatchingNullable(d);
+
+<kwd>static void</kwd> PatternMatchingNullable(ValueType? val)
+{
+    <cmt>// パターンマッチング : val に使用できるのはnull不許容型のみ</cmt>
+    <kwd>if</kwd> (val <kwd>is int</kwd> j)
+    {
+        <knw>Console</knw>.WriteLine(j);
+    }
+    <cmt>// val がnull許容型、かつnull(値無し)の場合</cmt>
+    <kwd>else if</kwd> (val <kwd>is null</kwd>)
+    {
+        <knw>Console</knw>.WriteLine("val はnullです。");
+    }
+    <kwd>else</kwd>
+    {
+        <knw>Console</knw>.WriteLine("変換できません : " + val.ToString());
+    }
+}
+</div>
+
+また、パターンマッチングの延長として、以下のような switch - case 構文も使用できる。
+
+<div class="code">
+<kwd>int</kwd> i = 5;
+PatternMatchingNullable(i);
+
+<kwd>int</kwd>? j = <kwd>null</kwd>;
+PatternMatchingNullable(j);
+
+<kwd>double</kwd> d = 9.78654;
+PatternMatchingNullable(d);
+
+<kwd>static void</kwd> PatternMatchingSwitch(ValueType? val)
+{
+    <kwd>switch</kwd> (val)
+    {
+        <kwd>case int</kwd> number:
+            <knw>Console</knw>.WriteLine(number);
+            <kwd>break</kwd>;
+
+        <kwd>case long</kwd> number:
+            <knw>Console</knw>.WriteLine(number);
+            <kwd>break</kwd>;
+
+        <kwd>case</kwd> decimal number:
+            <knw>Console</knw>.WriteLine(number);
+            <kwd>break</kwd>;
+
+        <kwd>case float</kwd> number:
+            <knw>Console</knw>.WriteLine(number);
+            <kwd>break</kwd>;
+
+        <kwd>case double</kwd> number:
+            <knw>Console</knw>.WriteLine(number);
+            <kwd>break</kwd>;
+
+        <kwd>case null</kwd>:
+            <knw>Console</knw>.WriteLine("val はnullです。");
+            <kwd>break</kwd>;
+
+        <kwd>default</kwd>:
+            <knw>Console</knw>.WriteLine("変換できません : " + val.ToString());
+            <kwd>break</kwd>;
+    }
+}
+</div>
+
+<h2>() / as / is の速度比較</h2>
+
+<div class="code">
+<kwd>using</kwd> <knw>System</knw>;
+
+<kwd>class</kwd> CastBench
+{
+    <cmt>// サンプルクラス1</cmt>
+    <kwd>class</kwd> Sample1 
+    {
+        <kwd>public int</kwd> n = 1;
+    }
+
+    <cmt>// サンプルクラス2</cmt>
+    <kwd>class</kwd> Sample2
+    {
+
+    }
+
+    <cmt>// () によるキャスト</cmt>
+    <kwd>private static int</kwd> testCast(<kwd>object</kwd> [] testdata) 
+    {
+        <kwd>int</kwd> sum = 0;
+        <kwd>foreach</kwd> (<kwd>object</kwd> o <kwd>in</kwd> testdata) 
+        {
+            <kwd>try</kwd> 
+            {
+                sum += ((Sample1)o).n;
+            }
+            <kwd>catch</kwd> (InvalidCastException) 
+            {
+                sum += 1;
+            }
+        }
+        <kwd>return</kwd> sum;
+    }
+
+    <cmt>// as によるキャスト</cmt>
+    <kwd>private static int</kwd> testAs(<kwd>object</kwd> [] testdata) 
+    {
+        <kwd>int</kwd> sum = 0;
+        <kwd>foreach</kwd> (<kwd>object</kwd> o <kwd>in</kwd> testdata) 
+        {
+            Sample1 s = o <kwd>as</kwd> Sample1;
+            <kwd>if</kwd> (s != <kwd>null</kwd>) 
+            {
+                sum += s.n;
+            }
+            <kwd>else</kwd> 
+            {
+                sum += 1;
+            }
+        }
+        <kwd>return</kwd> sum;
+    }
+
+    <cmt>// is によるテスト + () によるキャスト</cmt>
+    <kwd>private static int</kwd> testIsCast(<kwd>object</kwd> [] testdata) 
+    {
+        <kwd>int</kwd> sum = 0;
+        <kwd>foreach</kwd> (<kwd>object</kwd> o <kwd>in</kwd> testdata) 
+        {
+            <kwd>if</kwd> (o <kwd>is</kwd> Sample1) 
+            {
+                sum += ((Sample1)o).n;
+            } 
+            <kwd>else</kwd> 
+            {
+                sum += 1;
+            }
+        }
+        <kwd>return</kwd> sum;
+    }
+
+    <cmt>// Main() メソッド</cmt>
+    <kwd>public static void</kwd> Main() 
+    {
+        <cmt>// テストデータの作成</cmt>
+        <cmt>// 1000個に1個 Sample2 、それ以外は Sample1 を配置</cmt>
+        <kwd>object</kwd> [] testdata = <kwd>new object</kwd>[1000000];
+        <kwd>for</kwd> (<kwd>int</kwd> i = 0; i < testdata.Length; i++) 
+        {
+            <kwd>if</kwd> (i % 1000 != 0) 
+            {
+                testdata[i] = <kwd>new</kwd> Sample1();
+            }
+            <kwd>else</kwd>
+            {
+                testdata[i] = <kwd>new</kwd> Sample2();
+            }
+        }
+
+        <cmt>// () によるキャスト</cmt>
+        <knw>DateTime</knw> startCast = <knw>DateTime</knw>.Now;
+        <kwd>for</kwd> (<kwd>int</kwd> i = 0; i < 1000; i++) 
+        {
+            testCast(testdata);
+        }
+        <knw>DateTime</knw> endCast = <knw>DateTime</knw>.Now;
+        <knw>Console</knw>.WriteLine("キャストの実行時間 {0}", endCast - startCast);
+        <cmt>// 出力例 : キャストの実行時間 00:00:47.9899632</cmt>
+
+        <cmt>// as によるキャスト</cmt>
+        <knw>DateTime</knw> startAs = <knw>DateTime</knw>.Now;
+        <kwd>for</kwd> (<kwd>int</kwd> i = 0; i < 1000; i++) 
+        {
+            testAs(testdata);
+        }
+        <knw>DateTime</knw> endAs = <knw>DateTime</knw>.Now;
+        <knw>Console</knw>.WriteLine("as演算子の実行時間 {0}", endAs - startAs);
+        <cmt>// 出力例 : as演算子の実行時間 00:00:11.7771696</cmt>
+
+        <cmt>// is によるテスト + () によるキャスト</cmt>
+        <knw>DateTime</knw> startIsCats = <knw>DateTime</knw>.Now;
+        <kwd>for</kwd> (<kwd>int</kwd> i = 0; i < 1000; i++) 
+        {
+            testIsCast(testdata);
+        }
+        <knw>DateTime</knw> endIsCast = <knw>DateTime</knw>.Now;
+        <knw>Console</knw>.WriteLine("is演算子+キャストの実行時間 {0}", endIsCast - startIsCats);
+        <cmt>// 出力例 : is演算子+キャストの実行時間 00:00:20.7702804</cmt>
+    }
+}
+</div>
+
+(処理時間は目安)<br>
+上記のコードでは、1,000,000個のデータ列に対する型変換を1,000回繰り返し行っている。ここで、データ列には1,000個に1個の割合で Sample2 が混入しており、Sample1 への変換を行おうとすると失敗する。<br>
+() によるキャストは、変換失敗時に例外が発生することもあって3つの中では最も所要時間が長い。(例外の送出はオーバーヘッドが大きい。)<br>
+変換の直前に is によるテストを行うと例外の発生はゼロになるため、速度は改善する。as を用いた場合は更に高速となる。<br>
+尚、<b>例外が発生しないケースでも () より as が高速である</b>。<br>
+先述のパターンマッチングはテストと変換(割り当て)が一文で行えることからコードがシンプルになることに加え、速度面で有利となるため、使用が推奨されている。

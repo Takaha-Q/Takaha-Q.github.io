@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+<!-- 出典・関連ページ -->
+<h6>出典 :</h6>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/core/deploying/deploy-with-cli">.NET CLI を使用してアプリを公開する - .NET | Microsoft Learn</a><br>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/core/tools/dotnet-publish">dotnet publish コマンド - .NET CLI | Microsoft Learn</a><br>
+<a href="https://qiita.com/i-tanaka730/items/d46fdfb5c2f601e512c2">コマンドラインから.NETアプリを発行する - Qiita</a><br>
+<a href="https://tera1707.com/entry/2022/02/12/231757">csprojに書く設定とdotnet publishに渡すパラメータの実験と比較 - tera1707’s blog</a><br>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/core/deploying/single-file/overview?tabs=cli">アプリケーション配置用に単一ファイルを作成する - .NET | Microsoft Learn</a><br>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/core/rid-catalog">.NET Runtime Identifier (RID) カタログ | Microsoft Learn</a>
+<h6>関連 :</h6>
+<a href="TIPS/dotNET・C Sharp/コマンドラインでのビルド.html">[.NET]コマンドラインでのビルド</a>
+<!-- 目次 -->
+<h6>目次 :</h6>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+<h2>Visual Studioによるパッケージ発行</h2>
+ビルドされたプログラムをターゲットシステムに向けて公開する機能。<br>
+ローカルまたはネットワークやに配置することが可能で、WEBアプリケーションの場合はサーバへのデプロイも行える。<br>
+その際にプログラム(EXE / DLL)を集約するなどの付随処理を行うことも可能である。
+
+<h2>手順</h2>
+<h3>発行プロファイルの作成</h3>
+デスクトップアプリケーションを指定したフォルダに配置する場合の例。
+
+<ol>
+<li>
+「ソリューション エクスプローラー」上でプロジェクトを右クリック、「発行」をクリックする。<br>
+(または「ビルド」>「選択範囲の公開」を選択する。)<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Publish/01.png" alt="">
+</li>
+<li>
+発行プロファイルが存在しない場合、自動で「公開」画面が開く。<br>
+(追加作成する場合は「発行プロファイルの追加」をクリックする。)<br>
+「公開」画面で「ターゲット」>「フォルダー」を選択し、「次へ」をクリックする。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Publish/02.png" alt="">
+</li>
+
+<li>
+「特定のターゲット」>「フォルダー」を選択し、「次へ」をクリックする。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Publish/03.png" alt="">
+</li>
+
+<li>
+「フォルダーの場所」にファイルを公開したい場所を入力し、「完了」をクリックする。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Publish/04.png" alt="">
+</li>
+
+<li>
+プロファイルが作成される。<br>
+「すべての設定を表示」をクリックする。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Publish/05.png" alt="">
+</li>
+
+<li>
+各項目を必要に応じて編集し、「保存」をクリックする。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Publish/06.png" alt=""><br>
+<ul>
+<li>
+「配置モード」 :
+<ul>
+<li>「自己完結」 : ランタイムを同梱し、それのみで動作可能なバイナリを作成する。</li>
+<li>「フレームワーク依存」 : 既にインストールされたランタイムを使用する。ランタイムが存在しない場合は別途インストールが必要。</li>
+</ul>
+</li>
+<li>
+「ターゲット ランタイム」 :
+<ul>
+<li>「移植可能」 : ターゲット環境のOSやアーキテクチャに依らず動作が可能。<br>
+(Windows / Linux ほかいずれの環境でも動作できる)</li>
+<li>その他(win-x64 など) : 指定された環境でのみ動作可能。</li>
+</ul>
+</li>
+<li>
+「単一ファイルの作成」 : EXE / DLLをひとつのファイルに統合する。これにより、付随して生成されるDLLがビルドターゲットにまとめられる。
+</li>
+<li>
+「ReadyToRun コンパイルを有効にする」 : 事前にコンパイルを行うことでバイナリサイズが拡大する反面、実行速度を向上させられる。
+</li>
+</ul>
+</li>
+
+</ol>
+
+<h3>発行</h3>
+「発行」ボタンをクリックすると、ビルドと公開が実行される。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Publish/07.png" alt=""><br>
+
+<h3>ファイル構成の比較</h3>
+<h6>通常のリリースビルド</h6>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Publish/08.png" alt="">
+
+<h6>公開</h6>
+付随するDLLがEXEに吸収されている。また、ReadyToRun コンパイルを有効にしているため、バイナリサイズが拡大している。<br>
+(EXEとDLLの総和より大きい。)<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Publish/09.png" alt="">
+
+<h2>発行プロファイル(pubxml)の参照</h2>
+「プロファイル設定」で指定した各項目は、pubxml ファイルに保存される。<br>
+
+<h6>例 : FolderProfile.pubxml</h6>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Publish/10.png" alt=""><br>
+
+pubxml ファイルは通常、<i><b>&lt;ProjectFolder&gt;\Properties\PublishProfiles\</b></i> フォルダに保存される。<br>
+この pubxml ファイルを用いて、コマンドラインから発行(dotnet publish)を行うことも可能である。詳細は
+<a href="TIPS/dotNET・C Sharp/コマンドラインでのビルド.html">[.NET]コマンドラインでのビルド</a>
+を参照。

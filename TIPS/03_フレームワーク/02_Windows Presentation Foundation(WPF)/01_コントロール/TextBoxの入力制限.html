@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+<!-- 出典・関連ページ -->
+<h6>出典 :</h6>
+<a href="https://www.paveway.info/entry/2020/02/11/wpf_inputmethod">WPFのTextBoxでIMEモードを設定する - プログラムを書こう！</a><br>
+<h6>関連 :</h6>
+<a href="TIPS/Windows Presentation Foundation(WPF)/[WPF]ルーティングイベント.html">[WPF]ルーティングイベント</a><br>
+<a href="TIPS/Windows Presentation Foundation(WPF)/[WPF]UIイベントにおける注意点%20-%20捕捉できない操作.html">[WPF]UIイベントにおける注意点 - 捕捉できない操作</a><br>
+<!-- 目次 -->
+<h6>目次 :</h6>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>文字数、行数の制限</h2>
+MaxLength で文字数を、MaxLines で行数を規定できる。<br>
+MaxLength == 0 は文字数無制限。
+
+<h2>入力できる文字種の制限</h2>
+<h3>IMEモードを設定する場合</h3>
+<table>
+  <tr>
+    <th class="col1" rowspan="2" colspan="2"></th>
+    <th colspan="3">設定するプロパティ</th>
+  </tr>
+
+  <tr class="row1">
+    <td width="210">InputMethod.<br>IsInputMethodEnabled</td>
+    <td width="210">InputMethod.<br>PreferredImeState</td>
+    <td width="210">InputMethod.<br>PreferredImeConversionMode</td>
+  </tr>
+
+  <tr>
+    <td class="col1" colspan="2">IME無効 (半角英数)</td>
+    <td>False</td>
+    <td>-</td>
+    <td>-</td>
+  </tr>
+
+  <tr>
+    <th rowspan="5">IME有効</th>
+    <td class="col1">全角ひらがな</td>
+    <td rowspan="5">True (デフォルト)</td>
+    <td rowspan="5">On</td>
+    <td>FullShape,Native</td>
+  </tr>
+
+  <tr>
+    <td class="col1">全角カタカナ</td>
+    <td>FullShape,Katakana</td>
+  </tr>
+
+  <tr>
+    <td class="col1">全角英数</td>
+    <td>FullShape,Alphanumeric</td>
+  </tr>
+
+  <tr>
+    <td class="col1">半角カタカナ</td>
+    <td>Native,Katakana</td>
+  </tr>
+
+  <tr>
+    <td class="col1">半角英数</td>
+    <td>Alphanumeric</td>
+  </tr>
+</table>
+IMEが有効の場合、TextBox へのペーストが可能となる。ペーストを禁止したい場合はIMEを無効にすること。
+
+<h3>書式を詳細に指定する場合 : イベントハンドラを使用</h3>
+PreviewTextInput イベントハンドラを設定し、条件に合わない入力文字を読み捨てる。<br>
+
+<div class="code">
+<cmt>/// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = -</cmt>
+<cmt>/// テキスト取得時 (Preview)</cmt>
+<cmt>/// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = -</cmt>
+<kwd>private void</kwd> TextBox_PreviewTextInput( <kwd>object</kwd> sender, TextCompositionEventArgs e )
+{
+    <cmt>// 所定の文字以外は読み捨てる</cmt>
+    <cmt>// (イベントを処理済みとする)</cmt>
+    <cmt>// ピリオド入力済 : 数字のみ</cmt>
+    <cmt>// ピリオド未入力 : 数字とピリオド</cmt>
+    <kwd>string</kwd> pattern = (<kwd>new</kwd> Regex(@"\.")).IsMatch(((<knw>TextBox</knw>)sender).<knw>Text</knw>) ? @"[0-9]" : @"[0-9\.]";
+    e.Handled = !( ( <kwd>new</kwd> Regex( pattern ) ).IsMatch( e.<knw>Text</knw> ) );
+}
+</div>
+
+ここでは、入力できる文字列を「数値」に制限している。<br>
+最後に入力された一文字 e.Text が「0 から 9 までの数字またはピリオド」に合致しない場合は、<br>
+イベント引数 TextCompositionEventArgs の Handled プロパティを true に設定することでイベントを処理済みとしている。<br>
+TextBox の Text は PreviewTextInput の段階では確定せず、続いて発生する TextInput を経なければ確定しない。<br>
+このため、PreviewTextInput でイベントを処理済みとし、後続の TextInput を発生させなくすることで、入力文字を「読み捨てる」ことができる。<br>
+イベント伝播の仕組みに関しては<a href="TIPS/Windows Presentation Foundation(WPF)/[WPF]ルーティングイベント.html">[WPF]ルーティングイベント</a>を参照のこと。
