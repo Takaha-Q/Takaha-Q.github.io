@@ -31,10 +31,10 @@
 
 <!-- 関連ページ -->
 <h6>関連 :</h6>
-<a href="TIPS/Windows Presentation Foundation(WPF)/[データバインディング]依存関係プロパティ.html">依存関係プロパティ</a><br>
-<a href="TIPS/Windows Presentation Foundation(WPF)/[データバインディング]ReactiveProperty.html">ReactiveProperty</a><br>
-<a href="TIPS/Windows Presentation Foundation(WPF)/[データバインディング]RelativeSource.html">RelativeSource</a><br>
-<a href="TIPS/Windows Presentation Foundation(WPF)/[データバインディング]コンバーター.html">コンバーター</a><br>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/依存関係プロパティ.html">依存関係プロパティ</a><br>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/ReactiveProperty.html">ReactiveProperty</a><br>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/RelativeSource.html">RelativeSource</a><br>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/コンバーター.html">コンバーター</a><br>
 
 <!-- 目次 -->
 <h6>目次 :</h6>
@@ -55,7 +55,7 @@
 データバインディングには、ソース(参照元)とターゲット(反映先)があり、<br>
 通常、ソースに加えた変更がターゲットに反映される。(設定によっては逆方向や、双方向も可能。)<br>
 このとき、<b>ソースに設定できるのは(通常の)プロパティ、ターゲットに設定できるのは
-<a href="TIPS/Windows Presentation Foundation(WPF)/[データバインディング]依存関係プロパティ.html">依存関係プロパティ(DependencyProperty)</a>に
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/依存関係プロパティ.html">依存関係プロパティ(DependencyProperty)</a>に
 限定される</b>。<br>
 即ち、<b>データバインディングは依存関係プロパティをプロパティに同期させる処置と言える</b>。<br>
 (<b>コントロール(UI要素)のプロパティはすべて依存関係プロパティとして実装されている</b>ため、いずれもターゲットに設定する際に特別な手順を必要としない。)<br>
@@ -80,7 +80,7 @@
 }
 </div>
 データソースとして用いるためのクラスとして SampleModel を定義している。<br>
-プロパティを <a href="TIPS/Windows Presentation Foundation(WPF)/[データバインディング]ReactiveProperty.html">ReactiveProperty</a> としているのは、ソースからターゲットへの波及を容易に実装するため。
+プロパティを <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/ReactiveProperty.html">ReactiveProperty</a> としているのは、ソースからターゲットへの波及を容易に実装するため。
 
 <h6>MainWindow.xaml (View : XAML)</h6>
 <div class="code">
@@ -135,7 +135,7 @@ MVVMの詳細は複雑であるためここでは割愛するが、
 と考えれば概ね正しい。<br>
 <br>
 データバインディングは上記のように <b>DataContext</b> を用いるのが基本である。<br>
-( DataContext を用いる以外の方法としては <a href="TIPS/Windows Presentation Foundation(WPF)/[データバインディング]RelativeSource.html">RelativeSource</a> が存在する。)<br>
+( DataContext を用いる以外の方法としては <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/RelativeSource.html">RelativeSource</a> が存在する。)<br>
 Window の DataContext を設定しておけば、Window 上の子要素は等しく DataContext (のメンバ)を参照できる。<br>
 DataContext には任意の型のオブジェクトを渡すことができ、ここでは SampleModel 型のオブジェクト( dataSource )を渡している。<br>
 以上のことから dataSource.Count.Value の値を変更すると、バインドされた TextBlock.Text は自動的に変化する。<br>

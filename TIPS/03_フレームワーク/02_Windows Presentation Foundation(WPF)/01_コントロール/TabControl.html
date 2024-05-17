@@ -32,8 +32,8 @@
 <h6>関連 :</h6>
 <a href="TIPS/Windows Presentation Foundation(WPF)/[パネル]Grid.html">Grid</a><br>
 <a href="TIPS/Windows Presentation Foundation(WPF)/[パネル]DockPanelとStackPanel.html">DockPanelとStackPanel</a><br>
-<a href="TIPS/Windows Presentation Foundation(WPF)/[外観]テンプレート.html">テンプレート</a><br>
-<a href="TIPS/Windows Presentation Foundation(WPF)/[データバインディング]データバインディング.html">データバインディング</a><br>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/テンプレート.html">テンプレート</a><br>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/データバインディング.html">データバインディング</a><br>
 <a href="TIPS/02_プログラミング言語/02_CSharp/LINQ (Language Integrated Query).html">[C#]LINQ (Language Integrated Query)</a>
 
 <!-- 目次 -->
@@ -147,10 +147,10 @@ TabControl クラスは Selector を継承しているため、 ItemsSource プ�
 
 <h6>解説</h6>
 上記はコレクションを TabControl に関連付ける例である。<br>
-ここでは<a href="TIPS/Windows Presentation Foundation(WPF)/[外観]テンプレート.html">テンプレート</a>を使用し、ItemTemplate でタブの表題( Header )、ContentTemplate でタブの内容( Content )を指定する。<br>
+ここでは<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/テンプレート.html">テンプレート</a>を使用し、ItemTemplate でタブの表題( Header )、ContentTemplate でタブの内容( Content )を指定する。<br>
 Person 型のコレクション source を TabControl の ItemsSource プロパティに代入すると、TabControl では source の要素ごとにタブを割り当てる。<br>
 ( source の初期化時に<a href="TIPS/02_プログラミング言語/02_CSharp/LINQ (Language Integrated Query).html">LINQ( Select() )</a>を使用している点に注意。)<br>
-TabControl.ItemsSource が割り当てられているため、XAML側では<a href="TIPS/Windows Presentation Foundation(WPF)/[データバインディング]データバインディング.html">データバインディング</a>により値を参照できる。<br>
+TabControl.ItemsSource が割り当てられているため、XAML側では<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/データバインディング.html">データバインディング</a>により値を参照できる。<br>
 
 <h2>タブの高さを揃える</h2>
 通常、TabItem の高さは内容によって変化するため、タブを選択するたびに TabControl 全体の高さが変わってしまう。<br>

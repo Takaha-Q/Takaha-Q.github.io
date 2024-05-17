@@ -52,8 +52,8 @@ View が外観を、Model が外観に直接関連しないデータを取り扱
 
 <h2>MVVMの構成</h2>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/WPF/MVVM/01.png" alt="画像"><br>
-(<a href="TIPS/Windows Presentation Foundation(WPF)/[データバインディング]データバインディング.html">データバインディング</a>および
-<a href="TIPS/Windows Presentation Foundation(WPF)/[データバインディング]依存関係プロパティ.html">依存関係プロパティ</a>も併せて参照のこと。)<br>
+(<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/データバインディング.html">データバインディング</a>および
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/依存関係プロパティ.html">依存関係プロパティ</a>も併せて参照のこと。)<br>
 View はXAMLとコードビハインド(XAML.CS)から成り、外観とUIイベントを司る。<br>
 一方、ViewModel は View とは独立しており、ViewModel のインスタンスが View の DataContext として関連付けられる。<br>
 これにより ViewModel のプロパティ(CLIプロパティ)と View の依存関係プロパティとがデータバインディングで関連付けられ、View の操作が ViewModel に、ViewModel の変更が View に伝播する。<br>
@@ -126,7 +126,7 @@ ViewModel に INotifyPropertyChanged インタフェースを実装したうえ�
 View 側は PropertyChanged イベントフックに、イベント発生時にコールしたいコールバック(イベントハンドラ)を登録する。<br>
 イベントについては<a href="TIPS/02_プログラミング言語/02_CSharp/デリゲートとイベント.html">リンク先</a>を参照。
 (データバインディングされたプロパティも PropertyChanged を契機として変化するため、INotifyPropertyChanged を実装しなければ連動しない。<br>
-但し、<a href="TIPS/Windows Presentation Foundation(WPF)/[データバインディング]ReactiveProperty.html">ReactiveProperty</a> を用いることで、INotifyPropertyChanged の実装を省略することができる。)
+但し、<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/ReactiveProperty.html">ReactiveProperty</a> を用いることで、INotifyPropertyChanged の実装を省略することができる。)
 
 <h6>ViewModel : MainViewModel.cs</h6>
 
