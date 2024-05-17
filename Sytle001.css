@@ -76,7 +76,7 @@ h4 {
   margin-top:           15px;
   margin-bottom:        9px;
   margin-left:          -30px;
-  border-bottom-style:  solid;
+  border-bottom-style:  dotted;
   border-bottom-width:  3px;
   border-bottom-color:  #CC9999;
 }
@@ -87,8 +87,8 @@ h5 {
   margin-top:           12px;
   margin-bottom:        6px;
   margin-left:          -20px;
-  border-bottom-style:  solid;
-  border-bottom-width:  2px;
+  border-bottom-style:  dotted;
+  border-bottom-width:  1px;
   border-bottom-color:  #CC9999;
 }
 
