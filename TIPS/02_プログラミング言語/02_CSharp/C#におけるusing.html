@@ -16,10 +16,16 @@
 <h6>出典 :</h6>
 <a href="https://qiita.com/4_mio_11/items/145c658078a7fe5f36a7">【C#】usingの色々な使い方 - Qiita</a><br>
 <a href="https://atmarkit.itmedia.co.jp/ait/articles/1606/15/news028.html">構文：クラス名を書かずに静的メソッドを呼び出すには？［C# 6.0］：.NET TIPS - ＠IT</a><br>
+
 <h6>関連 :</h6>
-<a href="TIPS/dotNET・C Sharp/IDisposable と Dispose().html">[C#]IDisposable と Dispose()</a><br>
-<a href="TIPS/C・C%2B%2B/typedefとusing.html">[C++]typedefとusing</a><br>
-<a href="TIPS/C・C%2B%2B/RAIIと地蔵インスタンス.html">[C++]RAIIと地蔵インスタンス</a><br>
+<a href="TIPS/02_プログラミング言語/01_C・C%2B%2B/typedefとusing.html">[C++]typedefとusing</a><br>
+<a href="TIPS/03_フレームワーク/01_dotNET/IDisposable と Dispose().html">[.NET]IDisposable と Dispose()</a><br>
+<a href="TIPS/02_プログラミング言語/01_C・C%2B%2B/RAIIと地蔵インスタンス.html">[C++]RAIIと地蔵インスタンス</a><br>
+<a href="TIPS/02_プログラミング言語/02_CSharp/例外処理(try - catch - finally).html">[C#]例外処理(try - catch - finally)</a><br>
+<a href="TIPS/02_プログラミング言語/01_C・C%2B%2B/例外処理.html">[C++]例外処理</a><br>
+
+
+
 <!-- 目次 -->
 <h6>目次 :</h6>
 <div id="toc"></div>
@@ -29,7 +35,7 @@
 <h2>C#における using の類型</h2>
 <h3>using ディレクティブ</h3>
 異なる名前空間に定義されているクラスを使用する際、ファイルの冒頭に using ディレクティブを記述することで、<br>
-ファイル中で当該名前空間の記述を省略できる。<a href="TIPS/C・C%2B%2B/typedefとusing.html">C++と同様</a>。
+ファイル中で当該名前空間の記述を省略できる。C++と同様</a>。
 <p class="code">
 <cmt>// using ディレクティブ</cmt>
 <kwd>using</kwd> <knw>System</knw>.Collections.Generic;
@@ -54,7 +60,7 @@
 このため、正確には System.Collections.Generic.List だが、using ディレクティブを用いているため単に List と記述できる。
 
 <h3>using エイリアスディレクティブ</h3>
-型に別名を付与することができる。<a href="TIPS/C・C%2B%2B/typedefとusing.html">C++と同様</a>。
+型に別名を付与することができる。C++と同様。
 <p class="code">
 <cmt>// using エイリアスディレクティブ</cmt>
 <kwd>using</kwd> Ints = <knw>System</knw>.Collections.Generic.<knw>List</knw>&lt;<kwd>int</kwd>&gt;;
@@ -124,7 +130,7 @@ using static ディレクティブを用いることで省略可能となる。
 しかし、using ステートメントを用いると、<b>using 節を抜ける際に自動的にリソースの破棄( Dispose() )が行われる</b>。<br>
 <b>使用できるのは IDisposable インタフェースを実装するクラスに限定される</b>。<br>
 (そうでないクラスはそもそも Dispose() が不要で、実装されていない。)<br>
-C++等における<a href="TIPS/C・C%2B%2B/RAIIと地蔵インスタンス.html">RAII</a>と同様、例外安全なコードとなる。<br>
+C++等におけるRAIIと同様、例外安全なコードとなる。<br>
 (例外発生時にも確実にリソースを解放できる。)
 
 <p class="code">

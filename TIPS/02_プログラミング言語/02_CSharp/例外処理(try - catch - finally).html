@@ -15,9 +15,11 @@
 <!-- 出典・関連ページ -->
 <h6>出典 :</h6>
 <a href="https://qiita.com/eijenson/items/7e9e112e69b37f72353c">try-catch-finally句内のreturnについて - Qiita</a>
+
 <h6>関連 :</h6>
-<a href="TIPS/C・C%2B%2B/例外処理.html">[C++]例外処理</a><br>
-<a href="TIPS/dotNET・C Sharp/C%23におけるusing.html">C#におけるusing</a><br>
+<a href="TIPS/02_プログラミング言語/01_C・C%2B%2B/例外処理.html">[C++]例外処理</a><br>
+<a href="TIPS/02_プログラミング言語/02_CSharp/C%23におけるusing.html">C#におけるusing</a><br>
+
 <!-- 目次 -->
 <h6>目次 :</h6>
 <div id="toc"></div>
@@ -28,9 +30,7 @@
 <h2>C#における例外処理</h2>
 C#ではC++同様の try - catch 節に加え、finally 節が記述できる。<br>
 例外の発生有無によらない共通の最終処理を行わせたい場合は、この finally 節に記述する。<br>
-この最終処理は try 節、または catch 節を抜ける直前に実行される。<br>
-C#の旧い仕様では獲得した資源(ファイルストリーム、セマフォなど)の解放を finally 節で行うことが一般的であったが、<br>
-現在では<a href="TIPS/dotNET・C Sharp/C%23におけるusing.html">usingステートメント</a>を用いたほうが簡潔に記述できる。
+この最終処理は <b>try 節、または catch 節を抜ける直前に実行される</b>。
 
 <h2>基本形</h2>
 関数 DoSomething() で発生した例外を try 節で捕捉する場合の例。<br>
@@ -101,3 +101,7 @@ m_Mutex.WaitOne();
 </div>
 
 上記の例では、例外を投げなおす直前にミューテックスを解放する。
+
+<h2>はしがき</h2>
+C#の旧い仕様では獲得した資源(ファイルストリーム、セマフォなど)の解放を finally 節で行うことが一般的であったが、<br>
+現在では using ステートメント</a>を用いたほうが簡潔に記述できる。
