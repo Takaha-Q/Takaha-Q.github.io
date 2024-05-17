@@ -108,16 +108,23 @@ img {
 }
 
 /* ---------------------------------- */
-/* 横罫線                             */
+/* 水平線                             */
 /* ---------------------------------- */
 hr {
   margin-top:           30px;
   margin-bottom:        30px;
-  margin-left:          -75px;
-  height:               4px;
+  margin-left:          -80px;
+  height:               6px;
   border:               none;
   background-color:     #CC9999;
+  background-image:     url(https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_horizon.png);
 }
+
+
+ul li:before {
+}
+
+
 
 /* ---------------------------------- */
 /* 文字装飾                           */
