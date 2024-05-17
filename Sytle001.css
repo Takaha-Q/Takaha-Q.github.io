@@ -39,9 +39,9 @@ h1 {
   font-size:            270%;
   font-weight:          bold;
   color:                #FFFFFF;
-  letter-spacing:       0.30em;
-  margin-top:           30px;
-  margin-bottom:        30px;
+  letter-spacing:       0.25em;
+  margin-top:           25px;
+  margin-bottom:        25px;
   margin-left:          -80px;
   padding:              12px;
   background-color:     #CC9999;
@@ -50,7 +50,7 @@ h1 {
 h2 {
   font-size:            210%;
   font-weight:          bold;
-  letter-spacing:       0.15em;
+  letter-spacing:       0.1em;
   margin-top:           24px;
   margin-bottom:        24px;
   margin-left:          -60px;
@@ -114,6 +114,7 @@ hr {
   margin-top:           30px;
   margin-bottom:        30px;
   margin-left:          -75px;
+  width:                6px;
   color:                #CC9999;
 }
 
