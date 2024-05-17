@@ -19,7 +19,7 @@
 /* ---------------------------------- */
 body {
   background:           #FFFFFF;
-  margin-left:          70px;
+  margin-left:          100px;
   margin-right:         20px;
 }
 
@@ -36,57 +36,57 @@ div#toc ul
 /* 見出し                             */
 /* ---------------------------------- */
 h1 {
-  font-size:            300%;
+  font-size:            270%;
   font-weight:          bold;
   color:                #FFFFFF;
   letter-spacing:       0.30em;
   margin-top:           30px;
   margin-bottom:        30px;
-  margin-left:          -75px;
+  margin-left:          -80px;
   padding:              12px;
   background-color:     #CC9999;
 }
 
 h2 {
-  font-size:            240%;
+  font-size:            210%;
   font-weight:          bold;
   letter-spacing:       0.15em;
   margin-top:           24px;
   margin-bottom:        24px;
-  margin-left:          -75px;
+  margin-left:          -60px;
   border-bottom-style:  double;
   border-bottom-width:  6px;
   border-bottom-color:  #CC9999;
 }
 
 h3 {
-  font-size:            195%;
+  font-size:            180%;
   font-weight:          bold;
   margin-top:           18px;
   margin-bottom:        12px;
-  margin-left:          -60px;
+  margin-left:          -40px;
   border-bottom-style:  solid;
   border-bottom-width:  5px;
   border-bottom-color:  #CC9999;
 }
 
 h4 {
-  font-size:            165%;
+  font-size:            150%;
   font-weight:          bold;
   margin-top:           15px;
   margin-bottom:        9px;
-  margin-left:          -45px;
+  margin-left:          -30px;
   border-bottom-style:  solid;
   border-bottom-width:  3px;
   border-bottom-color:  #CC9999;
 }
 
 h5 {
-  font-size:            150%;
+  font-size:            135%;
   font-weight:          bold;
   margin-top:           12px;
   margin-bottom:        6px;
-  margin-left:          -30px;
+  margin-left:          -20px;
   border-bottom-style:  solid;
   border-bottom-width:  2px;
   border-bottom-color:  #CC9999;
@@ -97,7 +97,7 @@ h6 {
   font-weight:          bold;
   margin-top:           9px;
   margin-bottom:        3px;
-  margin-left:          -15px;
+  margin-left:          -10px;
 }
 
 /* ---------------------------------- */
