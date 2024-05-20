@@ -27,6 +27,7 @@
 <!-- 関連ページ -->
 <h6>関連 :</h6>
 <a href="TIPS/02_プログラミング言語/01_C・C%2B%2B/C%2B%2B11.html">C++11</a><br>
+<a href="TIPS/01_ソフトウェア開発一般/01_デザインパターン/継承と委譲.html">継承と委譲</a><br>
 <a href="TIPS/02_プログラミング言語/01_C・C%2B%2B/親クラスの関数をコール.html">親クラスの関数をコール</a><br>
 <a href="TIPS/02_プログラミング言語/01_C・C%2B%2B/コンストラクタ初期化子.html">コンストラクタ初期化子</a><br>
 <a href="TIPS/02_プログラミング言語/01_C・C%2B%2B/変換コンストラクタとexplicit.html">変換コンストラクタとexplicit</a><br>
@@ -64,15 +65,15 @@ C++11で追加された。
 
 <kwd>public</kwd>:
     <cmt>// コンストラクタ#1</cmt>
-    X(<kwd>int</kwd> i, <kwd>const std</kwd>::<kwd>string</kwd> s)
+    Hoge(<kwd>int</kwd> i, <kwd>const std</kwd>::<kwd>string</kwd> s)
         : m_Id(i), m_Name(s)
     {
         :
     }
 
     <cmt>// コンストラクタ#2</cmt>
-    X(<kwd>const</kwd> Param& param)
-        : X(param.id, param.name)       <cmt>//< コンストラクタ#1に処理を委譲</cmt>
+    Hoge(<kwd>const</kwd> Param& param)
+        : Hoge(param.id, param.name)       <cmt>//< コンストラクタ#1に処理を委譲</cmt>
     {
         :
     }
