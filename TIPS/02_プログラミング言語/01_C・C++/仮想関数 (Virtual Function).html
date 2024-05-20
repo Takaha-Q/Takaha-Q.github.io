@@ -96,9 +96,8 @@ pOb_Vehicle = &amp;Ob_Car;
 <br>
 関数を再定義(上書き)することを <b>「オーバーライド (Override)」</b> と呼ぶ。<br>
 仮想関数のオーバーライドの際は、 <b>基本クラスでの定義と引数の型・数、戻り値の型がすべて一致していなければならない</b> 。<br>
-(オーバーロードとの混同に注意。オーバーロードは逆に、引数の型・数のいずれかが異なっていなければならない。詳細は<a href="TIPS/C%E3%83%BBC%2B%2B/%E9%96%A2%E6%95%B0%E3%82%AA%E3%83%BC%E3%83%90%E3%83%BC%E3%83%AD%E3%83%BC%E3%83%89%E3%81%A8%E3%83%87%E3%83%95%E3%82%A9%E3%83%AB%E3%83%88%E5%BC%95%E6%95%B0.html">関数オーバーロードとデフォルト引数</a>を参照。)<br>
-オーバーライド時に virtual キーワードは必須ではない。virtual キーワードを省いても関数の仮想性は引き継がれるため、さらに派生を行った場合でも同様にオーバーライドできる。<br>
-(C++11以降)オーバーライド時は override 修飾を行うことで、定義誤りを防ぐことができる。詳細は<a href="TIPS/C%E3%83%BBC%2B%2B/C%2B%2B11.html">C++11</a>「明示的な仮想関数オーバーライド ( override )」を参照。<br>
+(<a href="TIPS/02_プログラミング言語/01_C・C%2B%2B/関数オーバーロードとデフォルト引数.html">オーバーロード</a>との混同に注意。オーバーロードは逆に、引数の型・数のいずれかが異なっていなければならない。)<br>
+なお、オーバーライド時に virtual キーワードは必須ではない。virtual キーワードを省いても関数の仮想性は引き継がれる。<br>
 
 <h2>仮想関数の用途 : 実行時ポリモーフィズム</h2>
 上述の通り、基本クラスのポインタが派生クラスのオブジェクトを指すことができるため、以下のような実装が可能。<br>
@@ -160,3 +159,50 @@ pOb_Vehicle はプログラムの実行時に、Car 、Motorcycle いずれの�
     :
 }
 </p>
+
+<h2>明示的な仮想関数オーバーライド (C++11)</h2>
+基底クラスの仮想関数をオーバーライドする際に、(タイプミスなどで)意図に反する新しい仮想関数を作成してしまうことがある。
+
+<p class="cpp">
+<cmt>// 基底クラス</cmt>
+<kwd>class</kwd> C_Base
+{
+<kwd>public</kwd>:
+    <kwd>virtual void</kwd> some_func(<kwd>float</kwd>);
+    <kwd>virtual bool</kwd> on_error();
+};
+
+<cmt>// 派生クラス</cmt>
+<kwd>class</kwd> C_Derived : C_Base
+{
+    <kwd>virtual void</kwd> some_func(<kwd>int</kwd>);    <cmt>//&lt; 基底クラスの some_func(float) をオーバーライドするつもりが、</cmt>
+                                    <cmt>//&lt; 引数の型が異なっている</cmt>
+    <kwd>virtual bool</kwd> on_eror();         <cmt>//&lt; 基底クラスの on_error() をオーバーライドするつもりが、</cmt>
+                                    <cmt>//&lt; 関数名(シグネチャ)を誤っている</cmt>
+};
+</p>
+
+上記は派生クラスで基底クラスの仮想関数をオーバーライドしようとして、意図に反して新たな仮想関数を作成してしまった例である。<br>
+文法上は誤りではないためコンパイルエラーとはならず、間違いに気づくことができない。<br>
+<br>
+C++11では <b>override</b> キーワードが導入され、仮想関数のオーバーライドであることを明示することができるようになった。 
+
+<p class="cpp">
+<cmt>// 基底クラス</cmt>
+<kwd>class</kwd> C_Base
+{
+<kwd>public</kwd>:
+    <kwd>virtual void</kwd> some_func(<kwd>float</kwd>);
+    <kwd>virtual bool</kwd> on_error();
+};
+
+<cmt>// 派生クラス</cmt>
+<kwd>class</kwd> C_Derived : C_Base
+{
+    <kwd>virtual void</kwd> some_func(<kwd>int</kwd>) <kwd>override</kwd>;    <cmt>//&lt; 不正 : 引数の型が異なっている</cmt>
+    <kwd>virtual bool</kwd> on_eror() <kwd>override</kwd>;         <cmt>//&lt; 不正 : 関数名(シグネチャ)を誤っている</cmt>
+};
+</p>
+
+上記は <b>override</b> 修飾により、仮想関数のオーバーライドであることを明示している。 <br>
+これらが基底クラスのオーバーライド元と一致しない場合、コンパイルエラーとして検出できる。

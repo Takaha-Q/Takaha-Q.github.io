@@ -127,3 +127,32 @@ const修飾されたメンバ関数は、メンバ変数を更新することが
   <kwd>return</kwd> (diff &amp; <ltr>0x80000000U</ltr>) != <ltr>0</ltr>;
 }
 </p>
+
+<h2>constexpr (C++11)</h2>
+
+<b>常に同じ結果を返し、副作用の無い(スコープ外の変数やメモリ等を操作しない)式を定数式と呼ぶ</b>。<br>
+( 3 + 4 など定数同士の演算、または単項の定数。)<br>
+定数式はコンパイラの最適化の対象となり、多くの場合でコンパイル時に演算が行われ、プログラム中にはその結果のみが格納される。<br>
+(即ちプログラム中の定数式 3 + 4 は、コンパイルにより定数 7 に置換される。)<br>
+但し、関数呼び出しやオブジェクトコンストラクタが出現すると、その結果がコンパイル時に確定していても定数式とは見なされなくなる。<br>
+
+<p class="cpp">
+<cmt>// C++03まで (有効でないコード)</cmt>
+<kwd>int</kwd> get5() { <kwd>return</kwd> <ltr>5</ltr>; }
+<kwd>int</kwd> arr_values[get5() + <ltr>5</ltr>];    <cmt>//&lt; 要素数10の配列を作りたいが、</cmt>
+                               <cmt>//&lt; get5() が定数式と見なされないため不可 ⇒ コンパイルエラー</cmt>
+</p>
+
+C++11ではキーワード <b>constexpr</b> が導入され、関数やオブジェクトコンストラクタが定数式(コンパイル時定数)であることを保証できるようになった。<br>
+即ち、<b>下記の get5() は定数式と解釈される</b>。
+<p class="cpp">
+<cmt>// C++11以降 (有効なコード)</cmt>
+<kwd>constexpr int</kwd> get5() { <kwd>return</kwd> <ltr>5</ltr>; }    <cmt>//&lt; constexpr 修飾により get5() は定数式となる</cmt>
+<kwd>int</kwd> arr_values[get5() + <ltr>5</ltr>];           <cmt>//&lt; 要素数10の配列を作る ⇒ []内が定数式のため有効</cmt>
+</p>
+
+なお、この constexpr は const の代替として、定数を定数式として定義する際に用いることも可能である。<br>
+<p class="cpp">
+<kwd>constexpr double</kwd> forceOfGravity = <ltr>9.8</ltr>;
+<kwd>constexpr double</kwd> moonGravity = forceOfGravity / <ltr>6</ltr>;
+</p>
