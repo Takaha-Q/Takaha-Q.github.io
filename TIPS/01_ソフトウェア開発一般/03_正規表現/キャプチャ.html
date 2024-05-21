@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典・関連ページ -->
+<h6>関連 :</h6>
+<a href="TIPS/01_ソフトウェア開発一般/03_正規表現/正規表現のススメ.html">正規表現のススメ</a><br>
+
+<!-- 目次 -->
+<h6>目次 :</h6>
+
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>キャプチャ(後方参照)</h2>
+
+括弧で括られた部分文字列を記憶しておき、後で参照できる機能。<br>
+同じ部分文字列の繰り返しを検出したり、キャプチャ結果を置換に用いたりすることができる。<br>
+参照する際は最初にキャプチャした部分文字列をメタ文字 \1 、以後 \2 、\3 …と数字を加算してゆく。
+
+<h3>基本的な例</h3>
+
+<img src="file:/C:/Users/shinji.takahata/_Git_Local_Rep/Murasame Lab/html_tips/_Img/Regexp/Capturing/01.png" alt="画像"><br>
+
+上記の正規表現は、以下の文字列にマッチする。
+
+<div class="code">
+A promise is promise
+A bargain is bargain
+</div>
+
+<h2>キャプチャの順序</h2>
+
+複数の括弧が存在する場合(入れ子の場合を含む)、<b>「開き括弧 ( 」の順にキャプチャ番号が割り当てられる</b>。<br>
+<img src="file:/C:/Users/shinji.takahata/_Git_Local_Rep/Murasame Lab/html_tips/_Img/Regexp/Capturing/02.png" alt="画像"><br>
+
+<h2>変数による参照</h2>
+
+環境によっては、キャプチャした内容を変数で参照することができる。<br>
+例 : Perl、Ruby、VS Code ⇒ 「$1」、「$2」、「$3」<br>
+VS Codeでキャプチャ結果を置換に用いる場合は、\ ではなく $ で参照する点に注意。
+
+<h2>名前付きキャプチャ</h2>
+
+キャプチャ結果は通常、キャプチャ番号を用いて参照するため可読性が良くない。<br>
+比較的新しい処理系では<b>名前付きキャプチャ</b>を用いることができるため、キャプチャの目的が伝わりやすくなる。<br>
+
+<img src="file:/C:/Users/shinji.takahata/_Git_Local_Rep/Murasame Lab/html_tips/_Img/Regexp/Capturing/03.png" alt="画像"><br>
+
+ここでは、キャプチャ結果に名前 "<i>name</i>" を与えている。<br>
+キャプチャ指定は <span class="code"><b class=red>(?&lt;</b>キャプチャ名<b class=red>&gt;</b>パターン<b class=red>)</b></span> 、キャプチャ結果の参照は <span class="code"><b class=red>\k&lt;</b>キャプチャ名<b class=red>&gt;</b></span> で行う。
+
+<h2>キャプチャしない括弧</h2>
+括弧はキャプチャの他にグループ化の役割も持っている。<br>
+グループ化のみを行い、キャプチャを行わない場合は以下のように記述する。<br>
+
+<img src="file:/C:/Users/shinji.takahata/_Git_Local_Rep/Murasame Lab/html_tips/_Img/Regexp/Capturing/03.png" alt="画像"><br>
+
+ただし、記述が煩雑となるため使いどころには注意が必要。
