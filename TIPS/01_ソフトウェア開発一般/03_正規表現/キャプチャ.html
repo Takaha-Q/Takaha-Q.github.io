@@ -39,7 +39,7 @@
 
 <h3>基本的な例</h3>
 
-<img src="file:/C:/Users/shinji.takahata/_Git_Local_Rep/Murasame Lab/html_tips/_Img/Regexp/Capturing/01.png" alt="画像"><br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Regexp/Capturing/01.png" alt="画像"><br>
 
 上記の正規表現は、以下の文字列にマッチする。
 
@@ -51,7 +51,7 @@ A bargain is bargain
 <h2>キャプチャの順序</h2>
 
 複数の括弧が存在する場合(入れ子の場合を含む)、<b>「開き括弧 ( 」の順にキャプチャ番号が割り当てられる</b>。<br>
-<img src="file:/C:/Users/shinji.takahata/_Git_Local_Rep/Murasame Lab/html_tips/_Img/Regexp/Capturing/02.png" alt="画像"><br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Regexp/Capturing/02.png" alt="画像"><br>
 
 <h2>変数による参照</h2>
 
@@ -64,7 +64,7 @@ VS Codeでキャプチャ結果を置換に用いる場合は、\ ではなく $
 キャプチャ結果は通常、キャプチャ番号を用いて参照するため可読性が良くない。<br>
 比較的新しい処理系では<b>名前付きキャプチャ</b>を用いることができるため、キャプチャの目的が伝わりやすくなる。<br>
 
-<img src="file:/C:/Users/shinji.takahata/_Git_Local_Rep/Murasame Lab/html_tips/_Img/Regexp/Capturing/03.png" alt="画像"><br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Regexp/Capturing/03.png" alt="画像"><br>
 
 ここでは、キャプチャ結果に名前 "<i>name</i>" を与えている。<br>
 キャプチャ指定は <span class="code"><b class=red>(?&lt;</b>キャプチャ名<b class=red>&gt;</b>パターン<b class=red>)</b></span> 、キャプチャ結果の参照は <span class="code"><b class=red>\k&lt;</b>キャプチャ名<b class=red>&gt;</b></span> で行う。
@@ -73,6 +73,6 @@ VS Codeでキャプチャ結果を置換に用いる場合は、\ ではなく $
 括弧はキャプチャの他にグループ化の役割も持っている。<br>
 グループ化のみを行い、キャプチャを行わない場合は以下のように記述する。<br>
 
-<img src="file:/C:/Users/shinji.takahata/_Git_Local_Rep/Murasame Lab/html_tips/_Img/Regexp/Capturing/03.png" alt="画像"><br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Regexp/Capturing/04.png" alt="画像"><br>
 
 ただし、記述が煩雑となるため使いどころには注意が必要。
