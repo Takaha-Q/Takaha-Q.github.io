@@ -43,7 +43,8 @@ WPFの<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(
 例えば TextBox に DateTime 型をバインドし、そのうち年、月、日のみを表示するよう変換する、といったことが可能となる。
 
 <h2>コンバーターの実装</h2>
-<h3>コードビハインド</h3>
+
+<h6>コード</h6>
 <b>System.Windows.Data.IValueConverter</b> インタフェースを実装する。実装が必要なメソッドは以下のふたつ。<br>
 
 <ul>
@@ -57,12 +58,15 @@ WPFの<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(
 
 <kwd>namespace</kwd> _Converter;
 
+<cmt>// コンバーター</cmt>
+<cmt>// DateTime ⇒ String</cmt>
 [ValueConversion(<kwd>typeof</kwd>(<knw>DateTime</knw>), <kwd>typeof</kwd>(<knw>String</knw>))]
 <kwd>public class</kwd> DateConverter : IValueConverter
 {
     <cmt>// ソース ⇒ ターゲット変換</cmt>
     <kwd>public object</kwd> Convert(<kwd>object</kwd> value, Type targetType, <kwd>object</kwd> parameter, CultureInfo culture)
     {
+        <cmt>// 日付形式の文字列に変換して返す</cmt>
         <knw>DateTime</knw> date = (<knw>DateTime</knw>)value;
         <kwd>return</kwd> date.ToShortDateString();
     }
@@ -70,32 +74,36 @@ WPFの<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(
     <cmt>// ターゲット ⇒ ソース変換</cmt>
     <kwd>public object</kwd> ConvertBack(<kwd>object</kwd> value, Type targetType, <kwd>object</kwd> parameter, CultureInfo culture)
     {
+        <cmt>// 日時に変換可能であれば変換して返す</cmt>
         <kwd>string</kwd> strValue = value <kwd>as string</kwd>;
         <knw>DateTime</knw> resultDateTime;
         <kwd>if</kwd> (<knw>DateTime</knw>.TryParse(strValue, <kwd>out</kwd> resultDateTime))
         {
             <kwd>return</kwd> resultDateTime;
         }
+
+        <cmt>// 変換できない場合は何もしない</cmt>
         <kwd>return</kwd> DependencyProperty.UnsetValue;
     }
 }
 </div>
 
-<h3>XAML</h3>
-コードビハインドで作成したコンバーターをリソースとして登録することで、デザインから参照することが可能となる。
+<h6>XAML</h6>
+コードで作成したコンバーターをリソースとして登録することで、デザインから参照することが可能となる。
 <div class="xaml">
 &lt;Window
        xmlns:conv="clr-namespace:_Converter"&gt;
     :
-
-    &lt;!-- コードビハインドで作成したコンバータ―をリソースに登録 --&gt;
+<cmt>
+    &lt;!-- コードで作成したコンバータ―をリソースに登録 --&gt;
+    &lt;!-- キー : dateConverter --&gt;</cmt>
     &lt;Window.Resources&gt;
         &lt;conv:DateConverter x:Key="dateConverter"/&gt;
     &lt;/Window.Resources&gt;
 
     :
-
-    &lt;!-- コンバータ― dateConverter を適用 --&gt;
+    <cmt>
+    &lt;!-- コンバーター(キー : dateConverter )を適用 --&gt;</cmt>
     &lt;TextBlock Name="StartDateDTKey" Grid.Row="2" Grid.Column="1" 
                Text="{Binding Path=StartDate,
                Converter={StaticResource dateConverter}}" 
@@ -111,7 +119,7 @@ WPFの<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(
 ラジオボタンに対応する列挙値(Enum)を取得したい場合、以下のように実装する。<br>
 PropertyChanged 、Reactive の実装は省略。
 
-<h3>コードビハインド : コンバーターの定義</h3>
+<h6>コード : コンバーターの定義</h6>
 
 <div class="code">
 <kwd>using</kwd> <knw>System</knw>.Globalization;
@@ -164,7 +172,7 @@ PropertyChanged 、Reactive の実装は省略。
 }
 </div>
 
-<h3>XAML : ラジオボタンの配置、コンバーターの適用</h3>
+<h6>XAML : ラジオボタンの配置、コンバーターの適用</h6>
 <div class="xaml">
 &lt;Window
        xmlns:res="clr-namespace:_Converter"&gt;
@@ -178,10 +186,15 @@ PropertyChanged 、Reactive の実装は省略。
         &lt;/StackPanel.Resources&gt;
 
         <cmt>&lt;!-- RadioButton設置 --&gt;</cmt>
-        &lt;RadioButton Margin="0,5,0,0" Content="簡易"
+        <cmt>&lt;!-- いずれも IsChecked を RadioButtonValue にバインド --&gt;</cmt>
+        <cmt>&lt;!-- コンバーターとして Enum を使用 --&gt;</cmt>
+
+        <cmt>&lt;!-- 「簡易」- ConverterParameter = Simple ( mode.Simple ) --&gt;</cmt>
+        &lt;RadioButton Content="簡易"
                      IsChecked="{Binding RadioButtonValue, Converter={StaticResource Enum}, Mode=TwoWay, ConverterParameter=Simple}" /&gt;
 
-        &lt;RadioButton Margin="0,0,0,0" Content="詳細"
+        <cmt>&lt;!-- 「詳細」- ConverterParameter = Detail ( mode.Detail ) --&gt;</cmt>
+        &lt;RadioButton Content="詳細"
                      IsChecked="{Binding RadioButtonValue, Converter={StaticResource Enum}, Mode=TwoWay, ConverterParameter=Detail}" /&gt;
 
         :
@@ -209,7 +222,7 @@ Visibility は列挙体のため bool をそのまま使用することはでき
 即ち使用の都度変換後の値を切り替えることで、柔軟な運用が可能である。<br>
 ただし各プロパティにデフォルト値を割り当てていないため、プロパティの指定は必須である。<br>
 
-<h3>コードビハインド : コンバーターの定義</h3>
+<h6>コード : コンバーターの定義</h6>
 <div class="code">
 <kwd>using</kwd> <knw>System</knw>.Globalization;
 <kwd>using</kwd> <knw>System</knw>.<knw>Windows</knw>.Data;
@@ -250,7 +263,7 @@ Visibility は列挙体のため bool をそのまま使用することはでき
 }
 </div>
 
-<h3>XAML : コンバーターの適用</h3>
+<h6>XAML : コンバーターの適用</h6>
 ここで TrueTo 、FalseTo に値を設定する。
 <div class="xaml">
 &lt;Window
