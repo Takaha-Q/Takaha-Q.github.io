@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+
+<!-- 関連ページ -->
+<h6>関連 :</h6>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/02_ウィンドウ/ウィンドウ起動～終了時のイベント.html">ウィンドウ起動～終了時のイベント</a><br>
+
+<!-- 目次 -->
+<h6>目次 :</h6>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>ウィンドウが閉じるのをキャンセルする</h2>
+×ボタン押下や Close() 呼び出しでウィンドウを閉じる際、Closing ハンドラ中で CancelEventArgs.Cancel = true とすることでウィンドウが閉じるのをキャンセルできる。
+
+<h3>詳細</h3>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/02_ウィンドウ/ウィンドウ起動～終了時のイベント.html">リンク先</a>を併せて参照のこと。<br>
+×ボタンを押下した場合は Close() が暗黙的に呼び出され、それを受けて Closing イベントが発生する。<br>
+( Close() を明示的に呼び出した場合も同様。)<br>
+その際にイベント引数( CancelEventArgs )が渡されるが、Closing ハンドラが CancelEventArgs.Cancel == false のまま終了するとウィンドウが閉じられる。<br>
+逆に CancelEventArgs.Cancel == true とすることでウィンドウが閉じるのを阻止することができる。
+
+<h3>実装例</h3>
+<div class="cs">
+<kwd>public partial class</kwd> MainWindow : <knw>Window</knw>
+{
+    :
+
+    <cmt>/// &lt;summary&gt;</cmt>
+    <cmt>/// ウィンドウが閉じられる直前の処理</cmt>
+    <cmt>/// &lt;/summary&gt;</cmt>
+    <kwd>private void</kwd> Window_Closing( <kwd>object</kwd> sender, <knw>System.ComponentModel.CancelEventArgs</knw> e )
+    {
+        <cmt>// 問い合わせ表示</cmt>
+        <cmt>// 「はい」押下時以外はウィンドウ閉をキャンセル</cmt>
+        <cmt>// ( e.Cancel に true をセット)</cmt>
+        e.Cancel = Util.MessageBoxFunc.ShowYesNoMsgBox( <ltr>"終了しますか？"</ltr> ) != Util.MessageBoxFunc.E_Result.Yes;
+    }
+
+    <cmt>/// &lt;summary&gt;</cmt>
+    <cmt>/// 「終了」ボタンクリック時の処理</cmt>
+    <cmt>/// &lt;/summary&gt;</cmt>
+    <kwd>private void</kwd> Button_Click_Exit( <kwd>object</kwd> sender, <knw>RoutedEventArgs</knw> e )
+    {
+        <cmt>// ウィンドウを閉じる</cmt>
+        Close();
+    }
+}    
+</div>
+
+<h6>処理の流れ :</h6>
+<ol>
+    <li>「終了」ボタンが押下される</li>
+    <li>「終了」ボタンのクリックハンドラ中で Close() が呼ばれる</li>
+    <li>ウィンドウの Closing イベントが発生する</li>
+    <li>Closing イベントハンドラ中で e.Cancel = true とするとウィンドウが閉じるのがキャンセルされる</li>
+</ol>
