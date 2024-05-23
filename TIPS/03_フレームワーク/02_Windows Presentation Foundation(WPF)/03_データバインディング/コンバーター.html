@@ -39,7 +39,7 @@
 <!-- 本文ここから -->
 
 <h2>コンバーターとは</h2>
-WPFの<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/データバインディング.html">データバインディング</a>において、バインドされるデータ(ソース)と画面表示(ターゲット)との間で形式(型や書式など)を変換する機構のこと。<br>
+WPFのデータバインディングにおいて、ソースとターゲットとの間で形式(型や書式など)を変換する機構のこと。<br>
 例えば TextBox に DateTime 型をバインドし、そのうち年、月、日のみを表示するよう変換する、といったことが可能となる。
 
 <h2>コンバーターの実装</h2>
@@ -51,6 +51,8 @@ WPFの<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(
     <li>Convert() : ソースからターゲットへの変換</li>
     <li>ConvertBack() : ターゲットからソースへの変換</li>
 </ul>
+
+変換先のプロパティ( Convert() : ターゲット / ConvertBack() : ソース )を更新しない場合は、<span class="code"><kwd>return</kwd> DependencyProperty.UnsetValue;</span>とする。
 
 <div class="code">
 <kwd>using</kwd> <knw>System</knw>.Globalization;
@@ -89,7 +91,9 @@ WPFの<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(
 </div>
 
 <h6>XAML</h6>
-コードで作成したコンバーターをリソースとして登録することで、デザインから参照することが可能となる。
+作成したコンバーターを親要素にリソースとして登録することで、デザインから参照することが可能となる。<br>
+このとき、コンバーターは StaticResource とする必要がある。
+
 <div class="xaml">
 &lt;Window
        xmlns:conv="clr-namespace:_Converter"&gt;
@@ -98,15 +102,16 @@ WPFの<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(
     &lt;!-- コードで作成したコンバータ―をリソースに登録 --&gt;
     &lt;!-- キー : dateConverter --&gt;</cmt>
     &lt;Window.Resources&gt;
-        &lt;conv:DateConverter x:Key="dateConverter"/&gt;
+        <b class="red">&lt;conv:DateConverter x:Key="dateConverter"/&gt;</b>
     &lt;/Window.Resources&gt;
 
     :
     <cmt>
-    &lt;!-- コンバーター(キー : dateConverter )を適用 --&gt;</cmt>
+    &lt;!-- コンバーター(キー : dateConverter )を適用 --&gt;
+    &lt;!-- StaticResource として参照 --&gt;</cmt>
     &lt;TextBlock Name="StartDateDTKey" Grid.Row="2" Grid.Column="1" 
                Text="{Binding Path=StartDate,
-               Converter={StaticResource dateConverter}}" 
+                              <b class="red">Converter={StaticResource dateConverter}</b>}" 
                Style="{StaticResource textStyleTextBlock}"/&gt;
 
     :
@@ -116,7 +121,7 @@ WPFの<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(
 <h2>応用#1 : ラジオボタンを双方向バインディングする</h2>
 
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/WPF/Binding_Converter/01.png" alt="画像"><br>
-ラジオボタンに対応する列挙値(Enum)を取得したい場合、以下のように実装する。<br>
+チェックされたラジオボタンに対応する列挙値(Enum)を取得したい場合、以下のように実装する。<br>
 PropertyChanged 、Reactive の実装は省略。
 
 <h6>コード : コンバーターの定義</h6>
@@ -134,7 +139,8 @@ PropertyChanged 、Reactive の実装は省略。
     Detail
 }
 
-<kwd>public class</kwd> BoolToEnumConverter : IValueConverter
+<cmt>// Enum ⇒ Bool 変換用コンバーター</cmt>
+<kwd>public class</kwd> EnumToBoolConverter : IValueConverter
 {
     <cmt>// ソース ⇒ ターゲット変換</cmt>
     <kwd>public object</kwd> Convert(<kwd>object</kwd> value, Type targetType, <kwd>object</kwd> parameter, CultureInfo culture)
@@ -181,21 +187,22 @@ PropertyChanged 、Reactive の実装は省略。
 
     &lt;StackPanel&gt;
         &lt;StackPanel.Resources&gt;
-            <cmt>&lt;!-- コンバーター宣言 --&gt;</cmt>
-            &lt;res:BoolToEnumConverter x:Key="Enum" /&gt;
+            <cmt>&lt;!-- コンバーター EtoB 宣言 --&gt;</cmt>
+            &lt;res:EnumToBoolConverter x:Key="EtoB" /&gt;
         &lt;/StackPanel.Resources&gt;
 
-        <cmt>&lt;!-- RadioButton設置 --&gt;</cmt>
-        <cmt>&lt;!-- いずれも IsChecked を RadioButtonValue にバインド --&gt;</cmt>
-        <cmt>&lt;!-- コンバーターとして Enum を使用 --&gt;</cmt>
+        <cmt>&lt;!-- RadioButton --&gt;</cmt>
+        <cmt>&lt;!-- ターゲット : IsChecked (bool) --&gt;</cmt>
+        <cmt>&lt;!-- ソース : ModeValue (mode) --&gt;</cmt>
+        <cmt>&lt;!-- コンバーター : EtoB --&gt;</cmt>
 
         <cmt>&lt;!-- 「簡易」- ConverterParameter = Simple ( mode.Simple ) --&gt;</cmt>
         &lt;RadioButton Content="簡易"
-                     IsChecked="{Binding RadioButtonValue, Converter={StaticResource Enum}, Mode=TwoWay, ConverterParameter=Simple}" /&gt;
+                     IsChecked="{Binding ModeValue, Converter={StaticResource EtoB}, Mode=TwoWay, ConverterParameter=Simple}" /&gt;
 
         <cmt>&lt;!-- 「詳細」- ConverterParameter = Detail ( mode.Detail ) --&gt;</cmt>
         &lt;RadioButton Content="詳細"
-                     IsChecked="{Binding RadioButtonValue, Converter={StaticResource Enum}, Mode=TwoWay, ConverterParameter=Detail}" /&gt;
+                     IsChecked="{Binding ModeValue, Converter={StaticResource EtoB}, Mode=TwoWay, ConverterParameter=Detail}" /&gt;
 
         :
 
@@ -208,13 +215,16 @@ PropertyChanged 、Reactive の実装は省略。
 
 <h3>解説</h3>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/WPF/Binding_Converter/02.png" alt="画像"><br>
-ソース値をチェック状態に反映する場合(ソース ⇒ ターゲット)、値は Convert() の value に格納される。<br>
-比較対象として XAML から ConvertParameter で渡した値はConvert() の parameter に格納され、value と parameter が一致する場合にチェックがオンとなる。<br>
-このとき、parameter の実体は string 型( "Simple" または "Detail" )であり、Enum.Parse() で定義名との比較を行っている。<br>
+
+ソース値を変更すると Convert() が呼ばれ、ソース値が value に、ConverterParameter ( mode.Simple または mode.Detail )が parameter に渡される。<br>
+targetType はバインドされたソース ModeValue の型が推論されて渡される(「バインドターゲット」の型ではない点に注意)。<br>
+parameter を比較値として用い、value が parameter に一致する場合に Convert() が true を返すため、対応するラジオボタンがチェックされる。<br>
 <br>
-チェック状態を変更した場合(ターゲット ⇒ ソース)は ConvertBack() が呼ばれ、parameter で指定された列挙子がソース値に反映される。<br>
-ここで、「チェック状態の変更」は「チェックされた」ラジオボタンと、「チェックを外された」ラジオボタンの双方が該当するため、ConvertBack() は2回コールされる。<br>
-このため、value が true (チェックされている)の場合のみ値の変更を行う。
+逆にチェック状態を変更すると ConvertBack() が呼ばれ、ConverterParameter で指定された列挙子がソースに反映される。<br>
+<br>
+注意が必要な点として、ラジオボタンのチェック状態を変更すると「チェックされた」ラジオボタンと、「チェックを外された」ラジオボタンの双方で CheckedChanged イベントが発生するため、<br>
+ConvertBack() はそれぞれで(計2回)コールされる。<br>
+ソースに反映するのはチェックされたラジオボタンであるため、value が true (チェックされている)の場合のみソース値の変更を行う。
 
 <h2>応用#2 : bool を指定した Visibility にバインドする</h2>
 コントロールの可視性( Visibility )を bool 値によって切り替えられるコンバーターの例を示す。<br>
