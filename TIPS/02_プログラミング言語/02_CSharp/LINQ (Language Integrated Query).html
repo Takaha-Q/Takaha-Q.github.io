@@ -21,9 +21,11 @@
 
 <!-- 出典ページ -->
 <h6>出典 :</h6>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/csharp/linq/">C# の統合言語クエリ (LINQ) | Microsoft Learn</a><br>
 <a href="https://qiita.com/nskydiving/items/c9c47c1e48ea365f8995">はじめてのLINQ - Qiita</a><br>
 <a href="https://www.sejuku.net/blog/56519">【C#入門】LINQの使い方総まとめ - Samurai Blog</a><br>
 <a href="https://qiita.com/Marimoiro/items/0e119b47d65bf138789a">LINQチートシート的なもの - Qiita</a><br>
+<a href="https://qiita.com/RyotaMurohoshi/items/ba4ade6c6c9dc40b6217">ListからDictionary作る時もLINQを使おうぜ！ILookupも便利だぜ！ #C# - Qiita</a><br>
 
 <!-- 関連ページ -->
 <h6>関連 :</h6>
@@ -111,8 +113,19 @@ LINQが提供する Where() などのメソッドを「クエリ演算子」と�
     </tr>
 </table>
 
-<h2>実用例 : 「グループボックス内のチェックされたラジオボタンを取得する」</h2>
-<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/dotNET/Linq/01.png" alt="画像"><br>
+<h2>実用例</h2>
+
+<h3>コレクションから Dictionary を生成する</h3>
+<b>ToDictionary()</b> メソッドを用いる。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/CSharp/Linq/02.png" alt="画像"><br>
+新たに作成する Dictionary のキー、および値それぞれを規定するラムダ式を記述する。<br>
+ここで、ラムダ式の引数は基となるコレクションの要素( baseDic の要素である KeyValuePair )である。<br>
+KeyValuePair は Key でキー、Value で値を参照できる。<br>
+このように、コレクションから Dictionary への転写をループを用いることなく実現できる。<br>
+尚、ToDictionary() には複数のオーバーロードが存在する。詳細は割愛。
+
+<h3>グループボックス内のチェックされたラジオボタンを取得する</h3>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/CSharp/Linq/01.png" alt="画像"><br>
 上記例において、groupBox1.Controls は「groupBox1 に含まれるすべてのコントロール」、<br>
 OfType&lt;RadioButton&gt;() メソッドにより、「RadioButton」に該当するもののみを抽出している。<br>
 ここまでの groupBox1.Controls.OfType&lt;RadioButton&gt;() がLINQの対象シーケンス(集合 : グループボックス内のラジオボタン)となる。<br>
