@@ -31,6 +31,7 @@
 <a href="TIPS/02_プログラミング言語/02_CSharp/[C%23]タプル.html">タプル</a><br>
 <a href="TIPS/02_プログラミング言語/02_CSharp/レコード.html">レコード</a><br>
 <a href="TIPS/02_プログラミング言語/02_CSharp/オブジェクトの代入とコピー.html">オブジェクトの代入とコピー</a><br>
+<a href="TIPS/02_プログラミング言語/01_C・C%2B%2B/const修飾の使い方.html">[C/C++]const修飾の使い方</a><br>
 
 <!-- 目次 -->
 <h6>目次 :</h6>
@@ -87,7 +88,7 @@ C#の型は「値型」と「参照型」に大別され、値型の変数には
 </ul>
 
 <table class="center">
-<tr class="row1"><td class="col1">修飾子 : 用途</td><td>呼び出し前の<br>変数初期化</td><td>呼び出し時の<br>修飾子付与</td><td>メソッド内での<br>参照先割り当て／変更</td><td>オプション引数</td></tr>
+<tr class="row1"><td class="col1">修飾子 : 用途</td><td>呼び出し前の<br>変数初期化</td><td>呼び出し時の<br>修飾子付与</td><td>メソッド内での<br>引数への割り当て<br>／更新</td><td>オプション引数</td></tr>
 <tr><td class="col1">in : 入力</td><td class="bg_lr">必須</td><td class="bg_ly">任意</td><td class="bg_lh">不可</td><td class="bg_lg">可</td></tr>
 <tr><td class="col1">ref : 変更</td><td class="bg_lr">必須</td><td class="bg_lr">必須</td><td class="bg_lg">可能</td><td class="bg_lh">不可</td></tr>
 <tr><td class="col1">out : 出力</td><td class="bg_lg">不要</td><td class="bg_lr">必須</td><td class="bg_lr">必須</td><td class="bg_lh">不可</td></tr>
@@ -146,6 +147,8 @@ C#の型は「値型」と「参照型」に大別され、値型の変数には
     InTest(<kwd>int</kwd> val);
 }
 </p>
+
+in 修飾はメソッド内での引数の書き換えを禁止するため、<a href="TIPS/02_プログラミング言語/01_C・C%2B%2B/const修飾の使い方.html">C/C++の const 修飾</a>と同様に用いることができる。
 
 <h3>ref のサンプル</h3>
 <h6>一般形</h6>
@@ -288,3 +291,4 @@ in / ref / out の各キーワードは、バイナリ上での差異は存在�
 }
 </p>
 Func(in int) が定義されているため、Func(ref int) や Func(out int) を定義しようとするとシグネチャの競合によりコンパイルエラーとなる。
+
