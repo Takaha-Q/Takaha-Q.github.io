@@ -51,16 +51,16 @@ C++がCのスーパーセットとして発祥したことから、C++におけ�
 構造体定義の際には struct キーワードに続いて「タグ」を指定できる(型定義を同時に行う場合は省略可能)。<br>
 「型名」を定義する際は typedef が必要。<br>
 
-<p class="code">
+<div class=cpp>
 <cmt>// 構造体を定義後、別名を割り当てる</cmt>
 <kwd>struct</kwd> tagSt_Hoge1                    <cmt>//&lt; tagSt_Hoge1 はタグであり、型名ではない</cmt>
 {
     U1 m_u1_Val;
 };
-<kwd>typedef</kwd> <kwd>struct</kwd> tagSt_Hoge1 St_Hoge1;  <cmt>//&lt; タグから型名を定義</cmt>
+<kwd>typedef struct</kwd> tagSt_Hoge1 St_Hoge1;  <cmt>//&lt; タグから型名を定義</cmt>
 
 <cmt>// 構造体と別名を同時に定義する</cmt>
-<kwd>typedef</kwd> <kwd>struct</kwd> tagSt_Hoge2            <cmt>//&lt; タグ tagSt_Hoge2 は省略可能</cmt>
+<kwd>typedef struct</kwd> tagSt_Hoge2            <cmt>//&lt; タグ tagSt_Hoge2 は省略可能</cmt>
 {
     U1 m_u1_Val;
 } St_Hoge2;
@@ -72,13 +72,13 @@ C++がCのスーパーセットとして発祥したことから、C++におけ�
 <cmt>// typedef で定義した型名を用いた変数宣言</cmt>
 St_Hoge1 g_st_Hoge1_2;
 St_Hoge2 g_st_Hoge2_2;
-</p>
+</div>
 
 <h3>C++</h3>
 C++における「構造体定義」は「構造体型定義」を兼ねる(<b>「タグ」が「正式な型名」となる</b>)ため、型定義に typedef を必要としない。<br>
 (C同様 typedef (または using )で別名を付与できるが、単に冗長であるだけでなく、二重管理となり混乱を生じる可能性がある。)
 
-<p class="code">
+<div class=cpp>
 <cmt>// クラス定義</cmt>
 <kwd>class</kwd> C_Hoge0                            <cmt>//&lt; クラス型 C_Hoge0</cmt>
 {
@@ -100,7 +100,7 @@ C++における「構造体定義」は「構造体型定義」を兼ねる(<b>�
 <cmt>// 変数宣言</cmt>
 C_Hoge0 g_cl_Hoge0;            <cmt>//&lt; クラス</cmt>
 St_Hoge1 g_st_Hoge1;           <cmt>//&lt; 構造体</cmt>
-</p>
+</div>
 
 <h2>どちらを用いるべきか</h2>
 クラスと構造体では前述したとおり、(デフォルトの)アクセス指定以外の差異は存在しない。<br>
@@ -115,3 +115,4 @@ St_Hoge1 g_st_Hoge1;           <cmt>//&lt; 構造体</cmt>
 <h2>余談</h2>
 C++では構造体と同様、共用体にもコンストラクタ・デストラクタを定義できる。<br>
 C#ではクラスと構造体の実装は異なり、クラスは参照渡し、構造体は値渡しとなる。詳細は割愛。<br>
+

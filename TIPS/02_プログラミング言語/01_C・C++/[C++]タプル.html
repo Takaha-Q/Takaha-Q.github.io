@@ -40,28 +40,28 @@
 
 <h2>タプルとは</h2>
 
-複数個の値をまとめて管理できるデータ型。<a href="TIPS/C・C%2B%2B/C%2B%2B11.html">C++11</a>で追加された。<br>
+複数個の値をまとめて管理できるデータ型。<a href="TIPS/02_プログラミング言語/01_C・C%2B%2B/C%2B%2B11.html">C++11</a>で追加された。<br>
 構造体やクラスと異なり事前の型定義が必要なく、簡便に用いることができる。
 
 <h2>一般形</h2>
 
-<div class="code">
+<div class="cpp">
 <cmt>// タプル型変数 tupleValue1 の宣言</cmt>
 <kwd>std</kwd>::tuple&lt;<kwd>int</kwd>, CMyClass, <kwd>double</kwd>&gt; tupleValue1;
 
 <cmt>// tupleValue1 の各要素に代入</cmt>
-<kwd>std</kwd>::<kwd>get</kwd>&lt;0&gt;(tupleValue1) = 10;
-<kwd>std</kwd>::<kwd>get</kwd>&lt;1&gt;(tupleValue1) = instance;
-<kwd>std</kwd>::<kwd>get</kwd>&lt;2&gt;(tupleValue1) = 15.5;
+<kwd>std</kwd>::get&lt;<ltr>0</ltr>&gt;(tupleValue1) = <ltr>10</ltr>;
+<kwd>std</kwd>::get&lt;<ltr>1</ltr>&gt;(tupleValue1) = instance;
+<kwd>std</kwd>::get&lt;<ltr>2</ltr>&gt;(tupleValue1) = <ltr>15.5</ltr>;
 
 <cmt>// tupleValue1 の各要素を参照</cmt>
-<kwd>int</kwd>      value1 = <kwd>std</kwd>::<kwd>get</kwd>&lt;0&gt;(tupleValue1);
-CMyClass value2 = <kwd>std</kwd>::<kwd>get</kwd>&lt;1&gt;(tupleValue1);
-<kwd>double</kwd>   value3 = <kwd>std</kwd>::<kwd>get</kwd>&lt;2&gt;(tupleValue1);
+<kwd>int</kwd>      value1 = <kwd>std</kwd>::get&lt;<ltr>0</ltr>&gt;(tupleValue1);
+CMyClass value2 = <kwd>std</kwd>::get&lt;<ltr>1</ltr>&gt;(tupleValue1);
+<kwd>double</kwd>   value3 = <kwd>std</kwd>::get&lt;<ltr>2</ltr>&gt;(tupleValue1);
 
 <cmt>// コンストラクタを用いたタプルの初期化</cmt>
 <kwd>std</kwd>::tuple&lt;<kwd>int</kwd>, CMyClass, <kwd>double</kwd>&gt; tupleValue2 = 
-<kwd>std</kwd>::tuple&lt;<kwd>int</kwd>, CMyClass, <kwd>double</kwd>&gt;(10, instance, 15.5);
+<kwd>std</kwd>::tuple&lt;<kwd>int</kwd>, CMyClass, <kwd>double</kwd>&gt;(<ltr>10</ltr>, instance, <ltr>15.5</ltr>);
 
 <cmt>// タプルの代入</cmt>
 <kwd>std</kwd>::tuple&lt;<kwd>int</kwd>, CMyClass, <kwd>double</kwd>&gt; tupleValue3 = tupleValue2;
@@ -74,7 +74,7 @@ std::get&lt;x&gt;() 関数は<b>要素への参照を返す</b>ため、代入�
 
 <h2>要素数の取得</h2>
 
-<div class="code">
+<div class="cpp">
 <kwd>std</kwd>::tuple&lt;<kwd>int</kwd>, CMyClass, <kwd>double</kwd>&gt; tupleValue;
 
 <cmt>// タプルの要素数を取得 (型を渡す)</cmt>
@@ -91,9 +91,9 @@ size_t count2 = <kwd>std</kwd>::tuple_size&lt; <kwd>decltype</kwd>(tupleValue) &
 
 <h2>タプルの構築 ( make_tuple() )</h2>
 
-<div class="code">
+<div class="cpp">
 <cmt>// make_tuple() 関数でタプル変数を構築</cmt>
-<kwd>auto</kwd> tupleValue = <kwd>std</kwd>::make_tuple(10, 15.3, &instance);
+<kwd>auto</kwd> tupleValue = <kwd>std</kwd>::make_tuple(<ltr>10</ltr>, <ltr>15.3</ltr>, &instance);
 </div>
 
 <b>std::make_tuple()</b> 関数を使用すると、タプル型の値を構築できる。<br>
@@ -102,20 +102,20 @@ size_t count2 = <kwd>std</kwd>::tuple_size&lt; <kwd>decltype</kwd>(tupleValue) &
 (後述の tie() との差異に注意。)
 
 <h2>既存の変数をタプル化 ( tie() )</h2>
-<div class="code">
-<kwd>int</kwd> a = 10;
-<kwd>double</kwd> b = 0.5;
-<kwd>std</kwd>::vector&lt;<kwd>int</kwd>&gt; c = { 1, 3 };
+<div class="cpp">
+<kwd>int</kwd> a = <ltr>10</ltr>;
+<kwd>double</kwd> b = <ltr>0.5</ltr>;
+<kwd>std</kwd>::vector&lt;<kwd>int</kwd>&gt; c = { <ltr>1</ltr>, <ltr>3</ltr> };
 
 <cmt>// tie() 関数で変数 a 、b 、c をタプルにまとめる</cmt>
 <kwd>auto</kwd> tupleValue = <kwd>std</kwd>::tie(a, b, c);
 
 <cmt>// a の値を更新すると、tupleValue にも波及</cmt>
-a = 20;
-<kwd>int</kwd> value1 = <kwd>std</kwd>::<kwd>get</kwd>&lt;0&gt;(tupleValue);     <cmt>//< value1 == 20</cmt>
+a = <ltr>20</ltr>;
+<kwd>int</kwd> value1 = <kwd>std</kwd>::get&lt;<ltr>0</ltr>&gt;(tupleValue);     <cmt>//&lt; value1 == 20</cmt>
 
 <cmt>// tupleValue の内容を更新すると、元の変数にも波及</cmt>
-<kwd>std</kwd>::<kwd>get</kwd>&lt;1&gt;(tupleValue) = 3.8;            <cmt>//< b == 3.8</cmt>
+<kwd>std</kwd>::get&lt;<ltr>1</ltr>&gt;(tupleValue) = <ltr>3.8</ltr>;            <cmt>//&lt; b == 3.8</cmt>
 </div>
 
 <b>std::tie()</b> 関数を使用すると、既存の変数をタプルとして管理できるようになる。<br>
@@ -124,19 +124,19 @@ make_tuple() は値のみがコピーされるが、<b>tie() では元の変数�
 
 <h2>複数のタプルを連結 ( tuple_cat() )</h2>
 
-<div class="code">
+<div class="cpp">
 <cmt>// タプル変数 tuple1 、tuple2 を生成</cmt>
-<kwd>auto</kwd> tuple1 = <kwd>std</kwd>::make_tuple(10, 3.3, "aa");             <cmt>//< 要素数 : 3</cmt>
-<kwd>auto</kwd> tuple2 = <kwd>std</kwd>::make_tuple(3.2f, "bb");                <cmt>//< 要素数 : 2</cmt>
+<kwd>auto</kwd> tuple1 = <kwd>std</kwd>::make_tuple(<ltr>10</ltr>, <ltr>3.3</ltr>, <ltr>"aa"</ltr>);             <cmt>//&lt; 要素数 : 3</cmt>
+<kwd>auto</kwd> tuple2 = <kwd>std</kwd>::make_tuple(<ltr>3.2f</ltr>, <ltr>"bb"</ltr>);                <cmt>//&lt; 要素数 : 2</cmt>
 
 <cmt>// tuple1 、tuple2 を連結した tuple3 を生成</cmt>
-<kwd>auto</kwd> tuple3 = <kwd>std</kwd>::tuple_cat(tuple1, tuple2);             <cmt>//< 要素数 : 3 + 2 = 5</cmt>
+<kwd>auto</kwd> tuple3 = <kwd>std</kwd>::tuple_cat(tuple1, tuple2);             <cmt>//&lt; 要素数 : 3 + 2 = 5</cmt>
 
-<kwd>auto</kwd> value0 = <kwd>std</kwd>::<kwd>get</kwd>&lt;0&gt;(tuple3);        <cmt>//< value0 == 10</cmt>
-<kwd>auto</kwd> value1 = <kwd>std</kwd>::<kwd>get</kwd>&lt;1&gt;(tuple3);        <cmt>//< value1 == 3.3</cmt>
-<kwd>auto</kwd> value2 = <kwd>std</kwd>::<kwd>get</kwd>&lt;2&gt;(tuple3);        <cmt>//< value2 == "aa"</cmt>
-<kwd>auto</kwd> value3 = <kwd>std</kwd>::<kwd>get</kwd>&lt;3&gt;(tuple3);        <cmt>//< value3 == 3.2f</cmt>
-<kwd>auto</kwd> value4 = <kwd>std</kwd>::<kwd>get</kwd>&lt;4&gt;(tuple3);        <cmt>//< value4 == "bb"</cmt>
+<kwd>auto</kwd> value<ltr>0</ltr> = <kwd>std</kwd>::get&lt;<ltr>0</ltr>&gt;(tuple3);        <cmt>//&lt; value0 == 10</cmt>
+<kwd>auto</kwd> value<ltr>1</ltr> = <kwd>std</kwd>::get&lt;<ltr>1</ltr>&gt;(tuple3);        <cmt>//&lt; value1 == 3.3</cmt>
+<kwd>auto</kwd> value<ltr>2</ltr> = <kwd>std</kwd>::get&lt;<ltr>2</ltr>&gt;(tuple3);        <cmt>//&lt; value2 == "aa"</cmt>
+<kwd>auto</kwd> value<ltr>3</ltr> = <kwd>std</kwd>::get&lt;<ltr>3</ltr>&gt;(tuple3);        <cmt>//&lt; value3 == 3.2f</cmt>
+<kwd>auto</kwd> value<ltr>4</ltr> = <kwd>std</kwd>::get&lt;<ltr>4</ltr>&gt;(tuple3);        <cmt>//&lt; value4 == "bb"</cmt>
 </div>
 
 <b>std::tuple_cat()</b> 関数は、引数に指定されたタプルを連結し、新たなタプルを生成する。
@@ -145,3 +145,4 @@ make_tuple() は値のみがコピーされるが、<b>tie() では元の変数�
 前述したように、make_tuple() や tie() などは戻り値を auto で受けることで、タプルの詳細な型を知ることなく用いることができる。<br>
 このようにタプルは型推論( auto 、decltype() )と共に用いることで利便性を最大限に発揮できる。<br>
 型推論については<a href="TIPS/02_プログラミング言語/01_C・C%2B%2B/型推論.html">ここ</a>を参照。
+
