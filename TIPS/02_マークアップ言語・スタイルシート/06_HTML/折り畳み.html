@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典・関連ページ -->
+
+<!-- 目次 -->
+<h6>目次 :</h6>
+<div id="toc"></div>
+
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>HTMLページの折り畳み</h2>
+ページを折り畳んで表示するには、<code class="b red">&lt;details&gt;</code> と <code class="b blue">&lt;summary&gt;</code> を使用する。
+
+<h2>例</h2>
+
+<h3>基本形</h3>
+行頭記号をクリックすることで折り畳み・展開を切り替える。初期状態は折り畳み。
+
+<h6>HTMLの記述</h6>
+<div class="code">
+<b class=red>&lt;details&gt;</b>
+    <b class=blue>&lt;summary&gt;</b>折りたたまれる内容のサマリ<b class=blue>&lt;/summary&gt;</b>
+    &lt;pre&gt;
+    詳細
+    詳細
+    &lt;/pre&gt;
+<b class=red>&lt;/details&gt;</b>
+</div>
+
+<h6>表示</h6>
+<details>
+    <summary>折りたたまれる内容のサマリ</summary>
+    <pre>
+    詳細
+    詳細
+    </pre>
+</details>
+
+<h3>展開を初期状態とする</h3>
+<code class="b red">details</code> タグに <code>open</code> 属性を追加し、<code class="b red">&lt;details open&gt;</code> とする。
+
+<h6>HTMLの記述</h6>
+<div class="code">
+<b class=red>&lt;details open&gt;</b>
+    <b class=blue>&lt;summary&gt;</b>折りたたまれる内容のサマリ<b class=blue>&lt;/summary&gt;</b>
+    &lt;pre&gt;
+    詳細
+    詳細
+    &lt;/pre&gt;
+<b class=red>&lt;/details&gt;</b>
+</div>
+
+<h6>表示</h6>
+<details open>
+    <summary>折りたたまれる内容のサマリ</summary>
+    <pre>
+    詳細
+    詳細
+    </pre>
+</details>
+
+<h3>summary タグの省略</h3>
+
+<code class="b blue">summary</code> タグを省略した場合、デフォルトのサマリが付与される。<br>
+(日本語環境では「詳細」と表示される。)
+
+<h6>HTMLの記述</h6>
+<div class="code">
+<b class=red>&lt;details&gt;</b>
+    &lt;pre&gt;
+    TTT
+    SSS
+    &lt;/pre&gt;
+<b class=red>&lt;/details&gt;</b>
+</div>
+
+<h6>表示</h6>
+<details>
+    <pre>
+    TTT
+    SSS
+    </pre>
+</details>
+
+<h2>制約</h2>
+<code class="b blue">summary</code> タグに見出し (h1～h6) を含めることはできない。
+
