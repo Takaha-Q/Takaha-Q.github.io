@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<h5>出典 :</h5>
+<a href="https://qiita.com/NagaJun/items/b37b4b687c2ab2a8171a">Excelアドイン　イベント処理 #C# - Qiita</a><br>
+<a href="https://learn.microsoft.com/ja-jp/visualstudio/vsto/programming-vsto-add-ins?view=vs-2022&tabs=csharp">ThisAddIn クラスを使用して VSTO アドインをプログラムする - Visual Studio (Windows) | Microsoft Learn</a><br>
+<a href="https://learn.microsoft.com/ja-jp/visualstudio/vsto/global-access-to-objects-in-office-projects?view=vs-2022&tabs=csharp">Office プロジェクト内のオブジェクトへのグローバル アクセス - Visual Studio (Windows) | Microsoft Learn</a><br>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/api/microsoft.office.tools.excel.workbook?view=vsto-2017#events">Workbook インターフェイス (Microsoft.Office.Tools.Excel) | Microsoft Learn</a><br>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/api/microsoft.office.tools.excel.worksheet?view=vsto-2019#events">Worksheet インターフェイス (Microsoft.Office.Tools.Excel) | Microsoft Learn</a><br>
+<a href="https://learn.microsoft.com/en-us/dotnet/api/microsoft.office.interop.excel.application?view=excel-pia&redirectedfrom=MSDN">Application インターフェイス (Microsoft.Office.Interop.Excel) | Microsoft Learn</a><br>
+<a href="https://qiita.com/KToushi/items/4227949b3780311b1add">Excel アドイン VSTO(VB.NET, C#) アクテイブなブック、シートの取得方法　選択中の範囲、セル取得方法 #VB.Net - Qiita</a><br>
+
+<!-- 関連ページ -->
+<h5>関連 :</h5>
+<a href="アドイン.html">[Excel]アドイン</a><br>
+<a href="デリゲートとイベント.html">デリゲートとイベント</a>
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>アドインでExcelのイベントを処理する</h2>
+ブックを開いた、ブック中でダブルクリックを行った、選択されているセル範囲が変更されたなど、Excel上で発生したイベントに対してアドインの特定の処理を関連付けたい場合は、<br>
+関連付けたい処理をイベントハンドラとして登録すればよい。<br>
+
+<img src="file:/C:\Users\shinji.takahata\_Git_Local_Rep\Murasame Lab\html_tips\_Img\Visual Studio\Handle Excel Event On VSTO Addin\01.png" alt="画像"><br>
+
+<h2>手順</h2>
+C#でのコード例を示す。
+
+<h6>ThisAddin.cs (抜粋)</h6>
+
+<div class="cs">
+namespace ExcelAddIn1
+{
+    public partial class ThisAddIn
+    {
+        // (自動生成)アドイン開始時の処理
+        private void ThisAddIn_Startup(object sender, System.EventArgs e)
+        {
+            // Application の SheetBeforeDoubleClick (シートをダブルクリックした際に発生)イベントフックに
+            // イベントハンドラとして DoSomething() を登録
+            this.Application.SheetBeforeDoubleClick += DoSomething;
+        }
+
+        // イベント発生時に実行したい処理(イベントハンドラ)
+        private void DoSomething(object Sh, Excel.Range Target, ref bool Cancel)
+        {
+            string value = Convert.ToString(Target.Value);
+            MessageBox.Show(value);
+        }
+    }
+}
+</div>
+
+ユーザ操作の多く(マウスクリックなど)は ThisAddIn.Application で受けることが可能であるが、特定のブック、またはシートでイベントを受けたい場合は以下のようにしてブックまたはシートを取得する。<br>
+(いずれも Application のプロパティ)
+
+<div class="cs">
+// 現在開いているワークブック(Excelファイル)を取得
+Workbook book = this.Application.ActiveWorkbook;
+
+// 現在のワークシートを取得
+Worksheet sheet= this.Application.ActiveSheet;
+</div>
+
+<h2>ThisAddIn クラス外からのアクセス</h2>
+アドインの処理を記述する ThisAddIn クラスには、Globals 静的クラスを介してクラス外からのアクセスが可能である。<br>
+ThisAddIn は Globals のプロパティとして振舞う。
+
+<div class="cs">
+namespace ExcelAddIn1
+{
+    public partial class ThisAddIn
+    {
+        private void ThisAddIn_Startup(object sender, System.EventArgs e)
+        {
+            // this.Application.SheetBeforeDoubleClick += DoSomething;
+            // と同様に振舞う
+            Globals.ThisAddIn.Application.SheetBeforeDoubleClick += DoSomething;
+        }
+    }
+}
+</div>
+    
