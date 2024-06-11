@@ -10,6 +10,22 @@
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
 
+
+<script>
+    window.addEventListener('message', function(e) {
+    var iframe = $("#parentframe");
+    var eventName = e.data[0];
+    var data = e.data[1];
+    switch(eventName) {
+        case 'setHeight':
+            iframe.height(data);
+            break;
+        }
+    }, false);
+</script>
+
+
+
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
 
@@ -200,16 +216,7 @@ protected override Microsoft.Office.Core.IRibbonExtensibility CreateRibbonExtens
 <li>リボンに「アドイン」タブとボタンが追加されている。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MS Excel/Addin/16.png" alt="画像"></li>
 
-<script>
-    window.addEventListener('message', function(e) {
-    var iframe = $("#parentframe");
-    var eventName = e.data[0];
-    var data = e.data[1];
-    switch(eventName) {
-        case 'setHeight':
-            iframe.height(data);
-            break;
-        }
-    }, false);
-</script>
+</ol>
+
+
 <iframe id="parentframe" src="TIPS\04_開発環境\01_Visual Studio\[Win32]DLLのエントリポイント.html" frameborder="no" scrolling="no"></iframe>
