@@ -31,8 +31,8 @@
 
 <!-- 関連ページ -->
 <h5>関連 :</h5>
-<a href="アドイン.html">[Excel]アドイン</a><br>
-<a href="デリゲートとイベント.html">デリゲートとイベント</a>
+<a href="TIPS/07_オフィススイート/Microsoft Excel/アドイン.html">[Excel]アドイン</a><br>
+<a href="TIPS/02_プログラミング言語/02_CSharp/デリゲートとイベント.html">デリゲートとイベント</a>
 
 <!-- 目次 -->
 <h5>目次 :</h5>
@@ -76,9 +76,6 @@ C#でのコード例を示す。
 </div>
 
 ユーザ操作の多く(マウスクリックなど)は ThisAddIn.Application で受けることが可能であるが、特定のブック、またはシートでイベントを受けたい場合は以下のようにしてブックまたはシートを取得する。<br>
-(いずれも Application のプロパティ)
-
-<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\Visual Studio\Handle Excel Event On VSTO Addin\02.png" alt="画像"><br>
 
 <div class="cs">
 <cmt>// 現在開いているワークブック(Excelファイル)を取得</cmt>
@@ -87,6 +84,8 @@ Workbook book = <kwd>this</kwd>.<knw>Application</knw>.ActiveWorkbook;
 <cmt>// 現在のワークシートを取得</cmt>
 Worksheet sheet= <kwd>this</kwd>.<knw>Application</knw>.ActiveSheet;
 </div>
+
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\Visual Studio\Handle Excel Event On VSTO Addin\02.png" alt="画像"><br>
 
 <h2>ThisAddIn クラス外からのアクセス</h2>
 アドインの処理を記述する ThisAddIn クラスには、Globals 静的クラスを介してクラス外からのアクセスが可能である。<br>
@@ -106,3 +105,4 @@ ThisAddIn は Globals のプロパティとして振舞う。
     }
 }
 </div>
+
