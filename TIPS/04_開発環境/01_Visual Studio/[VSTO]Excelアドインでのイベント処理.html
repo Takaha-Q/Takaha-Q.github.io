@@ -45,7 +45,7 @@
 ブックを開いた、ブック中でダブルクリックを行った、選択されているセル範囲が変更されたなど、Excel上で発生したイベントに対してアドインの特定の処理を関連付けたい場合は、<br>
 関連付けたい処理をイベントハンドラとして登録すればよい。<br>
 
-<img src="file:/C:\Users\shinji.takahata\_Git_Local_Rep\Murasame Lab\html_tips\_Img\Visual Studio\Handle Excel Event On VSTO Addin\01.png" alt="画像"><br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\Visual Studio\Handle Excel Event On VSTO Addin\01.png" alt="画像"><br>
 
 <h2>手順</h2>
 C#でのコード例を示す。
@@ -53,22 +53,22 @@ C#でのコード例を示す。
 <h6>ThisAddin.cs (抜粋)</h6>
 
 <div class="cs">
-namespace ExcelAddIn1
+<kwd>namespace</kwd> ExcelAddIn1
 {
-    public partial class ThisAddIn
+    <kwd>public partial class</kwd> ThisAddIn
     {
-        // (自動生成)アドイン開始時の処理
-        private void ThisAddIn_Startup(object sender, System.EventArgs e)
+        <cmt>// (自動生成)アドイン開始時の処理</cmt>
+        <kwd>private void</kwd> ThisAddIn_Startup(<kwd>object</kwd> sender, <knw>System</knw>.<knw>EventArgs</knw> e)
         {
-            // Application の SheetBeforeDoubleClick (シートをダブルクリックした際に発生)イベントフックに
-            // イベントハンドラとして DoSomething() を登録
-            this.Application.SheetBeforeDoubleClick += DoSomething;
+            <cmt>// Application の SheetBeforeDoubleClick (シートをダブルクリックした際に発生)イベントフックに</cmt>
+            <cmt>// イベントハンドラとして DoSomething() を登録</cmt>
+            <kwd>this</kwd>.<knw>Application</knw>.SheetBeforeDoubleClick += DoSomething;
         }
 
-        // イベント発生時に実行したい処理(イベントハンドラ)
-        private void DoSomething(object Sh, Excel.Range Target, ref bool Cancel)
+        <cmt>// イベント発生時に実行したい処理(イベントハンドラ)</cmt>
+        <kwd>private void</kwd> DoSomething(<kwd>object</kwd> Sh, Excel.Range Target, <kwd>ref bool</kwd> Cancel)
         {
-            string value = Convert.ToString(Target.Value);
+            <kwd>string</kwd> value = Convert.ToString(Target.Value);
             MessageBox.Show(value);
         }
     }
@@ -78,12 +78,14 @@ namespace ExcelAddIn1
 ユーザ操作の多く(マウスクリックなど)は ThisAddIn.Application で受けることが可能であるが、特定のブック、またはシートでイベントを受けたい場合は以下のようにしてブックまたはシートを取得する。<br>
 (いずれも Application のプロパティ)
 
-<div class="cs">
-// 現在開いているワークブック(Excelファイル)を取得
-Workbook book = this.Application.ActiveWorkbook;
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\Visual Studio\Handle Excel Event On VSTO Addin\02.png" alt="画像"><br>
 
-// 現在のワークシートを取得
-Worksheet sheet= this.Application.ActiveSheet;
+<div class="cs">
+<cmt>// 現在開いているワークブック(Excelファイル)を取得</cmt>
+Workbook book = <kwd>this</kwd>.<knw>Application</knw>.ActiveWorkbook;
+
+<cmt>// 現在のワークシートを取得</cmt>
+Worksheet sheet= <kwd>this</kwd>.<knw>Application</knw>.ActiveSheet;
 </div>
 
 <h2>ThisAddIn クラス外からのアクセス</h2>
@@ -91,17 +93,18 @@ Worksheet sheet= this.Application.ActiveSheet;
 ThisAddIn は Globals のプロパティとして振舞う。
 
 <div class="cs">
-namespace ExcelAddIn1
+<kwd>namespace</kwd> ExcelAddIn1
 {
-    public partial class ThisAddIn
+    <kwd>public partial class</kwd> ThisAddIn
     {
-        private void ThisAddIn_Startup(object sender, System.EventArgs e)
+        <kwd>private void</kwd> ThisAddIn_Startup(<kwd>object</kwd> sender, <knw>System</knw>.<knw>EventArgs</knw> e)
         {
-            // this.Application.SheetBeforeDoubleClick += DoSomething;
-            // と同様に振舞う
-            Globals.ThisAddIn.Application.SheetBeforeDoubleClick += DoSomething;
+            <cmt>// this.Application.SheetBeforeDoubleClick += DoSomething;</cmt>
+            <cmt>// と同様に振舞う</cmt>
+            Globals.ThisAddIn.<knw>Application</knw>.SheetBeforeDoubleClick += DoSomething;
         }
     }
 }
 </div>
     
+
