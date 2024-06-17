@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<h5>出典 :</h5>
+<a href="https://mseeeen.msen.jp/git-sparse-checkout/">git sparse checkout で clone せずに一部のサブディレクトリだけを pull/checkout する | MSeeeeN</a><br>
+<a href="https://qiita.com/kuriya/items/3b72c90eebd79a10b7a4">Gitで特定のディレクトリだけcloneする方法 #Git - Qiita</a><br>
+
+<!-- 関連ページ -->
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>特定のディレクトリを選択的にチェックアウトする</h2>
+Gitはチェックイン・チェックアウトをリポジトリ単位で行う。特定のディレクトリのみをチェックアウトしたい場合は、<code>sparse chekuout</code> を用いる。
+
+<h2>手順</h2>
+<table>
+    <tr class=row1>
+        <td colspan="2">手順</td>
+        <td>コマンドライン</td>
+        <td>TortoiseGit</td>
+        <td>Windows<br>エクスプローラー</td>
+    </tr>
+
+    <tr>
+        <td>0</td>
+        <td>チェックアウトするリモートリポジトリの<br>ディレクトリ構成を確認する</td>
+        <td class="code"></td>
+        <td>右クリックメニュー<br>「リポジトリブラウザー」を選択する<br>
+            <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\Git\Sparse-Checkout\01.png" alt="画像"></td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>1</td>
+        <td colspan="4">チェックアウト先(ローカルリポジトリ)となるディレクトリを作成する</td>
+    </tr>
+
+    <tr>
+        <td>2</td>
+        <td>1 で作成したディレクトリを<br>空のリポジトリとして初期化する</td>
+        <td class="code">git init</td>
+        <td>右クリックメニュー<br>「Git ここにリポジトリを作成」を選択する<br>
+            <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\Git\Sparse-Checkout\02.png" alt="画像"></td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>3</td>
+        <td>2 で作成したリポジトリの<br><code>sparse checkout</code> を有効にする</td>
+        <td class="code">git config core.sparsecheckout true</td>
+        <td></td>
+        <td><code>.git/config</code> を開く<br>
+            <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\Git\Sparse-Checkout\03.png" alt="画像"><br>
+            <code>[core]</code> セクションに <code>sparsecheckout = true</code> を追記する<br>
+            <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\Git\Sparse-Checkout\04.png" alt="画像">
+        </td>
+    </tr>
+
+    <tr>
+        <td>4</td>
+        <td>チェックアウトしたい<br>ディレクトリを指定する</td>
+        <td class="code">echo 対象ディレクトリ > .git/info/sparse-checkout</td>
+        <td></td>
+        <td><code>.git/info</code> にファイル <code>sparse-checkout</code> を作成する<br>
+            <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\Git\Sparse-Checkout\05.png" alt="画像"><br>
+            作成した <code>sparse-checkout</code> にチェックアウト対象を列挙する<br>
+            先頭に <code>!</code> を付与した場合はチェックアウト対象外となる<br>
+            <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\Git\Sparse-Checkout\06.png" alt="画像">
+        </td>
+    </tr>
+
+    <tr>
+        <td>5</td>
+        <td colspan="4">リモートリポジトリをプル(チェックアウト)する</td>
+    </tr>
+
+</table>
+
