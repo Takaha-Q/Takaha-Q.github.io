@@ -147,14 +147,12 @@ Close() を明示的にコールする必要は無い。<br>
 
     :
 </p>
-フォームの実行結果を参照する場合、<b>フォームをモーダルで開く( ShowDialog() )のが通例</b>。<br>
+フォームの実行結果を参照する場合、通常は<b>フォームをモーダルで開く( ShowDialog() )</b>。<br>
 上記のコードでは Form_Sub を閉じるまで後続の処理( if 文以降)が行われないため、単純な処理で DialogResult を確定させてから判定することができる。<br>
 <br>
-この ShowDialog() を Show() に置き換えた場合、フォームはモードレスで開かれるため、<br>
-if 文では DialogResult の初期値( DialogResult.None )を参考することになり意味を成さない。<br>
+フォームをモーダルで開い( Show() )た場合、DialogResult は戻り値としては得られない。<br>
 モードレスダイアログの DialogResult を参照するには、元アプリからのポーリングや、<br>
-フォームからイベントを発行する(フォームが閉じられたことを通知する)などの機構を用意する必要があるが、ここでは詳細は割愛する。<br>
-(余談ながら、Show() の戻り値は void 型である。)
+フォームからイベントを発行する(フォームが閉じられたことを通知する)などの機構を用意する必要がある。詳細は割愛。
 
 <h2>DialogResult 型の取りうる値(一例)</h2>
 <table>
@@ -164,3 +162,4 @@ if 文では DialogResult の初期値( DialogResult.None )を参考すること
 <tr><td>DialogResult.Yes</td><td>主に「はい」ボタン押下時</td></tr>
 <tr><td>DialogResult.No</td><td>主に「いいえ」ボタン押下時</td></tr>
 </table>
+
