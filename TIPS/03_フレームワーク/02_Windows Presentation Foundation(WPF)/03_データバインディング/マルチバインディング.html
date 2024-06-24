@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<h5>出典 :</h5>
+<a href="https://qiita.com/tera1707/items/8a6ee07ffe2d6f4c05e1">[WPF]マルチバインディングで複数プロパティを繋げて、一つのTextBlockに表示する #C# - Qiita</a>
+
+<!-- 関連ページ -->
+<h5>関連 :</h5>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/データバインディング.html">データバインディング</a><br>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/コンバーター.html">コンバーター</a><br>
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>マルチバインディング</h2>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/データバインディング.html">データバインディング</a>において、マルチバインディングを用いると複数のプロパティをソースにとることができる。<br>
+これにより、
+<ul>
+    <li>複数の string プロパティを連結して一つの TextBlock に表示する</li>
+    <li>複数の bool プロパティを参照し、コントロールの有効・無効を切り替える</li>
+</ul>
+といったことが可能となる。<br>
+但し複数の値を一つのターゲットに反映する都合上、<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/コンバーター.html">コンバーター</a>の実装が必須であり、このコンバーターもソースが単独の場合のものとは異なる。
+
+<h2>実装例 : 複数の TextBox を参照し、いずれも空でない場合のみ Button を有効としたい</h2>
+XAMLは要点を抜粋。
+
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\MultiBinding\01.png" alt="画像"><br>
+
+<h6>ウィンドウのXAML</h6>
+<div class="xaml">
+&lt;<tag>Window</tag> <prp>x:Class</prp>=<ltr>"WpfApp1.MainWindow"</ltr>
+        <prp>xmlns</prp>=<ltr>"http://schemas.microsoft.com/winfx/2006/xaml/presentation"</ltr>
+        <prp>xmlns:x</prp>=<ltr>"http://schemas.microsoft.com/winfx/2006/xaml"</ltr>
+        <prp>xmlns:d</prp>=<ltr>"http://schemas.microsoft.com/expression/blend/2008"</ltr>
+        <prp>xmlns:mc</prp>=<ltr>"http://schemas.openxmlformats.org/markup-compatibility/2006"</ltr>
+        <prp>xmlns:local</prp>=<ltr>"clr-namespace:WpfApp1"</ltr>
+        <prp>mc:Ignorable</prp>=<ltr>"d"</ltr>&gt;
+
+    <cmt>&lt;!-- コンバーター --&gt;</cmt>
+    &lt;<tag>Window.Resources</tag>&gt;
+        &lt;<tag>local</tag>:MyMultiStringConverter <prp>x:Key</prp>=<ltr>"MyMultiStringConverter"</ltr>/&gt;
+    &lt;/<tag>Window.Resources</tag>&gt;
+
+    <cmt>&lt;!-- 画面表示 --&gt;</cmt>
+    &lt;<tag>Grid</tag>&gt;
+
+        <cmt>&lt;!-- TextBox01 =&gt; Text を Text01 にバインド --&gt;</cmt>
+        &lt;<tag>TextBox</tag> <prp>Text</prp>=<ltr>"{Binding Path=Text01.Value}"</ltr>/&gt;
+
+        <cmt>&lt;!-- TextBox02 =&gt; Text を Text02 にバインド --&gt;</cmt>
+        &lt;<tag>TextBox</tag> <prp>Text</prp>=<ltr>"{Binding Path=Text02.Value}"</ltr>/&gt;
+
+        <cmt>&lt;!-- Button =&gt; IsEnabled を Text01 、Text02 の両方にバインド --&gt;</cmt>
+        &lt;<tag>Button</tag>&gt;
+            &lt;<tag>Button.IsEnabled</tag>&gt;
+
+                <cmt>&lt;!-- マルチバインディング --&gt;</cmt>
+                <cmt>&lt;!-- コンバーターを指定 --&gt;</cmt>
+                &lt;<tag>MultiBinding</tag> <prp>Converter</prp>=<ltr>"{StaticResource ResourceKey=MyMultiStringConverter}"</ltr>&gt;
+
+                    <cmt>&lt;!-- values[0] --&gt;</cmt>
+                    &lt;<tag>Binding</tag> <prp>Path</prp>=<ltr>"Text01.Value"</ltr>/&gt;
+
+                    <cmt>&lt;!-- values[1] --&gt;</cmt>
+                    &lt;<tag>Binding</tag> <prp>Path</prp>=<ltr>"Text02.Value"</ltr>/&gt;
+
+                &lt;/<tag>MultiBinding</tag>&gt;
+
+            &lt;/<tag>Button.IsEnabled</tag>&gt;
+        &lt;/<tag>Button</tag>&gt;
+
+    &lt;/<tag>Grid</tag>&gt;
+&lt;/<tag>Window</tag>&gt;
+</div>
+
+<h6>ウィンドウのコードビハインド</h6>
+<div class="cs">
+<kwd>using</kwd> <knw>System</knw>.<knw>Windows</knw>;
+
+<kwd>namespace</kwd> WpfApp1
+{
+    <kwd>public partial class</kwd> MainWindow : <knw>Window</knw>
+    {
+        <kwd>public</kwd> MainWindow()
+        {
+            InitializeComponent();
+
+            <cmt>// ViewModel を DataContext に指定</cmt>
+            DataContext = <kwd>new</kwd> ViewModel();
+        }
+    }
+}
+</div>
+
+<h6>コンバーター</h6>
+<div class="cs">
+<kwd>using</kwd> <knw>System</knw>;
+<kwd>using</kwd> <knw>System</knw>.Globalization;
+<kwd>using</kwd> <knw>System</knw>.<knw>Windows</knw>.Data;
+
+<kwd>namespace</kwd> WpfApp1
+{
+    <kwd>internal class</kwd> MyMultiStringConverter : <b class="red">IMultiValueConverter</b>
+    {
+        <cmt>// 順変換(ソース ⇒ ターゲット)</cmt>
+        <kwd>public object</kwd> <knw>Convert</knw>(<kwd>object</kwd>[] values, <knw>Type</knw> targetType, <kwd>object</kwd> parameter, CultureInfo culture)
+        {
+            <kwd>string</kwd> text01 = (<kwd>string</kwd>)values[<ltr>0</ltr>];
+            <kwd>string</kwd> text02 = (<kwd>string</kwd>)values[<ltr>1</ltr>];
+
+            <cmt>// いずれもが空でなければ true を返す</cmt>
+            <kwd>return</kwd> ( !<knw>String</knw>.IsNullOrEmpty(text01) ) && ( !<knw>String</knw>.IsNullOrEmpty(text02) );
+        }
+
+        <cmt>// 逆変換(ターゲット ⇒ ソース)</cmt>
+        <kwd>public object</kwd>[] ConvertBack(<kwd>object</kwd> value, <knw>Type</knw>[] targetTypes, <kwd>object</kwd> parameter, CultureInfo culture)
+        {
+            <cmt>// 何もしない</cmt>
+            <kwd>throw new</kwd> NotImplementedException();
+        }
+    }
+}
+</div>
+
+<h6>ViewModel</h6>
+<div class="cs">
+<kwd>using</kwd> Reactive.Bindings;
+
+<kwd>namespace</kwd> WpfApp1
+{
+    <kwd>class</kwd> ViewModel
+    {        
+        <kwd>public</kwd> <knw>ReactivePropertySlim</knw>&lt;<kwd>string</kwd>&gt; Text01 { <kwd>get</kwd>; } = <kwd>new</kwd> <knw>ReactivePropertySlim</knw>&lt;<kwd>string</kwd>&gt;();
+        <kwd>public</kwd> <knw>ReactivePropertySlim</knw>&lt;<kwd>string</kwd>&gt; Text02 { <kwd>get</kwd>; } = <kwd>new</kwd> <knw>ReactivePropertySlim</knw>&lt;<kwd>string</kwd>&gt;();
+    }
+}
+</div>
+
+マルチバインディングにおけるコンバーターは、インタフェース IMultiValueConverter を実装して作成する。<br>
+ソース値は Binding の記述順に values コレクションに束ねられる。それ以外は通常のコンバーターと同様である。

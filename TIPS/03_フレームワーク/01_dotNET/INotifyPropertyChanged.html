@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<h5>出典 :</h5>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.componentmodel.inotifypropertychanged?view=net-8.0">INotifyPropertyChanged インターフェイス (System.ComponentModel) | Microsoft Learn</a><br>
+<a href="https://qiita.com/soi/items/d0c83a0cc3a4b23237ef">INotifyPropertyChangedプロパティ実装方法まとめ C#3からC#7、Fodyも #.NET - Qiita</a><br>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=net-8.0#system-componentmodel-inotifypropertychanged-propertychanged">INotifyPropertyChanged.PropertyChanged イベント (System.ComponentModel) | Microsoft Learn</a><br>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.componentmodel.propertychangedeventargs?view=net-8.0">PropertyChangedEventArgs クラス (System.ComponentModel) | Microsoft Learn</a><br>
+
+<!-- 関連ページ -->
+<h5>関連 :</h5>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/データバインディング.html">[WPF]データバインディング</a><br>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/依存関係プロパティ.html">[WPF]依存関係プロパティ</a><br>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/ReactiveProperty.html">[WPF]ReactiveProperty</a><br>
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>INotifyPropertyChanged とは</h2>
+自身のプロパティが変更されたことをクラス外に通知するためのインタフェース。インタフェースを実装することで、プロパティが変更された際にイベントを発行することができる。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\dotNET\INotifyPropertyChanged\01.png" alt="画像"><br>
+
+<h3>データバインディングとの関係</h3>
+INotifyPropertyChanged は<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/データバインディング.html">データバインディング</a>を実現するための手段として用いられる。<br>
+即ち、プロパティの変更をUIコントロールに通知するために、INotifyPropertyChanged を用いるのが通例であった。<br>
+しかし INotifyPropertyChanged の実装は煩雑なため、WPFでは記述量を削減できる <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/ReactiveProperty.html">ReactiveProperty</a> が別途実装された。<br>
+このためWPFにおけるViewとViewModelのバインディングには特殊なケースを除き、ReactiveProperty を用いればよい。
+
+<h2>実装例</h2>
+以下、C#7における実装例を示す。
+
+<h6>通知する側</h6>
+<div class="cs">
+<cmt>// プロパティが変更された際に通知を行う Sample クラス</cmt>
+<kwd>public class</kwd> Sample : <b class="red">INotifyPropertyChanged</b>;
+{
+    <cmt>// プロパティが変更された際に実行するイベントフック</cmt>
+    <kwd>public event</kwd> <knw>PropertyChangedEventHandler</knw> EventHook;
+
+    <cmt>// PropertyChanged (プロパティ変更)イベント発行</cmt>
+    <kwd>private void</kwd> RaiseEvent( [CallerMemberName]<kwd>string</kwd> propertyName = <kwd>null</kwd> )
+    {
+        <cmt>// EventHook が null でなければ実行</cmt>
+        <cmt>// 第1引数 : オブジェクト(イベントセンダ)</cmt>
+        <cmt>// 第2引数 : PropertyChanged イベント引数</cmt>
+        EventHook?.Invoke( <kwd>this</kwd>, <kwd>new</kwd> <knw>PropertyChangedEventArgs</knw>(propertyName) );
+    }
+
+    <cmt>// プロパティの実体となるフィールド</cmt>
+    <kwd>private string</kwd> _Name = <ltr>"Hejlsberg"</ltr>;
+
+    <cmt>// プロパティ</cmt>
+    <kwd>public string</kwd> Name
+    {
+        <cmt>// get アクセサ</cmt>
+        <kwd>get</kwd> =&gt; _Name;
+
+        <cmt>// set アクセサ</cmt>
+        <kwd>set</kwd>
+        {
+            <cmt>// 値が異なる(更新される)場合</cmt>
+            <kwd>if</kwd> (value != _Name)
+            {
+                <cmt>// 値を更新</cmt>
+                _Name = value;
+
+                <cmt>// イベント発行</cmt>
+                RaiseEvent( nameof(Name) );
+            }
+        }
+    }
+}
+</div>
+
+<h6>通知を受ける側</h6>
+<div class="cs">
+    :
+
+    Sample sample = <kwd>new</kwd> Sample();
+
+    <cmt>// イベントハンドラを登録</cmt>
+    sample.EventHook += (s, e) =&gt; { <knw>Console</knw>.WriteLine(<ltr>$"</ltr>{e.PropertyName} <ltr>が変更されました。"</ltr>); }
+
+    :
+</div>
+
+上記は Sample クラスの Name プロパティが変更された際に通知を行う場合のコードである。<br>
+通知を受ける側は Sample の EventHook に、実行させたいイベントハンドラ(コールバック)を登録する。<br>
+通知する側( Sample )は Name プロパティが変更された際に PropertyChanged イベントを発行する(フックに登録されたコールバックを実行する)。<br>
+その際に変更されたプロパティ名を( nameof() で取得して)渡すため、受け側ではどのプロパティが変更されたのかをイベント引数から取得することができる。
+
