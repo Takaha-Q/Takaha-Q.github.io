@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<h5>出典 :</h5>
+
+<!-- 関連ページ -->
+<h5>関連 :</h5>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/01_コントロール/Grid.html">Grid</a><br>
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>コントロールを重ねて描く</h2>
+コントロールを同じ位置に重ねて描きたい場合は、<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/01_コントロール/Grid.html">Grid</a> を用いる。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\Overray\01.png" alt="画像"><br>
+
+<h3>記述例(XAML)</h3>
+
+<div class="xaml">
+&lt;<tag>Grid</tag>&gt;
+    &lt;<tag>Grid.RowDefinitions</tag>&gt;
+        &lt;<tag>RowDefinition</tag>/&gt;
+        &lt;<tag>RowDefinition</tag>/&gt;
+    &lt;/<tag>Grid.RowDefinitions</tag>&gt;
+
+    &lt;<tag>Grid.ColumnDefinitions</tag>&gt;
+        &lt;<tag>ColumnDefinition</tag>/&gt;
+        &lt;<tag>ColumnDefinition</tag>/&gt;
+    &lt;/<tag>Grid.ColumnDefinitions</tag>&gt;
+
+    <cmt>&lt;!-- コントロール#1 : 奥に表示( Panel.ZIndex="0" ) --&gt;</cmt>
+    &lt;<tag>Button</tag> <prp>Grid.Row</prp>=<ltr>"0"</ltr> <prp>Grid.Column</prp>=<ltr>"0"</ltr> <prp>Panel.ZIndex</prp>=<ltr>"0"</ltr>/&gt;
+
+    <cmt>&lt;!-- コントロール#2 : 手前に表示( Panel.ZIndex="1" ) --&gt;</cmt>
+    &lt;<tag>Label</tag> <prp>Grid.Row</prp>=<ltr>"0"</ltr> <prp>Grid.Column</prp>=<ltr>"0"</ltr> <prp>Panel.ZIndex</prp>=<ltr>"1"</ltr>/&gt;
+&lt;/<tag>Grid</tag>&gt;
+</div>
+
+複数のコントロールの描画域が重複する場合、それらのコントロールは重ねて描画される。<br>
+このとき <b>Panel.ZIndex の値に応じて表示順が決定されるが、値の大きいものが手前に表示される</b>。<br>
+同一平面( ZIndex が等しい)に他のコントロールを配置する必要が無い( Grid が1行×1列)場合、<br>
+RowDefinitions 、ColumnDefinitions 、および Row 、Column の指定は省略できる。<br>
+( Row 、Column の既定値はともに 0 )
+

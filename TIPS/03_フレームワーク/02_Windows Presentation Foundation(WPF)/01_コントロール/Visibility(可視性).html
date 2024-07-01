@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<h5>出典 :</h5>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.uielement.visibility?view=windowsdesktop-8.0">UIElement.Visibility プロパティ (System.Windows) | Microsoft Learn</a><br>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.visibility?view=windowsdesktop-8.0">Visibility Enum (System.Windows) | Microsoft Learn</a><br>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.uielement.isvisible?view=windowsdesktop-8.0">UIElement.IsVisible Property (System.Windows) | Microsoft Learn</a><br>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.uielement.isvisiblechanged?view=windowsdesktop-8.0#system-windows-uielement-isvisiblechanged">UIElement.IsVisibleChanged Event (System.Windows) | Microsoft Learn</a><br>
+<a href="https://qiita.com/automatic9045/items/b32cfe35a1319ad7b441">【WPF XAML】自作UserControlのプロパティはバインドできない？ #C# - Qiita</a><br>
+
+<!-- 関連ページ -->
+<h5>関連 :</h5>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/01_コントロール/Grid.html">コントロールの重ね描き</a><br>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/データバインディング.html">データバインディング</a><br>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/依存関係プロパティ.html">依存関係プロパティ</a><br>
+<a href="TIPS/03_フレームワーク/01_dotNET/14_マルチタスク/Taskの開始と終了待ち.html">Taskの開始と終了待ち</a>
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+<h2>UIElement.Visibility プロパティ</h2>
+UI要素の可視性を司るプロパティ。取得( get )および設定( set )が可能である。<br>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.visibility?view=windowsdesktop-8.0">Visibility 列挙体</a>として宣言されており、以下の3つの値をとる。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\Visibility\01.png" alt="画像"><br>
+
+<h3>補足</h3>
+Visibility は<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/依存関係プロパティ.html">依存関係プロパティ</a>であるため、
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/データバインディング.html">データバインディング</a>のターゲットとすることが可能である。<br>
+また、Visibility が変更されると、IsVisible プロパティが連動して変化する。<br>
+これは値の取得のみが可能で、Visibility == Visible 時は true 、それ以外は false となる。
+
+<h2>注意が必要な点(データバインディング)</h2>
+UIイベントハンドラ(ボタンクリックなど)内で Visibility に紐づくソース値を変更した場合、アプリケーションに処理が戻るまでは表示が更新されない。<br>
+(これは Visibility に限らず、ZIndex などの表示に関連する他のプロパティも同様である。)<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\Visibility\01.png" alt="画像"><br>
+この場合、時間のかかる処理をハンドラ内で同期的に実行せず、非同期処理とすればよい。<br>
+(<a href="TIPS/03_フレームワーク/01_dotNET/14_マルチタスク/Taskの開始と終了待ち.html#async / await"> await </a>でアプリケーションに処理を戻す。)<br>
+(データバインディングを用いず、プロパティを直接操作した場合も同様？要調査)
+
+<h6>修正前のコード(抜粋)</h6>
+<div class="cs">
+<cmt>/// &lt;summary&gt;</cmt>
+<cmt>/// ボタンクリック時の処理</cmt>
+<cmt>/// &lt;/summary&gt;</cmt>
+<kwd>private void</kwd> Button_Click( <kwd>object</kwd> sender, <knw>RoutedEventArgs</knw> e ) =&gt;
+    ClickHandler_Core();
+
+<cmt>/// &lt;summary&gt;</cmt>
+<cmt>/// ボタンクリック時の処理(主処理)</cmt>
+<cmt>/// &lt;/summary&gt;</cmt>
+<kwd>private void</kwd> ClickHandler_Core()
+{
+    <cmt>// Visibility を更新</cmt>
+    ViewModel.LabelVisibility.Value = Visibility.Visible;
+
+    <cmt>// (この時点で表示が変わっていてほしい)</cmt>
+
+    <cmt>// 時間がかかる処理</cmt>
+    HeavyProc();
+
+    <cmt>// (実際に表示が変化するのは HeavyProc() の完了後)</cmt>
+}
+</div>
+
+<h6>修正後のコード(抜粋)</h6>
+<div class="cs">
+<cmt>/// &lt;summary&gt;</cmt>
+<cmt>/// ボタンクリック時の処理</cmt>
+<cmt>/// &lt;/summary&gt;</cmt>
+<kwd>private void</kwd> Button_Click( <kwd>object</kwd> sender, <knw>RoutedEventArgs</knw> e ) =&gt;
+    ClickHandler_Core();
+
+<cmt>/// &lt;summary&gt;</cmt>
+<cmt>/// ボタンクリック時の処理(主処理) ⇒ 非同期( async )化</cmt>
+<cmt>/// &lt;/summary&gt;</cmt>
+<kwd>private <b>async</kwd> <knw>Task</b></knw> ClickHandler_Core()
+{
+    <cmt>// Visibility を更新</cmt>
+    ViewModel.LabelVisibility.Value = Visibility.Visible;
+
+    <cmt>// 時間がかかる処理 ⇒ await で呼び元に処理を戻す</cmt>
+    <kwd><b>await</kwd> <knw>Task</knw>.Run</b>( () =&gt; HeavyProc() );
+
+    <cmt>// (HeavyProc() 開始直後に表示が変化する)</cmt>
+}
+</div>
+

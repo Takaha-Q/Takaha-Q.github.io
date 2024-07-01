@@ -228,9 +228,9 @@ ConvertBack() はそれぞれで(計2回)コールされる。<br>
 
 <h2>応用#2 : bool を指定した Visibility にバインドする</h2>
 コントロールの可視性( Visibility )を bool 値によって切り替えられるコンバーターの例を示す。<br>
-Visibility は列挙体のため bool をそのまま使用することはできない。<b>ここでは true 、false それぞれに対応する値をプロパティで指定している</b>。<br>
-即ち使用の都度変換後の値を切り替えることで、柔軟な運用が可能である。<br>
-ただし各プロパティにデフォルト値を割り当てていないため、プロパティの指定は必須である。<br>
+ソースが true の場合は Collapsed 、false の場合は Visible を返すよう、TrueTo 、FalseTo プロパティをXAMLで指定している。<br>
+ここでは TrueTo 、FalseTo にデフォルト値を割り当てていないため毎回指定する必要があるが、<br>
+true / false に対応する値を用途に応じて切り替えることが可能である。
 
 <h6>コード : コンバーターの定義</h6>
 <div class="code">
@@ -296,3 +296,4 @@ Visibility は列挙体のため bool をそのまま使用することはでき
 
 &lt;/Window&gt;
 </div>
+
