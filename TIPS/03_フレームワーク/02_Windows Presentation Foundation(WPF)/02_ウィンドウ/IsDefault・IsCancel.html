@@ -14,6 +14,13 @@
 <a href="index.html">ホームに戻る</a><br>
 <!-- 出典・関連ページ -->
 <h5>出典 :</h5>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.controls.button.isdefault?view=windowsdesktop-8.0">Button.IsDefault プロパティ (System.Windows.Controls) | Microsoft Learn</a><br>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.controls.button.iscancel?view=windowsdesktop-8.0">Button.IsCancel プロパティ (System.Windows.Controls) | Microsoft Learn</a><br>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.controls.button.isdefaulted?view=windowsdesktop-8.0">Button.IsDefaulted プロパティ (System.Windows.Controls) | Microsoft Learn</a><br>
+
+<h5>関連 :</h5>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/02_ウィンドウ/Show・ShowDialog.html">Show・ShowDialog</a><br>
+
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
@@ -21,7 +28,7 @@
 
 <!-- 本文ここから -->
 
-<h2>IsDefault / IsCancel プロパティ</h2>
+<h2>Button.IsDefault / Button.IsCancel プロパティ</h2>
 Button のプロパティで、その Button が存在する Window における初期フォーカスとEscキー押下時の動作を規定する。<br>
 WinForms における DefaultButton / CancelButton と同等の機能であるが、Form (Window) ではなく Button に対して設定する点で異なる。
 
@@ -50,5 +57,19 @@ TextBox がフォーカスを失うまで、Text の値はソースに書き戻�
 
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/WPF/IsDefault_IsCancel/01.png" alt="画像"><br>
 
-この場合は、上記(A)のハンドラ内で Text の値を明示的にバインドソースへ書き戻すなどで対応が可能である。
+この場合は、上記(A)のハンドラ内で Text の値を明示的にバインドソースへ書き戻すなどの対応が必要である。
+
+<h2>Button.IsDefaulted プロパティ</h2>
+そのボタンが、Enter キー押下時にアクティブ化されるボタンであるかを示す。値の取得のみが可能。<br>
+IsDefaulted が true となる条件は以下のとおり。
+
+<ul>
+    <li>IsDefault が true である</li>
+    <li>当該 Button にフォーカスが無い</li>
+    <li>その時点でフォーカスを持つコントロールが Enter を受け付けない</li>
+</ul>
+
+例えば Window が IsDefault == true に設定された Button と、TextBox を有しているとする。<br>
+ここで TextBox にフォーカスが在る場合、Button の IsDefaulted が true となり、Enter キー押下時のイベントを処理することができる。<br>
+フォーカスが Button に移った場合、IsDefaulted は false となる。これは OnKeyDown により Enter キー押下を受け付けられるため、IsDefaulted を true とする必要が無いためである。
 
