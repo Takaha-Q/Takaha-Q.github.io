@@ -23,6 +23,7 @@
 <h5>出典 :</h5>
 <a href="https://docs.microsoft.com/ja-jp/dotnet/api/system.windows.controls.usercontrol?view=netframework-4.8">UserControl クラス (System.Windows.Controls) | Microsoft Docs</a><br>
 <a href="https://docs.microsoft.com/ja-jp/dotnet/desktop/wpf/controls/control-authoring-overview?view=netframeworkdesktop-4.8">コントロールの作成の概要 - WPF .NET Framework | Microsoft Docs</a><br>
+<a href="https://qiita.com/nie/items/3e2f6f37b3425585952b">C# WPF Window,Page,UserControlの違い #C# - Qiita</a><br>
 
 <h5>関連 :</h5>
 <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/データバインディング.html">データバインディング</a><br>
@@ -111,7 +112,12 @@
 同様に FugaProperty の変化は Fuga を介して HogeProperty に伝播し、結果として表示に反映される。<br>
 (プロパティ Mogo を操作した場合も同様。)
 
-<h2>注意が必要な点 : UserControl へのスタイル適用</h2>
+<h2>注意が必要な点</h2>
+<h3>UserControl の自立性</h3>
+UserControl は Window と異なり、独立して表示させることはできない。<br>
+つまり、UserControl は Window 内に配置することではじめて動作する。UserControl 内に Window を配置することもできない。
+
+<h3>UserControl へのスタイル適用</h3>
 UserControl に対して、スタイルを定義した外部リソースを適用する際は注意が必要となる。<br>
 詳細は<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/リソース.html">リンク先</a>を参照のこと。<br>
 (リンク先の Window は UserControl と読み替えられたし。)
