@@ -349,15 +349,15 @@ pHoge1 、pHoge2 のデストラクタが呼ばれる直前、Hoge1 の所有権
 即ち、Hoge1 、Hoge2 ともに解放されず、メモリリークとなる。
 
 <h3>weak_ptr&lt;T&gt; (C++11以降)</h3>
-shared_ptr&lt;int&gt; を用いることで生じ得る循環参照への対処として導入されたスマートポインタ。<br>
-前述のものと異なり、<b>メモリの所有権を持たない</b>が、<b>shared_ptr&lt;int&gt; の指すメモリを参照することができる</b>。<br>
-shared_ptr&lt;int&gt; により循環参照となるコードを weak_ptr&lt;T&gt; で書き直すと以下のようになる。
+shared_ptr&lt;T&gt; を用いることで生じ得る循環参照への対処として導入されたスマートポインタ。<br>
+前述のものと異なり、<b>メモリの所有権を持たない</b>が、<b>shared_ptr&lt;T&gt; の指すメモリを参照することができる</b>。<br>
+shared_ptr&lt;T&gt; により循環参照となるコードを weak_ptr&lt;T&gt; で書き直すと以下のようになる。
 <div class="cpp">
 <kwd>#include</kwd>&lt;memory&gt;
 <kwd>class</kwd> hoge
 {
 <kwd>public</kwd>:
-    <cmt>// shared_ptr&lt;int&gt; では循環参照となるため、weak_ptr&lt;T&gt; を用いる</cmt>
+    <cmt>// shared_ptr&lt;T&gt; では循環参照となるため、weak_ptr&lt;T&gt; を用いる</cmt>
     <kwd>std</kwd>::<kwd>weak_ptr</kwd>&lt;hoge&gt; ptr;
 };
 
@@ -379,7 +379,7 @@ shared_ptr&lt;int&gt; の場合と異なり、メモリの所有権は pHoge1 �
 
 weak_ptr&lt;T&gt; は以下のような特徴を持つ。
 <ul>
-<li>shared_ptr&lt;int&gt; が所有権を持つメモリしか管理できない</li>
+<li>shared_ptr&lt;T&gt; が所有権を持つメモリしか管理できない</li>
 <li>コピー、ムーブともに可能(ムーブ時は参照を失う)</li>
 </ul>
 
@@ -404,7 +404,7 @@ wptr6 = <kwd>std</kwd>::move(wptr5);                      <cmt>//&lt; ムーブ�
 </div>
 
 <h4>参照するメモリへのアクセス</h4>
-unique_ptr&lt;int&gt; や shared_ptr&lt;int&gt; と異なり、<b>* 演算子や -> 演算子は使用できない</b>。<br>
+unique_ptr&lt;T&gt; や shared_ptr&lt;T&gt; と異なり、<b>* 演算子や -> 演算子は使用できない</b>。<br>
 参照するためにはblock()関数により、参照先である shared_ptr&lt;int&gt; を取得し、そこからアクセスする</b>。<br>
 (参照中にメモリが解放されるのを防ぐため。)
 <div class="cpp">
