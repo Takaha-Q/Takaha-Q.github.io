@@ -13,7 +13,9 @@
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
 <!-- 出典・関連ページ -->
+
 <h5>出典 :</h5>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.threading.tasks.task.run?view=net-8.0">Task.Run メソッド (System.Threading.Tasks) | Microsoft Learn</a><br>
 <a href="https://qiita.com/takutoy/items/c384fcb439d345a9a0d3%23%E9%9D%9E%E5%90%8C%E6%9C%9Ftask%E3%82%92%E4%B8%A6%E8%A1%8C%E5%AE%9F%E8%A1%8C%E3%81%99%E3%82%8B">C# 並行・並列プログラミング パターン集 - Qiita</a><br>
 <a href="https://qiita.com/takutoy/items/d45aa736ced25a8158b3">C# Taskの待ちかた集 - Qiita</a><br>
 <a href="https://qiita.com/4_mio_11/items/f9b19c04509328b1e5c1">非同期理解のためにasync/awaitとTaskの基礎を学んだ話 - Qiita</a><br>
@@ -26,6 +28,7 @@
 <a href="TIPS/03_フレームワーク/01_dotNET/14_マルチタスク/排他制御.html">排他制御</a><br>
 <a href="TIPS/03_フレームワーク/01_dotNET/14_マルチタスク/シグナル処理.html">シグナル処理</a><br>
 <a href="TIPS/01_ソフトウェア開発一般/02_並列処理/タスク(スレッド)間通信.html">タスク(スレッド)間通信</a><br>
+<a href="無名関数とラムダ式.html">無名関数とラムダ式</a><br>
 
 <!-- 目次 -->
 <h5>目次 :</h5>
@@ -36,33 +39,35 @@
 <h2>非同期実行Taskの開始</h2>
 <h3>Task.Run()によるタスク開始</h3>
 <div class="code">
-<knw>Task</knw> task = <knw>Task</knw>.Run(() => HeavyWork());
+<knw>Task</knw> task = <knw>Task</knw>.Run( () => HeavyWork() );
 </div>
-もっとも基本的な非同期タスクの開始方法。CPU主体の処理に適するが、IO主体の処理ではスレッドプールを有効活用できないため、<br>
+
+もっとも基本的な非同期タスクの開始方法。Task.Run() の引数は Action または Func で、ラムダ式も使用できる。<br>
+CPU主体の処理に適するが、IO主体の処理ではスレッドプールを有効活用できないため、<br>
 TaskCompletionSource&lt;TResult&gt;などで代用するとよい。詳細は割愛。
 
 <h2>タスクの完了待ち</h2>
 <h3>async / await</h3>
 <div class="code">
-HttpClient hc = <kwd>new</kwd> HttpClient();
-<kwd>private async void</kwd> button_Click(<kwd>object</kwd> sender, RoutedEventArgs e)
+<knw>HttpClient</knw> hc = <kwd>new</kwd> HttpClient();
+<kwd>private async void</kwd> button_Click(<kwd>object</kwd> sender, <knw>RoutedEventArgs</knw> e)
 {
-    <cmt>// ダウンロード開始と同時にUIスレッドに処理を戻す</cmt>
-    <kwd>string</kwd> html = <kwd>await</kwd> hc.GetStringAsync(<ltr>"http:<cmt>//www.example.jp/"</ltr>);</cmt>
+    <cmt>// ダウンロード開始と同時にUIスレッドに制御を戻す</cmt>
+    <kwd>string</kwd> html = <kwd>await</kwd> hc.GetStringAsync(<ltr>"http://www.example.jp/"</ltr>);
 
     <cmt>// この行以降は GetStringAsync() の完了後に実行される</cmt>
     MessageBox.Show(<ltr>"HTMLの取得が完了しました"</ltr>);
-    textBox.<knw>Text</knw> = html;
+    textBox.Text = html;
 }
 </div>
 
 <b>await は「続くタスクを非同期的に実行(開始)し、終了を待機する」ことを表す</b>。<br>
-即ち、await キーワードに到達した時点で呼び出し元に処理を戻す。<br>
+(await キーワードに到達した時点で呼び出し元に制御を戻す。)<br>
 上記のような例でもUIスレッドがブロックされないため、タスクの完了を待ちつつ別の操作を行うことができる。<br>
 <b>async は、「その関数中で await を使用する (= 非同期処理を開始し、終了を待機する)」ことを表す</b>。<br>
 原則、async 修飾を行う際の戻り値は Task&lt;TResult&gt; ( TResult は本来の戻り値の型)となるが、<br>
 UIから直接実行されるイベントハンドラは例外的に async void を用いる。<br>
-(本来の戻り値が void の場合は単に Task となる。以下で記すように、明示的に Task を戻すわけではない。)
+(本来の戻り値が void の場合は単に Task となる。以下で記すように、明示的に Task を戻り値とするわけではない。)
 
 <div class="code">
 <cmt>// 関数内で await を用いるため async 修飾</cmt>
@@ -81,8 +86,8 @@ UIから直接実行されるイベントハンドラは例外的に async void 
 
 <h4>応用</h4>
 <div class="code">
-HttpClient hc = <kwd>new</kwd> HttpClient();
-<kwd>private async void</kwd> button_Click(<kwd>object</kwd> sender, RoutedEventArgs e)
+<knw>HttpClient</knw> hc = <kwd>new</kwd> HttpClient();
+<kwd>private async void</kwd> button_Click(<kwd>object</kwd> sender, <knw>RoutedEventArgs</knw> e)
 {
     <cmt>// ダウンロードタスクを Task オブジェクトに格納</cmt>
     <knw>Task</knw>&lt;<kwd>string</kwd>&gt; gethtmltask = hc.GetStringAsync(<ltr>"http:<cmt>//www.example.jp/kussoosoi.php"</ltr>);</cmt>
@@ -92,7 +97,7 @@ HttpClient hc = <kwd>new</kwd> HttpClient();
 
     <cmt>// ダウンロード開始</cmt>
     <cmt>// 非同期タスクの完了を待機し、結果を取得する</cmt>
-    textBox.<knw>Text</knw> = <kwd>await</kwd> gethtmltask;
+    textBox.Text = <kwd>await</kwd> gethtmltask;
 }
 </div>
 開始した非同期タスクを変数に格納しておき、あとで await する手法。<br>
@@ -100,11 +105,11 @@ HttpClient hc = <kwd>new</kwd> HttpClient();
 
 <h3>Wait() / Result / WaitAll() / WaitAny()</h3>
 <div class="code">
-HttpClient hc = <kwd>new</kwd> HttpClient();
+<knw>HttpClient</knw> hc = <kwd>new</kwd> HttpClient();
 
 <cmt>// 非同期実行開始</cmt>
-<knw>Task</knw>&lt;<kwd>string</kwd>&gt; t1 = hc.GetStringAsync(<ltr>"https:<cmt>//www.microsoft.com/"</ltr>);</cmt>
-<knw>Task</knw>&lt;<kwd>string</kwd>&gt; t2 = hc.GetStringAsync(<ltr>"https:<cmt>//www.bing.com/"</ltr>);</cmt>
+<knw>Task</knw>&lt;<kwd>string</kwd>&gt; t1 = hc.GetStringAsync(<ltr>"https://www.microsoft.com/"</ltr>);
+<knw>Task</knw>&lt;<kwd>string</kwd>&gt; t2 = hc.GetStringAsync(<ltr>"https://www.bing.com/"</ltr>);
 
 <cmt>// t1 が終わるまでスレッドをブロックする</cmt>
 t1.Wait();
@@ -137,10 +142,10 @@ UIスレッドから実行すると、待ちが終わるまで操作が受け付
 <h3>WhenAll() / WhenAny()</h3>
 タスクの終了通知を受け取る。複数のタスクを await する際に用いる。
 <div class="code">
-HttpClient hc = <kwd>new</kwd> HttpClient();
+<knw>HttpClient</knw> hc = <kwd>new</kwd> HttpClient();
 
-<knw>Task</knw>&lt;<kwd>string</kwd>&gt; t1 = hc.GetStringAsync(<ltr>"https:<cmt>//www.microsoft.com/"</ltr>);</cmt>
-<knw>Task</knw>&lt;<kwd>string</kwd>&gt; t2 = hc.GetStringAsync(<ltr>"https:<cmt>//www.bing.com/"</ltr>);</cmt>
+<knw>Task</knw>&lt;<kwd>string</kwd>&gt; t1 = hc.GetStringAsync(<ltr>"https://www.microsoft.com/"</ltr>);
+<knw>Task</knw>&lt;<kwd>string</kwd>&gt; t2 = hc.GetStringAsync(<ltr>"https://www.bing.com/"</ltr>);
 
 <cmt>// スレッドをブロックせずにすべてのタスクの終了を待機</cmt>
 <kwd>string</kwd>[] htmls = <kwd>await</kwd> <knw>Task</knw>.WhenAll(t1, t2);
@@ -154,8 +159,8 @@ HttpClient hc = <kwd>new</kwd> HttpClient();
 <h3>IsCompleted / IsCompletedSuccessfully / IsFaulted / IsCanceled</h3>
 タスクが終了しているかを確認する際に用いる。
 <div class="code">
-HttpClient hc = <kwd>new</kwd> HttpClient();
-<knw>Task</knw>&lt;<kwd>string</kwd>&gt; task = hc.GetStringAsync(<ltr>"https:<cmt>//www.microsoft.com/"</ltr>);</cmt>
+<knw>HttpClient</knw> hc = <kwd>new</kwd> HttpClient();
+<knw>Task</knw>&lt;<kwd>string</kwd>&gt; task = hc.GetStringAsync(<ltr>"https://www.microsoft.com/"</ltr>);
 
 <cmt>// タスクが完了していなければメッセージ表示</cmt>
 <kwd>if</kwd> (!task.IsCompleted)
@@ -184,7 +189,7 @@ Task の終了を await で待つ場合は、通常の手法で例外を捕捉�
 
 <div class="code">
 <cmt>// awaitしたTaskの例外</cmt>
-<kwd>private async  void</kwd> Button_Click(<kwd>object</kwd> sender, RoutedEventArgs e)
+<kwd>private async void</kwd> Button_Click(<kwd>object</kwd> sender, <knw>RoutedEventArgs</knw> e)
 {
     <kwd>try</kwd>
     {
@@ -196,7 +201,7 @@ Task の終了を await で待つ場合は、通常の手法で例外を捕捉�
     <cmt>// 例外は Exception として捕捉可能</cmt>
     <kwd>catch</kwd> (<knw>Exception</knw> ex)
     {
-        Debug.WriteLine("1:" + ex.GetType());
+        <knw>Debug</knw>.WriteLine("1:" + ex.GetType());
     }
 }
 </div>
@@ -207,7 +212,7 @@ Task の終了を Wait() / WaitAll() / WaitAny() で待つ場合、例外は <b>
 
 <div class="code">
 <cmt>// Wait()したTaskの例外</cmt>
-<kwd>private void</kwd> Button_Click_1(<kwd>object</kwd> sender, RoutedEventArgs e)
+<kwd>private void</kwd> Button_Click_1(<kwd>object</kwd> sender, <knw>RoutedEventArgs</knw> e)
 {
     <kwd>try</kwd>
     {
@@ -220,9 +225,9 @@ Task の終了を Wait() / WaitAll() / WaitAny() で待つ場合、例外は <b>
     <kwd>catch</kwd> (<knw>Exception</knw> ex)
     {
         Debug.WriteLine("a:" + ex.GetType());
-        <kwd>if</kwd> (ex <kwd>is</kwd> AggregateException age)
+        <kwd>if</kwd> (ex <kwd>is</kwd> <knw>AggregateException</knw> age)
         {
-            Debug.WriteLine("b:" + age.InnerException.GetType());
+            <knw>Debug</knw>.WriteLine("b:" + age.InnerException.GetType());
         }
     }
 }
@@ -235,7 +240,7 @@ Task の終了を待たない場合、<b>開始元では例外は捕捉できな
 
 <div class="code">
 <cmt>// 待たないTaskの例外</cmt>
-<kwd>private void</kwd> Button_Click_2(<kwd>object</kwd> sender, RoutedEventArgs e)
+<kwd>private void</kwd> Button_Click_2(<kwd>object</kwd> sender, <knw>RoutedEventArgs</knw> e)
 {
     <kwd>try</kwd>
     {
@@ -248,10 +253,10 @@ Task の終了を待たない場合、<b>開始元では例外は捕捉できな
         <cmt>// t が終了した後に行う処理をコールバックとして登録する</cmt>
         t.ContinueWith((compt) =>
         {
-            Debug.WriteLine("A:" + compt.<knw>Exception</knw>.GetType());
-            <kwd>if</kwd> (compt.<knw>Exception</knw> <kwd>is</kwd> AggregateException age)
+            <knw>Debug</knw>.WriteLine("A:" + compt.<knw>Exception</knw>.GetType());
+            <kwd>if</kwd> (compt.<knw>Exception</knw> <kwd>is</kwd> <knw>AggregateException</knw> age)
             {
-                Debug.WriteLine("C:" + age.InnerException.GetType());
+                <knw>Debug</knw>.WriteLine("C:" + age.InnerException.GetType());
             }
         });
     }
