@@ -40,7 +40,7 @@
 <!-- 本文ここから -->
 
 <h2>一様初期化 (uniform initialization)</h2>
-コンストラクタ呼び出しを、 () (丸括弧)ではなく <b>{}</b> (波括弧)で行う記法のこと。<br>
+コンストラクタ呼び出しを、 () (丸括弧)ではなく <b class="red">{}</b> (波括弧)で行う記法のこと。<br>
 これにより、Cスタイルの構造体(集成体)、配列、クラスなどを共通の構文で初期化することができる。<br>
 C++11で追加された機能で、C形式の初期化リスト構文の拡張である。「統一初期化記法」とも呼ばれる。
 
@@ -62,26 +62,33 @@ v.push_back(3);
 
 T1 t1_1 = {1, 1.0};     <cmt>//< 集成体初期化</cmt>
 T1 t1_2{1, 1.0};        <cmt>//< 集成体初期化</cmt>
+
 T2 t2_1(1, 1.0);        <cmt>//< コンストラクタ呼び出し </cmt>
 </div>
 
 <h6>C++11 : 共通の構文で初期化</h6>
 <div class="code">
 <cmt>// 配列</cmt>
-<kwd>int</kwd> a[] = {1, 2, 3};
+<kwd>int</kwd> a[] = <b class="red"> { </b>1, 2, 3<b class="red"> } </b>;
 
 <cmt>// ベクトル</cmt>
-vector<<kwd>int</kwd>> v = {1, 2, 3};
+vector<<kwd>int</kwd>> v = <b class="red"> { </b>1, 2, 3<b class="red"> } </b>;
 
 <cmt>// 構造体(またはクラス)</cmt>
 <kwd>struct</kwd> T1 { <kwd>int</kwd> a; <kwd>double</kwd> b; };
 <kwd>struct</kwd> T2 { T2(<kwd>int</kwd>, <kwd>double</kwd>); };
 
-T1 t1_1 = {1, 1.0};     <cmt>//< 集成体初期化</cmt>
-T1 t1_2{1, 1.0};        <cmt>//< 集成体初期化</cmt>
-T2 t2_1 = {1, 1.0};     <cmt>//< コンストラクタ呼び出し</cmt>
-T2 t2_2{1, 1.0};        <cmt>//< コンストラクタ呼び出し</cmt>
+<cmt>// 集成体初期化(いずれの記法も等価)</cmt>
+T1 t1_1 = <b class="red"> { </b>1, 1.0<b class="red"> } </b>;
+T1 t1_2<b class="red"> { </b>1, 1.0<b class="red"> } </b>;
+
+<cmt>// コンストラクタ呼び出し(いずれの記法も等価)</cmt>
+T2 t2_1 = <b class="red"> { </b>1, 1.0<b class="red"> } </b>;
+T2 t2_2<b class="red"> { </b>1, 1.0<b class="red"> } </b>;
 </div>
+
+集成体初期化とコンストラクタ呼び出しで記法に差異が無い。<br>
+コンストラクタが定義されている場合のみコンストラクタが呼ばれる。
 
 <h2>return 文でオブジェクトを返却</h2>
 一様初期化により、戻り値の型が確定している文脈では、コンストラクタ引数を {} で列挙したものを return 文で返すことができる。<br>
@@ -99,7 +106,7 @@ X createX()
 {
     <cmt>// 戻り値の型は X であることが明白</cmt>
     <cmt>// ⇒ 型推論</cmt>
-    <kwd>return</kwd> {1, 3.14, "hello"};
+    <kwd>return</kwd> <b class="red"> { </b>1, 3.14, "hello"<b class="red"> } </b>;
 }
 </div>
 
@@ -109,7 +116,7 @@ X createX()
 X createX()
 {
     <cmt>// X 型の一時変数を一様初期化</cmt>
-    X temp = {1, 3.14, "hello"};
+    X temp = <b class="red"> { </b>1, 3.14, "hello"<b class="red"> } </b>;
 
     <cmt>// 一時変数を返す</cmt>
     <kwd>return</kwd> temp;
@@ -125,8 +132,8 @@ X createX()
 
 <kwd>int</kwd> main()
 {
-    X x();  <cmt>// x : 引数なし、戻り値 X の関数 ⇒ 意図と異なる</cmt>
-    X y{};  <cmt>// y : X 型の変数(デフォルトコンストラクタで初期化)</cmt>
+    X x();  <cmt>// x : 引数なし、戻り値 X 型の関数宣言 ⇒ 意図と異なる</cmt>
+    X y<b class="red">{}</b>;  <cmt>// y : X 型の変数(デフォルトコンストラクタで初期化)</cmt>
 }
 </div>
 
@@ -141,11 +148,15 @@ X createX()
 空の {} が渡された際はデフォルトコンストラクタが呼ばれる。<br>
 
 <div class="code">
-<kwd>std</kwd>::vector<<kwd>int</kwd>> v1(4, 10);     <cmt>//< 4 つの 10 でベクトルを初期化 ⇒ { 10, 10, 10, 10 }</cmt>
+<kwd>std</kwd>::vector<<kwd>int</kwd>> v1 ( 4, 10 ) ;     <cmt>//< 4 つの 10 でベクトルを初期化 ⇒ { 10, 10, 10, 10 }</cmt>
+                                    <cmt>//< (初期化子リストと同じ型の引数をとるコンストラクタが呼ばれる)</cmt>
 
-<kwd>std</kwd>::vector<<kwd>int</kwd>> v2{4, 10};     <cmt>//< { 4, 10 } の2要素でベクトルを初期化 ⇒ { 4, 10 }</cmt>
+<kwd>std</kwd>::vector<<kwd>int</kwd>> v2<b class="red"> { </b>4, 10<b class="red"> } </b>;     <cmt>//< { 4, 10 } の2要素でベクトルを初期化 ⇒ { 4, 10 }</cmt>
+                                    <cmt>//< (初期化子リストを引数にとるコンストラクタが呼ばれる)</cmt>
+                                    <cmt>//< ( v2 ( { 4, 10 } ) と等価)</cmt>
 
-<kwd>std</kwd>::vector<<kwd>int</kwd>> v3{};          <cmt>//< デフォルトコンストラクタが呼ばれる</cmt>
+<kwd>std</kwd>::vector<<kwd>int</kwd>> v3<b class="red"> { } </b>;           <cmt>//< デフォルトコンストラクタが呼ばれる</cmt>
+                                    <cmt>//< (空の初期化子リストとは解釈されない)</cmt>
 </div>
 
 上記の例において、v1 と v2 は共に 4 と 10 という値をコンストラクタに渡しているが、<br>
@@ -154,7 +165,4 @@ v1 ではコンストラクタ引数(パラメータリスト)、v2 では初期
 std::initializer_list でない側のコンストラクタを呼びたい場合は、{} ではなく () を用いる必要がある。<br>
 <br>
 また、v3 は「空の std::initializer_list 」とは解釈されず、デフォルトコンストラクタが呼ばれる。
-
-
-
 
