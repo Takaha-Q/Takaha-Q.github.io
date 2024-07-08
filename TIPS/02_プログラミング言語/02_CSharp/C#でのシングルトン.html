@@ -42,7 +42,7 @@
 
 <div class="cs">
 <cmt>// シングルトンクラス</cmt>
-<kwd>public</kwd> sealed <kwd>class</kwd> SingletonClass
+<kwd>public sealed class</kwd> SingletonClass
 {
     <cmt>// 唯一の SingletonClass インスタンス</cmt>
     <kwd>private static</kwd> SingletonClass _singleInstance = <kwd>new</kwd> SingletonClass();
@@ -69,9 +69,25 @@
     <li>SingletonClass は public かつ sealed 修飾により、継承不可とする</li>
     <li>唯一のインスタンスは private かつ static とする</li>
     <li>唯一のインスタンスを取得するための public かつ static なメソッドまたはプロパティ(ここでは Instance )を設ける<br>
-    (プロパティの場合は読み取り専用とする)</li>
+    (読み取り専用とする)</li>
     <li>コンストラクタを private とし、インスタンスをクラス外で生成できなくする</li>
 </ul>
+
+(C#3.0以降)自動プロパティを用いた場合は更に簡略化できる。
+<div class="cs">
+<cmt>// シングルトンクラス</cmt>
+<kwd>public sealed class</kwd> SingletonClass
+{
+    <cmt>// 唯一の SingletonClass インスタンス(自動プロパティ)</cmt>
+    <kwd>public static</kwd> SingletonClass Instance { <kwd>get</kwd>; } = <kwd>new</kwd> SingletonClass();
+
+    <cmt>// コンストラクタ</cmt>
+    <kwd>private</kwd> SingletonClass()
+    {
+        <cmt>// (生成時に行う処理を記述する)</cmt>
+    }
+}
+</div>
 
 <h2>C++との差異</h2>
 C++の場合はコピー・ムーブの各コンストラクタおよび演算子を明示的に「定義なし」とする必要があったが、<br>
