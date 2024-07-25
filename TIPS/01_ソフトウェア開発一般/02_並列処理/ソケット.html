@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<h5>出典 :</h5>
+<a href="https://ja.wikipedia.org/wiki/%E3%82%BD%E3%82%B1%E3%83%83%E3%83%88_(BSD)">ソケット(BSD) - Wikipedia</a><br>
+<a href="https://envader.plus/article/27">【図解あり】ソケット通信の仕組みについてわかりやすく解説！ | エンベーダー</a><br>
+<a href="https://qiita.com/megadreams14/items/32a3eed4661e55419e1c">知ったかぶりをしていたソケット通信の基礎を改めて学んでみる - Qiita</a><br>
+
+<!-- 関連ページ -->
+<h5>関連 :</h5>
+<a href="TIPS/01_ソフトウェア開発一般/02_並列処理/プロセス間通信.html">プロセス間通信</a><br>
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>ソケット(TCP)</h2>
+プロセス間通信の一つで、TCP/IPを用いた通信方法、およびTCP/IPネットワークとプログラムの界面をソケットと呼ぶ。<br>
+このため、TCP/IPを用いたHTTPプロトコルもソケットに分類される。<br>
+通信相手との間にコネクションを確立するため、データを確実に伝送できる。<br>
+TCP/IPネットワークを介したリモートコンピュータとの通信が主用途であるが、同一コンピュータ内(ローカル)での通信も可能である。<br>
+また、コネクションを確立しないUDPプロトコルも存在するが、詳細は割愛する。
+
+<h3>通信の概略</h3>
+接続要求を発行する側のプロセスは「クライアント」、受け入れる側のプロセスは「サーバ」と規定される。<br>
+
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Software Development/InterProcess_Communication/01.png" alt="画像"><br>
+
+サーバ、クライアント双方でソケットを生成( create )し、それぞれにIPアドレスとポート番号を割り当てる( bind )。<br>
+サーバは生成したソケットをコネクションのlistenに使用するための利用登録を行い( listen )、クライアントからの接続要求を待機する( accept )。<br>
+accept はクライアントからの接続要求が到達するまで(サーバの)処理をブロックする。<br>
+クライアントは接続先のソケットを指定して接続要求を発行( connect )する。<br>
+connect による接続要求が到達すると、accept は処理を戻し、コネクションが確立する。<br>
+以後、必要に応じてデータの送受信を行い、役目を終えた段階でソケットを閉じる( close )。
+
