@@ -101,22 +101,22 @@ f(z);                   <cmt>//< f() の戻り値 : 右辺値</cmt>
 </ul>
 束縛 : 対象を参照変数に関連付けること。束縛対象に別名を付与することでもある。<br>
 <br>
-<b>T&amp;</b> で宣言される型は<b>左辺値を束縛する「左辺値参照」</b>であり、<br>
-C++11で追加された <b>T&amp;&amp;</b> は<b>右辺値を束縛する「右辺値参照」</b>である。
+<b>T<red>&amp;</red></b> で宣言される型は<b>左辺値を束縛する「左辺値参照」</b>であり、<br>
+C++11で追加された <b>T<magenta>&amp;&amp;</magenta></b> は<b>右辺値を束縛する「右辺値参照」</b>である。
 
 <div class="code">
-   <cmt>// 左辺値参照 T&amp;</cmt>
+   <cmt>// 左辺値参照 T<b class=red>&amp;</b></cmt>
    <kwd>int</kwd>  x     = 1;                  <cmt>//< x     は左辺値</cmt>
-   <kwd>int</kwd>& lref1 = x;                  <cmt>//< lref1 は左辺値参照 ⇒ x を束縛</cmt>
-   <kwd>int</kwd>& lref2 = lref1;              <cmt>//< lref2 は左辺値参照 ⇒ lref1 を束縛 ⇒ x を束縛</cmt>
-<cmt>// int& lref3 = 1;                  //< lref3 は左辺値参照 ⇒ 右辺値を束縛しようとしているためエラー</cmt>
+   <kwd>int</kwd><b class=red>&amp;</b> lref1 = x;                  <cmt>//< lref1 は左辺値参照 ⇒ x を束縛</cmt>
+   <kwd>int</kwd><b class=red>&amp;</b> lref2 = lref1;              <cmt>//< lref2 は左辺値参照 ⇒ lref1 を束縛 ⇒ x を束縛</cmt>
+<cmt>// int<b class=red>&amp;</b> lref3 = 1;                  //< lref3 は左辺値参照 ⇒ 右辺値を束縛しようとしているためエラー</cmt>
    <kwd>int</kwd>  y     = lref1;              <cmt>//< y     には lref1 で参照される値が代入される ⇒ 1</cmt>
 
-   <cmt>// 右辺値参照 T&amp;&amp;</cmt>
-   <kwd>int</kwd>&& rref1 = 9;                 <cmt>//< rref1 は右辺値参照 ⇒ 9 を束縛</cmt>
-<cmt>// int&& rref2 = x;                 //< rref2 は右辺値参照 ⇒ 左辺値を束縛しようとしているためエラー</cmt>
-<cmt>// int&& rref3 = lref1;             //< rref3 は右辺値参照 ⇒ 左辺値参照(左辺値)を束縛しようとしているためエラー</cmt>
-<cmt>// int&& rref4 = rref1;             //< rref4 は右辺値参照 ⇒ 右辺値参照(左辺値)を束縛しようとしているためエラー</cmt>
+   <cmt>// 右辺値参照 T<b class=magenta>&amp;&amp;</b></cmt>
+   <kwd>int</kwd><b class=magenta>&amp;&amp;</b> rref1 = 9;                 <cmt>//< rref1 は右辺値参照 ⇒ 9 を束縛</cmt>
+<cmt>// int<b class=magenta>&amp;&amp;</b> rref2 = x;                 //< rref2 は右辺値参照 ⇒ 左辺値を束縛しようとしているためエラー</cmt>
+<cmt>// int<b class=magenta>&amp;&amp;</b> rref3 = lref1;             //< rref3 は右辺値参照 ⇒ 左辺値参照(左辺値)を束縛しようとしているためエラー</cmt>
+<cmt>// int<b class=magenta>&amp;&amp;</b> rref4 = rref1;             //< rref4 は右辺値参照 ⇒ 右辺値参照(左辺値)を束縛しようとしているためエラー</cmt>
    <kwd>int</kwd>   w     = rref1;             <cmt>//< w     には rref1 で参照される値が代入される ⇒ 9</cmt>
 </div>
 
@@ -126,7 +126,7 @@ std::move() 関数に渡されたオブジェクト(左辺値)は右辺値参照
 渡された(ムーブ元の)オブジェクトは右辺値となり、それ以降は使える保証がなくなる。<br>
 
 <div class="code">
-<kwd>#include</kwd> &lt;<kwd>string</kwd>&gt;
+<kwd>#include</kwd> &lt;string&gt;
 <kwd>#include</kwd> &lt;utility&gt;
 
 <kwd>void</kwd> main()
@@ -246,7 +246,7 @@ std::move() 関数に渡されたオブジェクト(左辺値)は右辺値参照
 </div>
 
 上記は、ムーブコンストラクタおよびムーブ代入演算子の例である。<br>
-<a href="TIPS/02_プログラミング言語/01_C・C%2B%2B/演算子オーバーロード.html">コピー代入演算子</a>)では左辺値参照を引数に取るのに対し、<br>
+<a href="TIPS/02_プログラミング言語/01_C・C%2B%2B/演算子オーバーロード.html">コピー代入演算子</a>では左辺値参照を引数に取るのに対し、<br>
 ムーブコンストラクタおよびムーブ代入演算子では右辺値参照を引数に取っている。<br>
 単に初期値(または代入右辺)に x を指定した場合はコピーとなるが、std::move() を用いた場合はムーブとなる。<br>
 ムーブ処理はポインタの挿げ替えと、ムーブ元の無効化のみが行われるため、コピーと比較して非常に高速である。<br>
@@ -280,6 +280,7 @@ std::move() 関数に渡されたオブジェクト(左辺値)は右辺値参照
 
 <kwd>template</kwd> &lt;<kwd>typename</kwd> T&gt; <kwd>void</kwd> g( T );
 
+<cmt>// ユニバーサル参照を引数にとる関数 f()</cmt>
 <kwd>template</kwd> &lt;<kwd>typename</kwd> T&gt; <kwd>void</kwd> f( T&& a )
 {
     g( <kwd>std</kwd>::forward<T>(a) ) ;
@@ -295,6 +296,3 @@ g() は値型 T としてパラメータを取るため左辺値ではコピー�
 ( std::auto_ptr については<a href="TIPS/02_プログラミング言語/01_C・C%2B%2B/スマートポインタ.html">スマートポインタ</a>を参照。)<br>
 しかし、NRVOが常に機能するわけではなく、std::auto_ptr はコピーと同じ文法でムーブしていることなどの問題があったため、<br>
 C++11ではコピーと区別でき、統一的にムーブを表す文法が言語機能として整備された。
-
-
-
