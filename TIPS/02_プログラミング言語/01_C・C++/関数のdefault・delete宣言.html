@@ -81,9 +81,9 @@ C++11にて、特殊メンバ関数の暗黙定義を制御するために <b>de
     X(<kwd>const</kwd> X&) = <kwd>delete</kwd>;
     X& <kwd>operator</kwd> =(<kwd>const</kwd> X&) = <kwd>delete</kwd>;
 
-    <cmt>// 特殊メンバ関数を明示的に定義もしくはdeleteした場合、</cmt>
-    <cmt>// それ以外の特殊メンバ関数は明示的に定義もしくはdefault宣言しなければ</cmt>
-    <cmt>// 暗黙定義されない</cmt>
+    <cmt>// 特殊メンバ関数の一部を明示的に定義、もしくは delete 宣言した場合、</cmt>
+    <cmt>// それ以外の特殊メンバ関数は default 宣言しなければ暗黙定義されない</cmt>
+    <cmt>// ⇒ 明示的に定義するか、default / delete 宣言する必要がある</cmt>
     X() = <kwd>default</kwd>;                  <cmt>//< デフォルトコンストラクタ</cmt>
     X(X&&) = <kwd>default</kwd>;               <cmt>//< ムーブコンストラクタ</cmt>
     X& <kwd>operator</kwd> =(X&&) = <kwd>default</kwd>;   <cmt>//< ムーブ代入演算子</cmt>
@@ -109,12 +109,10 @@ C++11にて、特殊メンバ関数の暗黙定義を制御するために <b>de
 <div class="code">
 <kwd>void</kwd> f() = <kwd>delete</kwd>;      <cmt>//< 引数無しの f() 定義を禁止 </cmt>
 
-<kwd>int</kwd> main()
+// delete 宣言されているため、関数定義できない ⇒ コンパイルエラー
+<kwd>void</kwd> f()
 {
-    <cmt>// f();     //< delete 宣言されているため呼び出せない ⇒ コンパイルエラー</cmt>
+    :
 }
 </div>
-
-
-
 
