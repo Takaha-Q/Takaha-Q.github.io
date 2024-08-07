@@ -26,7 +26,14 @@
 <h2>System.IO.StreamWriter とは</h2>
 文字を特定のエンコーディングでストリームに書き込むための一連の機能を提供する。<br>
 ここでは、主用途のひとつであるテキストファイルへの書き込みに関して記す。<br>
-StreamWriter は<b>スレッドセーフではなく、マルチスレッドで用いる場合は競合が発生しないような措置が必要となる(詳細は後述)</b>。
+StreamWriter は<b>スレッドセーフではなく、マルチスレッドで用いる場合は競合が発生しないような措置が必要となる(後述)</b>。
+
+<h2>書き込み動作のイメージ</h2>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/dotNET/StreamWriter/01.png" alt=""><br>
+通常、StreamWriter に書き込まれた内容はバッファに保持され、バッファをフラッシュしない限りはファイルへの反映はなされない。<br>
+Flush() 、Close() または Dispose() を行うことでバッファがフラッシュされる。<br>
+AutoFlush プロパティを true に設定すると、Flush() を明示的に呼び出さなくてもバッファへの書き込みが行われるごとに自動的にフラッシュを行うようにできる。<br>
+(但しフラッシュの頻度が上がるため、パフォーマンスへの影響は発生する。)
 
 <h2>一般的な実装 (C#)</h2>
 
@@ -63,20 +70,8 @@ StreamWriter は<b>スレッドセーフではなく、マルチスレッドで�
 }
 </div>
 
-<h3>解説</h3>
-上記のコードでは、StreamWriter を用いたテキストファイルへの書き込みを行っている。<br>
-書き込み先のファイル CDriveDirs.txt が存在しない場合はファイルを新たに作成し、存在する場合は既存のファイルを上書きする。<br>
-StreamWriter は IDisposable インタフェースを実装しており、役目を終えた場合は明示的に Dispose() を呼び出すか、上記コードのように using ブロックを用いる必要がある。<br>
-
-<h2>書き込み動作のイメージ</h2>
-<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/dotNET/StreamWriter/01.png" alt=""><br>
-通常、StreamWriter に書き込まれた内容はバッファに保持され、バッファをフラッシュしない限りはファイルへの反映はなされない。<br>
-Flush() 、Close() または Dispose() を行うことでバッファがフラッシュされる。<br>
-AutoFlush プロパティを true に設定すると、Flush() を明示的に呼び出さなくてもバッファへの書き込みが行われるごとに自動的にフラッシュを行うようにできる。<br>
-(但しフラッシュの頻度が上がるため、パフォーマンスへの影響は発生する。)
-
 <h2>コンストラクタ</h2>
-ここではファイル書き込みに用いるものを抜粋。その他詳細は
+主要なものを抜粋。その他詳細は
 <a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.io.streamwriter">出典元</a>
 を参照のこと。<br>
 文字エンコーディングを指定しない場合は既定値UTF-8( UTF8Encoding )(BOMなし)が用いられる。<br>
@@ -86,104 +81,100 @@ AutoFlush プロパティを true に設定すると、Flush() を明示的に�
   <tr class="row1">
     <td class="col1"></td>
     <td colspan="2">引数</td>
-    <td>解説</td>
   </tr>
   <tr>
     <td class="col1">StreamWriter(String)</td>
-    <td>string path</td>
+    <td>String</td>
     <td>書き込み先のファイルパス</td>
-    <td>指定されたファイルへの書き込みを行う StreamWriter インスタンスを生成する。<br>文字エンコーディングは既定のUTF-8、既存のファイルに対しては上書きを行う。</td>
   </tr>
   <tr>
     <td class="col1" rowspan="2">StreamWriter(String, Boolean)</td>
-    <td>string path</td>
+    <td>String</td>
     <td>書き込み先のファイルパス</td>
-    <td rowspan="2">書き込みモードを指定し、StreamWriter インスタンスを生成する。<br>文字エンコーディングは既定のUTF-8。</td>
   </tr>
   <tr>
-    <td>bool append</td>
+    <td>Boolean</td>
     <td>書き込みモード(追記を行うか)<br>true : 追記<br>false : 上書き</td>
   </tr>
   <tr>
     <td class="col1" rowspan="3">StreamWriter(String, Boolean, Encoding)</td>
-    <td>string path</td>
+    <td>String</td>
     <td>書き込み先のファイルパス</td>
-    <td rowspan="3">文字エンコーディングと書き込みモードを指定し、StreamWriter インスタンスを生成する。</td>
   </tr>
   <tr>
-    <td>bool append</td>
+    <td>Boolean</td>
     <td>書き込みモード(追記を行うか)<br>true : 追記<br>false : 上書き</td>
   </tr>
   <tr>
-    <td>Encoding encoding</td>
+    <td>Encoding</td>
     <td>文字エンコーディング</td>
   </tr>
 </table>
 
 <h2>メソッド</h2>
-主要なものを抜粋。その他詳細は
+主要なものを抜粋。詳細は
 <a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.io.streamwriter">出典元</a>
 を参照のこと。
 
 <table>
   <tr class="row1">
     <td class="col1"></td>
-    <td colspan="2">引数</td>
+    <td>引数</td>
     <td colspan="2">戻り値</td>
     <td>解説</td>
   </tr>
   <tr>
     <td class="col1">Close()</td>
-    <td colspan="2">なし</td>
+    <td rowspan="4">なし</td>
     <td colspan="2">なし</td>
     <td>StreamWriter オブジェクトと、基になるストリームを閉じる。その際にバッファをフラッシュする。<br>
-    Dispose() を呼び出す、または using ブロックを用いる場合は呼び出す必要は無い。</td>
+    Dispose() で代用可能。</td>
   </tr>
   <tr>
     <td class="col1">Dispose()</td>
-    <td colspan="2">なし</td>
+
     <td colspan="2">なし</td>
     <td>StreamWriter オブジェクトが使用するすべてのリソースを解放する。<br>
     バッファにデータが残っている場合はフラッシュする。</td>
   </tr>
   <tr>
     <td class="col1">Flush()</td>
-    <td colspan="2">なし</td>
+
     <td colspan="2">なし</td>
     <td>バッファ内のデータを基になるストリームに書き込み、バッファをクリアする。</td>
   </tr>
   <tr>
     <td class="col1">FlushAsync()</td>
-    <td colspan="2">なし</td>
+
     <td>System.Threading.Tasks.Task</td>
     <td>非同期タスク</td>
-    <td>バッファ内のデータを基になるストリームに書き込み、バッファをクリアする。これらの処理を非同期に行う。</td>
+    <td>Flush() と同様の処理を非同期に行う。</td>
   </tr>
   <tr>
     <td class="col1">Write()</td>
-    <td colspan="2">string などオーバーロード多数</td>
+    <td rowspan="4">string など</td>
     <td colspan="2">なし</td>
     <td>引数で指定した値をストリームに書き込む。</td>
   </tr>
   <tr>
     <td class="col1">WriteAsync()</td>
-    <td colspan="2">string などオーバーロード多数</td>
+
     <td>System.Threading.Tasks.Task</td>
     <td>非同期タスク</td>
-    <td>引数で指定した値を非同期でストリームに書き込む。</td>
+    <td>Write() と同様の処理を非同期に行う。</td>
   </tr>
   <tr>
     <td class="col1">WriteLine()</td>
-    <td colspan="2">string などオーバーロード多数</td>
+
     <td colspan="2">なし</td>
     <td>引数で指定した値と行終端記号(改行文字)をストリームに書き込む。<br>引数なしの場合は行終端記号のみを書き込む。</td>
   </tr>
   <tr>
     <td class="col1">WriteLineAsync()</td>
-    <td colspan="2">string などオーバーロード多数</td>
+
     <td>System.Threading.Tasks.Task</td>
     <td>非同期タスク</td>
-    <td>引数で指定した値と行終端記号(改行文字)を非同期でストリームに書き込む。<br>引数なしの場合は行終端記号のみを書き込む。</td>
+    <td>WriteLine() と同様の処理を非同期に行う。</td>
   </tr>
 </table>
 
@@ -219,3 +210,4 @@ AutoFlush プロパティを true に設定すると、Flush() を明示的に�
     }
 }
 </div>
+
