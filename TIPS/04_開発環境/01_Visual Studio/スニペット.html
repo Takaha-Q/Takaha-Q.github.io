@@ -80,7 +80,7 @@ C++、C#以外の言語では使用できない点に注意。
 <h2>スニペットの新規作成</h2>
 スニペットをXML形式で作成し、インポートすることで使用可能となる。
 
-<h3>スニペットXMLの作成</h3>
+<h3>1. スニペットXMLの作成</h3>
 
 <h4>Visual Studio Snippet Generator(Webサイト)を用いる場合</h4>
 機能は限定されるが、スニペットを簡便に作成できる。
@@ -95,22 +95,18 @@ C++、C#以外の言語では使用できない点に注意。
 
 <h4>手動で入力する場合</h4>
 より複雑で高機能なスニペットを作成することができる。<br>
+ただ最初から作成することは手順が煩雑であるため、前項のVisual Studio Snippet Generatorで作成したものを編集するとよい。
 
 <h6>作例</h6>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/VS_Snippets/14.png"><br>
 
-上記はスニペットを記述したXMLの例である。各要素の詳細な解説は後述する。<br>
+上記はスニペットを記述したXMLの例である。<br>
 まず任意の場所にXMLファイルを作成し、拡張子を <b>.snippet</b> に変更する。<br>
-スニペットとして展開したい内容は <b>&lt;![CDATA[]]&gt;</b> で囲み、Code 要素に記述する。<br>
-$ で囲まれた語句は特殊な働きをし、$end$ (予約語)はスニペット展開後のカーソル位置を示す。<br>
-$comment$ は ID に comment を指定した Literal に紐づけられ、リテラルとして扱われる。<br>
-スニペット内に ID が等しいリテラルが複数存在する場合、ひとつを書き換えると他の箇所も連動して書き換わる。<br>
-Default は comment リテラルの初期値を示す。このため、実際に展開されるスニペットは
-<div class="code">
-/// &lt;summary&gt;コメント&lt;/summary&gt;
-</div>
-となる。<br>
-また、Shortcut が設定されているため、"com" と入力し、Tabキーを2回押すことでスニペットを呼び出すことができる。<br>
+スニペットとして展開したい内容は Code 要素中に記述し、<b>&lt;![CDATA[]]&gt;</b> で囲む。<br>
+ここで、リテラル( Literal )として datatype が指定されており、Code 中にも $datatype$ が存在するが、<br>
+展開時に、複数ある $datatype$ のうち一つを変更すると、他の $datatype$ も同じ内容に置き換わる。<br>
+IDとして指定されたものを含め、$ で囲まれた語句は特殊な働きをし、$end$ (予約語)はスニペット展開後のカーソル位置を示す。<br>
+また、Shortcut が設定されているため、"reactive" と入力し、Tabキーを2回押すことでスニペットを呼び出すことができる。<br>
 <br>
 主要なXMLの要素を以下に記す。すべての項目は<a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022">リンク先</a>を参照。
 
@@ -163,19 +159,19 @@ Default は comment リテラルの初期値を示す。このため、実際に
         <td></td>
     </tr>
     <tr>
-        <th class="border_dashed"></th><th class="border_dashed">┃</th><th class="border_dashed"th>┣</th><td class="col1 left" colspan="3"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#keywords-element">Keywords</a></td>
+        <th class="border_dashed"></th><th class="border_dashed">┃</th><th class="border_dashed">┣</th><td class="col1 left" colspan="3"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#keywords-element">Keywords</a></td>
         <td></td>
         <td>1つ以上の Keyword 要素のグループ</td>
         <td></td>
     </tr>
     <tr>
-        <th class="border_dashed"></th><th class="border_dashed">┃</th><th class="border_dashed">┃</th><th class=order_dashed">┗</th><td class="col1 left" colspan="2"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#keyword-element">Keyword</a></td>
+        <th class="border_dashed"></th><th class="border_dashed">┃</th><th class="border_dashed">┃</th><th class="border_dashed">┗</th><td class="col1 left" colspan="2"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#keyword-element">Keyword</a></td>
         <td></td>
         <td>Visual Studioが検索・分類に用いる<br>カスタムキーワード</td>
         <td>Keywords 省略時はHeader 直下に記述可能</td>
     </tr>
     <tr>
-        <th class="border_dashed"></th><th class="border_dashed">┃</th><th class="border_dashed"h>┣</th><td class="col1 left" colspan="3"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#shortcut-element">Shortcut</a></td>
+        <th class="border_dashed"></th><th class="border_dashed">┃</th><th class="border_dashed">┣</th><td class="col1 left" colspan="3"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#shortcut-element">Shortcut</a></td>
         <td></td>
         <td>コードスニペットを呼び出す際に入力する<br>ショートカットテキスト</td>
         <td>英数字とアンダースコアを使用可能<br>(但しC++はアンダースコアを使用できない)</td>
@@ -224,7 +220,7 @@ Default は comment リテラルの初期値を示す。このため、実際に
     <tr>
         <th class="border_dashed"></th><th class="border_dashed"></th><th class="border_dashed"></th><th class="border_dashed">┗</th><td class="col1 left" colspan="2"><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/code-snippets-schema-reference?view=vs-2022#literal-element">Literal</a></td>
         <td></td>
-        <td></td>
+        <td>リテラル</td>
         <td></td>
     </tr>
     <tr>
@@ -312,7 +308,7 @@ Default は comment リテラルの初期値を示す。このため、実際に
     </tr>
 </table>
 
-<h3>スニペットのインポート</h3>
+<h3>2. スニペットのインポート</h3>
 <ol>
     <li>Visual Studioを開き、「ツール」&gt;「コード スニペット マネージャー」を選択する。<br>
         <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/VS_Snippets/04.png"></li>
