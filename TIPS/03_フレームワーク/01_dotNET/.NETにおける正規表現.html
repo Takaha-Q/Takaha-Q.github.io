@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<h5>出典 :</h5>
+<div class="pre">
+<a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.text.regularexpressions.regex?view=net-8.0">Regex クラス (System.Text.RegularExpressions) | Microsoft Learn</a>
+<a href="https://qiita.com/yynsmk/items/cc6591178e732d3f7b7a">Regex（正規表現）の基本的な文法 #regex - Qiita</a>
+<a href="https://qiita.com/baku2san/items/b4e14bf97a195ef57757">C#でも名前付きキャプチャを使う Named Group #正規表現 - Qiita</a>
+</div>
+
+<!-- 関連ページ -->
+<h5>関連 :</h5>
+<div class="pre">
+<a href="TIPS/01_ソフトウェア開発一般/03_正規表現/正規表現のススメ.html">正規表現のススメ</a>
+<a href="TIPS/01_ソフトウェア開発一般/03_正規表現/キャプチャ.html">[正規表現]キャプチャ</a>
+</div>
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>.NETにおける正規表現</h2>
+<div class="pre">
+<code class="b">System.Text.RegularExpressions.Regex</code> クラスには正規表現の機能が実装されており、静的メソッドとしてアクセスが可能である。
+(インスタンスを生成することも可能で、その場合はパターンなどを保持する。詳細は割愛。)
+</div>
+
+<h2>Match() : パターンにマッチする箇所</h2>
+<div class=pre>
+入力文字列における、パターンにマッチする箇所の情報( <code>System.Text.RegularExpressions.Match</code> )を返す。
+</div>
+
+<h6>記述例</h6>
+<div class=cs>
+<kwd>using</kwd> <knw>System</knw>.<knw>Text</knw>.RegularExpressions;
+
+:
+
+<kwd>string</kwd> input = <ltr>"0120-444-444"</ltr>;    <cmt>//&lt; 入力文字列</cmt>
+<kwd>string</kwd> pattern = <ltr>@"\d+"</ltr>           <cmt>//&lt; 検索パターン</cmt>
+
+<cmt>// input 中の pattern にマッチする箇所を取得</cmt>
+Match match = <knw>Regex</knw>.Match( input, pattern );
+
+<cmt>// マッチする箇所が存在する場合、その情報を順に出力する</cmt>
+<kwd>while</kwd>( m.Success )
+{
+    <knw>Console</knw>.WriteLine( <ltr>$@"</ltr>{m.Index}<ltr> 文字目に ""</ltr>{m.Value}<ltr>"" が見つかりました。"</ltr> );
+    m = m.NextMatch();
+}
+</div>
+
+<h6>出力結果</h6>
+<div class=cs>
+<ltr>0 文字目に "0120" が見つかりました。</ltr>
+<ltr>5 文字目に "444" が見つかりました。</ltr>
+<ltr>9 文字目に "444" が見つかりました。</ltr>
+</div>
+
+<h3>キャプチャ結果の取得</h3>
+<div class=pre>
+添字付きプロパティ <code class="b">Match.Groups[]</code> を用いることで、番号または名前を指定してキャプチャ結果を参照できる。
+キャプチャ結果の文字列を取り出すにはさらに <code>Value</code> プロパティを用いる。
+</div>
+
+<h6>記述例</h6>
+<div class=cs>
+<kwd>using</kwd> <knw>System</knw>;
+<kwd>using</kwd> <knw>System</knw>.<knw>Text</knw>.RegularExpressions;
+
+<kwd>public class</kwd> Example
+{
+    <kwd>public static void</kwd> Main()
+    {
+        <cmt>// 入力文字列</cmt>
+        <kwd>string</kwd> input = <ltr>"The cow jumped over the moon."</ltr>;
+
+        <cmt>// 検索パターン</cmt>
+        <cmt>//                                       |   \1  |</cmt>
+        <cmt>//                                       |       |</cmt>
+        <kwd>string</kwd> pattern = <ltr>@"\b(?&lt;FirstWord&gt;\w+)\s?((\w+)\s)*(?&lt;LastWord&gt;\w+)?"</ltr>;
+        <cmt>//                   |               |    |   |    |              |</cmt>
+        <cmt>//                   |&lt;- FirstWord -&gt;|    | \2|    |&lt;- LastWord -&gt;|</cmt>
+
+        <cmt>// マッチ結果取得</cmt>
+        <cmt>// 成功時はキャプチャ結果を出力</cmt>
+        Match match = <knw>Regex</knw>.Match( input, pattern );
+        <kwd>if</kwd> (match.Success)
+        {
+            <knw>Console</knw>.WriteLine( <ltr>$@"1         : '{match.Group[1].Value}'"</ltr> );
+            <knw>Console</knw>.WriteLine( <ltr>$@"2         : '{match.Group[2].Value}'"</ltr> );
+            <knw>Console</knw>.WriteLine( <ltr>$@"FirstWord : '{match.Group[FirstWord].Value}'"</ltr> );
+            <knw>Console</knw>.WriteLine( <ltr>$@"LastWord  : '{match.Group[LastWord].Value}'"</ltr> );
+        }
+    }
+}
+</div>
+
+<h6>出力結果</h6>
+<div class=cs>
+<ltr>1         : 'the '</ltr>    <cmt>//&lt; キャプチャ番号 1 ( \1 )</cmt>
+<ltr>2         : 'the'</ltr>     <cmt>//&lt; キャプチャ番号 2 ( \2 )</cmt>
+<ltr>FirstWord : 'The'</ltr>     <cmt>//&lt; 名前付きキャプチャ "FirstWord"</cmt>
+<ltr>LastWord  : 'moon'</ltr>    <cmt>//&lt; 名前付きキャプチャ "LastWord"</cmt>
+</div>
+
+<h2>Matches() : パターンにマッチする箇所の一覧</h2>
+<div class=pre>
+入力文字列における、パターンにマッチするすべての箇所の情報( <code class="b">System.Text.RegularExpressions.MatchCollection</code> )を返す。
+<code>MatchCollection</code> は <code>Match</code> の集合で、<code>foreach</code> で走査できる。
+</div>
+
+<h6>記述例</h6>
+<div class=cs>
+<kwd>using</kwd> <knw>System</knw>.<knw>Text</knw>.RegularExpressions;
+
+:
+
+<kwd>string</kwd> input = <ltr>"0120-444-444"</ltr>;    <cmt>//&lt; 入力文字列</cmt>
+<kwd>string</kwd> pattern = <ltr>@"\d+"</ltr>           <cmt>//&lt; 検索パターン</cmt>
+
+<cmt>// input 中の pattern にマッチする箇所を取得</cmt>
+MatchCollection matches = <knw>Regex</knw>.Matches( input, pattern );
+
+<cmt>// マッチする箇所の情報を順に出力する</cmt>
+<kwd>foreach</kwd>( Match m <kwd>in</kwd> matches )
+{
+    <knw>Console</knw>.WriteLine( <ltr>$@"</ltr>{m.Index}<ltr> 文字目に ""</ltr>{m.Value}<ltr>"" が見つかりました。"</ltr> );
+}
+</div>
+
+<h6>出力結果</h6>
+<div class=cs>
+<ltr>0 文字目に "0120" が見つかりました。</ltr>
+<ltr>5 文字目に "444" が見つかりました。</ltr>
+<ltr>9 文字目に "444" が見つかりました。</ltr>
+</div>
+
+<h2>IsMatch() : パターンにマッチするか</h2>
+<div class=pre>
+入力文字列にパターンにマッチする箇所が含まれるかを返す。
+</div>
+
+<h6>記述例</h6>
+<div class=cs>
+<kwd>using</kwd> <knw>System</knw>.<knw>Text</knw>.RegularExpressions;
+
+:
+
+<kwd>string</kwd> input = <ltr>"0120-444-444"</ltr>;    <cmt>//&lt; 入力文字列</cmt>
+<kwd>string</kwd> pattern = <ltr>@"\d+"</ltr>           <cmt>//&lt; 検索パターン</cmt>
+
+<cmt>// input 中に pattern にマッチする箇所が存在するかを取得 ⇒ 存在するため true</cmt>
+<kwd>bool</kwd> isMatch = <knw>Regex</knw>.IsMatch( input, pattern );
+</div>
+
+<h2>Count() : パターンにマッチする数</h2>
+<div class=pre>
+入力文字列における、パターンにマッチする箇所の数を返す。
+</div>
+
+<h6>記述例</h6>
+<div class=cs>
+<kwd>using</kwd> <knw>System</knw>.<knw>Text</knw>.RegularExpressions;
+
+:
+
+<kwd>string</kwd> input = <ltr>"0120-444-444"</ltr>;    <cmt>//&lt; 入力文字列</cmt>
+<kwd>string</kwd> pattern = <ltr>@"\d+"</ltr>           <cmt>//&lt; 検索パターン</cmt>
+
+<cmt>// input 中の pattern にマッチする個数を取得 ⇒ 3</cmt>
+<kwd>int</kwd> count = <knw>Regex</knw>.Count( input, pattern );
+</div>
+
+<h2>Replace() : パターンにマッチする箇所をすべて置換</h2>
+<div class=pre>
+入力文字列における、パターンにマッチする箇所すべてを指定された文字列で置換する。
+</div>
+
+<h6>記述例</h6>
+<div class=cs>
+<kwd>using</kwd> <knw>System</knw>.<knw>Text</knw>.RegularExpressions;
+
+:
+
+<kwd>string</kwd> input = <ltr>"0120-444-444"</ltr>;    <cmt>//&lt; 入力文字列</cmt>
+<kwd>string</kwd> pattern = <ltr>@"\d{3}"</ltr>         <cmt>//&lt; 検索パターン</cmt>
+<kwd>string</kwd> replacement = <ltr>"###"</ltr>;       <cmt>//&lt; 置換後文字列</cmt>
+
+<cmt>// input 中の pattern にマッチする箇所を replacement で置換 ⇒ "0120-###-###"</cmt>
+<kwd>string</kwd> output = <knw>Regex</knw>.Replace( input, pattern, replacement );
+</div>
+
+<h3><a href="TIPS/01_ソフトウェア開発一般/03_正規表現/キャプチャ.html">キャプチャおよび名前付きキャプチャ</a></h3>
+<div class=pre>
+置換後文字列中でキャプチャを参照する場合は表記が異なる。
+</div>
+
+<table>
+  <tr class="row1" height="36">
+    <td class="col1"></td>
+    <td width="195">入力文字列中で参照(後方参照)</td>
+    <td width="195">置換文字列中で参照</td>
+  </tr>
+  <tr height="36">
+    <td class="col1" width="135">番号によるキャプチャ</td>
+    <td class="center"><b class=red>\</b><i>1</i>, <b class=red>\</b><i>2</i>, ...</td>
+    <td class="center"><b class=blue>$</b><i>1</i>, <b class=blue>$</b><i>2</i>, ...</td>
+  </tr>
+  <tr height="36">
+    <td class="col1">名前付きキャプチャ</td>
+    <td class="center"><b class=red>\k&lt;</b><i>CaptureName</i><b class=red>&gt;</b></td>
+    <td class="center"><b class=blue>${</b><i>CaptureName</i><b class=blue>}</b></td>
+  </tr>
+</table>
+
+<h2>GetGroupNames() : キャプチャしたグループ名をすべて取得</h2>
+<div class=pre>
+Match() でのキャプチャに使用した名称の一覧を返す。
+</div>
+
+<h6>記述例</h6>
+<div class=cs>
+<kwd>using</kwd> <knw>System</knw>;
+<kwd>using</kwd> <knw>System</knw>.<knw>Text</knw>.RegularExpressions;
+
+<kwd>public class</kwd> Example
+{
+    <kwd>public static void</kwd> Main()
+    {
+        <cmt>// 入力文字列</cmt>
+        <kwd>string</kwd> input = <ltr>"The cow jumped over the moon."</ltr>;
+
+        <cmt>// 検索パターン</cmt>
+        <cmt>//                                       |   \1  |</cmt>
+        <cmt>//                                       |       |</cmt>
+        <kwd>string</kwd> pattern = <ltr>@"\b(?&lt;FirstWord&gt;\w+)\s?((\w+)\s)*(?&lt;LastWord&gt;\w+)?"</ltr>;
+        <cmt>//                   |               |    |   |    |              |</cmt>
+        <cmt>//                   |&lt;- FirstWord -&gt;|    | \2|    |&lt;- LastWord -&gt;|</cmt>
+
+        <cmt>// マッチする箇所を取得</cmt>
+        <cmt>// 成功時は内容を出力</cmt>
+        <knw>Regex</knw> rgx = <kwd>new</kwd> <knw>Regex</knw>( pattern );
+        Match match = rgx.Match( input );
+        <kwd>if</kwd> (match.Success)
+        {
+            ShowMatches(rgx, match);
+        }
+    }
+
+    <cmt>// マッチ結果の出力</cmt>
+    <kwd>private static void</kwd> ShowMatches( <knw>Regex</knw> r, Match m )
+    {
+        <cmt>// キャプチャグループ名の一覧を取得</cmt>
+        <kwd>string</kwd>[] names = r.GetGroupNames();
+
+        <knw>Console</knw>.WriteLine(<ltr>"Named Groups:"</ltr>);
+
+        <cmt>// キャプチャグループ名を走査</cmt>
+        <kwd>foreach</kwd> (<kwd>var</kwd> name <kwd>in</kwd> names)
+        {
+            Group grp = m.Groups[name];
+            <knw>Console</knw>.WriteLine( <ltr>$@"   </ltr>{name}<ltr> : '</ltr>{grp.Value}<ltr>'"</ltr> );
+        }
+    }
+}
+</div>
+
+<h6>出力結果</h6>
+<div class=cs>
+<ltr>Named Groups:
+   0 : 'The cow jumped over the moon.'   <cmt>//&lt; パターン全体でのマッチ結果</cmt>
+   1 : 'the '                            <cmt>//&lt; キャプチャ番号 1 ( \1 )</cmt>
+   2 : 'the'                             <cmt>//&lt; キャプチャ番号 2 ( \2 )</cmt>
+   FirstWord : 'The'                     <cmt>//&lt; 名前付きキャプチャ "FirstWord"</cmt>
+   LastWord : 'moon'                     <cmt>//&lt; 名前付きキャプチャ "LastWord"</cmt></ltr>
+</div>
+
+<h6>解説</h6>
+<div class=pre>
+上記のコードでは、通常のキャプチャと名前付きキャプチャを同時に行っている。
+キャプチャグループ名を取得するには <code>Match()</code> を実行した <code>RegEx</code> オブジェクトが必要となるため、<code>Match()</code> 実行前にインスタンスを作成している。
+<code>RegEx.GetGroupNames()</code> を実行すると名前付きキャプチャ( <code>"FirstWord"</code> および <code>"LastWord"</code> )に加え、通常の(番号による)キャプチャ結果も返される。
+(例えばキャプチャ番号 1 には名称 "1" が割り当てられる。<code>Match.Groups[1]</code> と <code>Match.Groups["1"]</code> の結果は等しい。)
+このとき、0 番目の結果はキャプチャではなく、パターン全体のマッチ結果となる。
+1 番目、2 番目のキャプチャは複数回実行(該当箇所が複数存在)され、結果は最新のもので上書きされる。
+</div>
+
+<h2>GetGroupNumbers() : キャプチャしたグループ番号をすべて取得</h2>
+<div class=pre>
+Match() でのキャプチャに使用した番号の一覧を返す。
+</div>
+
+<h6>記述例</h6>
+<div class=cs>
+<kwd>using</kwd> <knw>System</knw>;
+<kwd>using</kwd> <knw>System</knw>.<knw>Text</knw>.RegularExpressions;
+
+<kwd>public class</kwd> Example
+{
+    <kwd>public static void</kwd> Main()
+    {
+        <cmt>// 入力文字列</cmt>
+        <kwd>string</kwd> input = <ltr>"The cow jumped over the moon."</ltr>;
+
+        <cmt>// 検索パターン</cmt>
+        <cmt>//                                       |   \1  |</cmt>
+        <cmt>//                                       |       |</cmt>
+        <kwd>string</kwd> pattern = <ltr>@"\b(?&lt;FirstWord&gt;\w+)\s?((\w+)\s)*(?&lt;LastWord&gt;\w+)?"</ltr>;
+        <cmt>//                   |               |    |   |    |              |</cmt>
+        <cmt>//                   |&lt;- FirstWord -&gt;|    | \2|    |&lt;- LastWord -&gt;|</cmt>
+
+        <cmt>// マッチする箇所を取得</cmt>
+        <cmt>// 成功時は内容を出力</cmt>
+        <knw>Regex</knw> rgx = <kwd>new</kwd> <knw>Regex</knw>( pattern );
+        Match match = rgx.Match( input );
+        <kwd>if</kwd> (match.Success)
+        {
+            ShowMatches(rgx, match);
+        }
+    }
+
+    <cmt>// マッチ結果の出力</cmt>
+    <kwd>private static void</kwd> ShowMatches( <knw>Regex</knw> r, Match m )
+    {
+        <cmt>// キャプチャグループ番号の一覧を取得</cmt>
+        <kwd>int</kwd>[] numbers = r.GetGroupNumbers();
+
+        <knw>Console</knw>.WriteLine(<ltr>"Groups:"</ltr>);
+
+        <cmt>// キャプチャグループ番号を走査</cmt>
+        <kwd>foreach</kwd> (<kwd>var</kwd> number <kwd>in</kwd> numbers)
+        {
+            Group grp = m.Groups[number];
+            <knw>Console</knw>.WriteLine( <ltr>$@"   </ltr>{number}<ltr> : '</ltr>{grp.Value}<ltr>'"</ltr> );
+        }
+    }
+}
+</div>
+
+<h6>出力結果</h6>
+<div class=cs>
+<ltr>Groups:
+   0</ltr> : <ltr>'The cow jumped over the moon.'</ltr>   <cmt>//&lt; パターン全体でのマッチ結果</cmt>
+   <ltr>1</ltr> : <ltr>'the '</ltr>                            <cmt>//&lt; キャプチャ番号 1 ( \1 )</cmt>
+   <ltr>2</ltr> : <ltr>'the'</ltr>                             <cmt>//&lt; キャプチャ番号 2 ( \2 )</cmt>
+   <ltr>3</ltr> : <ltr>'The'</ltr>                             <cmt>//&lt; 名前付きキャプチャ "FirstWord" ⇒ キャプチャ番号 3</cmt>
+   <ltr>4</ltr> : <ltr>'moon'</ltr>                            <cmt>//&lt; 名前付きキャプチャ "LastWord"  ⇒ キャプチャ番号 4</cmt></ltr>
+</div>
+
+<h6>解説</h6>
+<div class=pre>
+キャプチャ番号を取得する際の手順は <code>GetGroupNames()</code> と同様。名前付きキャプチャにも、通常のキャプチャに続く番号が割り当てられる。
+<code>Match.Groups[]</code> で結果を参照する際、名称(文字列)を用いるよりも番号(整数値)を用いるほうが高速であるため、特定の局面では有利にはたらく。
+</div>
+
+<h2>GroupNameFromNumber() : キャプチャグループ番号をグループ名に変換</h2>
+<div class=pre>
+キャプチャグループ番号から名称への変換を行う。
+対応する変換結果が存在しない場合、<code>String.Empty</code>を返す。
+</div>
+
+<h2>GroupNumberFromName() : キャプチャグループ名をグループ番号に変換</h2>
+<div class=pre>
+キャプチャグループ名称から番号への変換を行う。
+対応する変換結果が存在しない場合、<code>-1</code> を返す。
+</div>
+
