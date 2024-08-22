@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+<!-- 出典・関連ページ -->
+
+<h5>出典 :</h5>
+<a href="https://qiita.com/tera1707/items/d5a3bc12ffa5f80069a1">[C#] Taskの中で例外が起きた時のキャッチの仕方 - Qiita</a>
+
+<h5>関連 :</h5>
+<a href="TIPS/03_フレームワーク/01_dotNET/14_マルチタスク/並列処理(非同期実行).html">並列処理(非同期実行)</a><br>
+<a href="TIPS/03_フレームワーク/01_dotNET/14_マルチタスク/排他制御.html">排他制御</a><br>
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>例外処理</h2>
+終了待ちの形態により、例外の取得方法は異なる。
+
+<h3>await で待つ場合</h3>
+Task の終了を await で待つ場合は、通常の手法で例外を捕捉できる。
+
+<div class="code">
+<cmt>// awaitしたTaskの例外</cmt>
+<kwd>private async void</kwd> Button_Click(<kwd>object</kwd> sender, <knw>RoutedEventArgs</knw> e)
+{
+    <kwd>try</kwd>
+    {
+        <kwd>await</kwd> <knw>Task</knw>.Run(() =>
+        {
+            <kwd>throw new</kwd> NotImplementedException();
+        });
+    }
+    <cmt>// 例外は Exception として捕捉可能</cmt>
+    <kwd>catch</kwd> (<knw>Exception</knw> ex)
+    {
+        <knw>Debug</knw>.WriteLine("1:" + ex.GetType());
+    }
+}
+</div>
+
+<h3>Wait() で待つ場合</h3>
+Task の終了を Wait() / WaitAll() / WaitAny() で待つ場合、例外は <b>AggregateException</b> として捕捉される。<br>
+例外の本体は <b>AggregateException.InnerException</b> から参照できる。
+
+<div class="code">
+<cmt>// Wait()したTaskの例外</cmt>
+<kwd>private void</kwd> Button_Click_1(<kwd>object</kwd> sender, <knw>RoutedEventArgs</knw> e)
+{
+    <kwd>try</kwd>
+    {
+        <knw>Task</knw>.Run(() =>
+        {
+            <kwd>throw new</kwd> NotImplementedException();
+        }).Wait();
+    }
+    <cmt>// ここで例外は捕捉できるが、例外の中身は InnerException を参照する必要がある</cmt>
+    <kwd>catch</kwd> (<knw>Exception</knw> ex)
+    {
+        Debug.WriteLine("a:" + ex.GetType());
+        <kwd>if</kwd> (ex <kwd>is</kwd> <knw>AggregateException</knw> age)
+        {
+            <knw>Debug</knw>.WriteLine("b:" + age.InnerException.GetType());
+        }
+    }
+}
+</div>
+
+<h3>待たない場合</h3>
+Task の終了を待たない場合、<b>開始元では例外は捕捉できない</b>。<br>
+例外の内容を確認する場合は、Task 変数の <b>Exception</b> プロパティを参照すればよい。<br>
+この場合、前節と同様に例外は AggregateException として格納されているため、InnerException プロパティを参照する必要がある。
+
+<div class="code">
+<cmt>// 待たないTaskの例外</cmt>
+<kwd>private void</kwd> Button_Click_2(<kwd>object</kwd> sender, <knw>RoutedEventArgs</knw> e)
+{
+    <kwd>try</kwd>
+    {
+        <cmt>// Task を開始するのみで終了を待たない</cmt>
+        <kwd>var</kwd> t = <knw>Task</knw>.Run(() =>
+        {
+            <kwd>throw new</kwd> NotImplementedException();
+        });
+
+        <cmt>// t が終了した後に行う処理をコールバックとして登録する</cmt>
+        t.ContinueWith((compt) =>
+        {
+            <knw>Debug</knw>.WriteLine("A:" + compt.<knw>Exception</knw>.GetType());
+            <kwd>if</kwd> (compt.<knw>Exception</knw> <kwd>is</kwd> <knw>AggregateException</knw> age)
+            {
+                <knw>Debug</knw>.WriteLine("C:" + age.InnerException.GetType());
+            }
+        });
+    }
+    <cmt>// t で例外が発生しても、ここでは捕捉できない</cmt>
+    <kwd>catch</kwd> (<knw>Exception</knw> ex)
+    {
+        :
+    }
+}
+</div>
+
