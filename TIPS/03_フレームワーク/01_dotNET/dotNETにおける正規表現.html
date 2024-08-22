@@ -111,8 +111,8 @@ Match match = <knw>Regex</knw>.Match( input, pattern );
         {
             <knw>Console</knw>.WriteLine( <ltr>$@"1         : '{match.Group[1].Value}'"</ltr> );
             <knw>Console</knw>.WriteLine( <ltr>$@"2         : '{match.Group[2].Value}'"</ltr> );
-            <knw>Console</knw>.WriteLine( <ltr>$@"FirstWord : '{match.Group[FirstWord].Value}'"</ltr> );
-            <knw>Console</knw>.WriteLine( <ltr>$@"LastWord  : '{match.Group[LastWord].Value}'"</ltr> );
+            <knw>Console</knw>.WriteLine( <ltr>$@"FirstWord : '{match.Group["FirstWord"].Value}'"</ltr> );
+            <knw>Console</knw>.WriteLine( <ltr>$@"LastWord  : '{match.Group["LastWord"].Value}'"</ltr> );
         }
     }
 }
