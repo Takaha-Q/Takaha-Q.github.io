@@ -1,15 +1,21 @@
 ﻿<!DOCTYPE html>
+
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
+
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
+
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
+
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
+
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
+
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a>
 
@@ -35,7 +41,7 @@
 <a href="TIPS/01_ソフトウェア開発一般/02_並列処理/タスク(スレッド)間通信.html">タスク(スレッド)間通信</a>
 <a href="TIPS/03_フレームワーク/01_dotNET/14_マルチタスク/並列タスクの例外捕捉.html">並列タスクの例外捕捉</a>
 <a href="TIPS/01_ソフトウェア開発一般/無名関数とラムダ式.html">無名関数とラムダ式</a>
-<a href="デリゲートとイベント.html#ActionとFunc">[C#]ActionとFunc</a>
+<a href="TIPS/02_プログラミング言語/02_CSharp/デリゲートとイベント.html#ActionとFunc">[C#]ActionとFunc</a>
 </div>
 
 <!-- 目次 -->
@@ -55,11 +61,11 @@
 
 <h3>Task.Run()</h3>
 <div class=cs>
-<knw>Task</knw> task = <knw>Task</knw>.Run( () => HeavyWork(<ltr>2000000000</ltr>) );
+<knw>Task</knw> task = <knw>Task</knw>.Run( () =&gt; HeavyWork(<ltr>2000000000</ltr>) );
 </div>
 
 <div class=pre><b>Task.Run()</b> は引数で指定された処理を別スレッドで開始する。
-引数は<a href="デリゲートとイベント.html#ActionとFunc">デリゲート</a>( Action (戻り値なしのメソッド)または Func (戻り値のあるメソッド) )で、デルタ式も使用できる。
+引数は<a href="TIPS/02_プログラミング言語/02_CSharp/デリゲートとイベント.html#ActionとFunc">デリゲート</a>( Action (戻り値なしのメソッド)または Func (戻り値のあるメソッド) )で、デルタ式も使用できる。
 スレッドの終了待ちや実行結果(戻り値)の取得は戻り値の <b>Task&lt;T&gt;</b> に対して行う。
 ここで T は Task.Run() に渡されるメソッド(ここでは HeavyWork() )の戻り値の型である。戻り値が存在しない( void )場合は単に Task となる。
 また Task.Run() は指定された処理をスレッドプールに投入するのみで、通常、その処理をどのスレッドで実行するのかは問わない。
@@ -76,21 +82,21 @@
 <div class="cs f_l">
 <cmt>// メソッド内で await を用いるため async 修飾</cmt>
 <cmt>// 本来の戻り値は void だが、async 修飾されているため Task に変更する</cmt>
-<kwd>private <b>async</b></kwd> <knw>Task</knw> ExecuteAsync()
+<kwd>private</kwd> <kwd class="b">async</kwd> <knw>Task</knw> ExecuteAsync()
 {
     <cmt>// (1)</cmt>
     text += <ltr>"計算開始"</ltr> + <knw>Environment</knw>.NewLine;
 
     <cmt>// (2) 重い処理を別タスクで実行開始(Task.Run())</cmt>
     <cmt>// await 修飾されているため、次行以降は別タスクの完了後に実行される</cmt>
-    <kwd>double</kwd> result = <kwd class="b">await</kwd> <knw>Task</knw>.Run(() => HeavyWork(<ltr>2000000000</ltr>));
+    <kwd>double</kwd> result = <kwd class="b">await</kwd> <knw>Task</knw>.Run(() =&gt; HeavyWork(<ltr>2000000000</ltr>));
 
     <cmt>// (3)</cmt>
     text += result.ToString() + <knw>Environment</knw>.NewLine;
 }
 </div>
 
-<img src="file://C:\Users\shinji.takahata\Documents\_Git_Rep\HTML_TIPS\_Img\dotNET\Async\01.png" alt="画像" class="f_l">
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\dotNET\Async\01.png" alt="画像" class="f_l">
 
 <div class="pre f_c">上記は async / await を用いた非同期処理の例である。シーケンス図中の塗りつぶし(<bg_ly>薄黄</bg_ly>、<bg_lc>薄青</bg_lc>)はスレッドを示す。
 <b>await</b> キーワードに到達すると後続のタスクを別スレッドで開始するとともに、<b>呼び元に制御を戻す</b>ことが重要な点としてあげられる。
@@ -114,6 +120,9 @@
 <h4>応用</h4>
 <div class="code">
 <knw>HttpClient</knw> hc = <kwd>new</kwd> HttpClient();
+
+:
+
 <kwd>private async void</kwd> button_Click(<kwd>object</kwd> sender, <knw>RoutedEventArgs</knw> e)
 {
     <cmt>// ダウンロードタスクを別スレッドで実行</cmt>
@@ -220,3 +229,4 @@ t1.Wait();
 <h2>例外の捕捉</h2>
 並列処理においては、例外の捕捉には制約がある。詳細は
 <a href="TIPS/03_フレームワーク/01_dotNET/14_マルチタスク/並列タスクの例外捕捉.html">リンク先</a>を参照。
+

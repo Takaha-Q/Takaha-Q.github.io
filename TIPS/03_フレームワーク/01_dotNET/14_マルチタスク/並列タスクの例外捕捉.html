@@ -1,17 +1,24 @@
 ﻿<!DOCTYPE html>
+
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
+
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
+
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
+
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
+
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
+
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
+
 <!-- 出典・関連ページ -->
 
 <h5>出典 :</h5>
@@ -39,13 +46,13 @@ Task の終了を await で待つ場合は、通常の手法で例外を捕捉�
 {
     <kwd>try</kwd>
     {
-        // 例外を送出する Task を開始して await
-        await Task.Run( () => { throw new NotImplementedException(); } );
+        <cmt>// 例外を送出する Task を開始して await</cmt>
+        <kwd>await</kwd> <knw>Task</knw>.Run( () =&gt; { <kwd>throw new</kwd> <knw>NotImplementedException</knw>(); } );
     }
     <cmt>// 例外は Exception として捕捉可能</cmt>
     <kwd>catch</kwd> (<knw>Exception</knw> ex)
     {
-        Debug.WriteLine( ex.Message );
+        <knw>Debug</knw>.WriteLine( ex.Message );
     }
 }
 </div>
@@ -57,27 +64,27 @@ async 修飾されたメソッドを呼び元で監視する場合は例外を�
 </div>
 
 <div class=cs>
-// ボタンクリック時の処理(イベントハンドラ)
-private void Button_Click(object sender, RoutedEventArgs e)
+<cmt>// ボタンクリック時の処理(イベントハンドラ)</cmt>
+<kwd>private void</kwd> Button_Click(<kwd>object</kwd> sender, <knw>RoutedEventArgs</knw> e)
 {
-    try
+    <kwd>try</kwd>
     {
-        // 実処理
+        <cmt>// 実処理</cmt>
         Button_Click_Core();
     }
-    // 例外を捕捉しようとしているが…？
-    // ⇒ 実際は捕捉できない
-    catch (Exception ex)
+    <cmt>// 例外を捕捉しようとしているが…？</cmt>
+    <cmt>// ⇒ 実際は捕捉できない</cmt>
+    <kwd>catch</kwd> (<knw>Exception</knw> ex)
     {
-        Debug.WriteLine( ex.Message );
+        <knw>Debug</knw>.WriteLine( ex.Message );
     }
 }
 
-// 実処理( async )
-private async Task Button_Click_Core()
+<cmt>// 実処理( async )</cmt>
+<kwd>private async</kwd> <knw>Task</knw> Button_Click_Core()
 {
-    // 例外を送出する Task を開始して await
-    await Task.Run( () => { throw new NotImplementedException(); } );
+    <cmt>// 例外を送出する Task を開始して await</cmt>
+    <kwd>await</kwd> <knw>Task</knw>.Run( () =&gt; { <kwd>throw new</kwd> <knw>NotImplementedException</knw>(); } );
 }
 </div>
 
@@ -91,18 +98,18 @@ Task の終了を Wait() / WaitAll() / WaitAny() で待つ場合、例外は <b>
 {
     <kwd>try</kwd>
     {
-        <knw>Task</knw>.Run(() =>
+        <knw>Task</knw>.Run(() =&gt;
         {
-            <kwd>throw new</kwd> NotImplementedException();
+            <kwd>throw new</kwd> <knw>NotImplementedException</knw>();
         }).Wait();
     }
     <cmt>// ここで例外は捕捉できるが、例外の中身は InnerException を参照する必要がある</cmt>
     <kwd>catch</kwd> (<knw>Exception</knw> ex)
     {
-        Debug.WriteLine("a:" + ex.GetType());
-        <kwd>if</kwd> (ex <kwd>is</kwd> <knw>AggregateException</knw> age)
+        <knw>Debug</knw>.WriteLine(<ltr>"a:"</ltr> + ex.GetType());
+        <kwd>if</kwd> (ex is <knw>AggregateException</knw> age)
         {
-            <knw>Debug</knw>.WriteLine("b:" + age.InnerException.GetType());
+            <knw>Debug</knw>.WriteLine(<ltr>"b:"</ltr> + age.<knw>InnerException</knw>.GetType());
         }
     }
 }
@@ -120,18 +127,18 @@ Task の終了を待たない場合、<b>開始元では例外は捕捉できな
     <kwd>try</kwd>
     {
         <cmt>// Task を開始するのみで終了を待たない</cmt>
-        <kwd>var</kwd> t = <knw>Task</knw>.Run(() =>
+        <kwd>var</kwd> t = <knw>Task</knw>.Run(() =&gt;
         {
-            <kwd>throw new</kwd> NotImplementedException();
+            <kwd>throw new</kwd> <knw>NotImplementedException</knw>();
         });
 
         <cmt>// t が終了した後に行う処理をコールバックとして登録する</cmt>
-        t.ContinueWith((compt) =>
+        t.ContinueWith((compt) =&gt;
         {
-            <knw>Debug</knw>.WriteLine("A:" + compt.<knw>Exception</knw>.GetType());
-            <kwd>if</kwd> (compt.<knw>Exception</knw> <kwd>is</kwd> <knw>AggregateException</knw> age)
+            <knw>Debug</knw>.WriteLine(<ltr>"A:"</ltr> + compt.<knw>Exception</knw>.GetType());
+            <kwd>if</kwd> (compt.<knw>Exception</knw> is Aggregate<knw>Exception</knw> age)
             {
-                <knw>Debug</knw>.WriteLine("C:" + age.InnerException.GetType());
+                <knw>Debug</knw>.WriteLine(<ltr>"C:"</ltr> + age.<knw>InnerException</knw>.GetType());
             }
         });
     }
@@ -142,3 +149,4 @@ Task の終了を待たない場合、<b>開始元では例外は捕捉できな
     }
 }
 </div>
+
