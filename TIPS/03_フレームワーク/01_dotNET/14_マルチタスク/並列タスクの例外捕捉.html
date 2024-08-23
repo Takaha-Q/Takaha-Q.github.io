@@ -28,36 +28,64 @@
 
 <!-- 本文ここから -->
 
-<h2>例外処理</h2>
-終了待ちの形態により、例外の取得方法は異なる。
+<h2>並列処理における例外捕捉</h2>
+並列処理において、タスクで発生した例外は、待ち方によって捕捉する方法が異なる。
 
-<h3>await で待つ場合</h3>
+<h2>await で待つ場合</h2>
 Task の終了を await で待つ場合は、通常の手法で例外を捕捉できる。
 
-<div class="code">
-<cmt>// awaitしたTaskの例外</cmt>
+<div class=cs>
 <kwd>private async void</kwd> Button_Click(<kwd>object</kwd> sender, <knw>RoutedEventArgs</knw> e)
 {
     <kwd>try</kwd>
     {
-        <kwd>await</kwd> <knw>Task</knw>.Run(() =>
-        {
-            <kwd>throw new</kwd> NotImplementedException();
-        });
+        // 例外を送出する Task を開始して await
+        await Task.Run( () => { throw new NotImplementedException(); } );
     }
     <cmt>// 例外は Exception として捕捉可能</cmt>
     <kwd>catch</kwd> (<knw>Exception</knw> ex)
     {
-        <knw>Debug</knw>.WriteLine("1:" + ex.GetType());
+        Debug.WriteLine( ex.Message );
     }
 }
 </div>
 
-<h3>Wait() で待つ場合</h3>
+<h3>注意が必要な点</h3>
+<div class=pre>上記のように async 修飾されたメソッド中に try - catch 節を置き、try 節中で await を行う場合は捕捉が可能だが、
+async 修飾されたメソッドを呼び元で監視する場合は例外を捕捉できない。
+これは呼び元のスレッドと、Task の完了を待機するスレッドが異なることによる。
+</div>
+
+<div class=cs>
+// ボタンクリック時の処理(イベントハンドラ)
+private void Button_Click(object sender, RoutedEventArgs e)
+{
+    try
+    {
+        // 実処理
+        Button_Click_Core();
+    }
+    // 例外を捕捉しようとしているが…？
+    // ⇒ 実際は捕捉できない
+    catch (Exception ex)
+    {
+        Debug.WriteLine( ex.Message );
+    }
+}
+
+// 実処理( async )
+private async Task Button_Click_Core()
+{
+    // 例外を送出する Task を開始して await
+    await Task.Run( () => { throw new NotImplementedException(); } );
+}
+</div>
+
+<h2>Wait() で待つ場合</h2>
 Task の終了を Wait() / WaitAll() / WaitAny() で待つ場合、例外は <b>AggregateException</b> として捕捉される。<br>
 例外の本体は <b>AggregateException.InnerException</b> から参照できる。
 
-<div class="code">
+<div class=cs>
 <cmt>// Wait()したTaskの例外</cmt>
 <kwd>private void</kwd> Button_Click_1(<kwd>object</kwd> sender, <knw>RoutedEventArgs</knw> e)
 {
@@ -80,12 +108,12 @@ Task の終了を Wait() / WaitAll() / WaitAny() で待つ場合、例外は <b>
 }
 </div>
 
-<h3>待たない場合</h3>
+<h2>待たない場合</h2>
 Task の終了を待たない場合、<b>開始元では例外は捕捉できない</b>。<br>
 例外の内容を確認する場合は、Task 変数の <b>Exception</b> プロパティを参照すればよい。<br>
 この場合、前節と同様に例外は AggregateException として格納されているため、InnerException プロパティを参照する必要がある。
 
-<div class="code">
+<div class=cs>
 <cmt>// 待たないTaskの例外</cmt>
 <kwd>private void</kwd> Button_Click_2(<kwd>object</kwd> sender, <knw>RoutedEventArgs</knw> e)
 {
@@ -114,4 +142,3 @@ Task の終了を待たない場合、<b>開始元では例外は捕捉できな
     }
 }
 </div>
-

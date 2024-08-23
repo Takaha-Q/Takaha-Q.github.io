@@ -11,24 +11,32 @@
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
 <!-- リンク(ホームに戻る) -->
-<a href="index.html">ホームに戻る</a><br>
-<!-- 出典・関連ページ -->
+<a href="index.html">ホームに戻る</a>
+
+<!-- 出典ページ -->
 
 <h5>出典 :</h5>
-<a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.threading.tasks.task.run?view=net-8.0">Task.Run メソッド (System.Threading.Tasks) | Microsoft Learn</a><br>
-<a href="https://qiita.com/takutoy/items/c384fcb439d345a9a0d3%23%E9%9D%9E%E5%90%8C%E6%9C%9Ftask%E3%82%92%E4%B8%A6%E8%A1%8C%E5%AE%9F%E8%A1%8C%E3%81%99%E3%82%8B">C# 並行・並列プログラミング パターン集 - Qiita</a><br>
-<a href="https://qiita.com/takutoy/items/d45aa736ced25a8158b3">C# Taskの待ちかた集 - Qiita</a><br>
-<a href="https://qiita.com/4_mio_11/items/f9b19c04509328b1e5c1">非同期理解のためにasync/awaitとTaskの基礎を学んだ話 - Qiita</a><br>
-<a href="https://qiita.com/acple@github/items/8f63aacb13de9954c5da">Taskを極めろ！async/await完全攻略 - Qiita</a><br>
-<a href="https://qiita.com/rawr/items/5d49960a4e4d3823722f">C# 今更ですが、await / async - Qiita</a><br>
+<div class=pre><a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.threading.tasks.task?view=net-8.0">Task クラス (System.Threading.Tasks) | Microsoft Learn</a>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.threading.tasks.task.run?view=net-8.0">Task.Run メソッド (System.Threading.Tasks) | Microsoft Learn</a>
+<a href="https://learn.microsoft.com/ja-jp/archive/msdn-magazine/2013/march/async-await-best-practices-in-asynchronous-programming">Async/Await - 非同期プログラミングのベスト プラクティス | Microsoft Learn</a>
+<a href="https://qiita.com/ytkproject/items/ef50eae2e52a23be16c9">手軽に始めるマルチスレッドプログラミング #.NETFramework - Qiita</a>
+<a href="https://qiita.com/takutoy/items/c384fcb439d345a9a0d3%23%E9%9D%9E%E5%90%8C%E6%9C%9Ftask%E3%82%92%E4%B8%A6%E8%A1%8C%E5%AE%9F%E8%A1%8C%E3%81%99%E3%82%8B">C# 並行・並列プログラミング パターン集 - Qiita</a>
+<a href="https://qiita.com/takutoy/items/d45aa736ced25a8158b3">C# Taskの待ちかた集 - Qiita</a>
+<a href="https://qiita.com/4_mio_11/items/f9b19c04509328b1e5c1">非同期理解のためにasync/awaitとTaskの基礎を学んだ話 - Qiita</a>
+<a href="https://qiita.com/acple@github/items/8f63aacb13de9954c5da">Taskを極めろ！async/await完全攻略 - Qiita</a>
+<a href="https://qiita.com/rawr/items/5d49960a4e4d3823722f">C# 今更ですが、await / async - Qiita</a>
+</div>
 
+<!-- 関連ページ -->
 <h5>関連 :</h5>
-<a href="TIPS/03_フレームワーク/01_dotNET/14_マルチタスク/Task.Delay().html">Task.Delay()</a><br>
-<a href="TIPS/03_フレームワーク/01_dotNET/14_マルチタスク/排他制御.html">排他制御</a><br>
-<a href="TIPS/03_フレームワーク/01_dotNET/14_マルチタスク/シグナル処理.html">シグナル処理</a><br>
-<a href="TIPS/01_ソフトウェア開発一般/02_並列処理/タスク(スレッド)間通信.html">タスク(スレッド)間通信</a><br>
-<a href="TIPS/03_フレームワーク/01_dotNET/14_マルチタスク/並列タスクの例外捕捉.html">並列タスクの例外捕捉</a><br>
-<a href="TIPS/01_ソフトウェア開発一般/無名関数とラムダ式.html">無名関数とラムダ式</a><br>
+<div class=pre><a href="TIPS/03_フレームワーク/01_dotNET/14_マルチタスク/Task.Delay().html">Task.Delay()</a>
+<a href="TIPS/03_フレームワーク/01_dotNET/14_マルチタスク/排他制御.html">排他制御</a>
+<a href="TIPS/03_フレームワーク/01_dotNET/14_マルチタスク/シグナル処理.html">シグナル処理</a>
+<a href="TIPS/01_ソフトウェア開発一般/02_並列処理/タスク(スレッド)間通信.html">タスク(スレッド)間通信</a>
+<a href="TIPS/03_フレームワーク/01_dotNET/14_マルチタスク/並列タスクの例外捕捉.html">並列タスクの例外捕捉</a>
+<a href="TIPS/01_ソフトウェア開発一般/無名関数とラムダ式.html">無名関数とラムダ式</a>
+<a href="デリゲートとイベント.html#ActionとFunc">[C#]ActionとFunc</a>
+</div>
 
 <!-- 目次 -->
 <h5>目次 :</h5>
@@ -36,52 +44,71 @@
 <hr>
 
 <!-- 本文ここから -->
-<h2>非同期実行Taskの開始</h2>
-<h3>Task.Run()によるタスク開始</h3>
-<div class="code">
-<knw>Task</knw> task = <knw>Task</knw>.Run( () => HeavyWork() );
+<h2>.NETにおける並列処理</h2>
+<div class=pre>.NETでは並列処理(マルチタスク)がサポートされている。
+過去(.NET Framework 1 ～ 3) Thread 、ThreadPool 、BackgroundWorker といったクラスを用いて並列処理を実現していたが、これらは扱いが煩雑で習得難度も高かった。
+.NET Framework 4で <b>Task</b> クラスが登場し、比較的容易に並列処理を実現できるようになった。
+本記事ではこの Task を用いることを前提として解説を行う。
 </div>
 
-もっとも基本的な非同期タスクの開始方法。Task.Run() の引数は Action または Func で、ラムダ式も使用できる。<br>
-CPU主体の処理に適するが、IO主体の処理ではスレッドプールを有効活用できないため、<br>
-TaskCompletionSource&lt;TResult&gt;などで代用するとよい。詳細は割愛。
+<h2>タスクの開始と完了待ち</h2>
 
-<h2>タスクの完了待ち</h2>
+<h3>Task.Run()</h3>
+<div class=cs>
+<knw>Task</knw> task = <knw>Task</knw>.Run( () => HeavyWork(<ltr>2000000000</ltr>) );
+</div>
+
+<div class=pre><b>Task.Run()</b> は引数で指定された処理を別スレッドで開始する。
+引数は<a href="デリゲートとイベント.html#ActionとFunc">デリゲート</a>( Action (戻り値なしのメソッド)または Func (戻り値のあるメソッド) )で、デルタ式も使用できる。
+スレッドの終了待ちや実行結果(戻り値)の取得は戻り値の <b>Task&lt;T&gt;</b> に対して行う。
+ここで T は Task.Run() に渡されるメソッド(ここでは HeavyWork() )の戻り値の型である。戻り値が存在しない( void )場合は単に Task となる。
+また Task.Run() は指定された処理をスレッドプールに投入するのみで、通常、その処理をどのスレッドで実行するのかは問わない。
+</div>
+
 <h3>async / await</h3>
-<div class="code">
-<knw>HttpClient</knw> hc = <kwd>new</kwd> HttpClient();
-<kwd>private async void</kwd> button_Click(<kwd>object</kwd> sender, <knw>RoutedEventArgs</knw> e)
+非同期処理の完了を待つ。後述の Wait() と異なり、スレッドをブロックしない点が特徴。
+
+<ul>
+<li><b>await</b> : タスクの終了を待機する。その際に呼び元に制御を戻す。</li>
+<li><b>async</b> : そのメソッド中で await を使用する。</li>
+</ul>
+
+<div class="cs f_l">
+<cmt>// メソッド内で await を用いるため async 修飾</cmt>
+<cmt>// 本来の戻り値は void だが、async 修飾されているため Task に変更する</cmt>
+<kwd>private <b>async</b></kwd> <knw>Task</knw> ExecuteAsync()
 {
-    <cmt>// ダウンロード開始と同時にUIスレッドに制御を戻す</cmt>
-    <kwd>string</kwd> html = <kwd>await</kwd> hc.GetStringAsync(<ltr>"http://www.example.jp/"</ltr>);
-
-    <cmt>// この行以降は GetStringAsync() の完了後に実行される</cmt>
-    MessageBox.Show(<ltr>"HTMLの取得が完了しました"</ltr>);
-    textBox.Text = html;
-}
-</div>
-
-<b>await は「続くタスクを非同期的に実行(開始)し、終了を待機する」ことを表す</b>。<br>
-(await キーワードに到達した時点で呼び出し元に制御を戻す。)<br>
-上記のような例でもUIスレッドがブロックされないため、タスクの完了を待ちつつ別の操作を行うことができる。<br>
-<b>async は、「その関数中で await を使用する (= 非同期処理を開始し、終了を待機する)」ことを表す</b>。<br>
-原則、async 修飾を行う際の戻り値は Task&lt;TResult&gt; ( TResult は本来の戻り値の型)となるが、<br>
-UIから直接実行されるイベントハンドラは例外的に async void を用いる。<br>
-(本来の戻り値が void の場合は単に Task となる。以下で記すように、明示的に Task を戻り値とするわけではない。)
-
-<div class="code">
-<cmt>// 関数内で await を用いるため async 修飾</cmt>
-<cmt>// 戻り値は void ⇒ Task</cmt>
-<kwd>private async</kwd> <knw>Task</knw> ExecuteAsync()
-{
+    <cmt>// (1)</cmt>
     text += <ltr>"計算開始"</ltr> + <knw>Environment</knw>.NewLine;
 
-    <cmt>// 重い処理を別タスクで実行開始(Task.Run())</cmt>
+    <cmt>// (2) 重い処理を別タスクで実行開始(Task.Run())</cmt>
     <cmt>// await 修飾されているため、次行以降は別タスクの完了後に実行される</cmt>
-    <kwd>double</kwd> result = <kwd>await</kwd> <knw>Task</knw>.Run(() =>  HeavyWork(<ltr>2000000000</ltr>));
+    <kwd>double</kwd> result = <kwd class="b">await</kwd> <knw>Task</knw>.Run(() => HeavyWork(<ltr>2000000000</ltr>));
 
+    <cmt>// (3)</cmt>
     text += result.ToString() + <knw>Environment</knw>.NewLine;
 }
+</div>
+
+<img src="file://C:\Users\shinji.takahata\Documents\_Git_Rep\HTML_TIPS\_Img\dotNET\Async\01.png" alt="画像" class="f_l">
+
+<div class="pre f_c">上記は async / await を用いた非同期処理の例である。シーケンス図中の塗りつぶし(<bg_ly>薄黄</bg_ly>、<bg_lc>薄青</bg_lc>)はスレッドを示す。
+<b>await</b> キーワードに到達すると後続のタスクを別スレッドで開始するとともに、<b>呼び元に制御を戻す</b>ことが重要な点としてあげられる。
+時間のかかる処理を行う場合でも呼び元をブロックしないため、特に呼び元がUIスレッドの場合に有効である。
+(UIスレッドがブロックされるとユーザ操作を受け付けることができなくなる。)
+また、await はタスクの終了を待機するため、後続行(コード中の (3) )は、待機したタスクの終了後に実行される。
+このように、比較的少ない記述で非同期処理を実現することができる。
+
+ここで、メソッド(ここでは ExecuteAsync() )中で await を用いる場合、メソッドを <b>async</b> 修飾する必要があるとともに、
+戻り値を Task とする必要がある。
+</div>
+<ul>
+<li>元々の戻り値が無い( void ) : Task ( void ⇒ async Task)</li>
+<li>元々の戻り値が T 型 : Task&lt;T&gt; ( T ⇒ async Task&lt;T&gt;)</li>
+</ul>
+
+<div class=pre>ただし、(UI)イベントハンドラは例外的に async void を用いることができる。
+上記の例でもわかるように、async 修飾を行った場合でも明示的に Task を返す必要はない。
 </div>
 
 <h4>応用</h4>
@@ -89,8 +116,9 @@ UIから直接実行されるイベントハンドラは例外的に async void 
 <knw>HttpClient</knw> hc = <kwd>new</kwd> HttpClient();
 <kwd>private async void</kwd> button_Click(<kwd>object</kwd> sender, <knw>RoutedEventArgs</knw> e)
 {
-    <cmt>// ダウンロードタスクを Task オブジェクトに格納</cmt>
-    <knw>Task</knw>&lt;<kwd>string</kwd>&gt; gethtmltask = hc.GetStringAsync(<ltr>"http:<cmt>//www.example.jp/kussoosoi.php"</ltr>);</cmt>
+    <cmt>// ダウンロードタスクを別スレッドで実行</cmt>
+    <cmt>// ( Task オブジェクトに格納)</cmt>
+    <knw>Task</knw>&lt;<kwd>string</kwd>&gt; gethtmltask = hc.GetStringAsync(<ltr>"http://www.example.jp/kussoosoi.php"</ltr>);
 
     <cmt>// この行は非同期タスクの終了を待たずに実行される</cmt>
     MessageBox.Show(<ltr>"HTMLを取得しています"</ltr>);
@@ -136,11 +164,18 @@ t1.Wait();
 <cmt>// false : いずれかが終了しないまま50ms経過</cmt>
 <kwd>bool</kwd> allTasksCompleted = <knw>Task</knw>.WaitAll(<kwd>new</kwd>[] { t1, t2 }, <ltr>50</ltr>);
 </div>
-<b>await と異なり、呼び元に処理を戻さない</b>(タスクの終了を待ち続ける)。<br>
-UIスレッドから実行すると、待ちが終わるまで操作が受け付けられなくなるため注意が必要。<br>
+
+<ul>
+<li>Wait() : 実行中の一つのタスクの終了を待機する。</li>
+<li>Result : タスクの実行結果を取得する。タスクが終了していない場合は終了を待機する。</li>
+<li>WaitAny() : 引数に指定されたタスクのうち、いずれかが終了するまで待機する。</li>
+<li>WaitAll() : 引数に指定されたタスクすべてが終了するまで待機する。</li>
+</ul>
+<div class=pre>await と異なり、呼び元に制御を戻さない。
+</div>
 
 <h3>WhenAll() / WhenAny()</h3>
-タスクの終了通知を受け取る。複数のタスクを await する際に用いる。
+タスクの終了通知を受け取る。複数のタスクを await する際に用いる。戻り値が異なる点に注意。
 <div class="code">
 <knw>HttpClient</knw> hc = <kwd>new</kwd> HttpClient();
 
@@ -157,7 +192,16 @@ UIスレッドから実行すると、待ちが終わるまで操作が受け付
 </div>
 
 <h3>IsCompleted / IsCompletedSuccessfully / IsFaulted / IsCanceled</h3>
-タスクが終了しているかを確認する際に用いる。
+
+タスクが終了しているかを示すプロパティ。
+
+<ul>
+<li>IsCompleted : タスクが終了していれば true 、そうでなければ false (終了要因不問)。</li>
+<li>IsCompletedSuccessfully : タスクが正常終了していれば true 、そうでなければ false 。</li>
+<li>IsFaulted : タスクが不正終了していれば true 、そうでなければ false 。</li>
+<li>IsCanceled : タスクが中断(キャンセル)されていれば true 、そうでなければ false 。</li>
+</ul>
+
 <div class="code">
 <knw>HttpClient</knw> hc = <kwd>new</kwd> HttpClient();
 <knw>Task</knw>&lt;<kwd>string</kwd>&gt; task = hc.GetStringAsync(<ltr>"https://www.microsoft.com/"</ltr>);
@@ -172,12 +216,7 @@ UIスレッドから実行すると、待ちが終わるまで操作が受け付
 <kwd>var</kwd> html = <kwd>await</kwd> task;
 <knw>Console</knw>.WriteLine(html);
 </div>
-IsCompleted プロパティは終了要因によらず、タスクが終了していれば true となる。<br>
-同様に
-<ul>
-    <li>IsCompletedSuccessfully : 成功時に true</li>
-    <li>IsFaulted : 失敗時に true</li>
-    <li>IsCanceled : キャンセル時に true</li>
-</ul>
-も存在する。
 
+<h2>例外の捕捉</h2>
+並列処理においては、例外の捕捉には制約がある。詳細は
+<a href="TIPS/03_フレームワーク/01_dotNET/14_マルチタスク/並列タスクの例外捕捉.html">リンク先</a>を参照。
