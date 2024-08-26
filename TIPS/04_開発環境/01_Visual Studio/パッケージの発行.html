@@ -1,18 +1,25 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
+
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
+
 <!-- スタイルシート -->
 <link rel="stylesheet" href="Sytle001.css" type="text/css">
+
 <!-- スクリプト -->
 <!-- タイトル表示 -->
 <script src="MakeTitle.js" type="text/javascript"></script>
+
 <!-- 目次表示 -->
 <script src="MakeToc_L.js" type="text/javascript"></script>
+
 <!-- ページタイトル(ページ内表示) -->
 <span id="title"></span>
+
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
-<!-- 出典・関連ページ -->
+
+<!-- 出典ページ -->
 <h5>出典 :</h5>
 <a href="https://learn.microsoft.com/ja-jp/dotnet/core/deploying/deploy-with-cli">.NET CLI を使用してアプリを公開する - .NET | Microsoft Learn</a><br>
 <a href="https://learn.microsoft.com/ja-jp/dotnet/core/tools/dotnet-publish">dotnet publish コマンド - .NET CLI | Microsoft Learn</a><br>
@@ -20,8 +27,11 @@
 <a href="https://tera1707.com/entry/2022/02/12/231757">csprojに書く設定とdotnet publishに渡すパラメータの実験と比較 - tera1707’s blog</a><br>
 <a href="https://learn.microsoft.com/ja-jp/dotnet/core/deploying/single-file/overview?tabs=cli">アプリケーション配置用に単一ファイルを作成する - .NET | Microsoft Learn</a><br>
 <a href="https://learn.microsoft.com/ja-jp/dotnet/core/rid-catalog">.NET Runtime Identifier (RID) カタログ | Microsoft Learn</a>
+
+<!-- 関連ページ -->
 <h5>関連 :</h5>
 <a href="TIPS/03_フレームワーク/01_dotNET/コマンドラインでのビルド.html">[.NET]コマンドラインでのビルド</a>
+
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
@@ -101,12 +111,14 @@
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Publish/07.png" alt=""><br>
 
 <h3>ファイル構成の比較</h3>
+
 <h6>通常のリリースビルド</h6>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Publish/08.png" alt="">
 
 <h6>公開</h6>
-付随するDLLがEXEに吸収されている。また、ReadyToRun コンパイルを有効にしているため、バイナリサイズが拡大している。<br>
-(EXEとDLLの総和より大きい。)<br>
+「単一ファイルの作成」を有効にしているため、付随するDLLがEXEに吸収されている。<br>
+また、ReadyToRun コンパイルを有効にしているため、バイナリサイズが拡大している。<br>
+(通常ビルド時のEXEとDLLの総和より大きい。)<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Publish/09.png" alt="">
 
 <h2>発行プロファイル(pubxml)の参照</h2>
@@ -119,3 +131,4 @@ pubxml ファイルは通常、<i><b>&lt;ProjectFolder&gt;\Properties\PublishPro
 この pubxml ファイルを用いて、コマンドラインから発行(dotnet publish)を行うことも可能である。詳細は
 <a href="TIPS/03_フレームワーク/01_dotNET/コマンドラインでのビルド.html">[.NET]コマンドラインでのビルド</a>
 を参照。
+

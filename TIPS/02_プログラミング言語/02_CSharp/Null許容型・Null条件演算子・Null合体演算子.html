@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
@@ -106,7 +106,7 @@ value = <kwd>null</kwd>;
 <kwd>int</kwd> len = (arr?.Count != <kwd>null</kwd>) ? arr.Count : <ltr>0</ltr>;
 </p>
 
-複数連結することもでき、その場合はnullでない最初の値を返す。
+複数連結することもでき、その場合は null でない最初の値を返す。
 <div class="cs">
 <kwd>object</kwd> ob1 = <kwd>null</kwd>;
 <kwd>object</kwd> ob2 = <kwd>null</kwd>;
@@ -117,8 +117,10 @@ value = <kwd>null</kwd>;
 <kwd>return</kwd> ob1 <b class="red">??</b> ob2 <b class="red">??</b> ob3 <b class="red">??</b> ob4;
 </div>
 
-また、複合代入演算子として <b class="red">??=</b> を使用可能。<br>
-右辺値がnullでなければ右辺値をそのまま代入、nullの場合は何もしない。
+<h3>Null合体・複合代入演算子</h3>
+
+複合代入演算子として <b class="red">??=</b> も存在し、右辺値が非 null の場合のみ右辺値を代入する( null の場合は何もしない)。
+
 <p class="code">
 <kwd>string</kwd> temp = <knw>String</knw>.Empty;
 
@@ -128,3 +130,17 @@ temp <b class="red">??=</b> xxx.Name;
 <cmt>// 以下のコードと等価</cmt>
 temp = xxx.Name <b class="red">??</b> temp;
 </p>
+
+<h3>例外送出</h3>
+
+最右辺項に限り、例外を送出することができる。
+
+<div class="cs">
+<kwd>object</kwd> ob1 = <kwd>null</kwd>;
+<kwd>object</kwd> ob2 = <kwd>null</kwd>;
+<kwd>object</kwd> ob3 = <kwd>null</kwd>;
+
+<cmt>// ob1 , ob2 , ob3 のすべてが null のため、ObjectNullException が投げられる</cmt>
+<kwd>return</kwd> ob1 <b class="red">??</b> ob2 <b class="red">??</b> ob3 <b class="red">??</b> <kwd>throw new</kwd> <knw>ObjectNullException</knw>( <ltr>"null でないオブジェクトがありません。"</ltr> );
+</div>
+
