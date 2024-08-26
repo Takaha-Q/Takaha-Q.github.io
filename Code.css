@@ -8,7 +8,7 @@
 /* VBA      (<### class="vba">        */
 /* XAML     (<### class="xaml">       */
 /* ---------------------------------- */
-.code, .cpp, .cs, .java, .vba, .xaml
+code, .code, .cpp, .cs, .java, .vba, .xaml
 {
   white-space:          pre;
   font-family:          monospace;
@@ -47,6 +47,7 @@ span.xaml
 }
 
 /* キーワード (<kwd>) */
+code,
 .code kwd,
 .cpp  kwd,
 .cs   kwd,
@@ -63,6 +64,7 @@ span.xaml
 }
   
 /* 既知のクラス (<knw>) */
+code,
 .code knw,
 .cpp  knw,
 .cs   knw,
@@ -79,6 +81,7 @@ span.xaml
 }
 
 /* コメント (<cmt>) */
+code,
 .code cmt,
 .cpp  cmt,
 .cs   cmt,
@@ -90,6 +93,7 @@ span.xaml
 }
 
 /* リテラル (<ltr>) */
+code,
 .code ltr,
 .cpp  ltr,
 .cs   ltr,
