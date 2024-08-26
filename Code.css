@@ -47,7 +47,7 @@ span.xaml
 }
 
 /* キーワード (<kwd>) */
-code,
+code kwd,
 .code kwd,
 .cpp  kwd,
 .cs   kwd,
@@ -64,7 +64,7 @@ code,
 }
   
 /* 既知のクラス (<knw>) */
-code,
+code knw,
 .code knw,
 .cpp  knw,
 .cs   knw,
@@ -81,7 +81,7 @@ code,
 }
 
 /* コメント (<cmt>) */
-code,
+code cmt,
 .code cmt,
 .cpp  cmt,
 .cs   cmt,
@@ -93,7 +93,7 @@ code,
 }
 
 /* リテラル (<ltr>) */
-code,
+code ltr,
 .code ltr,
 .cpp  ltr,
 .cs   ltr,
