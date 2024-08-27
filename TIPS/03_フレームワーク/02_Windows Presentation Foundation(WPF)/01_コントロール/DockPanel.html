@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
@@ -24,14 +24,17 @@
 <a href="https://docs.microsoft.com/ja-jp/dotnet/desktop/wpf/controls/how-to-choose-between-stackpanel-and-dockpanel?view=netframeworkdesktop-4.8">方法: StackPanel または DockPanel を選択する - WPF .NET Framework | Microsoft Docs</a><br>
 <a href="https://learn.microsoft.com/ja-jp/dotnet/desktop/wpf/controls/dockpanel?view=netframeworkdesktop-4.8&viewFallbackFrom=netdesktop-8.0">DockPanel - WPF .NET Framework | Microsoft Learn</a><br>
 <a href="https://learn.microsoft.com/ja-jp/dotnet/desktop/wpf/controls/stackpanel?view=netframeworkdesktop-4.8&viewFallbackFrom=netdesktop-8.0">StackPanel - WPF .NET Framework | Microsoft Learn</a><br>
-<a href="https://learn.microsoft.com/ja-jp/dotnet/desktop/wpf/controls/panel?view=netframeworkdesktop-4.8&viewFallbackFrom=netdesktop-8.0">パネル - WPF .NET Framework | Microsoft Learn</a><br>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.controls.panel?view=windowsdesktop-8.0">Panel クラス (System.Windows.Controls) | Microsoft Learn</a><br>
 <a href="https://lightning-shine.com/post927/">【WPF(XAML)C#３】StackPanel／DockPanel／WrapPanelの違い – イナコーシステム</a><br>
 <a href="https://blog.okazuki.jp/entry/20130104/1357315810">WPF4.5入門 その14 「レイアウトコントロールのCanvasとStackPanel」 - かずきのBlog@hatena</a><br>
 <a href="https://blog.okazuki.jp/entry/20130105/1357395569">WPF4.5入門 その15 「レイアウトコントロールのDockPanelとWrapPanel」 - かずきのBlog@hatena</a><br>
 
 <!-- 関連ページ -->
 <h5>関連 :</h5>
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/01_コントロール/Grid.html">Grid</a><br>
+<div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/01_コントロール/Canvas.html">Canvas</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/01_コントロール/StackPanel.html">StackPanel</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/01_コントロール/Grid.html">Grid</a>
+</div>
 
 <!-- 目次 -->
 <h5>目次 :</h5>
@@ -39,13 +42,13 @@
 <hr>
 <!-- 本文ここから -->
 
-<h2>DockPanel / StackPanel コントロール</h2>
-コントロール配置の下地となる <a href="https://learn.microsoft.com/ja-jp/dotnet/desktop/wpf/controls/panel?view=netframeworkdesktop-4.8&viewFallbackFrom=netdesktop-8.0">Panel</a> の一種。<br>
+<h2>DockPanel コントロール( System.Windows.Controls.DockPanel )</h2>
+<div class=pre>コントロールを配置するための下地となる Panel の一種で、領域の上下左右端への配置を簡単に行える。
+配置の優先度は記述順となる。
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\Canvas\02.png" alt="画像">
+</div>
 
-<h3>DockPanel</h3>
-領域の上下左右端への配置を簡単に行える。配置の優先度は記述順となる。
-
-<h4>実装例</h4>
+<h2>実装例</h2>
 <h6>XAML</h6>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_Panels/01.png">
 
@@ -66,7 +69,7 @@
 </li>
 </ul>
 
-<h4>LastChildFill プロパティ</h4>
+<h2>LastChildFill プロパティ</h2>
 DockPanel 上で最後に配置した子要素に残りの全余白を充てるかどうかの設定。<br>
 <ul>
     <li>"True" (既定値) : 残りの全余白を充てる。サイズ(Width 、Height)指定は無効化される。</li>
@@ -75,41 +78,3 @@ DockPanel 上で最後に配置した子要素に残りの全余白を充てる�
 
 前節のように最後に配置する要素に余白を充てる場合は "True" とし、サイズを指定したい場合は "False" とする。
 
-<h3>StackPanel</h3>
-子要素を縦一列、または横一列に並べる際に用いる。DockPanel に比べリソースの消費が少ない。<br>
-並べる方向はプロパティ Orientation で指定する。
-
-<h4>実装例 : 縦並び (Orientation = "Vertical")</h4>
-<h6>XAML</h6>
-<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_Panels/03.png">
-
-<h6>表示</h6>
-<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_Panels/04.png">
-
-<h6>解説</h6>
-<ul>
-    <li>Orientation の既定値は "Vertical" のため、明示的に指定を行わなければ子要素は縦並びとなる。
-    
-    </li><li>(1)は上端に配置される。HorizontalAlignment の既定値は "Stretch" で、親要素の幅がそのまま適用される。
-    </li><li>(2)は(1)の下に配置される。HorizontalAlignment == "Left" のため左詰めとなる。
-    </li><li>(3)は(2)の下に配置される。HorizontalAlignment == "Right" のため右詰めとなる。
-    </li><li>(4)は(3)の下に配置される。HorizontalAlignment == "Center" のため左右中央揃えとなる。
-        </li>
-        
-</ul>
-
-<h4>実装例 : 横並び (Orientation = "Horizontal")</h4>
-<h6>XAML</h6>
-<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_Panels/05.png">
-
-<h6>表示</h6>
-<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_Panels/06.png">
-
-<h6>解説</h6>
-<ul>
-    <li>(1)は左端に配置される。VerticalAlignment の既定値は "Stretch" で、親要素の高さがそのまま適用される。
-</li><li>(2)は(1)の右に配置される。VerticalAlignment == "Top" のため上詰めとなる。
-</li><li>(3)は(2)の右に配置される。VerticalAlignment == "Bottom" のため下詰めとなる。
-</li><li>(4)は(3)の右に配置される。VerticalAlignment == "Center" のため上下中央揃えとなる。
-</li><li>(5)は Margin を設定し、外側に余白を設けている。
-</ul>

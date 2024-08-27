@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
@@ -24,7 +24,8 @@
 
 <!-- 関連ページ -->
 <h5>関連 :</h5>
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/01_コントロール/Grid.html">Grid</a><br>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/01_コントロール/Canvas.html">Canvas</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/01_コントロール/Grid.html">Grid</a>
 
 <!-- 目次 -->
 <h5>目次 :</h5>
@@ -34,10 +35,10 @@
 <!-- 本文ここから -->
 
 <h2>コントロールを重ねて描く</h2>
-コントロールを同じ位置に重ねて描きたい場合は、<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/01_コントロール/Grid.html">Grid</a> を用いる。<br>
+Canvas や Grid を用いると、コントロールを重ねて表示することができる。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\Overray\01.png" alt="画像"><br>
 
-<h3>記述例(XAML)</h3>
+<h2>Grid を用いる場合</h2>
 
 <div class="xaml">
 &lt;<tag>Grid</tag>&gt;
@@ -59,9 +60,40 @@
 &lt;/<tag>Grid</tag>&gt;
 </div>
 
-複数のコントロールの描画域が重複する場合、それらのコントロールは重ねて描画される。<br>
-このとき <b>Panel.ZIndex の値に応じて表示順が決定されるが、値の大きいものが手前に表示される</b>。<br>
+複数のコントロールの描画域が重複する場合、<b>Panel.ZIndex の値が大きいものが手前に表示される</b>。<br>
 同一平面( ZIndex が等しい)に他のコントロールを配置する必要が無い( Grid が1行×1列)場合、<br>
 RowDefinitions 、ColumnDefinitions 、および Row 、Column の指定は省略できる。<br>
 ( Row 、Column の既定値はともに 0 )
 
+<h2>Canvas を用いる場合</h2>
+
+<div class=xaml>
+&lt;<tag>Canvas</tag>&gt;
+    <cmt>&lt;!-- 矩形(赤) : 左上端と幅、高さを指定 --&gt;</cmt>
+    &lt;<tag>Rectangle</tag> <prp>Canvas.Left</prp>=<ltr>"20"</ltr>
+               <prp>Canvas.Top</prp>=<ltr>"20"</ltr>
+               <prp>Width</prp>=<ltr>"100"</ltr> 
+               <prp>Height</prp>=<ltr>"100"</ltr> 
+               <prp>Fill</prp>=<ltr>"Red"</ltr>
+               <prp>Panel.ZIndex</prp>=<ltr>"0"</ltr>/&gt;
+
+    <cmt>&lt;!-- 矩形(青) : 左下端と幅、高さを指定 --&gt;</cmt>
+    &lt;<tag>Rectangle</tag> <prp>Canvas.Left</prp>=<ltr>"20"</ltr>
+               <prp>Canvas.Bottom</prp>=<ltr>"30"</ltr>
+               <prp>Width</prp>=<ltr>"100"</ltr> 
+               <prp>Height</prp>=<ltr>"100"</ltr> 
+               <prp>Fill</prp>=<ltr>"Blue"</ltr>
+               <prp>Panel.ZIndex</prp>=<ltr>"2"</ltr>/&gt;
+
+    <cmt>&lt;!-- 矩形(黄) : 右下端と幅、高さを指定 --&gt;</cmt>
+    &lt;<tag>Rectangle</tag> <prp>Canvas.Right</prp>=<ltr>"100"</ltr>
+               <prp>Canvas.Bottom</prp>=<ltr>"100"</ltr>
+               <prp>Width</prp>=<ltr>"100"</ltr> 
+               <prp>Height</prp>=<ltr>"100"</ltr> 
+               <prp>Fill</prp>=<ltr>"Yellow"</ltr>
+               <prp>Panel.ZIndex</prp>=<ltr>"1"</ltr>/&gt;
+&lt;/<tag>Canvas</tag>&gt;
+</div>
+
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\Canvas\05.png" alt="画像"><br>
+表示優先度は Grid 同様、Panel.ZIndex で決定される。この場合最も ZIndex が大きい青の矩形が最も手前に、続いて黄、赤の順で表示される。
