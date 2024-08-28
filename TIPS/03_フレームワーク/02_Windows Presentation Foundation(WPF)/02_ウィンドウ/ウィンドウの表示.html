@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
@@ -32,7 +32,7 @@
 
 <!-- 関連ページ -->
 <h5>関連 :</h5>
-<div class=pre><a href="ウィンドウの表示に関するプロパティ.html">ウィンドウの表示に関するプロパティ</a>
+<div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/02_ウィンドウ/ウィンドウの表示に関するプロパティ.html">ウィンドウの表示に関するプロパティ</a>
 <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/01_コントロール/Visibility(可視性).html">[コントロール]Visibility(可視性)</a>
 <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/02_ウィンドウ/ウィンドウ起動～終了時のイベント.html">ウィンドウ起動～終了時のイベント</a>
 <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/02_ウィンドウ/IsDefault・IsCancel.html">IsDefault・IsCancel</a>
@@ -149,15 +149,16 @@ Nullable&lt;Boolean&gt; として宣言されており、既定値は false で�
 
 <h3>現在アクティブなウィンドウを取得する方法</h3>
 <div class=pre>現在アクティブなウィンドウを取得する場合は、以下のように記述する(C#とLINQを使用)。
+ここで、Application および Window はともに System.Windows 名前空間に属する。
 </div>
 
 <div class="code">
-<kwd>var</kwd> activeWindow =  <knw>Application</knw>.<knw>Current</knw>.<knw>Windows</knw>
-                    .OfType&lt;<knw>Window</knw>&gt;()
-                    .SingleOrDefault(x => x.IsActive);
+<kwd>var</kwd> activeWindow = <knw>Application</knw>.<knw>Current</knw>.<knw>Windows</knw>
+                   .OfType&lt;<knw>Window</knw>&gt;()
+                   .SingleOrDefault(x => x.IsActive);
 </div>
 
-<h2><a href="ウィンドウの表示に関するプロパティ.html">ウィンドウの表示に関するプロパティ</a></h2>
+<h2><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/02_ウィンドウ/ウィンドウの表示に関するプロパティ.html">ウィンドウの表示に関するプロパティ</a></h2>
 プロパティを操作することで、ウィンドウの外見や動作を変更することができる。詳細はリンク先を参照。
 
 <h2>UIスレッドからモードレスウィンドウを開く場合の注意点</h2>
@@ -165,23 +166,23 @@ UIスレッド(UIイベントハンドラ)からウィンドウをモードレ�
 
 <h6>正しくないコード</h6>
 <div class=cs>
-// ボタンクリックハンドラ
-private void Button_Click( object sender, RoutedEventArgs e )
+<cmt>// ボタンクリックハンドラ</cmt>
+<kwd>private void</kwd> Button_Click( <kwd>object</kwd> sender, <knw>RoutedEventArgs</knw> e )
 {
-    try
+    <kwd>try</kwd>
     {
-        // 処理中表示(モードレス)
-        WaitingScreen waiting = new ( "しばらくお待ちください…" );
-        waiting.Owner = this;
+        <cmt>// 処理中表示(モードレス)</cmt>
+        WaitingScreen waiting = <kwd>new</kwd> ( <ltr>"しばらくお待ちください…"</ltr> );
+        waiting.Owner = <kwd>this</kwd>;
         waiting.Show();
 
-        // (時間のかかる処理)
-        Task.Run( () => HeavyTask() ).Wait();
+        <cmt>// (時間のかかる処理)</cmt>
+        <knw>Task</knw>.Run( () =&gt; HeavyTask() ).Wait();
 
-        // 待機画面を閉じる
+        <cmt>// 待機画面を閉じる</cmt>
         waiting.Close();
     }
-    catch( Exception ex )
+    <kwd>catch</kwd>( <knw>Exception</knw> ex )
     {
         :
     }
@@ -196,25 +197,26 @@ Task.Wait() ではなく await で待機することで、モードレスウィ�
 
 <h6>修正したコード</h6>
 <div class=cs>
-// ボタンクリックハンドラ( async )
-private async void Button_Click( object sender, RoutedEventArgs e )
+<cmt>// ボタンクリックハンドラ( async )</cmt>
+<kwd>private async void</kwd> Button_Click( <kwd>object</kwd> sender, <knw>RoutedEventArgs</knw> e )
 {
-    try
+    <kwd>try</kwd>
     {
-        // 処理中表示(モードレス)
-        WaitingScreen waiting = new ( "しばらくお待ちください…" );
-        waiting.Owner = this;
+        <cmt>// 処理中表示(モードレス)</cmt>
+        WaitingScreen waiting = <kwd>new</kwd> ( <ltr>"しばらくお待ちください…"</ltr> );
+        waiting.Owner = <kwd>this</kwd>;
         waiting.Show();
 
-        // (時間のかかる処理 : await で待機)
-        await Run( () => HeavyTask() );
+        <cmt>// (時間のかかる処理 : await で待機)</cmt>
+        <kwd>await</kwd> <knw>Task</knw>.Run( () =&gt; HeavyTask() );
 
-        // 待機画面を閉じる
+        <cmt>// 待機画面を閉じる</cmt>
         waiting.Close();
     }
-    catch( Exception ex )
+    <kwd>catch</kwd>( <knw>Exception</knw> ex )
     {
         :
     }
 }
 </div>
+
