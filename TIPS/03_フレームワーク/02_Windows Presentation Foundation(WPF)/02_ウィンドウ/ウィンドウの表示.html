@@ -21,8 +21,7 @@
 
 <!-- 出典ページ -->
 <h5>出典 :</h5>
-<div class=pre>
-<a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.window.show?view=windowsdesktop-8.0">Window.Show メソッド (System.Windows) | Microsoft Learn</a>
+<div class=pre><a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.window.show?view=windowsdesktop-8.0">Window.Show メソッド (System.Windows) | Microsoft Learn</a>
 <a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.window.showdialog?view=windowsdesktop-8.0">Window.ShowDialog メソッド (System.Windows) | Microsoft Learn</a>
 <a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.window.dialogresult?view=windowsdesktop-8.0#system-windows-window-dialogresult">Window.DialogResult プロパティ (System.Windows) | Microsoft Learn</a>
 <a href="https://zenn.dev/nuits_jp/books/wpf-case-study/viewer/get-active-window">アクティブなWindowを取得する｜WPF Case Study</a>
@@ -33,8 +32,7 @@
 
 <!-- 関連ページ -->
 <h5>関連 :</h5>
-<div class=pre>
-<a href="ウィンドウの表示に関するプロパティ.html">ウィンドウの表示に関するプロパティ</a>
+<div class=pre><a href="ウィンドウの表示に関するプロパティ.html">ウィンドウの表示に関するプロパティ</a>
 <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/01_コントロール/Visibility(可視性).html">[コントロール]Visibility(可視性)</a>
 <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/02_ウィンドウ/ウィンドウ起動～終了時のイベント.html">ウィンドウ起動～終了時のイベント</a>
 <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/02_ウィンドウ/IsDefault・IsCancel.html">IsDefault・IsCancel</a>
@@ -50,8 +48,7 @@
 <!-- 本文ここから -->
 
 <h2>ウィンドウを表示する手段</h2>
-<div class=pre>
-ウィンドウ( System.Windows.Window 、およびその派生クラス)はインスタンスが生成された時点では表示されず、
+<div class=pre>ウィンドウ( System.Windows.Window 、およびその派生クラス)はインスタンスが生成された時点では表示されず、
 Show() または ShowDialog() メソッドを呼び出すなどで明示的に表示させる必要がある。
 <table>
     <tr>
@@ -66,8 +63,7 @@ Show() または ShowDialog() メソッドを呼び出すなどで明示的に�
 </div>
 
 <h3>Show() に関する補足</h3>
-<div class=pre>
-Show() を呼び出すことは Window の Visibility を Visible に変更することと最終結果は変わらない。
+<div class=pre>Show() を呼び出すことは Window の Visibility を Visible に変更することと最終結果は変わらない。
 即ち、Visibility を Visible に変更することでもモードレスウィンドウとして表示させることができるが、その振る舞いは Show() とは微妙に異なる。
 </div>
 
@@ -105,15 +101,13 @@ Show() を呼び出すことは Window の Visibility を Visible に変更す�
 }
 </div>
 
-<div class=pre>
-Console.WriteLine() の内容に注意されたい。これらは当該行の処理順を表している。
+<div class=pre>Console.WriteLine() の内容に注意されたい。これらは当該行の処理順を表している。
 DoSomething01() 内で実行される <b>Window.Show() は、新しく開かれた Window の Loaded イベントの発生(およびイベントハンドラ実行)後まで制御が戻らない(同期実行)</b>。
 しかし、DoSomething02() では <b>Visibility の変更後即座に制御が戻る(非同期実行)</b>ため、Loaded イベントの発生が DoSomething02() の実行後となる可能性がある(実行順が保証されない)。
 </div>
 
 <h3>実行結果( Window.DialogResult )</h3>
-<div class=pre>
-ShowDialog() の戻り値として返される(モーダル)ウィンドウの実行結果。プロパティとして取得、設定が可能である。
+<div class=pre>ShowDialog() の戻り値として返される(モーダル)ウィンドウの実行結果。プロパティとして取得、設定が可能である。
 Nullable&lt;Boolean&gt; として宣言されており、既定値は false である。
 設定には制約があり、以下の場合は InvalidOperationException 例外が発行される。
 </div>
@@ -122,13 +116,11 @@ Nullable&lt;Boolean&gt; として宣言されており、既定値は false で�
     <li>ウィンドウが開かれる前に設定する</li>
     <li>ウィンドウが閉じられた後に設定する</li>
 </ul>
-<div class=pre>
-(Windows Formsではモードレスでも DialogResult が設定・取得可能であり、とり得る値も異なる。)
+<div class=pre>(Windows Formsではモードレスでも DialogResult が設定・取得可能であり、とり得る値も異なる。)
 </div>
 
 <h2>オーナーウィンドウの設定(Window.Owner)</h2>
-<div class=pre>
-ウィンドウをモーダル表示した場合、新たに開くウィンドウと呼び元の(イベントハンドラを持つ)ウィンドウとは自動的には関連付けられない。
+<div class=pre>ウィンドウをモーダル表示した場合、新たに開くウィンドウと呼び元の(イベントハンドラを持つ)ウィンドウとは自動的には関連付けられない。
 そうした場合、例えばタスクバーから呼び元のウィンドウを選択すると、そのウィンドウがアクティブとなってしまう。
 (モーダル表示されているウィンドウが存在するため、操作はできない。)
 このような現象を避けるには ShowDialog() を呼び出す前に、表示するウィンドウの Owner を明示的に指定する。
@@ -156,8 +148,7 @@ Nullable&lt;Boolean&gt; として宣言されており、既定値は false で�
 </div>
 
 <h3>現在アクティブなウィンドウを取得する方法</h3>
-<div class=pre>
-現在アクティブなウィンドウを取得する場合は、以下のように記述する(C#とLINQを使用)。
+<div class=pre>現在アクティブなウィンドウを取得する場合は、以下のように記述する(C#とLINQを使用)。
 ウィンドウを開く際にアクティブなウィンドウをオーナーに設定することは多いため、有用である。
 </div>
 
@@ -198,8 +189,7 @@ private void Button_Click( object sender, RoutedEventArgs e )
 }
 </div>
 
-<div class=pre>
-上記のコードでは、ボタンをクリックすると時間のかかる処理を行い、その際に処理中である旨をモードレスウィンドウで表示しようとしている。
+<div class=pre>上記のコードでは、ボタンをクリックすると時間のかかる処理を行い、その際に処理中である旨をモードレスウィンドウで表示しようとしている。
 しかし時間のかかる処理の完了を Task.Wait() で待機していることから、UIスレッド( Button_Click() )がブロックされ、モードレスウィンドウが表示されない。
 (ウィンドウが表示されるためには、一旦呼び元に制御が戻る必要がある。)
 Task.Wait() ではなく await で待機することで、モードレスウィンドウが正しく表示される。
@@ -229,4 +219,3 @@ private async void Button_Click( object sender, RoutedEventArgs e )
     }
 }
 </div>
-

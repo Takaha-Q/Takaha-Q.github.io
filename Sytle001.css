@@ -156,7 +156,7 @@ hr {
 }
 
 .pre::first-line {
-  line-height: 1;
+  line-height: 0;
 }
 
 /* ---------------------------------- */
