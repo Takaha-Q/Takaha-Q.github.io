@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<h5>出典 :</h5>
+<div class=pre>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.window.show?view=windowsdesktop-8.0">Window.Show メソッド (System.Windows) | Microsoft Learn</a>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.window.showdialog?view=windowsdesktop-8.0">Window.ShowDialog メソッド (System.Windows) | Microsoft Learn</a>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.window.dialogresult?view=windowsdesktop-8.0#system-windows-window-dialogresult">Window.DialogResult プロパティ (System.Windows) | Microsoft Learn</a>
+<a href="https://zenn.dev/nuits_jp/books/wpf-case-study/viewer/get-active-window">アクティブなWindowを取得する｜WPF Case Study</a>
+<a href="https://docs.microsoft.com/ja-jp/dotnet/api/system.windows.window.owner">Window.Owner プロパティ (System.Windows) - Microsoft Docs</a>
+<a href="https://www.ipentec.com/document/csharp-wpf-set-window-owner">ウィンドウの Ownerを設定する (WPFプログラミング) - iPentec</a>
+<a href="https://blogs.itmedia.co.jp/mohno/2013/12/xaml10-0cbd.html">（XAML#10）「モーダル表示とオーナーの設定」</a>
+</div>
+
+<!-- 関連ページ -->
+<h5>関連 :</h5>
+<div class=pre>
+<a href="ウィンドウの表示に関するプロパティ.html">ウィンドウの表示に関するプロパティ</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/01_コントロール/Visibility(可視性).html">[コントロール]Visibility(可視性)</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/02_ウィンドウ/ウィンドウ起動～終了時のイベント.html">ウィンドウ起動～終了時のイベント</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/02_ウィンドウ/IsDefault・IsCancel.html">IsDefault・IsCancel</a>
+<a href="TIPS/03_フレームワーク/03_Windows Forms/フォームとDialogResult.html">[WinForms]フォームとDialogResult</a>
+</div>
+
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>ウィンドウを表示する手段</h2>
+<div class=pre>
+ウィンドウ( System.Windows.Window 、およびその派生クラス)はインスタンスが生成された時点では表示されず、
+Show() または ShowDialog() メソッドを呼び出すなどで明示的に表示させる必要がある。
+<table>
+    <tr>
+        <td class=col1>Window.Show()</td>
+        <td>ウィンドウをモードレスウィンドウとして開く。<br>(開くと呼び元に制御を戻し、閉じるのを待機しない。)</td>
+    </tr>
+    <tr>
+        <td class=col1>Window.ShowDialog()</td>
+        <td>ウィンドウをモーダルウィンドウとして開く。<br>(ウィンドウが閉じるまで呼び元に制御を戻さない。)</td>
+    </tr>
+</table>
+</div>
+
+<h3>Show() に関する補足</h3>
+<div class=pre>
+Show() を呼び出すことは Window の Visibility を Visible に変更することと最終結果は変わらない。
+即ち、Visibility を Visible に変更することでもモードレスウィンドウとして表示させることができるが、その振る舞いは Show() とは微妙に異なる。
+</div>
+
+<h6>Show() を呼び出す場合の例</h6>
+<div class="cs">
+<kwd>private void</kwd> DoSomething01()
+{
+    <cmt>// ウィンドウ生成</cmt>
+    <knw>Window</knw> w = <kwd>new</kwd> <knw>Window</knw>();
+
+    <cmt>// Loaded イベントのハンドラを登録</cmt>
+    w.Loaded += <kwd>delegate</kwd> { <knw>System</knw>.<knw>Console</knw>.WriteLine(<ltr>"こちらが「先」に実行されます。"</ltr>); };
+
+    <cmt>// 表示( Show() 実行)</cmt>
+    w.Show();
+
+    <knw>System</knw>.<knw>Console</knw>.WriteLine(<ltr>"こちらが「後」に実行されます。"</ltr>);
+}
+</div>
+
+<h6>Visibility を変更する場合の例</h6>
+<div class="cs">
+<kwd>private void</kwd> DoSomething02()
+{
+    <cmt>// ウィンドウ生成</cmt>
+    <knw>Window</knw> w = <kwd>new</kwd> <knw>Window</knw>();
+
+    <cmt>// Loaded イベントのハンドラを登録</cmt>
+    w.Loaded += <kwd>delegate</kwd> { <knw>System</knw>.<knw>Console</knw>.WriteLine(<ltr>"こちらが「後」に実行されるかもしれません。"</ltr>); };
+
+    <cmt>// 表示( Visibility 変更)</cmt>
+    w.Visibility = Visibility.Visible;
+
+    <knw>System</knw>.<knw>Console</knw>.WriteLine(<ltr>"こちらが「先」に実行されるかもしれません。"</ltr>);
+}
+</div>
+
+<div class=pre>
+Console.WriteLine() の内容に注意されたい。これらは当該行の処理順を表している。
+DoSomething01() 内で実行される <b>Window.Show() は、新しく開かれた Window の Loaded イベントの発生(およびイベントハンドラ実行)後まで制御が戻らない(同期実行)</b>。
+しかし、DoSomething02() では <b>Visibility の変更後即座に制御が戻る(非同期実行)</b>ため、Loaded イベントの発生が DoSomething02() の実行後となる可能性がある(実行順が保証されない)。
+</div>
+
+<h3>実行結果( Window.DialogResult )</h3>
+<div class=pre>
+ShowDialog() の戻り値として返される(モーダル)ウィンドウの実行結果。プロパティとして取得、設定が可能である。
+Nullable&lt;Boolean&gt; として宣言されており、既定値は false である。
+設定には制約があり、以下の場合は InvalidOperationException 例外が発行される。
+</div>
+<ul>
+    <li>モードレスウィンドウ( Show() で開く)に対して設定する</li>
+    <li>ウィンドウが開かれる前に設定する</li>
+    <li>ウィンドウが閉じられた後に設定する</li>
+</ul>
+<div class=pre>
+(Windows Formsではモードレスでも DialogResult が設定・取得可能であり、とり得る値も異なる。)
+</div>
+
+<h2>オーナーウィンドウの設定(Window.Owner)</h2>
+<div class=pre>
+ウィンドウをモーダル表示した場合、新たに開くウィンドウと呼び元の(イベントハンドラを持つ)ウィンドウとは自動的には関連付けられない。
+そうした場合、例えばタスクバーから呼び元のウィンドウを選択すると、そのウィンドウがアクティブとなってしまう。
+(モーダル表示されているウィンドウが存在するため、操作はできない。)
+このような現象を避けるには ShowDialog() を呼び出す前に、表示するウィンドウの Owner を明示的に指定する。
+(Windows Formsでは自動的にオーナーが設定される点が異なる。)
+</div>
+
+<div class="code">
+<cmt>// ボタン押下時の処理</cmt>
+<cmt>// 新しいウィンドウを開く</cmt>
+<kwd>private void</kwd> Button_Click(<kwd>object</kwd> sender, <knw>RoutedEventArgs</knw> e)
+{
+    <cmt>// ウィンドウの生成・プロパティ設定</cmt>
+    <kwd>var</kwd> wnd = <kwd>new</kwd> <knw>Window</knw>();
+    wnd.Title = "dynamic window #1";
+    wnd.WindowStartupLocation = <knw>System</knw>.<knw>Windows</knw>.WindowStartupLocation.CenterOwner;
+    wnd.Width = <kwd>this</kwd>.Width / 2;
+    wnd.Height = <kwd>this</kwd>.Height / 2;
+
+    <cmt>// 新しいウィンドウの Owner を自身に指定する</cmt>
+    wnd.Owner = <kwd>this</kwd>;
+
+    <cmt>// ウィンドウを開く</cmt>
+    wnd.ShowDialog();
+}    
+</div>
+
+<h3>現在アクティブなウィンドウを取得する方法</h3>
+<div class=pre>
+現在アクティブなウィンドウを取得する場合は、以下のように記述する(C#とLINQを使用)。
+ウィンドウを開く際にアクティブなウィンドウをオーナーに設定することは多いため、有用である。
+</div>
+
+<div class="code">
+<kwd>var</kwd> activeWindow =  <knw>Application</knw>.<knw>Current</knw>.<knw>Windows</knw>
+                    .OfType&lt;<knw>Window</knw>&gt;()
+                    .SingleOrDefault(x => x.IsActive);
+</div>
+
+<h2><a href="ウィンドウの表示に関するプロパティ.html">ウィンドウの表示に関するプロパティ</a></h2>
+プロパティを操作することで、ウィンドウの外見や動作を変更することができる。詳細はリンク先を参照。
+
+<h2>UIスレッドからモードレスウィンドウを開く場合の注意点</h2>
+UIスレッド(UIイベントハンドラ)からウィンドウをモードレスで開く場合、実装によってはウィンドウが表示されない。
+
+<h6>正しくないコード</h6>
+<div class=cs>
+// ボタンクリックハンドラ
+private void Button_Click( object sender, RoutedEventArgs e )
+{
+    try
+    {
+        // 処理中表示(モードレス)
+        WaitingScreen waiting = new ( "しばらくお待ちください…" );
+        waiting.Owner = this;
+        waiting.Show();
+
+        // (時間のかかる処理)
+        Task.Run( () => HeavyTask() ).Wait();
+
+        // 待機画面を閉じる
+        waiting.Close();
+    }
+    catch( Exception ex )
+    {
+        :
+    }
+}
+</div>
+
+<div class=pre>
+上記のコードでは、ボタンをクリックすると時間のかかる処理を行い、その際に処理中である旨をモードレスウィンドウで表示しようとしている。
+しかし時間のかかる処理の完了を Task.Wait() で待機していることから、UIスレッド( Button_Click() )がブロックされ、モードレスウィンドウが表示されない。
+(ウィンドウが表示されるためには、一旦呼び元に制御が戻る必要がある。)
+Task.Wait() ではなく await で待機することで、モードレスウィンドウが正しく表示される。
+</div>
+
+<h6>修正したコード</h6>
+<div class=cs>
+// ボタンクリックハンドラ( async )
+private async void Button_Click( object sender, RoutedEventArgs e )
+{
+    try
+    {
+        // 処理中表示(モードレス)
+        WaitingScreen waiting = new ( "しばらくお待ちください…" );
+        waiting.Owner = this;
+        waiting.Show();
+
+        // (時間のかかる処理 : await で待機)
+        await Run( () => HeavyTask() );
+
+        // 待機画面を閉じる
+        waiting.Close();
+    }
+    catch( Exception ex )
+    {
+        :
+    }
+}
+</div>
+
