@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<h5>出典 :</h5>
+<div class="pre"><a href="https://learn.microsoft.com/ja-jp/visualstudio/debugger/specify-symbol-dot-pdb-and-source-files-in-the-visual-studio-debugger?view=vs-2022">Visual Studio デバッガーでのシンボル ファイルと PDB ファイル | Microsoft Learn</a>
+<a href="https://atmarkit.itmedia.co.jp/ait/articles/0602/10/news119.html">VSホスト・プロセス（*.vshost.exe）とは何か？［VS 2005のみ、C#、VB］：.NET TIPS - ＠IT</a>
+<a href="https://qiita.com/lainzero/items/27681ddc96638e33758b">Visual StudioユーザーがReleaseビルドをするときに必ずやってほしい2つの設定 #VisualStudio - Qiita</a>
+</div>
+
+<!-- 関連ページ -->
+<h5>関連 :</h5>
+<div class="pre"><a href="TIPS/04_開発環境/01_Visual Studio/パッケージの発行.html">パッケージの発行</a>
+</div>
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>PDB(Program DataBase)ファイル</h2>
+<div class="pre">PDBファイルはプロジェクトをビルドした際に生成され、デバッグに必要な情報(型やシンボル(識別子))を保持している。
+これはデバッグを行う際に有用である一方、デバッグを行わないリリースビルドでは必要が無いものである。
+</div>
+
+<h3>リリースビルドでPDBファイルを生成しないようにする手順</h3>
+<div class=pre>リリースビルドでは本来PDBファイルを生成する必要は無いが、デフォルトでは生成される設定となっている。
+以下の手順で、ファイルを生成しないようにできる。
+(リリースビルドを基にしてパッケージを<a href="TIPS/04_開発環境/01_Visual Studio/パッケージの発行.html">公開</a>する場合も、PDBが作成されていると公開されてしまう。)
+</div>
+
+<ol>
+<li>ソリューション エクスプローラー上でプロジェクトファイル(CSPROJなど)を右クリック、「プロパティ」を選択する。</li>
+<li>「ビルド」>「全般」>「デバッグ シンボル」をポイントし、表示された歯車アイコンをクリックする。<br>
+(デバッグ シンボル のプロパティ設定)<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\Visual Studio\PDB and VSHOST\01.png" alt="画像"></li>
+<li>デフォルトでは「すべての構成で同じ値を使用する」にチェックがされているが、「Configuration ずつ値を変化させる」を選択する。<br>
+これにより、デバッグビルドとリリースビルドで異なる値を用いることができるようになる。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\Visual Studio\PDB and VSHOST\02.png" alt="画像"></li>
+<li>「Release」の値を「生成済みのシンボルはありません」に設定すると、リリースビルドでPDBが生成されなくなる。<br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\Visual Studio\PDB and VSHOST\03.png" alt="画像"></li>
+</ol>
+
+<h2>VSHOST(the Visual Studio HOSTing process)</h2>
+<div class=pre>VSホスト・プロセスはデバッグ作業を改善・強化するために、Visual Studio 2005で追加された。
+これは.NETアプリケーションのデバッグ時に、Win32ホスト・プロセスを使用せず、Visual Studioのホスト・プロセスを使用するというもので、PDB同様ビルド時に生成される。
+ただし現在では廃止されており、旧式のVisual Studioを用いる場合でなければ考慮する必要は無い。またPDB同様、リリースビルドでは生成する必要が無い。
+(Visual Studio 2022ではVSHOSTは生成されず、これを有効にする設定も存在しない。)
+</div>
+
