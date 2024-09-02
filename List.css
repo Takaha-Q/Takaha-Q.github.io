@@ -3,9 +3,10 @@
 /* ---------------------------------- */
 /* 番号付きリスト(<ol>)               */
 /* 箇条書き(<ul>)                     */
+/* 説明リスト(<dl>)                   */
 /* ---------------------------------- */
 /* 1段目 */
-ol, ul {
+ol, ul, dl {
   margin-top:           10px;
   margin-bottom:        10px;
   list-style-type:      none;
@@ -17,18 +18,22 @@ ol {
 }
 
 /* 2段目以降 */
-ol ol, ul ul, ol ul, ul ol {
+ol ol, ul ul, ol ul, ul ol,
+dl ol, dl ul, dl dl {
   margin-top:           0px;
   margin-bottom:        0px;
   padding-left:         1em;
 }
 
 /* 表中 */
-td ol, td ul {
+td ol, td ul, td dl {
   margin-top:           0px;
   margin-bottom:        0px;
 }
 
+/* ---------------------------------- */
+/* 番号付きリスト(<ol>)               */
+/* ---------------------------------- */
 /* 項目(<li>) */
 ol li {
   text-indent:          -1.3em;
@@ -44,6 +49,24 @@ ol li:before {
   color:                #996666;
 }
 
+/* ---------------------------------- */
+/* 説明リスト(<dl>)                   */
+/* ---------------------------------- */
+/* 表題(<dt>) */
+dt {
+  text-indent:          -1.3em;
+  padding-left:         1.3em;
+  font-weight:          bold;
+}
+
+/* 内容(<dd>) */
+dd {
+  text-indent:          -1.0em;
+}
+
+/* ---------------------------------- */
+/* 箇条書き(<ul>)                     */
+/* ---------------------------------- */
 /* 項目(<li>) */
 ul li {
   text-indent:          -1em;
