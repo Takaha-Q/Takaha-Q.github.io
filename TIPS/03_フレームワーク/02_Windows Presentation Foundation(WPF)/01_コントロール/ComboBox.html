@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
 <!-- スタイルシート -->
@@ -13,6 +13,9 @@
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a><br>
 <!-- 出典・関連ページ -->
+<h5>関連 :</h5>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/01_コントロール/ListBox.html">ListBox</a>
+
 <!-- 目次 -->
 <h5>目次 :</h5>
 <div id="toc"></div>
@@ -24,23 +27,23 @@
 
 <h6>XAML : HogeWindow.xaml</h6>
 <div class="xaml">
-&lt;Window&gt;
+&lt;<tag>Window</tag>&gt;
 
     (略)
 
     <cmt>&lt;!-- ComboBox の ItemsSource を HogeItems に --&gt;</cmt>
     <cmt>&lt;!-- SelectedItem を HogeItem にバインド --&gt;</cmt>
-    &lt;ComboBox ItemsSource="{Binding Path=HogeItems,
-                                    RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
-              SelectedItem="{Binding Path=HogeItem,
-                                     RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
-              Width="180"
-              HorizontalAlignment="Left"
-              Margin="6"/&gt;
+    &lt;<tag>ComboBox</tag> <prp>ItemsSource</prp>="{Binding <prp>Path</prp>=HogeItems,
+                                    <prp>RelativeSource</prp>={<prp>RelativeSource Mode</prp>=FindAncestor, <prp>AncestorType</prp>=Window}}"
+              <prp>SelectedItem</prp>="{Binding <prp>Path</prp>=HogeItem,
+                                     <prp>RelativeSource</prp>={<prp>RelativeSource Mode</prp>=FindAncestor, <prp>AncestorType</prp>=Window}}"
+              <prp>Width</prp>=<ltr>"180"</ltr>
+              <prp>HorizontalAlignment</prp>=<ltr>"Left"</ltr>
+              <prp>Margin</prp>=<ltr>"6"</ltr>/&gt;
     
     (略)
 
-&lt;/Window&gt;
+&lt;/<tag>Window</tag>&gt;
 </div>
 IsEditable プロパティを True に設定しない場合、入力不可のドロップダウンリストとして機能する。
 
@@ -105,3 +108,4 @@ IsEditable プロパティを True に設定しない場合、入力不可のド
     <li>ComboBox.SelectedItem (選択された項目 : string) をキーとして Dictionary を検索する</li>
     <li>検索で得られた値を用いて処理を行う</li>
 </ul>
+
