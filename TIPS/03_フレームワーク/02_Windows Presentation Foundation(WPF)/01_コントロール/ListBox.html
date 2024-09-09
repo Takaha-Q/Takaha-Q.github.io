@@ -17,23 +17,32 @@
 <span id="title"></span>
 
 <!-- リンク(ホームに戻る) -->
-<a href="index.html">ホームに戻る</a><br>
+<a href="index.html">ホームに戻る</a>
 
 <!-- 出典ページ -->
-<h5>出典 :</h5>
-<div class="pre"><a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.controls.listbox?view=windowsdesktop-8.0">ListBox クラス (System.Windows.Controls) | Microsoft Learn</a>
+<details><summary class=link>出典 :</summary>
+<div class=pre><div class="pre"><a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.controls.listbox?view=windowsdesktop-8.0">ListBox クラス (System.Windows.Controls) | Microsoft Learn</a>
 <a href="https://anderson02.com/cs/wpf/wpf-21/">C#WPFの道#21！ListBoxの書き方と使い方を解りやすく解説 - ピーコックアンダーソン</a>
 <a href="https://qiita.com/Michio029/items/3b531acd46bb1f81f7d7">WPFのListBox.SelectedItems(複数選択)を取り出すのが意外と大変だった #C# - Qiita</a>
 <a href="https://qiita.com/Michio029/items/fd597470cc62cfa79ed7">WPFで使いまわしができる「ListBox.SelectedItemsを取得するメソッド」 #C# - Qiita</a>
+<a href="https://yoshiiz.blog.fc2.com/blog-entry-881.html">よしいずの雑記帳　WPFのListBoxのSelectedItemsにデータバインディングする例</a>
+<a href="https://qiita.com/ry18847/items/f5f513a16d3faec19fd9">[WPF] ListBoxで選択可能な数に上限を設定する #C# - Qiita</a>
 </div>
 
+</div>
+</details>
+
 <!-- 関連ページ -->
-<h5>関連 :</h5>
-<div class="pre"><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/01_コントロール/ComboBox.html">ComboBox</a>
+<details><summary class=link>関連 :</summary>
+<div class=pre><div class="pre"><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/01_コントロール/ComboBox.html">ComboBox</a>
 <a href="TIPS/03_フレームワーク/01_dotNET/01_型・クラス/コレクション.html">[.NET]コレクション</a>
 <a href="TIPS/03_フレームワーク/01_dotNET/01_型・クラス/Dictionary(連想配列).htmll">[.NET]Dictionary(連想配列)</a>
 <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/ReactiveProperty.html">ReactiveProperty</a>
 </div>
+
+
+</div>
+</details>
 
 <!-- 目次 -->
 <h5>目次 :</h5>
@@ -192,6 +201,12 @@ SelectedValue で取得する値は Dictionary の値、とすることができ
 
 いずれも元の型をラップするため、内容を取り出すにはキャストが必要。
 
+<h3>SelectedItems へのデータバインディング</h3>
+<div class=pre>
+ListBox.SelectedItems をターゲットとしたデータバインディングは通常では行えない。
+ビヘイビアを作成することでバインディングが可能となる。詳細は<a href="https://yoshiiz.blog.fc2.com/blog-entry-881.html">出典元</a>を参照。
+</div>
+
 <h2>選択方法の指定</h2>
 SelectionMode プロパティに値を設定することで、選択方法を変更することができる。設定できる値は以下の通り。
 
@@ -205,6 +220,11 @@ SelectionMode プロパティに値を設定することで、選択方法を変
 <dt>SelectionMode.Extended</dt>
 <dd>任意の複数の項目を選択可能とする。Shiftキーを押しながらクリックで連続した行を、Ctrlキーを押しながらクリックで離れた行を選択できる。</dd>
 </dl>
+
+<h3>同時選択可能な項目数に上限を設ける</h3>
+<div class=pre>ListBox のプロパティには選択上限は存在しないため、同時に選択されている項目数をコードで監視する必要がある。
+<a href="https://qiita.com/ry18847/items/f5f513a16d3faec19fd9">出典元</a>を参照。
+</div>
 
 <h2>スクロールバーの表示について注意が必要な点</h2>
 <div class=pre>※ この単元は正確でない可能性があります。

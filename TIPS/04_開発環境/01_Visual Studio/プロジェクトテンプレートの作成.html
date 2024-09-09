@@ -17,7 +17,19 @@
 <span id="title"></span>
 
 <!-- リンク(ホームに戻る) -->
-<a href="index.html">ホームに戻る</a><br>
+<a href="index.html">ホームに戻る</a>
+
+<!-- 出典ページ -->
+<details><summary class=link>出典 :</summary>
+<div class=pre><div class=pre><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/how-to-create-project-templates?view=vs-2022">ウィザードまたは XML ファイルを使用してプロジェクト テンプレートを作成する - Visual Studio (Windows) | Microsoft Learn</a>
+<a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/creating-project-and-item-templates?view=vs-2022">プロジェクトとファイルのテンプレート - Visual Studio (Windows) | Microsoft Learn</a>
+<a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/how-to-substitute-parameters-in-a-template?view=vs-2022">プロジェクトと項目テンプレートに名前パラメーターを追加する - Visual Studio (Windows) | Microsoft Learn</a>
+<a href="https://qiita.com/kamikawa_m/items/75c337f101d9d2f6080e">Visual Studioから利用できるプロジェクトテンプレートを作成する #C# - Qiita</a>
+</div>
+
+
+</div>
+</details>
 
 <!-- 目次 -->
 <h5>目次 :</h5>
@@ -32,8 +44,8 @@
 <h2>テンプレートに含まれるファイル</h2>
 プロジェクト(C#であればCSPROJ)配下のすべてのファイルおよびフォルダが対象となる。<br>
 
-
-<h2>手順1 : テンプレートの保存</h2>
+<h2>手順</h2>
+<h3>テンプレートの保存</h3>
 <ol>
     <li>出力するプロジェクトを整理する。<br>(再利用しないファイルやコードの削除)</li>
     <li>「プロジェクト」>「テンプレートのエクスポート」を選択する。<br>
@@ -43,19 +55,20 @@
     <li>各項目を入力し、「テンプレートを自動的にVisual Studioにインポート」にチェックを入れ「完了」をクリックする。<br>
         (呼び出し時に検索しやすいよう、特徴的な語句をふくめるとよい。)<br>
     <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\MSVS\Project_Template\04.png" alt="画像"></li>
-    <li><code>C:\Users\[ユーザ名]\Documents\Visual Studio 2022\My Exported Templates</code> および<br>
-        <code>C:\Users\[ユーザ名]\Documents\Visual Studio 2022\Templates\ProjectTemplates</code> にZIP化されたテンプレートが出力される。<br>
+    <li>C:\Users\[ユーザ名]\Documents\Visual Studio 2022\My Exported Templates<br>および<br>
+        C:\Users\[ユーザ名]\Documents\Visual Studio 2022\Templates\ProjectTemplates<br>にZIP化されたテンプレートが出力される。<br>
     <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\MSVS\Project_Template\05.png" alt="画像"></li>
 </ol>
 
-<h2>手順2 : 作成したテンプレートの呼び出し</h2>
+<h3>作成したテンプレートの呼び出し</h3>
 手順1で作成したテンプレートは、標準のテンプレートと異なりタグが付与されていないため、絞り込みを解除しなければ表示されない。<br>
 (「すべての言語」、「すべてのプラットフォーム」、「すべてのプロジェクトの種類」を選択することで表示される。)<br>
 テンプレートを特定できる語句を検索欄に入力し、テンプレートを選択する。以降の手順は標準テンプレートを用いる場合と同様。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\MSVS\Project_Template\06.png" alt="画像">
 
-<h2>手順3 : テンプレートのインポート・削除</h2>
-<code>C:\Users\[ユーザ名]\Documents\Visual Studio 2022\Templates\ProjectTemplates</code> にテンプレート(ZIP)を配置すると、呼び出し候補に含まれるようになる。<br>
+<h3>テンプレートのインポート・削除</h3>
+C:\Users\[ユーザ名]\Documents\Visual Studio 2022\Templates\ProjectTemplates<br>
+にテンプレート(ZIP)を配置すると、呼び出し候補に含まれるようになる。<br>
 テンプレート(ZIP)を削除すると、呼び出し候補に含まれなくなる。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\MSVS\Project_Template\07.png" alt="画像">
 

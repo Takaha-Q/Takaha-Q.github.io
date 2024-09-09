@@ -81,7 +81,7 @@ h4 {
   border-bottom-color:  #CC9999;
 }
 
-h5 {
+h5, summary.link {
   font-size:            120%;
   font-weight:          bold;
   margin-top:           12px;

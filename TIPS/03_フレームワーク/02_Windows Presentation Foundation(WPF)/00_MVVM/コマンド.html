@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a>
+
+<!-- 出典ページ -->
+<details><summary class=link>出典 :</summary>
+<div class=pre><div class="pre"><a href="https://learn.microsoft.com/ja-jp/dotnet/desktop/wpf/advanced/commanding-overview?view=netframeworkdesktop-4.8">コマンド実行の概要 - WPF .NET Framework | Microsoft Learn</a>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/desktop/wpf/advanced/how-to-hook-up-a-command-to-a-control-with-command-support?view=netframeworkdesktop-4.8">方法: コマンドをサポートするコントロールにコマンドをフックする - WPF .NET Framework | Microsoft Learn</a>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/desktop/wpf/advanced/how-to-hook-up-a-command-to-a-control-with-no-command-support?view=netframeworkdesktop-4.8">方法: コマンドをサポートしないコントロールにコマンドをフックする - WPF .NET Framework | Microsoft Learn</a>
+<a href="https://atmarkit.itmedia.co.jp/ait/articles/1011/09/news102.html">第6回　「コマンド」と「MVVMパターン」を理解する：連載：WPF入門 - ＠IT</a>
+<a href="https://takamints.hatenablog.jp/entry/why-using-commands-in-wpf-mvvm">WPFのMVVMでコマンドをバインディングする利点 - 銀の弾丸</a>
+</div>
+
+</div>
+</details>
+
+<!-- 関連ページ -->
+<details><summary class=link>関連 :</summary>
+<div class=pre><div class="pre"><a href="MVVMパターン.html">MVVMパターン</a>
+<a href="UIイベントの処理.html">UIイベントの処理</a>
+</div>
+
+
+</div>
+</details>
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>コマンドとは</h2>
+<div class="pre">GUIアプリケーションにおいては、特定のキーを押す、特定のコントロールをクリックする、といった具体的な操作よりも、
+一段階抽象的な「コピー」、「貼り付け」といった「意味論的(セマンティック)な操作」に処理を関連づけたいことも多い。
+この「意味論的な操作」を<b>コマンド(command)</b>と呼ぶ。
+<img src="file://C:\Users\shinji.takahata\Documents\_Git_Rep\HTML_TIPS\_Img\WPF\Command\01.png" alt="画像">
+上図のように、「コピー」処理を行うための操作(ユーザアクション)がショートカットキー押下、メニュークリック、ボタンクリックと複数用意されている場合、
+それぞれの具体的操作ではなく、「コピー」処理にイベントハンドラを関連づけることでそれらを包括的に取り扱うことができる。
+逆に言えば、一つのコマンドに複数のユーザアクションを関連づけることができ、コマンドの実行可否を異なるユーザアクションに対して反映することができる。
+ユーザアクションごとの差異を意識する必要が無く、実装が簡略化できる。
+</div>
+
+<h3>コマンドとMVVM</h3>
+<div class=pre>コマンドはデータバインディングと並び、<a href="MVVMパターン.html">MVVMパターン</a>を実現する概念である。
+旧来のアプリケーションでは特定のUI要素(コントロール)に対する特定の操作にハンドラを関連づけ、処理が実行できない場合はコントロールを無効化するなど、
+UI( View )ごとに異なった処理を実装する必要があり、煩雑で移植性が低かった。
+コマンド(およびデータバインディング)を用いることで、View 固有の処理を削減でき、UIと内部ロジックを分離しやすくなる。
+</div>
+
+<h3>コマンドにおける主要な概念</h3>
+<dl>
+<dt>コマンド</dt><dd>実行されるアクション</dd>
+<dt>コマンドソース</dt><dd>コマンドの発生元となる(コマンドを呼び出す)オブジェクト</dd>
+<dt>コマンドターゲット</dt><dd>コマンドが実行されるオブジェクト</dd>
+<dt>コマンドバインディング</dt><dd>コマンドロジックをコマンドにマップするオブジェクト</dd>
+</dl>
+
+<div class=pre><img src="file://C:\Users\shinji.takahata\Documents\_Git_Rep\HTML_TIPS\_Img\WPF\Command\02.png" alt="画像">
+上図のような、メニューから「貼り付け」をクリックすると、クリップボードにコピーされたテキストを(フォーカスを持つ)テキストボックスに貼り付ける動作においては
+</div>
+<ul>
+<li>コマンド : 貼り付け( ApplicationCommands.Paste )</li>
+<li>コマンドソース : MenuItem</li>
+<li>コマンドターゲット : MenuItem</li>
+</ul>
+<div class=pre>となる。
+この場合、コマンドバインディングは TextBox によって提供されるが、すべてのコントロールがコマンドバインディングを提供できるわけではないため注意が必要である。
+</div>
+
+<h2>コマンドの実装</h2>
+
+<h6>コマンドの定義 : SampleCommand.cs</h6>
+<div class=cs>
+using System;
+using System.ComponentModel;
+using System.Threading;
+using System.Windows.Input;
+using System.Windows.Threading;
+
+namespace Sample.Commands
+{
+    // コマンドクラス : ICommand を実装
+    public class SampleCommand : ICommand
+    {
+        // アイドル(コマンド実行可能)フラグ
+        // ⇒ 変更時は CanExecuteChanged イベントを発行
+        private bool _isIdle = false;
+        public bool IsIdle
+        {
+            get
+            {
+                return _isIdle;
+            }
+            set
+            {
+                _isIdle = value;
+                CanExecuteChanged?.Invoke( this, new EventArgs() );
+            }
+        }
+
+        //
+        // 以降 ICommand インタフェースの実装
+        //
+
+        // CanExecuteChanged イベント
+        public event EventHandler CanExecuteChanged;
+
+        // CanExecute()
+        // アイドル時のみ実行可能
+        public bool CanExecute(object parameter) => IsIdle;
+
+        // Execute()
+        public void Execute(object parameter)
+        {
+            // アイドルフラグオフ
+            IsIdle = false;
+
+            // タイマ設定、始動
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Tick += new EventHandler( (s, e) => IsIdle = true; );
+            timer.Interval = new TimeSpan(0, 0, 5);
+            timer.Start();
+        }
+    }
+}
+</div>
+
+<h6>ViewModel : MainWindowViewModel.cs</h6>
+<div class=cs>
+using Sample.Commands;
+
+namespace Sample.ViewModels
+{
+    class MainWindowViewModel
+    {
+        // コマンドを public プロパティとして保持
+        public SampleCommand SampleCommand { get; private set; } = new SampleCommand();
+    }
+}
+</div>
+
+<h6>View(XAML) : MainWindow.xaml</h6>
+<div class=xaml>
+<Window x:Class="Sample.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Sample"
+        xmlns:vm="clr-namespace:Sample.ViewModels"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    
+    <!-- DataContext 宣言 -->
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
+
+    <Grid>
+        <!-- Button にコマンドをバインド -->
+        <Button Command="{Binding SampleCommand}"/>
+    </Grid>
+</Window>
+</div>
+
+<h6>View(コードビハインド) : MainWindow.xaml.cs</h6>
+<div class=cs>
+using System.Windows;
+
+namespace Sample
+{
+    public partial class MainWindow : Window
+    {
+        public MainWindow()
+        {
+            InitializeComponent();
+        }
+    }
+}
+</div>
+
+<h6>解説</h6>
+<div class=pre>上記はボタンに割り付けた場合に、押下から5秒間そのボタンを押せなくするコマンドである。
+コマンドは ICommand インタフェースを実装することで実現する。ICommand で実装が必要なのは以下の3つ。
+</div>
+
+<table>
+  <tr class>
+    <td class=col1>CanExecuteChanged</td>
+    <td>コマンドの実行可否が変化した際に発行されるイベントのフック</td>
+  </tr>
+  <tr>
+    <td class=col1>CanExecute()</td>
+    <td>コマンドの実行可否</td>
+  </tr>
+  <tr>
+    <td class=col1>Execute()</td>
+    <td>コマンドとして行う処理</td>
+  </tr>
+</table>
+
+<div class=pre>SampleCommand クラスはコマンドの実行可否を IsIdle プロパティとして保持しており、IsIdle が変更された場合は実行可否が変化するため CanExecuteChanged イベントを発行する。
+IsIdle == true 時のみコマンドが実行可能で、Execute() 実行時にはタイマを開始し、タイマ満了まで同じコマンドを実行できなくする。
+
+定義されたコマンド( SampleCommand )を ViewModel ( MainWindowViewModel )のプロパティに含め、View からは
+ViewModel を DataContext に関連づけることでコマンドを参照可能となる。
+ボタンの Command に SampleCommand プロパティをバインドすることで、ボタンとコマンドが関連づけられる。
+( Click ハンドラなどは実装する必要が無い。)
+なお、View のコードビハインドは自動的に生成されたままで、コードを一切追加していない。
+MVVMパターンの下では、このようにコードビハインドの記述を最小限にとどめることが推奨される。
+</div>
