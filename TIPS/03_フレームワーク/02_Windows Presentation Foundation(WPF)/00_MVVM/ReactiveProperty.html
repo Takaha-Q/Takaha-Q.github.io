@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
@@ -21,7 +21,7 @@
 
 <!-- 出典ページ -->
 <details><summary class=link>出典 :</summary>
-<div class=pre><div class=pre><a href="https://docs.microsoft.com/ja-jp/dotnet/desktop/winforms/how-to-implement-the-inotifypropertychanged-interface?view=netframeworkdesktop-4.8&redirectedfrom=MSDN">方法: INotifyPropertyChanged インターフェイスを実装する - WinForms .NET Framework | Microsoft Docs</a>
+<div class=pre><a href="https://docs.microsoft.com/ja-jp/dotnet/desktop/winforms/how-to-implement-the-inotifypropertychanged-interface?view=netframeworkdesktop-4.8&redirectedfrom=MSDN">方法: INotifyPropertyChanged インターフェイスを実装する - WinForms .NET Framework | Microsoft Docs</a>
 <a href="https://blog.okazuki.jp/entry/2015/02/22/212827">MVVMとリアクティブプログラミングを支援するライブラリ「ReactiveProperty v2.0」オーバービュー - かずきのBlog@hatena</a>
 <a href="https://qiita.com/ledsun/items/6f4ef754e5ae2507e531">INotifyPropertyChanged実装のありえない面倒くささと、ReactivePropertyの信じられない素晴らしさ - Qiita</a>
 <a href="https://qiita.com/ry18847/items/1183278ae7d32fd33a11">結局ReactivePropertyはどれを使えばいいのか、まとめてみた - Qiita</a>
@@ -31,19 +31,14 @@
 <a href="https://qiita.com/okazuki/items/6faac7cb1a7d8a6ad0f2">MVVM をリアクティブプログラミングで快適に ReactiveProperty オーバービュー 2020 年版 後編 - Qiita</a>
 <a href="https://github.com/runceel/reactiveproperty">runceel/ReactiveProperty: GitHub</a>
 </div>
-
-</div>
 </details>
 
 <!-- 関連ページ -->
 <details><summary class=link>関連 :</summary>
-<div class=pre><div class=pre><a href="MVVMパターン.html">MVVMパターン</a>
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/データバインディング.html">データバインディング</a>
-<a href="コマンド.html">コマンド</a>
+<div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/MVVMパターン.html">MVVMパターン</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/データバインディング.html">データバインディング</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/コマンド.html">コマンド</a>
 <a href="TIPS/04_開発環境/01_Visual Studio/NuGetパッケージの追加.html">NuGetパッケージの追加</a>
-</div>
-
-
 </div>
 </details>
 
@@ -216,7 +211,7 @@
 <h2>実装例</h2>
 
 <h3>ReactivePropertySlim</h3>
-ReactiveProperty も同様。
+ReactiveProperty も同様の記述となる。
 
 <h6>ViewModel : SampleViewModel.cs</h6>
 <div class="cs">
@@ -227,8 +222,7 @@ ReactiveProperty も同様。
 {
     <cmt>// バインディングソース Count を ReactivePropertySlim として宣言</cmt>
     <cmt>// 初期値に 0 を指定</cmt>
-    <kwd>public readonly</kwd> <b class="red">ReactivePropertySlim</b>&lt;<kwd>int</kwd>&gt; Count
-    { <kwd>get</kwd>; }
+    <kwd>public readonly</kwd> <b class="red">ReactivePropertySlim</b>&lt;<kwd>int</kwd>&gt; Count { <kwd>get</kwd>; }
     = <kwd>new</kwd> <b class="red">ReactivePropertySlim</b>&lt;<kwd>int</kwd>&gt;(0);
 }
 </div>
@@ -271,15 +265,15 @@ ReactiveProperty も同様。
 }
 </div>
 
-<div class=pre>ReactivePropertySlim (およびプロパティの各クラス)はジェネリクスであり、任意の型を実データとして用いることができる。
-上記の例では、Count プロパティを ReactivePropertySlim として宣言しており、実データは int 型である。
-コンストラクタ引数で初期値を与えることができる。
-<b>実データは Value プロパティを介してアクセスすることに注意( Count ではなく Count.Value )</b>。
+<div class=pre>ReactiveProperty の各クラスはジェネリクスであり、任意の型を実データとして用いることができる。
+上記の例では、実データが int 型の Count プロパティを ReactivePropertySlim として宣言している。コンストラクタは複数のオーバーロードが存在し、実データの初期値を設定することが可能である。
+ここで<b>実データは Value プロパティを介してアクセスすることに注意( Count ではなく Count.Value )</b>。
 </div>
 
 <h3>ReactiveCollection</h3>
 <div class=pre>複数のデータを一覧で表示する「リスト系コントロール」のデータを扱うのに適している。
-( ReactiveProperty にもコレクション(配列を含む)を格納することはできるが、項目の追加、変更、削除を行った際に通知を発することができない。)
+( ReactiveProperty にもコレクション(配列を含む)を格納することは可能ではあるが、項目の追加、変更、削除を行った際に通知を発することができない。
+これは、実データ(監視対象)のコレクションそのものが変更されたわけではないことによる。)
 主な「リスト系コントロール」は以下が挙げられる。いずれも System.Windows.Controls.ItemsControl を継承している。
 </div>
 <ul>
@@ -289,4 +283,6 @@ ReactiveProperty も同様。
 <li>ListView</li>
 <li>DataGrid</li>
 </ul>
+
+<h6>ViewModel : SampleViewModel.cs</h6>
 

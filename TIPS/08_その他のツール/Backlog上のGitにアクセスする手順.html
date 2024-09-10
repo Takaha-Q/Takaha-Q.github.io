@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
 <!-- スタイルシート -->
@@ -29,7 +29,7 @@ Backlog上のGitにアクセスする際は、アクセス元のPCに合わせ�
 
 <h3>準備 : プロキシサーバのアドレスを確認</h3>
 コマンドプロンプトから、以下のコマンドを実行する。
-<p class="code">
+<div class="code">
 reg query "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v ProxyServer
 </p>
 
@@ -50,7 +50,7 @@ reg query "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet 
 	</li>
 	<li>
 		以下の内容を追記する。
-		<p class="code">
+		<div class="code">
 [http]
   proxy = http://[プロキシサーバアドレス]:[ポート]
 [https]
@@ -72,3 +72,4 @@ reg query "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet 
 		<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Backlog/git_access/git-access-to-backlog_02.png" alt="画像">
     </li>
 </ol>
+

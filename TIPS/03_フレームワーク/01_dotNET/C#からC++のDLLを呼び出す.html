@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
@@ -53,7 +53,7 @@ C/C++で作成したDLLをC#でインポートし、関数をコールするた�
 <h2>アプリケーション(C#)側の操作</h2>
 ライブラリ関数を呼び出す処理を実装し、ビルドを行う。<br>
 Program.cs<br>
-<p class="code">
+<div class="code">
 <kwd>using</kwd> System.Runtime.InteropServices;
 
 <kwd>namespace</kwd> Application
@@ -104,7 +104,7 @@ C++における int のサイズは本来処理系依存だが、<b>Win32 / Win6
 マーシャリングは不要。但し(ポインタによる)参照渡しの場合は ref / out 修飾が必要。
 
 <h6>ライブラリ(C++)</h6>
-<p class="code">
+<div class="code">
 <kwd>#ifdef</kwd> __cplusplus
 <kwd>#define</kwd> DLLEXPORT <kwd>extern</kwd> <ltr>"C"</ltr> __declspec(dllexport)
 <kwd>#else</kwd>
@@ -126,7 +126,7 @@ DLLEXPORT <kwd>void</kwd> __stdcall MulUsePointer(<kwd>int</kwd>* x, <kwd>int</k
 </p>
 
 <h6>アプリケーション(C#)</h6>
-<p class="code">
+<div class="code">
 <kwd>using</kwd> <knw>System</knw>;
 <kwd>using</kwd> <knw>System</knw>.Runtime.InteropServices;
 
@@ -163,7 +163,7 @@ DLLEXPORT <kwd>void</kwd> __stdcall MulUsePointer(<kwd>int</kwd>* x, <kwd>int</k
 C++の string / wstring とC#の string には互換性が無いため、マーシャリングが必要。
 
 <h6>ライブラリ(C++)</h6>
-<p class="code">
+<div class="code">
 <kwd>#include</kwd> &lt;<kwd>string</kwd>&gt;
 
 <kwd>#ifdef</kwd> __cplusplus
@@ -203,7 +203,7 @@ DLLEXPORT <kwd>const wchar_t</kwd>* __stdcall GetNameWStr()
 </p>
 
 <h6>アプリケーション(C#)</h6>
-<p class="code">
+<div class="code">
 <kwd>using</kwd> <knw>System</knw>;
 <kwd>using</kwd> <knw>System</knw>.Runtime.InteropServices;
 
@@ -245,7 +245,7 @@ DLLEXPORT <kwd>const wchar_t</kwd>* __stdcall GetNameWStr()
 但し、多次元配列を直接マーシャリングすることができない(要調査)ため、1次元配列に変換を行う。<br>
 
 <h6>ライブラリ(C++)</h6>
-<p class="code">
+<div class="code">
 <kwd>#ifdef</kwd> __cplusplus
 <kwd>#define</kwd> DLLEXPORT <kwd>extern</kwd> <ltr>"C"</ltr> __declspec(dllexport)
 <kwd>#else</kwd>
@@ -259,7 +259,7 @@ DLLEXPORT <kwd>void</kwd> __stdcall SetArray(<kwd>const int</kwd>* arr)
 </p>
 
 <h6>アプリケーション(C#)</h6>
-<p class="code">
+<div class="code">
 <kwd>using</kwd> <knw>System</knw>;
 <kwd>using</kwd> <knw>System</knw>.Runtime.InteropServices;
 
@@ -316,7 +316,7 @@ DLLEXPORT <kwd>void</kwd> __stdcall SetArray(<kwd>const int</kwd>* arr)
 [Out] : 出力方向(C++ ⇒ C#)のマーシャリングを行う<br>
 
 <h6>ライブラリ(C++)</h6>
-<p class="code">
+<div class="code">
 <kwd>#ifdef</kwd> __cplusplus
 <kwd>#define</kwd> DLLEXPORT <kwd>extern</kwd> <ltr>"C"</ltr> __declspec(dllexport)
 <kwd>#else</kwd>
@@ -344,7 +344,7 @@ DLLEXPORT <kwd>void</kwd> __stdcall GetStruct(stSample* st)
 </p>
 
 <h6>アプリケーション(C#)</h6>
-<p class="code">
+<div class="code">
 <kwd>using</kwd> <knw>System</knw>;
 <kwd>using</kwd> <knw>System</knw>.Runtime.InteropServices;
 
@@ -380,3 +380,4 @@ DLLEXPORT <kwd>void</kwd> __stdcall GetStruct(stSample* st)
      }
 }
 </p>
+

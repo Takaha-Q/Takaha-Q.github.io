@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
@@ -109,16 +109,16 @@ catch 節内に throw 句を記述することで、さらに外側に例外を�
 </div>
 
 上記のコードでは例外 ex を捕捉し、外側に投げなおしている。<br>
-このとき<span class="code">throw ex;</span>とすると、ex が投げられた時点でのコールスタック情報( func2() )しか記録されないため、<br>
+このとき<code>throw ex;</code>とすると、ex が投げられた時点でのコールスタック情報( func2() )しか記録されないため、<br>
 func1() が例外を投げ(なおし)たことがわからなくなる。<br>
-単に<span class="code">throw;</span>とすることで、投げなおした func1() の情報も追加される。<br>
+単に<code>throw;</code>とすることで、投げなおした func1() の情報も追加される。<br>
 投げなおされる例外の型は ex と共通である。
 
 <h2>例外送出有無の表明 ( noexcept )</h2>
 <b>noexcept</b> 句を使用することで、関数が例外を送出しない(または逆に、する可能性がある)ことを明確化することができる。<br>
 例外を送出しないことを明示すると巻き戻すためのスタックが確保されなくなるため、スタック使用量を削減することができる。<br>
 
-<p class="code">
+<div class="code">
 <cmt>// 例外を送出しない</cmt>
 <kwd>void</kwd> f() <kwd>noexcept</kwd>;
 <kwd>void</kwd> f() <kwd>noexcept</kwd>(<kwd>true</kwd>);
@@ -133,3 +133,4 @@ C++11で非推奨となり、C++17で削除された。
 
 <h2>C++標準の例外クラス</h2>
 C++の標準ライブラリには、例外として送出するためのクラス(例外オブジェクト)が定義されている。詳細は<a href="TIPS/02_プログラミング言語/01_C・C%2B%2B/例外クラス.html">ここ</a>を参照。
+

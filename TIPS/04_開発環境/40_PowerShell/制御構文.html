@@ -51,7 +51,7 @@
 </table>
 
 <h2>単純分岐(if - elseif - else 節)</h2>
-<p class="code">
+<div class="code">
 $x = <ltr>100</ltr>
 
 <cmt># $x >= 80 の場合 : if 節</cmt>
@@ -73,7 +73,7 @@ $x = <ltr>100</ltr>
 
 <h2>多岐分岐(switch 節)</h2>
 C系言語の switch - case 、VBの select - case 節に相当。<br>
-<p class="code">
+<div class="code">
 $x = <ltr>1</ltr>
 
 <cmt># 変数 $x の値によって分岐</cmt>
@@ -102,7 +102,7 @@ switch($x)
 </p>
 break を記述することで、個別のブロック(case 節に相当)を実行後 switch 節を抜けるようになる。<br>
 break を省略すると switch 節を継続するため、条件に適合するブロックが他にも存在する場合そちらも実行される。<br>
-<p class="code">
+<div class="code">
 $x = <ltr>1</ltr>
 
 <cmt># 変数 $x の値によって分岐</cmt>
@@ -127,7 +127,7 @@ switch($x)
 }
 </p>
 実行結果
-<p class="code">
+<div class="code">
 変数 $x は1です。
 変数 $x は1です。(わかってます)
 </p>
@@ -135,7 +135,7 @@ switch($x)
 <h2>ループ構文</h2>
 <h3>for 節</h3>
 C系言語の for 節と同様。初期条件・継続条件・増分式を for 文に記述する。
-<p class="code">
+<div class="code">
 <cmt># 配列 $ary を初期化</cmt>
 $ary = <ltr>@(100, 120, 300)</ltr>
 
@@ -151,14 +151,14 @@ $ary = <ltr>@(100, 120, 300)</ltr>
 <kwd>Write-Output</kwd> $sum
 </p>
 実行結果
-<p class="code">
+<div class="code">
 520
 </p>
 
 <h3>範囲ベース for</h3>
 C#などの foreach 節と同様。コレクション(集合)の全要素を順に走査して処理できる。
 <h4>foreach文を使用する場合</h4>
-<p class="code">
+<div class="code">
 <cmt># 配列 $ary を初期化</cmt>
 $ary = <ltr>@(100, 120, 300)</ltr>
 
@@ -174,13 +174,13 @@ $ary = <ltr>@(100, 120, 300)</ltr>
 <kwd>Write-Output</kwd> $sum
 </p>
 実行結果
-<p class="code">
+<div class="code">
 520
 </p>
 
 <h4>ForEach-Object コマンドレットを使用する場合</h4>
 foreach文を使用するよりもリソース消費が少ない。
-<p class="code">
+<div class="code">
   <cmt># 配列 $ary を初期化</cmt>
   $ary = <ltr>@(100, 120, 300)</ltr>
   
@@ -196,7 +196,7 @@ foreach文を使用するよりもリソース消費が少ない。
   <kwd>Write-Output</kwd> $sum
 </p>
 実行結果
-<p class="code">
+<div class="code">
 520
 </p>
 
@@ -205,7 +205,7 @@ C系言語の while / do ～ while 節と同様。継続条件を満たしてい
 do ～ wihle 節は、継続条件を満たしているかに関わらず、必ず一回はループの処理を行う。<br>
 
 <h4>while 節</h4>
-<p class="code">
+<div class="code">
 $i   = <ltr>0</ltr>;
 $sum = <ltr>0</ltr>;
 $ary = <ltr>@(100, 120, 300)</ltr>
@@ -221,7 +221,7 @@ $ary = <ltr>@(100, 120, 300)</ltr>
 </p>
 
 <h4>do ～ while 節</h4>
-<p class="code">
+<div class="code">
 $i   = <ltr>0</ltr>;
 $sum = <ltr>0</ltr>;
 $ary = <ltr>@(100, 120, 300)</ltr>
@@ -234,3 +234,4 @@ $ary = <ltr>@(100, 120, 300)</ltr>
 
 <kwd>Write-Output</kwd> $sum
 </p>
+

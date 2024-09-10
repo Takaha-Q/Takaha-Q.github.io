@@ -1,0 +1,540 @@
+﻿<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<details><summary class=link>出典 :</summary>
+<div class=pre><a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.attribute?view=net-8.0">Attribute クラス (System) | Microsoft Learn</a>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/csharp/advanced-topics/reflection-and-attributes/attribute-tutorial">チュートリアル: カスタム属性の定義と読み取り - C# | Microsoft Learn</a>
+<a href="https://ufcpp.net/study/csharp/sp_attribute.html">属性 - C# によるプログラミング入門 | ++C++; // 未確認飛行 C</a>
+<a href="https://www.w2solution.co.jp/corporate/tech/attribute%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%9F%E4%BF%9D%E5%AE%88%E6%80%A7%E3%81%AE%E4%B8%8A%E3%81%8C%E3%82%8B%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AE%E6%9B%B8%E3%81%8D%E6%96%B9/">Attribute使用した保守性の上がるコードの書き方 | Tech Media | W2株式会社</a>
+</div>
+</details>
+
+<!-- 関連ページ -->
+<details><summary class=link>関連 :</summary>
+<div class=pre><a href="TIPS/03_フレームワーク/01_dotNET/リフレクション.html">[.NET]リフレクション</a>
+<a href="TIPS/02_プログラミング言語/02_CSharp/レコード.html">レコード</a>
+<a href="TIPS/02_プログラミング言語/02_CSharp/プライマリコンストラクタ.html">プライマリコンストラクタ</a>
+<a href="TIPS/01_ソフトウェア開発一般/01_デザインパターン/ジェネリックプログラミング.html">ジェネリックプログラミング</a>
+</div>
+</details>
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id=toc></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>C#における属性( Attribute )</h2>
+<div class=pre>クラスやメンバなどに対して追加で付与する情報を「属性(カスタム属性)」と呼ぶ。属性を用いることで以下が可能となる。
+</div>
+<ul>
+<li>条件コンパイルなどの、コンパイラへの指示を行う</li>
+<li>作者情報などをメタデータとしてプログラムに埋め込む</li>
+<li>リフレクション時に参照する情報を付与する</li>
+</ul>
+<div class=pre>C++などの属性と共通の概念で、C#ではユーザが独自に定義した属性をクラスやメンバに対して付与することができる。
+</div>
+
+<h2>属性の使用(付与)</h2>
+<div class=pre>属性は<code>[]</code>で囲み、付与したい要素の直前に記述する。
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\CSharp\Attribute\01.png" alt="画像">
+コードの記述次第では属性の付与先をコンパイラが判断できなくなるため、対象を<code>[]</code>内で指定する。
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\CSharp\Attribute\03.png" alt="画像">
+以下は、属性をクラスに対して付与する場合の例である。
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\CSharp\Attribute\02.png" alt="画像">
+また、複数の属性を指定する場合は<code>,</code>(カンマ)で区切るか、<code>[]</code>を列記する。
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\CSharp\Attribute\04.png" alt="画像">
+</div>
+
+<h3>付与対象の指定</h3>
+<div class=pre>属性を付与できる対象は以下のとおり。
+「指定」列が「必須」となっている項目は、常に対象を明示する必要がある。
+</div>
+
+<table>
+  <tr class="row1">
+    <td colspan="2">付与対象</td>
+    <td>指定</td>
+  </tr>
+  <tr>
+    <td class=cs>assembly</td>
+    <td>アセンブリ</td>
+    <td class=bg_lr center bold>必須</td>
+  </tr>
+  <tr>
+    <td class=cs>module</td>
+    <td>モジュール</td>
+    <td class=bg_lr center bold>必須</td>
+  </tr>
+  <tr>
+    <td class=cs>type</td>
+    <td>型</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td class=cs>field</td>
+    <td>フィールド</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td class=cs>method</td>
+    <td>メソッド</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td class=cs>property</td>
+    <td>プロパティ</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td class=cs>event</td>
+    <td>イベント</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td class=cs>param</td>
+    <td>メソッドの引数</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td class=cs>return</td>
+    <td>メソッドの戻り値</td>
+    <td class=bg_lr center bold>必須</td>
+  </tr>
+</table>
+
+<h6>記述例</h6>
+<div class="cs">
+<knw>[assembly: AssemblyTitle(<ltr>"Test Attribute"</ltr>)]</knw>                     <cmt>//&lt; アセンブリに付与</cmt>
+ 
+<knw>[Serializable]</knw>                                                  <cmt>//&lt; クラスに付与</cmt>
+<kwd>public class</kwd> SampleClass
+{
+    <knw>[Obsolete(<ltr>"次期版で削除します。使わないでください。"</ltr>)]</knw>      <cmt>//&lt; メソッドに付与</cmt>
+    <kwd>public void</kwd> Test( <knw>[In, Out]</knw> <kwd>ref int</kwd> n )                     <cmt>//&lt; 引数( n )に付与</cmt>
+    {
+        n *= <ltr>2</ltr>;
+    }
+}
+</div>
+
+メソッドの戻り値に属性を付与する場合は<code>return</code>で明示する必要がある。
+<div class=cs>
+<cmt>// メソッドの戻り値に属性を付与したい</cmt>
+
+<cmt>// 以下、誤ったコード</cmt>
+<knw>[DllImport(<ltr>"msvcrt.dll"</ltr>)]</knw>
+<knw>[MarshalAs(UnmanagedType.I4)]</knw>                               <cmt>//&lt; 対象が明示されていないため、メソッドに付与されてしまう</cmt>
+<kwd>public static extern int</kwd> puts(
+    <knw>[MarshalAs(UnmanagedType.LPStr)]</knw> <kwd>string</kwd> m);
+
+<cmt>// 以下、上記の修正</cmt>
+<knw>[method: DllImport(<ltr>"msvcrt.dll"</ltr>)]</knw>                           <cmt>//&lt; メソッドに付与         ( method )</cmt>
+<knw>[return: MarshalAs(UnmanagedType.I4)]</knw>                       <cmt>//&lt; メソッドの戻り値に付与 ( return )</cmt>
+<kwd>public static extern int</kwd> puts(
+    <knw>[param: MarshalAs(UnmanagedType.LPStr)]</knw> <kwd>string</kwd> m);      <cmt>//&lt; メソッドの引数に付与   ( param )</cmt>
+</div>
+
+<h4>プロパティとイベントへの付与</h4>
+<div class=pre>自動プロパティやイベントは、フィールドとメソッドが内部的に生成される。
+このそれぞれに属性(ここでは X )を付与する場合は以下のように記述する。
+</div>
+
+<div class=cs>
+<kwd>using</kwd> <knw>System</knw>;
+
+<kwd>class</kwd> XAttribute : <knw>Attribute</knw> { }
+
+<kwd>class</kwd> Sample
+{
+    <cmt>// プロパティへの属性付与</cmt>
+
+<knw>    [property: X]</knw>       <cmt>//&lt; プロパティ自体</cmt>
+    <kwd>public int</kwd> Property
+    {
+<knw>        [method: X]</knw>     <cmt>//&lt; get に対応するメソッド</cmt>
+        <kwd>get</kwd> =&gt; <ltr>0</ltr>;
+
+        <knw>[method: X]</knw>     <cmt>//&lt; set に対応するメソッド</cmt>
+        <knw>[param: X]</knw>      <cmt>//&lt; set が受け取る value 引数</cmt>
+        <kwd>set</kwd> { }
+    }
+
+    <knw>[field: X]</knw>          <cmt>//&lt; 自動生成フィールド(バッキングフィールド)</cmt>
+    <kwd>public int</kwd> _Property { <kwd>get</kwd>; }
+
+    <cmt>// イベントへの属性付与</cmt>
+
+    <knw>[event: X]</knw>          <cmt>//&lt; イベント自体</cmt>
+    <kwd>public event</kwd> <knw>Action</knw> Event
+    {
+        <knw>[method: X]     <cmt>//&lt; add に対応するメソッド</cmt>
+        [param: X]      <cmt>//&lt; add が受け取る value 引数</cmt></knw>
+        add { }
+
+<knw>        [method: X]     <cmt>//&lt; remove に対応するメソッド</cmt>
+        [param: X]      <cmt>//&lt; remove が受け取る value 引数</cmt></knw>
+        remove { }
+    }
+
+<knw>    [field: X]          <cmt>//&lt; 自動生成フィールド(バッキングフィールド)</cmt></knw>
+    <kwd>public event</kwd> <knw>Action</knw> _Event;
+}
+</div>
+
+<h4>プライマリコンストラクタへの付与</h4>
+<div class=pre><a href="TIPS/02_プログラミング言語/02_CSharp/プライマリコンストラクタ.html">プライマリコンストラクタ</a>に属性を付与する際も、属性の付与先を明示する必要がある。
+特にレコード型はプライマリコンストラクタの引数と同名のプロパティが自動生成されるが、これも付与先を選択できる。
+</div>
+
+<div class=cs>
+<kwd>class</kwd> XAttribute : <knw>Attribute</knw>;
+
+<cmt>// プライマリコンストラクタを用いるクラス</cmt>
+<knw>
+[X]                 <cmt>//&lt; 対象 : クラス</cmt>
+                    <cmt>//&lt; 省略しない場合は [type: X]</cmt>
+[method: X]         <cmt>//&lt; 対象 : プライマリコンストラクタ</cmt></knw>
+<kwd>class</kwd> C();
+
+<cmt>// プライマリコンストラクタを用いるレコード</cmt>
+
+<kwd>record</kwd> R(<knw>
+    [X]             <cmt>//&lt; 対象 : プライマリコンストラクタの引数</cmt>
+                    <cmt>//&lt; 省略しない場合は [param: X]</cmt>
+    [property: X]   <cmt>//&lt; 対象 : プロパティ</cmt>
+    [field: X]      <cmt>//&lt; 対象 : バッキングフィールド</cmt></knw>
+    <kwd>int</kwd> Property
+    );
+</div>
+
+<h2>組み込み(定義済み)の属性</h2>
+<div class=pre>標準ライブラリで提供される定義済み属性の一部を抜粋。
+属性(クラス)名はいずれも <code class="red">Attribute</code>で終わっているが、C#からこれらを利用する場合、この <code class="red">Attribute</code>は省略できる。
+例 :<code><blue>Obsolete</blue><red>Attribute</red></code>⇒<code>[<blue>Obsolete</blue>("警告")]</code></div>
+
+<table>
+  <tr class=row1>
+    <td>影響先</td>
+    <td>属性名</td>
+    <td>名前空間</td>
+    <td>効果</td>
+    <td>例</td>
+  </tr>
+  <tr>
+    <td rowspan="3">コンパイラ</td>
+    <td class=cs>ConditionalAttribute</td>
+    <td class=cs>System.Diagnostics</td>
+    <td class=pre>指定された条件付きシンボルが定義されている場合のみ、
+    コンパイル対象に含める。
+    複数適用時はOR結合。    </td>
+    <td class="cs"><cmt>// CONDITION1 が定義されていれば Method1() が有効</cmt>
+<knw>[Conditional(<ltr>"CONDITION1"</ltr>)]</knw>
+<kwd>public static void</kwd> Method1(<kwd>int</kwd> x)
+{
+    <knw>Console</knw>.WriteLine(<ltr>"CONDITION1 is defined"</ltr>);
+}
+
+<cmt>// CONDITION1 または CONDITION2 が定義されていれば Method2() が有効</cmt>
+<knw>[Conditional(<ltr>"CONDITION1"</ltr>), Conditional(<ltr>"CONDITION2"</ltr>)]</knw>
+<kwd>public static void</kwd> Method2()
+{
+    <knw>Console</knw>.WriteLine(<ltr>"CONDITION1 or CONDITION2 is defined"</ltr>);
+}</td>
+  </tr>
+  <tr>
+
+    <td class=cs>AttributeUsageAttribute</td>
+    <td class=cs>System</td>
+    <td class=pre>属性の用途を指定する。
+    ユーザ定義属性で使用する(後述)。</td>
+    <td class="cs"></td>
+  </tr>
+  <tr>
+
+    <td class=cs>ObsoleteAttribute</td>
+    <td class=cs>System</td>
+    <td class=pre>旧式化したコードであることを示す。
+    付与された対象を使用した場合、
+    コンパイラが警告を発する。</td>
+    <td class="cs"><cmt>// OldMethod() を呼び出すと警告される</cmt>
+<knw>[Obsolete(<ltr>"旧いメソッドです。"</ltr>)]</knw>
+<kwd>public void</kwd> OldMethod( <kwd>ref int</kwd> n )
+{
+    n *= <ltr>2</ltr>;
+}</td>
+  </tr>
+
+  <tr>
+    <td>Visual Studio</td>
+    <td class=cs>CategoryAttribute
+DefaultValueAttribute
+DescriptionAttribute
+BrowsableAttribute</td>
+    <td class=cs>System.ComponentModel</td>
+    <td class=pre>コンポーネントクラス(GUIコントロール)のプロパティに付与すると、
+    Visual Studioのプロパティエディタで値を編集できるようになる。
+    (詳細割愛)</td>
+    <td class="cs"></td>
+  </tr>
+  <tr>
+    <td rowspan="2">中間言語(IL)<br>実行環境<br>(.NET)</td>
+    <td class=cs>DllImportAttribute</td>
+    <td class=cs>System.Runtime.InteropServices</td>
+    <td class=pre>ネイティブ(機械語翻訳済)のDLLからメソッドをインポートする。</td>
+    <td class="cs"></td>
+  </tr>
+  <tr>
+    
+    <td class=cs>ComImportAttribute</td>
+    <td class=cs>System.Runtime.InteropServices</td>
+    <td class=pre>アンマネージドなDLLからCOMクラスをインポートする。</td>
+    <td class="cs"></td>
+  </tr>
+  <tr>
+    <td>アセンブリ</td>
+    <td class=cs>AssemblyDescriptionAttribute</td>
+    <td class=cs>System.Reflection</td>
+    <td class=pre>アセンブリに説明文を付与する。
+    (ファイルプロパティ「コメント」から参照可能。)</td>
+    <td class="cs"></td>
+    </tr></table>
+
+<h2>ユーザ定義の属性</h2>
+<div class=pre>属性は<code>System.Attribute</code>を継承したクラスとして定義する。
+ユーザ定義の属性名も末尾に<code>Attribute</code>を付与するのが通例であるが、組み込み属性同様、付与時には省略が可能である。
+</div>
+
+<h6>例 : Author 属性( AuthorAttribute )</h6>
+
+<div class=cs>
+<kwd>using</kwd> <knw>System</knw>;
+
+<cmt>// Author (作者情報)属性の定義</cmt>
+[AttributeUsage( AttributeTargets.Class | AttributeTargets.Struct )]    <cmt>//&lt; 適用対象の規定</cmt>
+<kwd>public class</kwd> Author<knw>Attribute</knw> : <knw>Attribute</knw>
+{
+    <cmt>// private フィールド</cmt>
+    <kwd>private string</kwd> Name;          <cmt>//&lt; 作者名</cmt>
+
+    <cmt>// public フィールド</cmt>
+    <kwd>public string</kwd> Affiliation;    <cmt>//&lt; 作者の所属</cmt>
+
+    <cmt>// コンストラクタ</cmt>
+    <kwd>public</kwd> AuthorAttribute(<kwd>string</kwd> name) { <kwd>this</kwd>.Name = name; }
+}
+
+<cmt>// Author 属性の適用(#1) : 属性パラメータを指定</cmt>
+[Author(<ltr>"Andrei Hejilsberg"</ltr>)]
+<kwd>class</kwd> Test1
+{
+    :
+}
+
+<cmt>// Author 属性の適用(#2) : 属性パラメータと名前付きパラメータを指定</cmt>
+[Author(<ltr>"Andrei Hejilsberg"</ltr>, Affiliation=<ltr>"Microsoft"</ltr>)]
+<kwd>class</kwd> Test2
+{
+    :
+}
+</div>
+
+<div class=pre>上記は<code>Author</code>属性(<code>AuthorAttribute</code>クラス)の定義と付与を示している。
+まず<code>AttributeUsage</code>に<code>AttributeTargets.Class</code>および<code>AttributeTargets.Struct</code>を指定し、属性をクラスおよび構造体に適用可能としている。
+<code>Author</code>属性には引数を1つとるコンストラクタが定義されており、付与時に属性パラメータはコンストラクタに渡される(#1)。
+また、属性クラスにおける<code>public</code>なフィールドおよびプロパティは、付与時に「名前付きパラメータ」で設定することができる(#2)。
+(属性パラメータ、名前付きパラメータともに複数指定が可能。その場合は<code>,</code>(カンマ)で区切る。)
+
+属性の使用方法を定める<code>AttributeUsageAttribute</code>には以下のプロパティが定義されている。
+</div>
+
+<ul>
+<li><code>ValidOn</code> : 属性の適用対象 (<code>System.AttributeTargets</code>(<code>Enum</code>))</li>
+<li><code>AllowMultiple</code> : 同じ属性を同じ対象に複数回適用できるか (<code>bool</code>)</li>
+<li><code>Inherited</code> : 属性が適用されたクラスを継承したとき、属性値も併せて継承するか (<code>bool</code>)</li>
+</ul>
+
+<div class=pre>このうち、<code>ValidOn</code>は属性パラメータとして、それ以外は名前付きパラメータとして指定する。
+ここで、<code>Author</code>属性はクラスまたは構造体の作者を示すことを目的としている。
+一つのクラスを複数人で開発することがあるならば、<code>AllowMultiple = true</code>とする。
+派生クラスの作者は基底クラスと同じとは限らない(作者情報を引き継げない)ため、<code>Inherited = false</code>とする。
+これらを踏まえて<code>Author</code>属性の定義を書き直すと以下のようになる。
+</div>
+
+<div class=cs>
+<kwd>using</kwd> <knw>System;
+
+<cmt>// Author 属性の定義</cmt>
+[AttributeUsage( AttributeTargets.Class | AttributeTargets.Struct   <cmt>  //< 適用対象( ValidOn ) : クラスおよび構造体</cmt>
+                 AllowMultiple = true,                              <cmt>  //< 複数回適用          : 可</cmt>
+                 Inherited = false )]                         <cmt>        //< 属性値継承          : なし</cmt></knw>
+<kwd>public class</kwd> AuthorAttribute : <knw>Attribute</knw>
+{
+    :
+}
+</div>
+
+<h2>属性情報の取得</h2>
+<div class=pre><code>Attribute</code>クラスの静的メソッドにより、付与された属性の情報を取得することができる。
+</div>
+
+<table>
+  <tr class=row1>
+    <td class="col1">メソッド名</td>
+    <td>戻り値</td>
+    <td>解説</td>
+  </tr>
+  <tr>
+    <td class="col1 code">Attribute.GetCustomAttribute()</td>
+    <td class="pre"><code>Attribute</code>
+    付与された属性への参照。該当する属性が無い場合は<code>null</code>。</td>
+    <td class="pre">対象に付与された属性(一つ)を取得する。複数の属性が付与されている場合は例外が発生する。</td>
+  </tr>
+  <tr>
+    <td class="col1 code">Attribute.GetCustomAttributes()</td>
+    <td class="pre"><code>Attribute[]</code>
+    付与された属性への参照の配列。該当する属性が無い場合は空配列。</td>
+    <td class="pre">対象に付与された属性をすべて取得する。</td>
+  </tr>
+</table>
+
+いずれも戻り値は<code>Attribute</code>にラップされるため、元の型を得るにはキャストが必要。
+
+<h3>例</h3>
+
+<h6>コード</h6>
+<div class=cs>
+<kwd>using</kwd> <knw>System</knw>;
+<kwd>using</kwd> <knw>System</knw>.<knw>Reflection</knw>;
+  
+<cmt>// Attribute 属性の定義</cmt><knw>
+[AttributeUsage( AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Method,
+                 AllowMultiple = <kwd>true</kwd>,
+                 Inherited = <kwd>false</kwd> )]</knw>
+<kwd>public class</kwd> AuthorAttribute : <knw>Attribute</knw>
+{
+    <kwd>private string</kwd> name;
+    <kwd>public</kwd> AuthorAttribute(<kwd>string</kwd> name) { <kwd>this</kwd>.name = name; }
+    <kwd>public string</kwd> Name { <kwd>get</kwd> { <kwd>return this</kwd>.name; } }
+}
+ 
+<cmt>// クラス AuthorTest に Author 属性を付与(複数回)</cmt><knw>
+[Author(<ltr>"Stephanie McMahon"</ltr>)]
+[Author(<ltr>"Hunter Herst Helmsly"</ltr>)]</knw>
+<kwd>class</kwd> AuthorTest
+{
+    <cmt>// 各メソッドに Author 属性を付与</cmt>
+<knw>    [Author(<ltr>"Kurt Angle"</ltr>)]</knw>
+    <kwd>public static void</kwd> A() { }
+    <knw>[Author(<ltr>"Rocky Mavia"</ltr>)]</knw>
+    <kwd>public static void</kwd> B() { }
+    <knw>[Author(<ltr>"Chris Jericho"</ltr>)]</knw>
+    <kwd>public static void</kwd> C() { }
+}
+ 
+<cmt>// テストプログラム</cmt>
+<kwd>class</kwd> AttributeTest
+{
+    <kwd>static void</kwd> Main()
+    {
+        GetAllAuthors( <kwd>typeof</kwd>(AuthorTest) );
+    }
+ 
+    <cmt>// クラスおよびクラス中のメソッドの作者情報を取得</cmt>
+    <kwd>static void</kwd> GetAllAuthors( <knw>Type</knw> t )
+    {
+        <cmt>// クラスの型名を出力</cmt>
+        <knw>Console</knw>.WriteLine( <ltr>$@"type name: {t.Name}"</ltr> );
+
+        <cmt>// クラスに付与された作者情報を取得</cmt>
+        GetAuthors( t );
+ 
+        <cmt>// メソッドの作者情報を取得</cmt>
+        <kwd>foreach</kwd>( <knw>MethodInfo</knw> info <kwd>in</kwd> t.GetMethods() )
+        {
+            <knw>Console</knw>.WriteLine( <ltr>$@"  method name: {info.Name}"</ltr> );
+            GetAuthors( info );
+        }
+    }
+
+    <cmt>// メンバごとの作者情報を取得</cmt>
+    <kwd>static void</kwd> GetAuthors( <knw>MemberInfo</knw> info )
+    {
+        <cmt>// Attribute.GetCustomAttributes() により付与された属性をすべて取得</cmt>
+        <knw>Attribute</knw>[] authors = <knw>Attribute</knw>.GetCustomAttributes( info, <kwd>typeof</kwd>(AuthorAttribute) );
+
+        <kwd>foreach</kwd>( <knw>Attribute</knw> att <kwd>in</kwd> authors )
+        {
+            AuthorAttribute author = att as AuthorAttribute;
+            <kwd>if</kwd>( author != <kwd>null</kwd> )
+            {
+                <knw>Console</knw>.WriteLine( <ltr>$@"    author name: {author.Name}"</ltr> );
+            }
+        }
+    }
+}
+</div>
+
+<h6>実行結果</h6>
+
+<div class=cs><ltr>
+type name: AuthorTest
+    author name: Hunter Herst Helmsly
+    author name: Stephanie McMahon
+  method name: GetHashCode
+  method name: Equals
+  method name: ToString
+  method name: A
+    author name: Kurt Angle
+  method name: B
+    author name: Rocky Mavia
+  method name: C
+    author name: Chris Jericho
+  method name: GetType</ltr>
+</div>
+
+<h6>解説</h6>
+<div class=pre><code>AuthorTest</code>クラスおよびそのメソッドに付与された<code>Author</code>属性を取得するテストプログラムである。
+<code>Attribute.GetCustomAttribute()</code>メソッドは付与された属性が複数の場合は例外が投げられるため、
+付与された属性が単一(または無し)であると判明している場合以外は<code>Attribute.GetCustomAttributes()</code>を用いるとよい。
+
+<code>Attribute.GetCustomAttributes()</code>には対象のオブジェクト、および実際の属性の型(<code>AuthorAttribute</code> の型情報)を渡している。
+取得した属性は<code>AuthorAttribute</code>にキャストし、作者名を出力している。
+</div>
+
+<h2>ジェネリック属性</h2>
+<div class=pre>C#11からは、型引数を取るジェネリクスとして属性を定義できるようになった。
+(付与する時点で)既知の型を型引数としてとることができる。
+(未知の型を型引数とすることはできない。
+例えば以下のコードにおいて、<code>MyClass</code>が型引数を取るジェネリクスで、その型引数を<code>TypeConverterAttribute</code>に渡そうとするとエラーとなる。)
+</div>
+
+<div class=cs>
+<cmt>// ジェネリック属性 TypeConverter</cmt>
+<kwd>class</kwd> TypeConverterAttribute&lt;T&gt; : <knw>Attribute</knw> { }
+
+<cmt>// TypeConverter の付与(この時点で MyConverter は既知の型)</cmt>
+<knw>[TypeConverter&lt;MyConverter&gt;]</knw>
+<kwd>class</kwd> MyClass { }
+</div>
+

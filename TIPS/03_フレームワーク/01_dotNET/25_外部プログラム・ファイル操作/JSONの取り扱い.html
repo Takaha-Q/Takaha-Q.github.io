@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
 <!-- スタイルシート -->
@@ -51,7 +51,7 @@
 
 <h3>Dictionary からJSONへの変更(シリアライズ)</h3>
 JsonSerializer を用いることで、string をキーに用いる Dictionary をJSONに変換できる。
-<p class="code">
+<div class="code">
     <cmt>// 元データ(Dictionary)
     // キー(TKey)は string に限定される</cmt>
     <kwd>var</kwd> dic = <kwd>new</kwd> Dictionary&lt;<kwd>string</kwd>, <kwd>string</kwd>&gt;
@@ -67,13 +67,13 @@ JsonSerializer を用いることで、string をキーに用いる Dictionary �
     System.Diagnostics.Debug.Print("{0}", jsonstr);
 </p>
 出力結果
-<p class="code">
+<div class="code">
 {"Hyogo":"Kobe","Shiga":"Ohtsu","Ishikawa":"Kanazawa","Miyagi":"Sendai"}
 </p>
 
 <h3>JSONから Dictionary への変更(デシリアライズ)</h3>
 JSONを Dictionary に変換する際には、Dictionary の完全な型を与える必要がある。
-<p class="code">
+<div class="code">
     <cmt>// 元データ(JSON文字列)</cmt>
     <kwd>string</kwd> jsonStr = <ltr>@"{""Hyogo"":""Kobe"",""Shiga"":""Ohtsu"",""Ishikawa"":""Kanazawa"",""Miyagi"":""Sendai""}"</ltr>;
 
@@ -81,3 +81,4 @@ JSONを Dictionary に変換する際には、Dictionary の完全な型を与�
     <cmt>// 戻り値となる Dictionary の型を指定する</cmt>
     <kwd>var</kwd> dic = <b>System.Text.Json.JsonSerializer.Deserialize</b>&lt;Dictionary&lt;<kwd>string</kwd>, <kwd>string</kwd>&gt;&gt;(jsonStr);
 </p>
+

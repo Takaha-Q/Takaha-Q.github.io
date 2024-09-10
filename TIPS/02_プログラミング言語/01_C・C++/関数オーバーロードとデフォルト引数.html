@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
 <!-- スタイルシート -->
@@ -35,7 +35,7 @@
 引数の型や数が異なる同名の関数を定義すること。同様の機能に対して異なるインタフェースを提供することができる。<br>
 <a href="TIPS/02_プログラミング言語/01_C・C%2B%2B/仮想関数 (Virtual Function).html">「オーバーライド」</a>との混同に注意。<br>
 
-<p class="code">
+<div class="code">
 <cmt>// (C++) myabs() 関数を二通りにオーバーロード</cmt>
 <kwd>int</kwd>   myabs(<kwd>int</kwd>   a) { <kwd>return</kwd> a&lt;<ltr>0</ltr> ? -a : a; }
 <kwd>float</kwd> myabs(<kwd>float</kwd> a) { <kwd>return</kwd> a&lt;<ltr>0</ltr> ? -a : a; }
@@ -50,7 +50,7 @@
 Cではオーバーロードがサポートされていないため、同様の機能を持つ関数を定義する場合に別名を割り当てる必要があった。<br>
 C++(やその他のモダン言語)ではオーバーロードにより同名の関数を定義することができるため、関数管理の煩雑さが軽減できる。<br>
  <b>同名で定義された関数のいずれを呼ぶかは、引数の型・数からコンパイラが自動判別する</b> ため、一種のポリモーフィズムを実現できる。<br>
-<p class="code">
+<div class="code">
 <cmt>// (C) 別名で定義 ⇒ 引数によって使い分けなければならず、覚えるべき関数が増える</cmt>
 <kwd>int</kwd> myabs_int(<kwd>int</kwd> a)       { <kwd>return</kwd> a&lt;<ltr>0</ltr> ? -a : a; }
 <kwd>float</kwd> myabs_float(<kwd>float</kwd> a) { <kwd>return</kwd> a&lt;<ltr>0</ltr> ? -a : a; }
@@ -60,7 +60,7 @@ C++(やその他のモダン言語)ではオーバーロードにより同名の
 <h3>オーバーロードにおける制約</h3>
 関数をオーバーロードする際には、 <b>引数の型・数のいずれか(もしくは両方)が異なっている必要がある</b> 。<br>
 また、関数内で(同名の)オーバーロード関数を呼び出すことに制約は無い。<br>
-<p class="code">
+<div class="code">
 <kwd>struct</kwd> St_Date
 {
     <kwd>int</kwd> year;
@@ -87,7 +87,7 @@ C++(やその他のモダン言語)ではオーバーロードにより同名の
 <h2>デフォルト引数</h2>
 呼び出し時に指定されていない引数があるときに、仮引数にデフォルト値を充てることができる。<br>
 これは <b>デフォルト引数</b> と呼ばれ、関数オーバーロードに関連する機能である。<br>
-<p class="code">
+<div class="code">
 <cmt>// 第2引数 (b) にデフォルト値を適用</cmt>
 <kwd>int</kwd> f(<kwd>int</kwd> a, <kwd>int</kwd> b = <ltr>0</ltr>)
 {
@@ -102,7 +102,7 @@ f(<ltr>4</ltr>);          <cmt>//&lt; a = 4, b = 0 (b は指定されていな�
 別関数を定義することなく引数の数を疑似的に変更できるため、オーバーロードを用いるよりも簡便であることが多い。<br>
 但し引数の型が異なる場合など、オーバーロードを使うべき局面も多いため、使い分けが必要である。<br>
 <h3>デフォルト引数の制約</h3>
-<p class="code">
+<div class="code">
 <kwd>int</kwd> f1(<kwd>int</kwd> a    , <kwd>int</kwd> b = <ltr>0</ltr>, <kwd>int</kwd> c = <ltr>0</ltr>);    <cmt>//&lt; 第2引数以降にデフォルト値を適用</cmt>
 <kwd>int</kwd> f2(<kwd>int</kwd> a = <ltr>0</ltr>, <kwd>int</kwd> b    , <kwd>int</kwd> c = <ltr>0</ltr>);    <cmt>//&lt; この関数はエラーとなる</cmt>
 
@@ -121,7 +121,7 @@ f2() は第1引数 (a) にデフォルト値が設定されているが、第2�
 いずれのオーバーロード関数をコールすべきかをコンパイラが判断できない(曖昧な)状況が発生することがある。<br>
 
 <h3>自動型変換による曖昧さ</h3>
-<p class="code">
+<div class="code">
 <cmt>// f() 関数のオーバーロード</cmt>
 <kwd>float</kwd> f(<kwd>float</kwd> a);
 <kwd>double</kwd> f(<kwd>double</kwd> a);
@@ -138,7 +138,7 @@ f(<ltr>10</ltr>);      <cmt>//&lt; 引数を float 、double のどちらにも�
 ⇒ 引数をキャストするなどして解決を図る。<br>
 <h3>本質的な曖昧さ</h3>
 <h4>参照仮引数を用いる場合</h4>
-<p class="code">
+<div class="code">
 <cmt>// f() 関数のオーバーロード</cmt>
 <kwd>void</kwd> f(<kwd>int</kwd> a);     <cmt>//&lt; 値仮引数</cmt>
 <kwd>void</kwd> f(<kwd>int</kwd>&amp; a);    <cmt>//&lt; 参照仮引数</cmt>
@@ -148,7 +148,7 @@ f(i);      <cmt>//&lt; 曖昧</cmt>
 </p>
 この例はオーバーロード関数の実装自体が曖昧である。値仮引数を受け取る関数と、参照仮引数を受け取る関数では、呼び出しに構文上の違いが無いためである。<br>
 <h4>デフォルト引数との併用</h4>
-<p class="code">
+<div class="code">
 <cmt>// f() 関数のオーバーロード</cmt>
 <kwd>void</kwd> f(<kwd>int</kwd> a);
 <kwd>void</kwd> f(<kwd>int</kwd> a, <kwd>int</kwd> b = <ltr>0</ltr>);
@@ -158,7 +158,7 @@ f(i);      <cmt>//&lt; 曖昧</cmt>
 </p>
 この場合も関数の実装自体が曖昧であり、回避手段は存在しない。<br>
 <h2>オーバーロード関数のアドレス</h2>
-<p class="code">
+<div class="code">
 <cmt>// f() 関数のオーバーロード</cmt>
 <kwd>void</kwd> f(<kwd>int</kwd> a);           <cmt>//&lt; *1</cmt>
 <kwd>void</kwd> f(<kwd>int</kwd> a, <kwd>int</kwd> b);    <cmt>//&lt; *2</cmt>
@@ -177,3 +177,4 @@ fp2 = f;    <cmt>//&lt; *2 が代入される</cmt>
 <h2>余談</h2>
 C++の旧い仕様においては、オーバーロード関数を定義する際は overload キーワードを付与する必要があった。<br>
 現在ではキーワードの付与は任意であるが、オーバーロード関数であることを明示できるため、ヒューマンエラー防止の観点では有用である。
+

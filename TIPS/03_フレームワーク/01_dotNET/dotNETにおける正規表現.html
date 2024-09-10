@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
@@ -21,21 +21,16 @@
 
 <!-- 出典ページ -->
 <details><summary class=link>出典 :</summary>
-<div class=pre><div class="pre"><a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.text.regularexpressions.regex?view=net-8.0">Regex クラス (System.Text.RegularExpressions) | Microsoft Learn</a>
+<div class=pre><a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.text.regularexpressions.regex?view=net-8.0">Regex クラス (System.Text.RegularExpressions) | Microsoft Learn</a>
 <a href="https://qiita.com/yynsmk/items/cc6591178e732d3f7b7a">Regex（正規表現）の基本的な文法 #regex - Qiita</a>
 <a href="https://qiita.com/baku2san/items/b4e14bf97a195ef57757">C#でも名前付きキャプチャを使う Named Group #正規表現 - Qiita</a>
-</div>
-
 </div>
 </details>
 
 <!-- 関連ページ -->
 <details><summary class=link>関連 :</summary>
-<div class=pre><div class="pre"><a href="TIPS/01_ソフトウェア開発一般/03_正規表現/正規表現のススメ.html">正規表現のススメ</a>
+<div class=pre><a href="TIPS/01_ソフトウェア開発一般/03_正規表現/正規表現のススメ.html">正規表現のススメ</a>
 <a href="TIPS/01_ソフトウェア開発一般/03_正規表現/キャプチャ.html">[正規表現]キャプチャ</a>
-</div>
-
-
 </div>
 </details>
 
@@ -47,12 +42,12 @@
 <!-- 本文ここから -->
 
 <h2>.NETにおける正規表現</h2>
-<div class="pre"><code class="b">System.Text.RegularExpressions.Regex</code> クラスには正規表現の機能が実装されており、静的メソッドとしてアクセスが可能である。
+<div class="pre"><code class="b">System.Text.RegularExpressions.Regex</code>クラスには正規表現の機能が実装されており、静的メソッドとしてアクセスが可能である。
 (インスタンスを生成することも可能で、その場合はパターンなどを保持する。詳細は割愛。)
 </div>
 
 <h2>Match() : パターンにマッチする箇所</h2>
-<div class=pre>入力文字列における、パターンにマッチする箇所の情報( <code>System.Text.RegularExpressions.Match</code> )を返す。
+<div class=pre>入力文字列における、パターンにマッチする箇所の情報(<code>System.Text.RegularExpressions.Match</code>)を返す。
 </div>
 
 <h6>記述例</h6>
@@ -83,8 +78,8 @@ Match match = <knw>Regex</knw>.Match( input, pattern );
 </div>
 
 <h3>キャプチャ結果の取得</h3>
-<div class=pre>添字付きプロパティ <code class="b">Match.Groups[]</code> を用いることで、番号または名前を指定してキャプチャ結果を参照できる。
-キャプチャ結果の文字列を取り出すにはさらに <code>Value</code> プロパティを用いる。
+<div class=pre>添字付きプロパティ <code class="b">Match.Groups[]</code>を用いることで、番号または名前を指定してキャプチャ結果を参照できる。
+キャプチャ結果の文字列を取り出すにはさらに<code>Value</code>プロパティを用いる。
 </div>
 
 <h6>記述例</h6>
@@ -129,8 +124,8 @@ Match match = <knw>Regex</knw>.Match( input, pattern );
 </div>
 
 <h2>Matches() : パターンにマッチする箇所の一覧</h2>
-<div class=pre>入力文字列における、パターンにマッチするすべての箇所の情報( <code class="b">System.Text.RegularExpressions.MatchCollection</code> )を返す。
-<code>MatchCollection</code> は <code>Match</code> の集合で、<code>foreach</code> で走査できる。
+<div class=pre>入力文字列における、パターンにマッチするすべての箇所の情報( <code class="b">System.Text.RegularExpressions.MatchCollection</code>)を返す。
+<code>MatchCollection</code>は<code>Match</code>の集合で、<code>foreach</code>で走査できる。
 </div>
 
 <h6>記述例</h6>
@@ -296,9 +291,9 @@ MatchCollection matches = <knw>Regex</knw>.Matches( input, pattern );
 
 <h6>解説</h6>
 <div class=pre>上記のコードでは、通常のキャプチャと名前付きキャプチャを同時に行っている。
-キャプチャグループ名を取得するには <code>Match()</code> を実行した <code>RegEx</code> オブジェクトが必要となるため、<code>Match()</code> 実行前にインスタンスを作成している。
-<code>RegEx.GetGroupNames()</code> を実行すると名前付きキャプチャ( <code>"FirstWord"</code> および <code>"LastWord"</code> )に加え、通常の(番号による)キャプチャ結果も返される。
-(例えばキャプチャ番号 1 には名称 "1" が割り当てられる。<code>Match.Groups[1]</code> と <code>Match.Groups["1"]</code> の結果は等しい。)
+キャプチャグループ名を取得するには<code>Match()</code>を実行した<code>RegEx</code>オブジェクトが必要となるため、<code>Match()</code>実行前にインスタンスを作成している。
+<code>RegEx.GetGroupNames()</code>を実行すると名前付きキャプチャ(<code>"FirstWord"</code>および<code>"LastWord"</code>)に加え、通常の(番号による)キャプチャ結果も返される。
+(例えばキャプチャ番号 1 には名称 "1" が割り当てられる。<code>Match.Groups[1]</code>と<code>Match.Groups["1"]</code>の結果は等しい。)
 このとき、0 番目の結果はキャプチャではなく、パターン全体のマッチ結果となる。
 1 番目、2 番目のキャプチャは複数回実行(該当箇所が複数存在)され、結果は最新のもので上書きされる。
 </div>
@@ -365,8 +360,8 @@ MatchCollection matches = <knw>Regex</knw>.Matches( input, pattern );
 </div>
 
 <h6>解説</h6>
-<div class=pre>キャプチャ番号を取得する際の手順は <code>GetGroupNames()</code> と同様。名前付きキャプチャにも、通常のキャプチャに続く番号が割り当てられる。
-<code>Match.Groups[]</code> で結果を参照する際、名称(文字列)を用いるよりも番号(整数値)を用いるほうが高速であるため、特定の局面では有利にはたらく。
+<div class=pre>キャプチャ番号を取得する際の手順は<code>GetGroupNames()</code>と同様。名前付きキャプチャにも、通常のキャプチャに続く番号が割り当てられる。
+<code>Match.Groups[]</code>で結果を参照する際、名称(文字列)を用いるよりも番号(整数値)を用いるほうが高速であるため、特定の局面では有利にはたらく。
 </div>
 
 <h2>GroupNameFromNumber() : キャプチャグループ番号をグループ名に変換</h2>
@@ -376,6 +371,6 @@ MatchCollection matches = <knw>Regex</knw>.Matches( input, pattern );
 
 <h2>GroupNumberFromName() : キャプチャグループ名をグループ番号に変換</h2>
 <div class=pre>キャプチャグループ名称から番号への変換を行う。
-対応する変換結果が存在しない場合、<code>-1</code> を返す。
+対応する変換結果が存在しない場合、<code>-1</code>を返す。
 </div>
 

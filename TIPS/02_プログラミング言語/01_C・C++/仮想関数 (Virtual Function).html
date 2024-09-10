@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
 <!-- スタイルシート -->
@@ -42,7 +42,7 @@ C++に限らず、オブジェクト指向言語では一般的な概念。継�
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/CPP/virtual_function/virtual_function_01.png" alt="画像"><br>
 <h2>重要な前提 : 派生クラスと基本クラスのポインタ</h2>
 基本クラスと派生クラスが存在する場合、 <b>基本クラスのポインタは、その基本クラスから派生したすべてのクラスオブジェクトを指し示すことができる</b> 。<br>
-<p class="code">
+<div class="code">
 <cmt>// 基本クラス Vehicle</cmt>
 <kwd>class</kwd> Vehicle
 {
@@ -68,7 +68,7 @@ pOb_Vehicle = &amp;Ob_Car;
 (派生クラスオブジェクトを指す)基本クラスポインタを用いて仮想関数にアクセスすると、 <b>派生クラスで再定義した仮想関数が正しく呼び出される</b> 。<br>
 (基本クラスの関数を呼び出すわけではない。)<br>
 <h2>仮想関数の定義</h2>
-<p class="code">
+<div class="code">
 <cmt>// 基本クラス Vehicle</cmt>
 <kwd>class</kwd> Vehicle
 {
@@ -109,7 +109,7 @@ pOb_Vehicle = &amp;Ob_Car;
 
 <h2>仮想関数の用途 : 実行時ポリモーフィズム</h2>
 上述の通り、基本クラスのポインタが派生クラスのオブジェクトを指すことができるため、以下のような実装が可能。<br>
-<p class="code">
+<div class="code">
 <kwd>void</kwd> Drive(<kwd>int</kwd> i)
 {
     Car Ob_Car;                <cmt>//&lt; Car 型オブジェクト</cmt>
@@ -137,7 +137,7 @@ pOb_Vehicle はプログラムの実行時に、Car 、Motorcycle いずれの�
 <li>func-name : 関数名</li>
 <li>parameter-list : 引数リスト</li>
 </ol>
-<p class="code">
+<div class="code">
 <kwd>virtual retval-type</kwd> func-name (parameter-list) <b>= 0</b>; <cmt>//&lt; 末尾に <b>= 0</b> を付与することで純粋仮想化</cmt>
 </p>
 <br>
@@ -145,7 +145,7 @@ pOb_Vehicle はプログラムの実行時に、Car 、Motorcycle いずれの�
 重要な点として、 <b>抽象クラスは、自身のインスタンスを作成することができない</b> 。継承されて初めて意味を持つクラスであり、継承され、純粋仮想関数がオーバーライドされることを前提としている。<br>
 但し、 <b>抽象クラスへのポインタは作成できる</b> 。(実行時ポリモーフィズムを実現するため。)<br>
 派生クラスで純粋仮想関数をオーバーライドしなかった場合は、その派生クラスも抽象クラスとなる(純粋仮想性が維持される)。<br>
-<p class="code">
+<div class="code">
 <cmt>// 基本クラス Vehicle</cmt>
 <kwd>class</kwd> Vehicle
 {
@@ -171,7 +171,7 @@ pOb_Vehicle はプログラムの実行時に、Car 、Motorcycle いずれの�
 <h2>明示的な仮想関数オーバーライド (C++11)</h2>
 基底クラスの仮想関数をオーバーライドする際に、(タイプミスなどで)意図に反する新しい仮想関数を作成してしまうことがある。
 
-<p class="cpp">
+<div class="cpp">
 <cmt>// 基底クラス</cmt>
 <kwd>class</kwd> C_Base
 {
@@ -195,7 +195,7 @@ pOb_Vehicle はプログラムの実行時に、Car 、Motorcycle いずれの�
 <br>
 C++11では <b>override</b> キーワードが導入され、仮想関数のオーバーライドであることを明示することができるようになった。 
 
-<p class="cpp">
+<div class="cpp">
 <cmt>// 基底クラス</cmt>
 <kwd>class</kwd> C_Base
 {
@@ -214,3 +214,4 @@ C++11では <b>override</b> キーワードが導入され、仮想関数のオ�
 
 上記は <b>override</b> 修飾により、仮想関数のオーバーライドであることを明示している。 <br>
 これらが基底クラスのオーバーライド元と一致しない場合、コンパイルエラーとして検出できる。
+

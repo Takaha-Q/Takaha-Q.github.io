@@ -39,7 +39,7 @@
 そのままコピーしてAとBで同じファイルを管理すると二重管理となり、ファイル間の同期が取れなくなる恐れがあるとともに、リポジトリを無用に圧迫してしまう。<br>
 外部参照を用いることでファイルの管理を(Bに)一元化できるため、これらの問題が解消できる。<br>
 
-<p class="code">
+<div class="code">
 <cmt>参照先のリポジトリ (ProjectFoo)</cmt>
 file:///Server_Foo/Somewhare/SVN_Rep/ProjectFoo
 ├ Folder01
@@ -63,7 +63,7 @@ file:///Server_Bar/Somewhare/SVN_Rep/ProjectBar
 「<b class="dcyan">"C:\(略)\ProjectBar"</b> (プロパティの設定先 : ディレクトリ) にある <b class="dgreen">"Folder02"</b> (シンボル) が
 <b class="dyellow">"file:///Server_Foo/Somewhare/SVN_Rep/ProjectFoo/Folder02"</b> (参照先URL) を指す」
 
-<p class="code">
+<div class="code">
 <b class="red">svn propset</b> <b class="blue">svn:externals</b> <b class="dmagenta">"<b class="dgreen">"Folder02"</b> <b class="dyellow">"file:///Server_Foo/Somewhare/SVN_Rep/ProjectFoo/Folder02"</b>"</b> <b class="dcyan">"C:\(略)\ProjectBar"</b>
 </p>
 
@@ -106,7 +106,7 @@ file:///Server_Bar/Somewhare/SVN_Rep/ProjectBar
 コマンド <b class="red">svn propedit</b> を用いるとともに、外部エディタを用いてプロパティの設定を行う。<br>
 <a href="TIPS/04_開発環境/20_バージョン管理システム(VCS)/02_Subversion/外部エディタの設定.html">事前に外部エディタを設定</a>しておく必要がある。
 
-<p class="code">
+<div class="code">
 <b class="red">svn propedit</b> <b class="blue">svn:externals</b> <b class="dcyan">"C:\(略)\ProjectBar"</b>
 </p>
 
@@ -132,3 +132,4 @@ file:///Server_Bar/Somewhare/SVN_Rep/ProjectBar
 
 <h3>TortoiseSVN</h3>
 (書きかけ)
+

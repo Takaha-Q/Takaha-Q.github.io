@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
 <!-- スタイルシート -->
@@ -46,7 +46,7 @@ static修飾との混同に注意。<br>
 
 <h3>ポインタを修飾する</h3>
  <b>アスタリスクより左に</b> constキーワードを置くと、 <b>当該ポインタが「指し示す先が」読み取り専用となる</b> 。<br>
-<p class="code">
+<div class="code">
 <kwd>const</kwd> <kwd>char</kwd>* p;  <cmt>/* const修飾されたポインタ変数 */</cmt>
 
 <cmt>/* 以下の処理は許容されない(コンパイルが通らない) */</cmt>
@@ -55,14 +55,14 @@ p[<ltr>15</ltr>] = <ltr>0</ltr>;
 </p>
 <h3>参照を修飾する</h3>
 ポインタ修飾と同様、 <b>参照変数の「指し示す先が」読み取り専用となる</b> 。<br>
-<p class="code">
+<div class="code">
 <cmt>// lhs , rhs の値が関数内で書き換えられないことが保証される</cmt>
 TimeSpan subtract(<kwd>const</kwd> DateTime &amp;lhs, <kwd>const</kwd> DateTime &amp;rhs);
 </p>
 <h3>永続的な変数を修飾する</h3>
 グローバル変数、およびstatic修飾されたローカル変数をconst修飾すると、単に代入ができないだけでなく、 <b>当該変数がROMに配置されるようになる</b> 。<br>
 ⇒  <b>RAM(スタック)の使用量を削減することができる</b> 。<br>
-<p class="code">
+<div class="code">
 <cmt>/* const修飾されているため、ROMに配置される */</cmt>
 <kwd>const</kwd> <kwd>short</kwd> tbl_1[<ltr>8</ltr>] = {  <ltr>1</ltr>, <ltr>2</ltr>, <ltr>3</ltr>, <ltr>4</ltr>, <ltr>5</ltr>, <ltr>6</ltr>, <ltr>7</ltr>, <ltr>8</ltr> };
 
@@ -73,7 +73,7 @@ TimeSpan subtract(<kwd>const</kwd> DateTime &amp;lhs, <kwd>const</kwd> DateTime 
  <b>特に組み込み用途においてはRAMに余裕が無いことが多いため、「テーブルはconst修飾」は鉄則として理解されたい。</b> <br>
 <h4>永続的変数がポインタの場合</h4>
 constキーワードを <b>「アスタリスクの右」に置かないとROM配置の指示とはならない</b> 。<br>
-<p class="code">
+<div class="code">
 IPortOutput* <kwd>const</kwd> g_nanaseg1[<ltr>8</ltr>] = {
   &amp;g_port20, &amp;g_port21, &amp;g_port40, &amp;g_port41,
   &amp;g_port76, &amp;g_port77, &amp;g_port34, &amp;g_port35,
@@ -81,7 +81,7 @@ IPortOutput* <kwd>const</kwd> g_nanaseg1[<ltr>8</ltr>] = {
 </p>
 
 <h3>メンバ変数を修飾する</h3>
-<p class="code">
+<div class="code">
 <kwd>class</kwd> Real
 {
   <kwd>private</kwd>:
@@ -94,7 +94,7 @@ IPortOutput* <kwd>const</kwd> g_nanaseg1[<ltr>8</ltr>] = {
 ⇒  <b>生成時点で値が定められ(「不定」が認められず)、かつ生涯不変の「性質」を設定する際に有効。</b> <br>
 <br>
 const修飾を用いずに記述した場合は以下のようになる。<br>
-<p class="code">
+<div class="code">
 <kwd>class</kwd> Real
 {
   <kwd>private</kwd>:
@@ -111,7 +111,7 @@ const修飾を用いずに記述した場合は以下のようになる。<br>
 コンストラクタ初期化子については<a href="TIPS/02_プログラミング言語/01_C・C%2B%2B/コンストラクタ初期化子.html">コンストラクタ初期化子</a>を参照のこと。<br>
 
 <h3>メンバ関数を修飾する</h3>
-<p class="code">
+<div class="code">
 <kwd>class</kwd> File
 {
 <kwd>public</kwd>:
@@ -125,7 +125,7 @@ const修飾されたメンバ関数は、メンバ変数を更新することが
 ここで、 <b>const修飾されたメンバ関数からは、同様にconst修飾されたメンバ関数しかコールすることができない</b> 点に留意されたい。<br>
 <h3>一時的な変数を修飾する</h3>
 関数の引数、およびstatic修飾の無いローカル変数(自動変数)に対するconst修飾は、単に「代入を許容しない」という意味となる。<br>
-<p class="code">
+<div class="code">
 <cmt>// 引数および自動変数をconst修飾</cmt>
 <kwd>bool</kwd> isClockwise(<kwd>const</kwd> <kwd>uint32_t</kwd> a, <kwd>const</kwd> <kwd>uint32_t</kwd> b)
 {
@@ -142,7 +142,7 @@ const修飾されたメンバ関数は、メンバ変数を更新することが
 (即ちプログラム中の定数式 3 + 4 は、コンパイルにより定数 7 に置換される。)<br>
 但し、関数呼び出しやオブジェクトコンストラクタが出現すると、その結果がコンパイル時に確定していても定数式とは見なされなくなる。<br>
 
-<p class="cpp">
+<div class="cpp">
 <cmt>// C++03まで (有効でないコード)</cmt>
 <kwd>int</kwd> get5() { <kwd>return</kwd> <ltr>5</ltr>; }
 <kwd>int</kwd> arr_values[get5() + <ltr>5</ltr>];    <cmt>//&lt; 要素数10の配列を作りたいが、</cmt>
@@ -151,14 +151,15 @@ const修飾されたメンバ関数は、メンバ変数を更新することが
 
 C++11ではキーワード <b>constexpr</b> が導入され、関数やオブジェクトコンストラクタが定数式(コンパイル時定数)であることを保証できるようになった。<br>
 即ち、<b>下記の get5() は定数式と解釈される</b>。
-<p class="cpp">
+<div class="cpp">
 <cmt>// C++11以降 (有効なコード)</cmt>
 <kwd>constexpr int</kwd> get5() { <kwd>return</kwd> <ltr>5</ltr>; }    <cmt>//&lt; constexpr 修飾により get5() は定数式となる</cmt>
 <kwd>int</kwd> arr_values[get5() + <ltr>5</ltr>];           <cmt>//&lt; 要素数10の配列を作る ⇒ []内が定数式のため有効</cmt>
 </p>
 
 なお、この constexpr は const の代替として、定数を定数式として定義する際に用いることも可能である。<br>
-<p class="cpp">
+<div class="cpp">
 <kwd>constexpr double</kwd> forceOfGravity = <ltr>9.8</ltr>;
 <kwd>constexpr double</kwd> moonGravity = forceOfGravity / <ltr>6</ltr>;
 </p>
+

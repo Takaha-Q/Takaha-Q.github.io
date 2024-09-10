@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
@@ -101,7 +101,7 @@ C++11(以降)では条件がC++03よりも緩和されている。<br>
 C++03ではすべての非静的 (non-static) メンバが public である必要があるが、C++11では public / private / protected のいずれか一つに統一されていればよい。<br>
 <h2>POD型であることのチェック (C++11以降)</h2>
 <b>std::is_pod&lt;&gt;</b> を用いることで確認できる。<br>
-<p class="code">
+<div class="code">
 <kwd>#include</kwd> &lt;type_traits&gt;
 
 <cmt>// POD型</cmt>
@@ -125,8 +125,9 @@ C++03ではすべての非静的 (non-static) メンバが public である必�
 }
 </p>
 実行結果<br>
-<p class="code">
+<div class="code">
 <kwd>true</kwd>
 <kwd>false</kwd>
 </p>
 <br>
+

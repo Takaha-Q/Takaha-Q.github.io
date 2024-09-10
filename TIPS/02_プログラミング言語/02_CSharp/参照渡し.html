@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
@@ -106,7 +106,7 @@ C#の型は「値型」と「参照型」に大別され、値型の変数には
 
 <h3>in のサンプル</h3>
 <h6>一般形</h6>
-<p class="code">
+<div class="code">
 <cmt>// 参照渡しメソッドの定義</cmt>
 <kwd>public void</kwd> InTest(<kwd>in int</kwd> arg1)
 {
@@ -124,7 +124,7 @@ C#の型は「値型」と「参照型」に大別され、値型の変数には
 </p>
 
 <h6>オプション引数を指定した場合</h6>
-<p class="code">
+<div class="code">
 <cmt>// 参照渡しメソッドの定義</cmt>
 <kwd>public void</kwd> InTest(<kwd>in int</kwd> arg1 = <ltr>0</ltr>)
 {
@@ -140,7 +140,7 @@ C#の型は「値型」と「参照型」に大別され、値型の変数には
 </p>
 
 <h6>エラーとなる場合</h6>
-<p class="code">
+<div class="code">
 <cmt>// 参照渡しメソッドの定義</cmt>
 <kwd>public void</kwd> InTest(<kwd>in int</kwd> arg1)
 {
@@ -160,7 +160,7 @@ in 修飾はメソッド内での引数の書き換えを禁止するため、<a
 
 <h3>ref のサンプル</h3>
 <h6>一般形</h6>
-<p class="code">
+<div class="code">
 <cmt>// 参照渡しメソッドの定義</cmt>
 <kwd>public void</kwd> RefTest(<kwd>ref int</kwd> arg1)
 {
@@ -181,7 +181,7 @@ in 修飾はメソッド内での引数の書き換えを禁止するため、<a
 </p>
 
 <h6>エラーとなる場合</h6>
-<p class="code">
+<div class="code">
 <cmt>// 参照渡しメソッドの定義</cmt>
 <kwd>public void</kwd> RefTest(<kwd>ref int</kwd> arg1)
 {
@@ -209,7 +209,7 @@ in 修飾はメソッド内での引数の書き換えを禁止するため、<a
 
 <h3>out のサンプル</h3>
 <h6>一般形</h6>
-<p class="code">
+<div class="code">
 <cmt>// 参照渡しメソッドの定義</cmt>
 <kwd>public void</kwd> OutTest(<kwd>out int</kwd> arg1)
 {
@@ -228,7 +228,7 @@ in 修飾はメソッド内での引数の書き換えを禁止するため、<a
 </p>
 
 <h6>引数を初期化しない場合</h6>
-<p class="code">
+<div class="code">
 <cmt>// 参照渡しメソッドの定義</cmt>
 <kwd>public void</kwd> OutTest(<kwd>out</kwd> cMyClass arg1)
 {
@@ -254,7 +254,7 @@ in 修飾はメソッド内での引数の書き換えを禁止するため、<a
 </p>
 
 <h6>エラーとなる場合</h6>
-<p class="code">
+<div class="code">
 <cmt>// 参照渡しメソッドの定義</cmt>
 <kwd>public void</kwd> OutTest(<kwd>out int</kwd> arg1)
 {
@@ -269,7 +269,7 @@ in 修飾はメソッド内での引数の書き換えを禁止するため、<a
 in / ref / out の各キーワードは、バイナリ上での差異は存在しない。<br>
 このため、メソッドのオーバーロードに関して以下のような制約が発生する。
 
-<p class="code">
+<div class="code">
 <cmt>// 参照渡しメソッド(in)の定義</cmt>
 <kwd>public void</kwd> Func(<kwd>in int</kwd> arg1)
 {

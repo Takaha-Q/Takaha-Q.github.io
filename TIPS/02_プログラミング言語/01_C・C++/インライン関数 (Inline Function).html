@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
@@ -46,7 +46,7 @@
 C++の機能であったが、C99で正式に言語仕様に組み込まれたためCでも使用可能である。
 
 <h3>関数型マクロとの違い</h3>
-<p class="code">
+<div class="code">
 <cmt>// 関数型マクロ</cmt>
 <kwd>#define</kwd> Mul(x, y) ( (x) * (y) )
 
@@ -60,7 +60,7 @@ C++の機能であったが、C99で正式に言語仕様に組み込まれた�
 
 <h2>インライン化</h2>
 <h3>inline キーワードによるインライン化</h3>
-<p class="code">
+<div class="code">
 <cmt>// グローバルスコープのインライン関数</cmt>
 <kwd>inline</kwd> <kwd>int</kwd> Mul(<kwd>int</kwd> x, <kwd>int</kwd> y) { <kwd>return</kwd> x * y; }
 
@@ -86,7 +86,7 @@ C++の機能であったが、C99で正式に言語仕様に組み込まれた�
 
 <h3>自動インライン化 (クラスメンバ関数)</h3>
 
-<p class="code">
+<div class="code">
 <cmt>// クラス定義</cmt>
 <kwd>class</kwd> C_Hoge
 {

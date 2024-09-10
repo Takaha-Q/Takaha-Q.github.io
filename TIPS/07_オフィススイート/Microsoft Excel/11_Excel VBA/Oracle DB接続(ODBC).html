@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
 <!-- スタイルシート -->
@@ -47,7 +47,7 @@ TIPS/データベース/ODBCによるOracle%20DB接続.html
 ODBCによるOracle DB接続
 </a> を参照のこと。
 
-<p class="code">
+<div class="code">
 <kwd>Sub</kwd> Sample_ODBC_oracle()
 
     <kwd>Const</kwd> DRIVER = <ltr>"{Oracle in instantclient_19_8}"</ltr> <cmt>' ドライバ名</cmt>
@@ -140,7 +140,7 @@ Recordset (オブジェクト名を rs とする)のデータは、上記のよ�
 rs.MoveFirst で先頭のレコードまで巻き戻すことも可能。<br>
 ここで、読み込んだデータが Null の場合、そのままユーザ定義型(Type)などに格納しようとするとエラーとなるため、<br>
 必要に応じて IsNull() プロシージャで Null かどうかを確認して対処する。
-<p class="code">
+<div class="code">
 <cmt>    ' インデクス(col)でフィールドを指定</cmt>
 <cmt>    ' col : 0 ～ rs.Fields.Count - 1</cmt>
     tempVal = rs(col).Value
@@ -155,3 +155,4 @@ rs.MoveFirst で先頭のレコードまで巻き戻すことも可能。<br>
         Cells(1, 1).Value = tempVal
     <kwd>End If</kwd>
 </p>
+

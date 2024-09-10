@@ -37,7 +37,7 @@
 <!-- 本文ここから -->
 
 <h2>基本形</h2>
-<p class="code">
+<div class="code">
 <cmt># 変数の初期化</cmt>
 $AnyParam_1 = <ltr>123</ltr>
 $AnyParam_2 = <ltr>"abc"</ltr>
@@ -47,7 +47,7 @@ $AnyParam_2 = <ltr>"abc"</ltr>
 <kwd>Write-Host</kwd> $AnyParam_2
 </p>
 実行結果
-<p class="code">
+<div class="code">
 123
 abc
 </p>
@@ -62,7 +62,7 @@ abc
 PowerShellは他のスクリプト言語同様、静的な型付けを行わず、与えられた実データに応じて適切なデータ型を自動的に割り当てる。<br>
 ここで既存の変数に異なる型のデータを代入した場合、新たな値に応じてデータ型が再度割り当てられる(エラーとはならない)。<br>
 
-<p class="code">
+<div class="code">
 <cmt># $ttt に 1 (数値)を代入し、型を確認
 # ⇒ Int32 (ValueType : 値型)</cmt>
 PS > $ttt = <ltr>1</ltr>
@@ -86,7 +86,7 @@ True     True     String                                   System.Object
 文字列を表現する際は引用符(シングルクォート ('') 、またはダブルクォート ("") )で囲む必要があるが、<br>
 文字列中に変数を含む場合、いずれを用いたかで挙動が異なる。<br>
 
-<p class="code">
+<div class="code">
 <cmt># 変数 $name に文字列を代入</cmt>
 $name = <ltr>"山田"</ltr>
 
@@ -97,7 +97,7 @@ $name = <ltr>"山田"</ltr>
 <kwd>Write-Host</kwd> <ltr>'私は $name です'</ltr>
 </p>
 実行結果
-<p class="code">
+<div class="code">
 私は 山田 です
 私は $name です
 </p>
@@ -105,7 +105,7 @@ $name = <ltr>"山田"</ltr>
 <h2>配列</h2>
 <h3>初期化</h3>
 配列は <b>@(要素1, 要素2,...)</b> の形式で指定する。<br>
-<p class="code">
+<div class="code">
 <cmt># 変数 $arr を配列として初期化</cmt>
 $arr = <ltr>@(1, 2, 3, 4)</ltr>
 <cmt>#       ↑ ↑ ↑ ↑</cmt>
@@ -120,7 +120,7 @@ $arr = <ltr>@(1, 2, 3, 4)</ltr>
 添字(インデクス)は 0 起算のため、$arr の先頭要素は $arr[0] 、続く要素は $arr[1] 、 $arr[2] ...となる。<br>
 また、添字に -1 を指定することで末尾要素にアクセスできる。<br>
 添字を省略した場合、すべての要素を参照する。<br>
-<p class="code">
+<div class="code">
 PS > $arr = @(1, 2, 3, 4)
 PS > $arr[0]   <cmt>#< 先頭要素にアクセス</cmt>
 1
@@ -146,7 +146,7 @@ PS >
 
 <h3>初期化</h3>
 連想配列は <b>@{要素1のキー=要素1の値; 要素2のキー=要素2の値;...}</b> の形式で指定する。<br>
-<p class="code">
+<div class="code">
 <cmt># 変数 $map_height を連想配列として初期化</cmt>
 <cmt># 氏名と身長を対にして保持する</cmt>
 $map_height = <ltr>@{"相原" = 168; "新井" = 170; "早矢仕" = 180}</ltr>
@@ -155,7 +155,7 @@ $map_height = <ltr>@{"相原" = 168; "新井" = 170; "早矢仕" = 180}</ltr>
 <h3>参照</h3>
 <b>変数名[キー]</b> または <b>変数名.キー</b> の形式で指定する。<br>
 キーを省略した場合は通常の配列同様、すべての要素を参照する。<br>
-<p class="code">
+<div class="code">
 PS > $map_height = @{"相原" = 168; "新井" = 170; "早矢仕" = 180}
 
 PS > $map_height["相原"]        <cmt>#< "相原" の身長</cmt>
@@ -186,3 +186,4 @@ PS > $map_height.Values         <cmt>#< Values プロパティで値の一覧を
 
 PS >
 </p>
+

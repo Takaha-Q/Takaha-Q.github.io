@@ -42,7 +42,7 @@
 型名を <b class="red">?</b> で修飾することで、 <b class="red">Null許容型</b>となる。 <br>
 無修飾(本来)の値の型に加え、nullを格納できるようになる。<br><br>
 <b>通常の型(int)</b>
-<p class="code">
+<div class="code">
 <kwd>int</kwd> value;
 
 <cmt>// value は int 型であるため、null を格納できない ⇒ コンパイルエラー</cmt>
@@ -50,7 +50,7 @@ value = <kwd>null</kwd>;
 </p>
 
 <b>Null許容型(int<blue>?</blue>)</b>
-<p class="code">
+<div class="code">
 <cmt>// int を <b class="red">?</b> で修飾 ⇒ Null許容型</cmt>
 <kwd>int</kwd><b class="red">?</b> value;
 
@@ -97,7 +97,7 @@ value = <kwd>null</kwd>;
 
 <h2>Null合体演算子(Null結合演算子)</h2>
 <b class="red">?? (Null合体演算子)</b> の左辺値がnullでなければ左辺値をそのまま、nullの場合は右辺値を返すようにできる。
-<p class="code">
+<div class="code">
 <knw>List</knw>&lt;<kwd>string</kwd>&gt; arr = <kwd>null</kwd>;
 :
 
@@ -125,7 +125,7 @@ value = <kwd>null</kwd>;
 
 複合代入演算子として <b class="red">??=</b> も存在し、右辺値が非 null の場合のみ右辺値を代入する( null の場合は何もしない)。
 
-<p class="code">
+<div class="code">
 <kwd>string</kwd> temp = <knw>String</knw>.Empty;
 
 <cmt>// xxx.Name が null でなければ代入する</cmt>

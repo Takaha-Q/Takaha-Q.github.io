@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
 <!-- スタイルシート -->
@@ -137,7 +137,7 @@ UNIX / Linuxだけでなく、Windowsでも利用可能。<br>
 
 <h4>メッセージの形式</h4>
 解説のために改行を挿入。実際には空白で連結する。
-<p class="code">
+<div class="code">
 curl -X POST -H 'Authorization: Bearer <blue>xoxb-$$$$$</blue>' <cmt>//< 青字はトークン</cmt>
 -H 'Content-type: application/json;charset=UTF-8'
 <dmagenta>-d '{<dcyan>"channel":"@username"</dcyan>,<dyellow>"text":"Test"</dyellow>}'</dmagenta>        <cmt>//< {}内に送信先チャンネル、メッセージを記述</cmt>
@@ -217,7 +217,7 @@ Windows版cURLに限り、<b><dmagenta>送信データ</dmagenta></b>中の二�
 解説のために改行を挿入。実際には空白で連結する。
 ( "--data" は "-d" と同義)
 
-<p class="code">
+<div class="code">
 curl -X POST -H 'Content-type: application/json;charset=UTF-8'
 <dmagenta>-d '{<dyellow>"text":"Test"</dyellow>}'</dmagenta>                                                             <cmt>//< {}内にメッセージを記述</cmt>
 <red>https://hooks.slack.com/services/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</red>  <cmt>//< Webhook URL</cmt>
@@ -243,3 +243,4 @@ curl -X POST -H 'Content-type: application/json;charset=UTF-8'
     <li>外部からコマンドは実行できない？</li>
     <li>日本語が文字化けする？<br>⇒ JSONを一旦UTF-8で保存しておいて、ファイルを送信すると良い？</li>
 </ul>
+

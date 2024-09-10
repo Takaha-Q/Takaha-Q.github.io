@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
 <!-- スタイルシート -->
@@ -50,7 +50,7 @@
 	<li><b>宣言時にのみ初期化ができる</b>(宣言時の初期化が必須)。</li>
 	<li>switch - caseやデフォルト引数の値として使用できる。<br>
 	    (デフォルト引数は、その引数に値が指定されなかった場合<b>デフォルト値を定数(const)として埋め込む</b>)
-<p class="code">
+<div class="code">
 <kwd>void</kwd> Fuga(<kwd>int</kwd> arg = <ltr>100</ltr>)
 {
     :
@@ -64,7 +64,7 @@ Fuga();           <cmt>//< 引数なしの Fuga() はコンパイル時に Fuga(
         (「アセンブリ」とは、コンパイル済のコードライブラリ(EXE / DLL)を指す。)</li>
 	<li>コンパイル時定数は、コンパイルの際にコードが定数に置き換わる。即ち、リテラルを直接記述した場合と同等となる。<br>
 	    このため、初期値には定数式以外をとることができない。<br>
-<p class="code">
+<div class="code">
 <kwd>class</kwd> Hoge
 {
     <kwd>public const double</kwd> PI   = <ltr>3.14</ltr>;            <cmt>//< 定数式なのでOK</cmt>
@@ -98,7 +98,7 @@ Fuga();           <cmt>//< 引数なしの Fuga() はコンパイル時に Fuga(
 	<li>アセンブリ内のreadonly値を変更しても、当該アセンブリを差し替えれば値は更新される(参照元のリビルド不要)。</li>
 	<li>実行時定数はリテラルには置換されず、初期値にnewの結果や、メソッドの実行結果を使用できる。</li>
 </ul>
-<p class="code">
+<div class="code">
 <kwd>class</kwd> Hoge
 {
     <cmt>// readonly 変数を宣言</cmt>
@@ -177,3 +177,4 @@ constとは異なりバージョニング問題が発生しないため、static
         <td class="center">発生しない</td>
     </tr>
 </table>
+

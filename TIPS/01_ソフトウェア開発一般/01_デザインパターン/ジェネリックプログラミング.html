@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
@@ -140,7 +140,7 @@ foo.GetType();
 特定の型に依存しない汎用的な論理を含んだクラスを定義することができる。これを <b>汎用クラス</b> と呼ぶ。<br>
 汎用クラスのインスタンスを生成する際に操作対象の型を指定する必要がある。汎用クラスのメンバ関数は自動的に汎用関数となる。<br>
 
-<p class="code">
+<div class="code">
 <cmt>// 汎用リスト(単方向)</cmt>
 <cmt>// 操作対象(保持する値)は Data_t 型</cmt>
 <kwd>template</kwd> &lt;<kwd>class</kwd> Data_t&gt; <kwd>class</kwd> List_t
@@ -173,3 +173,4 @@ List_t&lt;<kwd>char</kwd>&gt; start(<ltr>'a'</ltr>);
 </p>
 
 C++の<b>STL(標準テンプレートライブラリ)</b>はその名の通り汎用クラスとして定義されており、多様な型のデータを共通の手法で管理できる。<a href="TIPS/02_プログラミング言語/01_C・C%2B%2B/01_コンテナ(STL)/コンテナ.html">コンテナ</a>が代表的。
+

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
@@ -59,7 +59,7 @@
 C++11にて、特殊メンバ関数の暗黙定義を制御するために <b>default / delete</b> 構文が追加された。
 
 <h2>default 宣言</h2>
-<span class="code"> = <kwd>default</kwd> </span>は、暗黙定義のデフォルトの挙動を使用することを明示する。<br>
+<code>= <kwd>default</kwd></code>は、暗黙定義のデフォルトの挙動を使用することを明示する。<br>
 関数の挙動を変えずにインライン化、または仮想化する際に有用となる。
 
 <div class="code">
@@ -77,7 +77,7 @@ C++11にて、特殊メンバ関数の暗黙定義を制御するために <b>de
 </div>
 
 <h2>delete 宣言</h2>
-<span class="code"> = <kwd>delete</kwd> </span>は、暗黙定義を禁止することを明示する。これにより、クラスのコピーやムーブを制限することができる。
+<code>= <kwd>delete</kwd></code>は、暗黙定義を禁止することを明示する。これにより、クラスのコピーやムーブを制限することができる。
 
 <div class="code">
 <kwd>class</kwd> X
@@ -111,7 +111,7 @@ C++11にて、特殊メンバ関数の暗黙定義を制御するために <b>de
 </div>
 
 <h3>特殊メンバ関数以外への delete</h3>
-<span class="code"> = <kwd>delete</kwd> </span>は特殊メンバ関数以外に対しても使用でき、特定のオーバーロードを明示的に禁止することができる。
+<code>= <kwd>delete</kwd></code>は特殊メンバ関数以外に対しても使用でき、特定のオーバーロードを明示的に禁止することができる。
 
 <div class="code">
 <kwd>void</kwd> f() = <kwd>delete</kwd>;      <cmt>//< 引数無しの f() 定義を禁止 </cmt>

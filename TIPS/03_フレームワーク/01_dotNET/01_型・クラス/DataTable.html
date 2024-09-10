@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
@@ -142,8 +142,8 @@ DataRow[] dRows = table.Select(<ltr>"教科 = '国語'"</ltr>, <ltr>"点数 DESC
 
 DataTable.Select() メソッドで、条件に合致するデータを抽出できる。これはSQLのSELECT文に相当する。<br>
 Select() の戻り値は DataRow のコレクションとなる。<br>
-<span class="code">[列名]='[値]'</span>形式で記述する(値を単一引用符で囲む)。<br>
-<span class="code">[列名] ASC / DESC</span>と記述すると、指定した列の値を用いて昇順(ASC)または降順(DESC)で並び替える。<br>
+<code>[列名]='[値]'</code>形式で記述する(値を単一引用符で囲む)。<br>
+<code>[列名] ASC / DESC</code>と記述すると、指定した列の値を用いて昇順(ASC)または降順(DESC)で並び替える。<br>
 (上記の場合は "点数 DESC" のため、「点数」が降順となるよう並び替える。)<br>
 <br>
 また、データの抽出には Select() のほかにLINQも使用できる。詳細は<a href="https://www.sejuku.net/blog/58187">出典元</a>を参照。
@@ -211,3 +211,4 @@ False に設定することで列の順序やヘッダを自由に設定でき�
 列の属性が string (既定値)だと辞書順のソートとなるので、"Price" 列は数値の大小でソートするため型を明示的に int に指定している。<br>
 また、DataGridTextColumn.TargetNullValue に任意の文字列を設定すること、値が無い場合に表示される。<br>
 詳細は<a href="https://qiita.com/voidProc/items/810b519951961dead2a2">出典元</a>を参照。
+

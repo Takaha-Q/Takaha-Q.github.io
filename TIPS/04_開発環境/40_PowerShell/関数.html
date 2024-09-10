@@ -34,7 +34,7 @@
 <h2>関数定義</h2>
 <h3>基本形</h3>
 []内の項目は省略可能。引数はカンマに続けて複数設定可能。<br>
-<p class="code">
+<div class="code">
 <kwd>function</kwd> 関数名 [(引数[=デフォルト値],...)]
 {
   関数の本体
@@ -43,7 +43,7 @@
 </p>
 
 <h3>例</h3>
-<p class="code">
+<div class="code">
 <cmt># $width と $height の2つの引数をとる関数 Triangle() を定義</cmt>
 <cmt># $width と $height はいずれも double 型</cmt>
 <kwd>function</kwd> Triangle([<kwd>double</kwd>] $width = <ltr>1</ltr>, [<kwd>double</kwd>] $height = <ltr>4</ltr>)
@@ -53,7 +53,7 @@
 </p>
 
 引数の型チェックを行わない場合は型名を省略可能。
-<p class="code">
+<div class="code">
 <kwd>function</kwd> Triangle($width = <ltr>1</ltr>, $height = <ltr>4</ltr>)
 {
   <kwd>return</kwd> $width * $height / <ltr>2</ltr>
@@ -62,14 +62,14 @@
 
 <h2>関数呼び出し</h2>
 関数を呼び出す際は<br>
-<p class="code">
+<div class="code">
 関数名 引数1 引数2 ...
 </p>
 のように、<b>引数を空白で区切る</b>。<br>
 (C系言語のような括弧は不要。また<b>カンマを用いてはならない</b>。)<br>
 
 <h3>例</h3>
-<p class="code">
+<div class="code">
 <cmt># 第1引数( $width ) に 4 、第2引数( $height ) に 6 を与えて呼び出し</cmt>
 Triangle 4 6
 <cmt># 結果 : 12</cmt>
@@ -91,3 +91,4 @@ Triangle -height 12
 Triangle
 <cmt># 結果 : 2</cmt>
 </p>
+

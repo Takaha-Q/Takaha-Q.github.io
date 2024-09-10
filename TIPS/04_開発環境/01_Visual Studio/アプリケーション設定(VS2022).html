@@ -60,16 +60,13 @@
 <div class=pre>設定項目は通常、[アプリケーション名].Properties 名前空間の Settings クラスのプロパティとして追加される。
 (実際の名前空間は Settings.Designer.cs より確認すること。)
 追加された RecentFolder プロパティにアクセスするには、
-<code><knw>Properties</knw>.<knw>Settings</knw>.Default.RecentFolder</code>
-と記述する。
+<code><knw>Properties</knw>.<knw>Settings</knw>.Default.RecentFolder</code>と記述する。
 
 設定の読み込みは起動時に自動的に行われるが、設定の保存はVisual Basicを除いて明示的に行う必要があり、
-<code><knw>Properties</knw>.<knw>Settings</knw>.Default.Save();</code>
-と記述する。
+<code><knw>Properties</knw>.<knw>Settings</knw>.Default.Save();</code>と記述する。
 
 設定は
-<code>C:\Users\[ユーザ名]\AppData\Local\[アプリケーション固有のフォルダ]</code>
-に config ファイルとして保存される。
+<code>C:\Users\[ユーザ名]\AppData\Local\[アプリケーション固有のフォルダ]</code>に config ファイルとして保存される。
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/AppSettings/05.png" alt="画像">
 初回起動時や config ファイルを削除した場合など、config ファイルが存在しない場合は新規に作成される。
 </div>

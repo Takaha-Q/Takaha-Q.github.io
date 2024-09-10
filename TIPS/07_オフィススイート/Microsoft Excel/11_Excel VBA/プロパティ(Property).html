@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
@@ -44,7 +44,7 @@
 クラスモジュール、フォーム、標準モジュールのいずれにもプロパティ(カスタムプロパティ)を作成することができる。
 
 <h3>プロパティの例</h3>
-<span class="vba">Range("A1").Value</span>の Value は Range オブジェクトのプロパティである。<br>
+<code>Range("A1").Value</code>の Value は Range オブジェクトのプロパティである。<br>
 この Value プロパティは値の取得・設定が可能であるが、取得・設定のいずれかのみが可能なものも存在する。<br>
 カスタムプロパティにおいても取得(Get)・設定(Let / <kwd>Set</kwd>)を自由に定義することができる。
 
@@ -149,3 +149,4 @@ Get と Let のプロシージャ名(<knw>Text</knw>)を同一とすることで
 オブジェクトを対象とする場合、<kwd>Property Set</kwd> ではなく <kwd>Property</kwd> Let で定義しても問題なく動作する。<br>
 その場合は呼び出す際に <kwd>Set</kwd> ではなく Let を付与する。<br>
 ただ混乱のもととなりかねないため、特段の事情が無い限りは <kwd>Set</kwd> を用いるほうが望ましい。
+

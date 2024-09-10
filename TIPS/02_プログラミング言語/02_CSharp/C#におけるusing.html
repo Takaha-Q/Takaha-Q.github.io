@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
 <!-- スタイルシート -->
@@ -44,7 +44,7 @@
 <h3>using ディレクティブ</h3>
 異なる名前空間に定義されているクラスを使用する際、ファイルの冒頭に using ディレクティブを記述することで、<br>
 ファイル中で当該名前空間の記述を省略できる。C++と同様</a>。
-<p class="code">
+<div class="code">
 <cmt>// using ディレクティブ</cmt>
 <kwd>using</kwd> <knw>System</knw>.Collections.Generic;
 
@@ -69,7 +69,7 @@
 
 <h3>using エイリアスディレクティブ</h3>
 型に別名を付与することができる。C++と同様。
-<p class="code">
+<div class="code">
 <cmt>// using エイリアスディレクティブ</cmt>
 <kwd>using</kwd> Ints = <knw>System</knw>.Collections.Generic.<knw>List</knw>&lt;<kwd>int</kwd>&gt;;
 
@@ -93,7 +93,7 @@
 C#6.0以降で使用可能。<br>
 通常の using ディレクティブでは省略できない静的メソッドや列挙型の列挙値は、<br>
 using static ディレクティブを用いることで省略可能となる。
-<p class="code">
+<div class="code">
 <kwd>using</kwd> <knw>System</knw>;
 <cmt>// 以下、using 静的ディレクティブ</cmt>
 <kwd>using static</kwd> <knw>System</knw>.Enum;
@@ -141,7 +141,7 @@ using static ディレクティブを用いることで省略可能となる。
 C++等におけるRAIIと同様、例外安全なコードとなる。<br>
 (例外発生時にも確実にリソースを解放できる。)
 
-<p class="code">
+<div class="code">
 <kwd>namespace</kwd> Test
 {
     <kwd>class</kwd> TestProgram
@@ -163,7 +163,7 @@ C++等におけるRAIIと同様、例外安全なコードとなる。<br>
 
 C#8.0からは変数宣言時に using をつけることでさらに簡略化できる。<br>
 (マネージドリソースと同様に扱うことができる。)
-<p class="code">
+<div class="code">
 <kwd>namespace</kwd> Test
 {
     <kwd>class</kwd> TestProgram
@@ -177,3 +177,4 @@ C#8.0からは変数宣言時に using をつけることでさらに簡略化�
     }   
 }
 </p>
+

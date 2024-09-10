@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
@@ -47,7 +47,7 @@
 Hello, &lt;strong&gt;Regexp&lt;/strong&gt; !
 </div>
 
-ここで、<span class="code">&lt;strong&gt;</span>を抽出すべく<span class="code">&lt;.*&gt;</span>を指定しても、期待通りの動作とはならない。<br>
+ここで、<code>&lt;strong&gt;</code>を抽出すべく<code>&lt;.*&gt;</code>を指定しても、期待通りの動作とはならない。<br>
 これは量指定子 <b>*</b> が行末までを検索対象とする「貪欲マッチ」であることによる。<br>
 最初に検出された &gt; で検索を止めたい場合は、<b>*</b> ではなく <b>*?</b> を用いるとよい(無欲マッチ)。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Regexp/Longest Shortest/01.png" alt="画像"><br>
@@ -102,3 +102,4 @@ Hello, &lt;strong&gt;Regexp&lt;/strong&gt; !
 <h2>注意が必要な点</h2>
 貪欲・無欲の違いはマッチ終了位置にのみ表れ、マッチ開始位置には影響しない。このため、以下のような動作となる。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Regexp/Longest Shortest/02.png" alt="画像">
+

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
 <!-- スタイルシート -->
@@ -40,7 +40,7 @@
 <li>破棄時 : 派生クラスのデストラクタ → 基本クラスのデストラクタ</li>
 </ol>
 の順でコールされる。しかし、基本クラスのポインタが派生クラスを指す場合に問題が生じることがある。<br>
-<p class="code">
+<div class="code">
 <kwd>#include</kwd> &lt;iostream&gt;
 using namespace std;
 
@@ -71,7 +71,7 @@ using namespace std;
 </p>
 <br>
 上記コードの実行結果<br>
-<p class="code">
+<div class="code">
 CBase 生成       <cmt>//&lt; #1 ここから</cmt>
 CDerived 生成
 CDerived 破棄
@@ -85,7 +85,7 @@ CBase 破棄       <cmt>//&lt; #2 ここまで</cmt>
 #2 (<b>基本クラスのポインタ</b>が派生クラスのインスタンスを指す場合)では派生クラスのデストラクタがコールされない。<br>
 これは pcl_B が「基本クラスのポインタ」であり、(指し示す先が派生クラスのインスタンスであっても)派生クラス固有のメンバにアクセスできないことが原因である。<br>
 この問題を回避するためには、 <b>基本クラスのデストラクタを仮想化すればよい</b> 。<br>
-<p class="code">
+<div class="code">
 <cmt>// 基本クラスの定義 (修正)</cmt>
 <kwd>class</kwd> CBase {
 <kwd>public</kwd>:
@@ -113,3 +113,4 @@ CBase 破棄       <cmt>//&lt; #2 ここまで</cmt>
 <li>実行時ポリモーフィズムを用いない</li>
 <li>そもそも継承を行わない</li>
 </ul>
+

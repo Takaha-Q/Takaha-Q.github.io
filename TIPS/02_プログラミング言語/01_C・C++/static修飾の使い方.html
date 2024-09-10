@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
 <!-- スタイルシート -->
@@ -41,7 +41,7 @@
 グローバルスコープの関数を修飾すると、 <b>その関数が宣言されたファイル以外からはアクセスできなくなる</b> 。即ち、<b>extern修飾とは排他である。</b><br>
 <br>
 (Hoge.c)
-<p class="code">
+<div class="code">
 <cmt>// 関数を static 修飾</cmt>
 <kwd>static</kwd> <kwd>void</kwd> HogeFunc()
 {
@@ -56,7 +56,7 @@
 </p>
 
 (Fuga.c)
-<p class="code">
+<div class="code">
 <kwd>void</kwd> DoSomething_Fuga()
 {
     <cmt>// ファイルを跨ぐためアクセス不可 ⇒ コンパイルエラー</cmt>
@@ -68,7 +68,7 @@
 (大域変数を用いるとデータの一貫性を保つことが困難となるため、グローバル変数はすべてこの形で用いるべきである。)<br>
 <br>
 (Hoge.c)
-<p class="code">
+<div class="code">
 <cmt>// 変数をstatic修飾</cmt>
 <kwd>static</kwd> <kwd>int</kwd> staticVal = <ltr>3</ltr>;
 
@@ -80,7 +80,7 @@
 </p>
 
 (Fuga.c)
-<p class="code">
+<div class="code">
 <kwd>void</kwd> DoSomething_Fuga()
 {
     <cmt>// ファイルを跨ぐためアクセス不可 ⇒ コンパイルエラー</cmt>
@@ -93,7 +93,7 @@
  <b>⇒ RAM(スタック)の使用量を削減できる。</b> <br>
 <h3>ローカル変数を修飾する</h3>
 ローカル変数を修飾した場合、 <b>関数の呼び出しを跨って値を保持し続ける</b> 。<br>
-<p class="code">
+<div class="code">
 <kwd>void</kwd> Func()
 {
     <kwd>static</kwd> <kwd>int</kwd> staticVal = <ltr>3</ltr>;    <cmt>//&lt; 変数宣言・初期化(初期化は初回しか実行されない)</cmt>
@@ -109,7 +109,7 @@
 }
 </p>
 実行結果<br>
-<p class="code">
+<div class="code">
 staticVal = <ltr>3</ltr>
 staticVal = <ltr>4</ltr>
 staticVal = <ltr>5</ltr>
@@ -120,7 +120,7 @@ staticVal = <ltr>5</ltr>
 <h3>(C++)クラスメンバを修飾する</h3>
 関数・変数が <b>特定のインスタンスに縛られない永続的、かつ唯一のものとなる</b> 。<br>
 このため、 <b>インスタンスを生成せずに参照することができる</b> 。(参照する際はスコープ解決演算子  <b>::</b>  を用いる)<br>
-<p class="code">
+<div class="code">
  <kwd>class</kwd> CHoge
 {
 <kwd>private</kwd>:
@@ -145,3 +145,4 @@ staticVal = <ltr>5</ltr>
 静的メンバ関数は、<b>通常の関数ポインタに代入可能となる</b> 。<br>
 (逆に、静的でないメンバ関数は通常は代入できない。詳細は<a href="TIPS/02_プログラミング言語/01_C・C%2B%2B/メンバ関数ポインタ.html">メンバ関数ポインタ</a>を参照。)<br>
 静的メンバ関数はインスタンスではなくクラスに束縛されるため、「クラスメソッド」とも呼ばれる。<br>(非静的メンバ関数はインスタンスに束縛されるため「インスタンスメソッド」と呼ばれる。)
+

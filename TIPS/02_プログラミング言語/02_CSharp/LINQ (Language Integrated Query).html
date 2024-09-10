@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
@@ -87,7 +87,7 @@ Where() メソッドの引数には、検索条件として<br>
 <b>「引数(s)にシーケンス(names)の要素を与えた場合に true を返す」</b><br>
 ラムダ式を指定する。<br>
 ここでは、「文字列の長さが5以下の要素」がヒットする。<br>
-(上記のラムダ式は<span class="code">(s) =&gt; { return s.Length &lt;= 5; }</span>の省略。)<br>
+(上記のラムダ式は<code>(s) =&gt; { return s.Length &lt;= 5; }</code>の省略。)<br>
 Where() の実行結果もまた IEnumerable&lt;T&gt; であるため、さらにクエリを実行することも可能である。メソッドチェーンも有効。
 
 <h2>クエリ演算子</h2>
@@ -143,3 +143,4 @@ LINQと同様、<a href="TIPS/02_プログラミング言語/02_CSharp/クエリ
 しかしクエリ式はSQLの知識が要求され、また記述も煩雑となりがちである。<br>
 LINQはクエリ式の弱点を補うべく開発された経緯から、よりプログラミング言語との親和性が高く、簡潔に記述できる利点がある。<br>
 逆にSQLに慣れているのであれば、クエリ式を用いることも選択肢となり得る。
+

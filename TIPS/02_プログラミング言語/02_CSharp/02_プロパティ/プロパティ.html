@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
@@ -90,7 +90,7 @@ get / set いずれかのみの定義も可能(読み取り / 更新専用プロ
 
 <h2>自動プロパティ</h2>
 C# 3.0からは、単に値を読み書きする場合の記述を省略できるようになった。<br>
-<p class="code">
+<div class="code">
 <kwd>class</kwd> C_TestClass
 {
     <cmt>// 自動プロパティ Hp</cmt>
@@ -161,7 +161,7 @@ C# 2.0以降、get と set で異なるアクセスレベルを設定できる�
 (「アクセサのレベル」を「プロパティのレベル」よりも緩めることはできない。)<br>
 アクセス修飾子の詳細は<a href="TIPS/02_プログラミング言語/02_CSharp/C%23のアクセス修飾子.html">リンク先</a>を参照。
 
-<p class="code">
+<div class="code">
 <cmt>// プロパティ Sample01 のアクセスレベル : public</cmt>
 <cmt>// setter のアクセスレベル : private</cmt>
 <kwd>public string</kwd> Sample01 { <kwd>get</kwd>; <b><kwd>private</kwd></b> <kwd>set</kwd>; }
@@ -175,3 +175,4 @@ C# 2.0以降、get と set で異なるアクセスレベルを設定できる�
 <h2>init アクセサ</h2>
 初期化時にのみ使用できるアクセサ。C# 9.0で追加された。<br>
 詳細は<a href="TIPS/02_プログラミング言語/02_CSharp/02_プロパティ/オブジェクト初期化子とinitアクセサ.html">リンク先</a>を参照。
+

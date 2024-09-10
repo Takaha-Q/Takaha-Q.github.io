@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
@@ -78,7 +78,7 @@ C++ではvoid* 型から<b>他のポインタ型への暗黙的変換が認め�
 このような経緯からC++では <b>NULL はあらゆるポインタ型への変換が例外的に認められる 0 </b>と展開される。<br>
 しかし以下のように関数オーバーロードと組み合わせることで回避しにくい問題となる。<br>
 
-<p class="cpp">
+<div class="cpp">
 <kwd>void</kwd> foo(<kwd>char</kwd>*);
 <kwd>void</kwd> foo(<kwd>int</kwd>);
 :
@@ -90,7 +90,7 @@ foo(NULL); <cmt>//< ポインタ型のつもりでNULLを与えているが…</
 この問題を受け、C++11ではキーワード <b>nullptr</b> が導入された。<br>
 <b>nullptr は整数型との比較・代入ができないが、あらゆるポインタ型との比較・代入ができる</b> 。<br>
 
-<p class="cpp">
+<div class="cpp">
 <kwd>void</kwd> foo(<kwd>char</kwd>*);
 <kwd>void</kwd> foo(<kwd>int</kwd>);
 :
@@ -113,7 +113,7 @@ C++11ではキーワード <b>constexpr</b> が導入され、関数やオブジ
 <h2>初期化子リスト</h2>
 C++ではCと同様、構造体を初期化する際に、初期値をブレース { } 内に列記(初期化子リスト)することで各メンバに割り当てることができる。これは入れ子となった構造体や、構造体配列でも有効である。<br>
 
-<p class="cpp">
+<div class="cpp">
 <kwd>struct</kwd> St_Object
 {
   <kwd>float</kwd> first;
@@ -126,7 +126,7 @@ St_Object anArray[] = { {<ltr>13.4F</ltr>, <ltr>3</ltr>}, {<ltr>43.28F</ltr>, <l
 
 C++11では初期化子リストがテンプレート <b>std::initializer_list</b> と結び付けられ、コンストラクタなどの関数が<b>初期化子リストを引数として</b>取ることができるようになった。<br>
 
-<p class="cpp">
+<div class="cpp">
 <kwd>class</kwd> CSequenceClass
 {
 <kwd>public</kwd>:
@@ -198,7 +198,7 @@ C++11では <b>final</b> キーワードが追加された。クラスに適用�
 
 <h3>クラスの final 修飾</h3>
 クラスを final 修飾した場合、 <b>そのクラスを派生(継承)させることができなくなる</b> 。<br>
-<p class="cpp">
+<div class="cpp">
 <cmt>// 基底クラス</cmt>
 <cmt>// final : 継承不可となる</cmt>
 <kwd>class</kwd> C_Base <kwd>final</kwd>
@@ -218,7 +218,7 @@ C++11では <b>final</b> キーワードが追加された。クラスに適用�
 
 <h3>仮想関数の final 修飾</h3>
 仮想関数を final 修飾した場合、 <b>その関数はオーバーライド不可となる</b> 。<br>
-<p class="cpp">
+<div class="cpp">
 <cmt>// 基底クラス</cmt>
 <kwd>class</kwd> C_Base
 {
@@ -269,3 +269,4 @@ delete / default を用いることで、これらの暗黙的に定義される
 <h2><a href="TIPS/02_プログラミング言語/01_C・C%2B%2B/ムーブと右辺値参照.html">オブジェクトのムーブ(ムーブセマンティクス)</a></h2>
 あるオブジェクトから、別のオブジェクトにリソース(所有権)を受け渡すことができる。コピーするよりもはるかに高速に処理できるため、特定の局面では有効である。<br>
 詳細はリンク先を参照。
+

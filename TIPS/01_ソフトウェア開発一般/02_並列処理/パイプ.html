@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
@@ -88,9 +88,9 @@ lpr &lt; print.ps
 
 <h3>UNIX / Unix系</h3>
 上述の無名パイプがシェルを用いるのに対し、名前付きパイプはファイルシステムを使用する。<br>
-<code>mkfifo()</code> または <code>mknod()</code> で明示的に作成された名前付きパイプに、二つのプロセスのうち一方は書き手、他方は読み手としてアクセスする。<br>
+<code>mkfifo()</code>または<code>mknod()</code>で明示的に作成された名前付きパイプに、二つのプロセスのうち一方は書き手、他方は読み手としてアクセスする。<br>
 ファイルシステムを介してはいるが、一時ファイルを作成するわけではなく、無名パイプと同様データの授受は主記憶上で完結する。<br>
-尚、<code>mkfifo</code> はコマンドとしても存在する。
+尚、<code>mkfifo</code>はコマンドとしても存在する。
 
 <h4>例</h4>
 
@@ -113,8 +113,8 @@ Windowsにおける名前付きパイプはクライアントサーバ型通信�
 名前付きパイプが専用のファイルシステム(Named Pipe FileSystem - NPFS)上に作成される点、<br>
 また無名パイプと同様に永続性が無く、そのパイプをオープンしているプロセスが存在しなくなると自動的に消滅する点がUnix系と異なる。<br>
 <br>
-名前付きパイプはNPFSのルートディレクトリに置かれ、<code class="bg_lr">\\.\pipe\</code> という専用のパスにマウントされる。<br>
-例えば、<code><i class="bg_lg">my_pipe</i></code> という名前付きパイプのパスは <code class="bg_lr">\\.\pipe\<i class="bg_lg">my_pipe</i></code> となる。
+名前付きパイプはNPFSのルートディレクトリに置かれ、<code class="bg_lr">\\.\pipe\</code>という専用のパスにマウントされる。<br>
+例えば、<code><i class="bg_lg">my_pipe</i></code>という名前付きパイプのパスは <code class="bg_lr">\\.\pipe\<i class="bg_lg">my_pipe</i></code>となる。
 
 <h4>実装例</h4>
 <a href="https://qiita.com/tera1707/items/c1cee4a810bf859a88a0">出典元</a>を参照。

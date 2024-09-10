@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
 <!-- スタイルシート -->
@@ -31,7 +31,7 @@ CRT(Cランタイム)ライブラリの機能を用いて、メモリリーク�
 <li>stdafx.h 末尾に以下のコードを追記する。<br>
 ※デバッグ対象のソースが stdafx.h をインクルードしていることが前提<br>
 (MFC不使用時)<br>
-<p class="code">
+<div class="code">
 <kwd>#if</kwd> _DEBUG
 <kwd>#define</kwd> _CRTDBG_MAP_ALLOC
 <kwd>#include</kwd> &lt;crtdbg.h&gt;
@@ -44,7 +44,7 @@ CRT(Cランタイム)ライブラリの機能を用いて、メモリリーク�
 <kwd>#endif</kwd>
 </p>
 (MFC使用時)<br>
-<p class="code">
+<div class="code">
 <kwd>#if</kwd> _DEBUG
 <kwd>#define</kwd> _CRTDBG_MAP_ALLOC
 <kwd>#include</kwd> &lt;crtdbg.h&gt;
@@ -53,7 +53,7 @@ CRT(Cランタイム)ライブラリの機能を用いて、メモリリーク�
 </p>
 </li>
 <li>エントリ関数(CWinApp::InitInstance() など)の先頭に以下のコードを追記する。<br>
-<p class="code">
+<div class="code">
 ::_CrtSetDbgFlag(_CRTDBG_LEAK_CHECK_DF | _CRTDBG_ALLOC_MEM_DF);
 </p>
 </li>
@@ -61,3 +61,4 @@ CRT(Cランタイム)ライブラリの機能を用いて、メモリリーク�
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/CRT_leak_detection/leak_detect_with_CRT.png"><br>
 </li>
 </ol>
+

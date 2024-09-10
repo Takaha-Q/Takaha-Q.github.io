@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
@@ -50,7 +50,7 @@
 フローが単純化されて可読性が向上するとともに、処理速度の向上も期待できる。
 
 <h3>ガード節を使用しない場合</h3>
-<p class="code">
+<div class="code">
 <kwd>bool</kwd> Func()
 {
     <kwd>bool</kwd> ret = <kwd>true</kwd>;    <cmt>//&lt; 戻り値</cmt>
@@ -91,7 +91,7 @@
 (関数全体を眺めないとフローが把握できない。)
 
 <h3>ガード節を使用した場合</h3>
-<p class="code">
+<div class="code">
 <kwd>bool</kwd> Func()
 {
     <cmt>// DoSomething01() 失敗時は抜ける</cmt>
@@ -121,7 +121,7 @@
 ガード節を用いる上での原則は、<b>「異常があった場合に途中で脱出すること」</b>。<br>
 
 <h2>ガード節を用いる上での注意</h2>
-<p class="code">
+<div class="code">
 <kwd>bool</kwd> Func()
 {
     <cmt>// セマフォ獲得</cmt>
@@ -154,7 +154,7 @@
 
 <h3>本体をサブルーチン化</h3>
 
-<p class="code">
+<div class="code">
 <cmt>// Func_Core()のシンタクスシュガー</cmt>
 <kwd>bool</kwd> Func()
 {
@@ -198,7 +198,7 @@ Func() で行いたい処理をサブルーチンである Func_Core() に移し
 しかし、上記のコードでは<b>例外が発生した場合にセマフォの解放漏れが発生し得る</b>。例外に対応するためには以下のように記述する。<br>
 (ただし後述のRAIIを用いる方が簡便かつ確実である。)<br>
 
-<p class="code">
+<div class="code">
 <cmt>// Func_Core()のシンタクスシュガー</cmt>
 <kwd>bool</kwd> Func()
 {
@@ -251,7 +251,7 @@ Func() で行いたい処理をサブルーチンである Func_Core() に移し
 <h3>(C++)RAIIを用いる</h3>
 RAIIについては<a href="TIPS/02_プログラミング言語/01_C・C%2B%2B/RAIIと地蔵インスタンス.html">リンク先</a>を参照。
 
-<p class="code">
+<div class="code">
 <cmt>// セマフォの獲得・解放専用クラス</cmt>
 Class C_SemaphoreManager
 {
@@ -297,3 +297,4 @@ C_SemaphoreManager はコンストラクタでセマフォを獲得、デスト�
 semStature の生成時にセマフォを獲得。Func() をどの時点で抜けたとしてもスコープを抜けた際にデストラクタが走るため、確実にセマフォを解放できる。<br>
 (<b>例外が発生した場合でも同様にデストラクタが走る。</b>)<br>
 リソースの解放のためだけに try - catch 節を記述する必要が無いため、コードが簡潔となる。
+

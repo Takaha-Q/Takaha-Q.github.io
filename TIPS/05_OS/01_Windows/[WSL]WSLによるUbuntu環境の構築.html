@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
 <!-- スタイルシート -->
@@ -50,7 +50,7 @@ Windows10 (以降)で使用可能。<br>
 <li>スタート画面からUbuntuを起動する。インストール処理完了後、ユーザ名とパスワードを設定する。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/WSL_Ubuntu_Setup/06.png" alt="画像"> </li>
 <li>ルートパスワードを設定する。
-<p class="code">
+<div class="code">
 $ sudo passwd root
 </p>
 を入力し、任意のパスワードを入力する。<br>
@@ -58,7 +58,7 @@ $ sudo passwd root
 <li>プロキシの設定を行う。
 <ol>
 <li>環境変数を設定する。以下の各文を入力する。
-<p class="code">
+<div class="code">
 $ export https_proxyhttp:<cmt>//199.192.50.205:80"</cmt>
 $ export http_proxyhttp:<cmt>//199.192.50.205:80"</cmt>
 $ export ftp_proxyhttp:<cmt>//199.192.50.205:80"</cmt>
@@ -67,7 +67,7 @@ $ export ftp_proxyhttp:<cmt>//199.192.50.205:80"</cmt>
 <li>プロキシ設定を有効化する。<br>
 etcaptaptconf をエディタで開き、以下の3文を記述する。<br>
 (nanoエディタの起動は  <b>sudo nano (ファイル名)</b> ⇒ sudo nano etcaptaptconf 、編集後は <b>Ctrl + S</b> で保存、 <b>Ctrl + X</b> でエディタ終了)
-<p class="code">
+<div class="code">
 Acquire::https::Proxy http:<cmt>//199.192.50.205:80";</cmt>
 Acquire::http::Proxy http:<cmt>//199.192.50.205:80";</cmt>
 Acquire::ftp::Proxy http:<cmt>//199.192.50.205:80";</cmt>
@@ -78,12 +78,12 @@ Acquire::ftp::Proxy http:<cmt>//199.192.50.205:80";</cmt>
 <li>DNSの設定を行う。 <b>/etcsystemdresolvedconf</b> をエディタで編集する。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/WSL_Ubuntu_Setup/08.png" alt="画像"> </li>
 <li>リポジトリを国内サーバに変更する。
-<p class="code">
+<div class="code">
 $ sudo sed -i -e 's%http:<cmt>//.*.ubuntu.com%http://ftpjaistacjppubLinux%' etcaptsourceslist</cmt>
 </p>
 </li>
 <li>ディストリビューションを更新する。
-<p class="code">
+<div class="code">
 $ sudo apt-get update
 </p>
 </li>
@@ -100,3 +100,4 @@ etc.passwd をエディタで編集し、Ubuntuを再起動する。<br>
 </li>
 </ol>
 -->
+

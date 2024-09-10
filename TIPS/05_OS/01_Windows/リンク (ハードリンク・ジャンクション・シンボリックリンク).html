@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
 <!-- スタイルシート -->
@@ -117,7 +117,7 @@ WindowsではUNIX/Linux系OSと同様のリンク機能を利用することが�
 <h3>手順 (コマンドプロンプト)</h3>
 コマンドプロンプトを <b>管理者権限で</b> 開き、mklink コマンドを入力する。<br>
 
-<p class="code">
+<div class="code">
 <cmt>rem シンボリックリンク C:/here/SLink が //Somewhere/location を指すようにする</cmt>
 
 ><b class="red">mklink</b> <b class="dyellow">/D</b> <b class="dmagenta">"C:/here/SLink"</b> <b class="dcyan">"//Somewhere/location"</b>
@@ -165,7 +165,7 @@ WindowsではUNIX/Linux系OSと同様のリンク機能を利用することが�
 <h3>手順 (PowerShell)</h3>
 PowerShellを <b>管理者権限で</b> 開き、New-Item コマンドを入力する。<br>
 
-<p class="code">
+<div class="code">
 <cmt># シンボリックリンク C:/here/SLink が //Somewhere/location を指すようにする</cmt>
 
 ><b class="red">New-Item</b> <b class="blue">-Path 'C:/here'</b> <b class="dmagenta">-Name SLink</b> <b class="dcyan">-Value '//Somewhere/location'</b> <b class="dyellow">-ItemType SymbolicLink</b>
@@ -217,7 +217,7 @@ PowerShellを <b>管理者権限で</b> 開き、New-Item コマンドを入力�
 
 <h3>手順 (PowerShell)</h3>
 
-<p class="code">
+<div class="code">
 <cmt># C:/here/SLink (シンボリックリンク)が //Somewhere/location (実パス)を指す場合</cmt>
 
 <cmt># C:/here/SLink をアイテムとして取得</cmt>
@@ -231,3 +231,4 @@ $sLink.LinkType
 $sLink.Target
 <cmt># UNC\Somewhere\location が返る(UNCパス)</cmt>
 </p>
+

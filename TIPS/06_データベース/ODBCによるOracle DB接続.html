@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
 <!-- スタイルシート -->
@@ -89,7 +89,7 @@ ODBCミドルウェアを呼び出すアプリケーションと、ミドルウ�
 
 <h4>ODBCドライバのインストール</h4>
 コマンドプロンプトを<b>管理者権限で開き</b>、
-<p class="code">
+<div class="code">
 >cd C:\oracle\instantclient_19_8
 >odbc_install.exe JA
 </p>
@@ -98,7 +98,7 @@ ODBCミドルウェアを呼び出すアプリケーションと、ミドルウ�
 <h4>tnsnames.ora の作成</h4>
 tnsnames.ora はOracle DBへの接続情報を保持するテキストファイルである。<br>
 ここでは、<b>C:\oracle\instantclient_19_8\network\admin\</b> 下に以下の内容で作成するものとする。
-<p class="code">
+<div class="code">
 <cmt># データソース名 : PRIME2
 # IP             : 10.14.14.61
 # ポート番号     : 1521
@@ -172,3 +172,4 @@ PRIME2=
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/DataBase/Oracle_with_ODBC/06.png"><br>
 </li>
 </ol>
+

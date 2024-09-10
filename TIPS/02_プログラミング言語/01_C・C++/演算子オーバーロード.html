@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
@@ -82,7 +82,7 @@
 
 <h3>復習 : 演算子とオペランド</h3>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/CPP/operator_overload/01.png" alt="画像"><br>
-<span class="code"> x + 10 </span>の演算(加算)においては、+ が演算の内容を決める「演算子」である。<br>
+<code>x + 10</code>の演算(加算)においては、+ が演算の内容を決める「演算子」である。<br>
 x および 10 は演算の対象となる「オペランド」である。<br>
 なおオペランドのうち、演算子の左にあるものを「左オペランド( = 左辺項)」、右にあるものを「右オペランド( = 右辺項)」と呼ぶ。
 
@@ -142,7 +142,7 @@ x および 10 は演算の対象となる「オペランド」である。<br>
 上記コードでは TestClass において + 演算子および - 演算子のオーバーロードを行っている。<br>
 ( <b>operator 修飾</b>により演算子関数であることを明示する必要がある。)<br>
 二項演算子の演算子関数における<b> this は左オペランド</b>を指し、<b>右オペランドは引数</b>として受け取る。<br>
-(<span class="code"> tc1 + tc2 </span>では this は tc1 を表し、引数に tc2 が入る。)<br>
+(<code>tc1 + tc2</code>では this は tc1 を表し、引数に tc2 が入る。)<br>
 これにより、TestClass 同士の + 演算、- 演算が可能となる。<br>
 なお、引数および戻り値を TestClass 以外の型とすることも可能である。<br>
 
@@ -578,3 +578,4 @@ TestClass tc1(10);
 <br>
 上記の実装は加算演算子を定義するのに加算代入演算子を用いるという手順を踏んでおり、些か煩雑である。<br>
 フレンド関数を用いることで簡潔にするというアプローチも存在するが、ここでは詳細は割愛する。
+

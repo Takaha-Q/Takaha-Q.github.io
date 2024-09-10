@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
 <!-- スタイルシート -->
@@ -48,11 +48,11 @@
 for() 文はC++11以降であれば、
 <a href="TIPS/C%E3%83%BBC%2B%2B/%E5%9E%8B%E6%8E%A8%E8%AB%96.html">auto(型推論)</a>
 を用いて以下のように書ける。<br>
-<p class="code">
+<div class="code">
 <kwd>for</kwd>( <kwd>auto</kwd> it = aVector.begin(); it != aVector.end(); ++it )
 </p>
 また、end() が周回ごとに呼ばれるのを避ける( end() に重い処理を含む場合など)には、以下のようにする。<br>
-<p class="code">
+<div class="code">
 <kwd>auto</kwd> end = aVector.end();
 <kwd>for</kwd>( <kwd>auto</kwd> it = aVector.begin(); it != end ; ++it )
 </p>
@@ -79,3 +79,4 @@ vector 、array 、およびC互換の配列は各要素が添字順にメモリ
 多くの場合(極わずかではあるが) 前置表記のほうが計算負荷が低い。<br>
 これは後置表記が、一度コピーを生成した後、コピーを変更して返す(≒リード・モディファイ・ライト)実装となっているため。<br>
 但し、2023年現在のCPUの実装では後置表記のほうが速いという説もある。
+

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
@@ -150,7 +150,7 @@ _ (アンダースコア)で表現される「破棄パターン」は null を�
 <li>SubParam == true である</li>
 </ul>
 すべてが成立した場合にパターン(およびケースガード)に合致したものとみなされ、トークンに続く式<br>
-<span class="code">( "#1", "停止", SUPPLYFORINKSYS_1_OFF )</span><br>
+<code>( "#1", "停止", SUPPLYFORINKSYS_1_OFF )</code><br>
 が switch 式の評価結果となる。
 
 <h3>網羅的判定</h3>
@@ -168,9 +168,10 @@ _ (アンダースコア)で表現される「破棄パターン」は null を�
 宣言パターンでは、評価対象がパターンにマッチした場合に評価対象を格納する一時変数をパターンに続けて指定することができる。<br>
 このとき、評価対象は合致した型にキャストされる。<br>
 上記の例ではアーム(1)～(4)に一時変数( b )を指定しており、アーム(1)評価時点で、<br>
-<span class="code">((Button)sender).Tag == "InkSys_1"</span><br>
+<code>((Button)sender).Tag == "InkSys_1"</code><br>
 であれば、<br>
-<span class="code">b = (Button)sender</span><br>
+<code>b = (Button)sender</code><br>
 となる。<br>
 この一時変数は、when に続くケースガード内で参照することが可能である。<br>
 ただ、この例ではいずれのアームもケースガード内で b を参照していないため、省略しても問題は無い。
+

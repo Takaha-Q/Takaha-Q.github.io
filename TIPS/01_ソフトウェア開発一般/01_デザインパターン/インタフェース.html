@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
@@ -71,7 +71,7 @@ JavaやC#ではクラスの多重継承が認められていないが、イン�
 <h3>インタフェースの定義</h3>
 <h4>Java</h4>
 (Cashier.java)
-<p class="code">
+<div class="code">
 <cmt>// 「レジ」インタフェース</cmt>
 <kwd>public interface</kwd> ICashier
 {
@@ -83,7 +83,7 @@ class ではなく <b>interface</b> キーワードを用いる点に注意。
 
 <h4>C#</h4>
 (Cashier.cs)
-<p class="code">
+<div class="code">
 <cmt>// 「レジ」インタフェース</cmt>
 <kwd>public interface</kwd> ICashier
 {
@@ -95,7 +95,7 @@ class ではなく <b>interface</b> キーワードを用いる点に注意。
 <h3>インタフェースの実装</h3>
 <h4>Java</h4>
 (CreditCard.java)
-<p class="code">
+<div class="code">
 <cmt>// 「クレジットカード」</cmt>
 <cmt>// インタフェース ICashier を実装</cmt>
 <kwd>public class</kwd> CreditCard <kwd>implements</kwd> ICashier
@@ -110,7 +110,7 @@ class ではなく <b>interface</b> キーワードを用いる点に注意。
 </p>
 
 (Cash.java)
-<p class="code">
+<div class="code">
 <cmt>// 「現金」</cmt>
 <cmt>// インタフェース ICashier を実装</cmt>
 <kwd>public class</kwd> Cash <kwd>implements</kwd> ICashier
@@ -127,7 +127,7 @@ class ではなく <b>interface</b> キーワードを用いる点に注意。
 
 <h4>C#</h4>
 (CreditCard.cs)
-<p class="code">
+<div class="code">
 <cmt>// 「クレジットカード」</cmt>
 <cmt>// インタフェース ICashier を実装</cmt>
 <kwd>public class</kwd> CreditCard : ICashier
@@ -141,7 +141,7 @@ class ではなく <b>interface</b> キーワードを用いる点に注意。
 </p>
 
 (Cash.cs)
-<p class="code">
+<div class="code">
 <cmt>// 「現金」</cmt>
 <cmt>// インタフェース ICashier を実装</cmt>
 <kwd>public class</kwd> Cash : ICashier
@@ -159,7 +159,7 @@ class ではなく <b>interface</b> キーワードを用いる点に注意。
 <h3>インタフェースの具現化</h3>
 <h4>Java</h4>
 (Staff.java)
-<p class="code">
+<div class="code">
 <cmt>// 「スタッフ」</cmt>
 <kwd>public class</kwd> Staff
 {
@@ -182,7 +182,7 @@ CreditCard 、Cash ともに ICashier を実装しているため、Staff では
 
 <h4>C#</h4>
 (Staff.cs)
-<p class="code">
+<div class="code">
 <cmt>// 「スタッフ」</cmt>
 <kwd>public class</kwd> Staff
 {
@@ -200,3 +200,4 @@ CreditCard 、Cash ともに ICashier を実装しているため、Staff では
     }
 }
 </p>
+

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
 <!-- スタイルシート -->
@@ -45,7 +45,7 @@
 両者には相関がある。以下、コード例はいずれもC#における実装。
 
 <h2>DateTime</h2>
-<p class="code">
+<div class="code">
 <cmt>// 初期化 (複数のオーバーロードあり)</cmt>
 DateTime dt1 = <kwd>new</kwd> DateTime(<ltr>2020</ltr>, <ltr> 6</ltr>, <ltr>20</ltr>, <ltr>18</ltr>, <ltr>45</ltr>,  <ltr>3</ltr>);        <cmt>//< 日時 2020年 6月20日 18時45分 3秒 を表現</cmt>
 DateTime dt2 = <kwd>new</kwd> DateTime(<ltr>2020</ltr>, <ltr> 8</ltr>, <ltr>18</ltr>, <ltr>15</ltr>, <ltr>20</ltr>, <ltr>59</ltr>);        <cmt>//< 日時 2020年 8月18日 15時20分59秒 を表現</cmt>
@@ -63,7 +63,7 @@ Console.WriteLine(dt1.DayOfWeek);                             <cmt>//< 曜日 �
 </p>
 
 <h2>TimeSpan</h2>
-<p class="code">
+<div class="code">
 <cmt>// 初期化 (複数のオーバーロードあり)</cmt>
 TimeSpan ts1 = <kwd>new</kwd> TimeSpan(<ltr>45</ltr>, <ltr>3</ltr>, <ltr>21</ltr>, <ltr>0</ltr>);              <cmt>//< 期間 45日 3時間21分0秒 を表現</cmt>
 TimeSpan ts2 = <kwd>new</kwd> TimeSpan();                          <cmt>//< 期間 0日  0時間 0分0秒 を表現</cmt>
@@ -88,7 +88,7 @@ TimeSpan 型を文字列に変換する際の書式指定文字列には書式�
 正 : "hh<b class="red">':'</b>mm<b class="red">':'</b>ss" ⇒ コロンを文字列リテラル化<br>
 
 <h2>DateTime / TimeSpan に対する演算</h2>
-<p class="code">
+<div class="code">
 <cmt>// DateTime 同士の比較</cmt>
 <kwd>if</kwd> ( dt1 < dt2 )
 {
@@ -124,3 +124,4 @@ DateTime dt5 = dt4.Date;                                           <cmt>//<   20
 TimeSpan ts4 = dt4.TimeOfDay;                                      <cmt>//<   2020年 6月 20日 18時   45分  3秒 </cmt>
                                                                    <cmt>//<                   18時   45分  3秒 </cmt>
 </p>
+

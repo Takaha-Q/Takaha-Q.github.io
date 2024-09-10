@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
 <!-- スタイルシート -->
@@ -50,7 +50,7 @@ Robert.C.Martinによって提唱された、オブジェクト指向プログ�
 
 <h3>O : OCP - 解放閉鎖の原則</h3>
  <b>ソフトウェアのエンティティ(クラス・モジュール・関数)は拡張に対して開き、修正に対して閉じていなければならない</b> という原則。<br>
-<p class="code">
+<div class="code">
 <cmt>// 「動物」クラス</cmt>
 <kwd>class</kwd> Animal
 {
@@ -82,7 +82,7 @@ Robert.C.Martinによって提唱された、オブジェクト指向プログ�
 新しい「動物」を追加(拡張)するごとに、Animal クラス(の Sound() 関数)を修正しなければならず、(関連が無いはずの)既存のコードへの影響が避けられない。<br>
 case 節を列挙することにより関数、クラスが肥大化し、整備性が低下することとなる。<br>
 これをOCPに従うよう書き直すと以下のようになる。<br>
-<p class="code">
+<div class="code">
 <cmt>// 「動物」クラス</cmt>
 <kwd>class</kwd> Animal
 {
@@ -121,7 +121,7 @@ OCPが守られることで、既存の構成要素が他の構成要素の変�
 
 <h3>L : LSP - リスコフの置換原則</h3>
  <b>サブクラスは、そのスーパークラスで代用可能でなければならない</b> という原則。 <b>その逆も同様である</b> 。<br>
-<p class="code">
+<div class="code">
 <kwd>int</kwd> hogehoge(Sample ob)
 </p>
 Sample 型の引数を取る hogehoge() 関数において、Sample 型から派生したクラスのインスタンスを引数として渡しても、その文自体はエラーとはならない。<br>
@@ -130,7 +130,7 @@ Sample 型の引数を取る hogehoge() 関数において、Sample 型から派
 <h3>I : ISP - インタフェース分離の原則</h3>
  <b>自分たちが使用しないインタフェースに依存することを強いられるべきではない</b> という原則。<br>
 下記のコードはISPに従っていない例である。<br>
-<p class="code">
+<div class="code">
 <cmt>// クラス「図形」</cmt>
 <kwd>class</kwd> Shape
 {
@@ -171,7 +171,7 @@ Circle クラスは「円」を司っているため、drawSquare() および dr
 (これらの関数に動作を規定することは不可能、または無意味である。一般的には単にエラー処理を行うのみとなる。)<br>
 しかし、Shape クラスが抽象クラスであることから、必要の無いこれらを実装する必要が生じる。<br>
 これをISPに従うよう書き直すと以下のようになる。<br>
-<p class="code">
+<div class="code">
 <cmt>// 「円を描画」インタフェースクラス</cmt>
 <kwd>class</kwd> DrawCircleIf
 {
@@ -215,7 +215,7 @@ Circle クラスは「円」を司っているため、drawSquare() および dr
 }
 </p>
 または<br>
-<p class="code">
+<div class="code">
 <cmt>// クラス「図形」</cmt>
 <kwd>class</kwd> Shape
 {
@@ -254,7 +254,7 @@ Circle クラスは「円」を司っているため、drawSquare() および dr
 <li>抽象化は、詳細に依存してはならない。詳細は、抽象化に依存するべきである。</li>
 </ul>
 
-<p class="code">
+<div class="code">
 <kwd>class</kwd> Hoge
 {
 <kwd>public</kwd>:
@@ -269,7 +269,7 @@ Circle クラスは「円」を司っているため、drawSquare() および dr
 Hoge クラスは Obj クラス(低水準モジュール・詳細・具体化)に依存しており、Obj クラスの情報が無いと処理を記述することができない。<br>
 また、Obj クラスに変更があった場合、Hoge にも変更が及ぶ。(これはOCPにも違反している。)<br>
 これを書き直すと以下のようになる。<br>
-<p class="code">
+<div class="code">
 <cmt>// インタフェースのみを定義した抽象クラス</cmt>
 <kwd>class</kwd> AbstractIf
 {
@@ -287,3 +287,4 @@ Hoge クラスは Obj クラス(低水準モジュール・詳細・具体化)�
 }
 </p>
 Hoge は具体的な特定のクラスではなく、抽象化に依存している。このため、実際に渡されるオブジェクトの型によらず、柔軟な対応が可能となる。
+

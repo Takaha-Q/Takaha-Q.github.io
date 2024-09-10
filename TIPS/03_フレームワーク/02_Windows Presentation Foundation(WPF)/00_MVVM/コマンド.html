@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
@@ -21,23 +21,18 @@
 
 <!-- 出典ページ -->
 <details><summary class=link>出典 :</summary>
-<div class=pre><div class="pre"><a href="https://learn.microsoft.com/ja-jp/dotnet/desktop/wpf/advanced/commanding-overview?view=netframeworkdesktop-4.8">コマンド実行の概要 - WPF .NET Framework | Microsoft Learn</a>
+<div class=pre><a href="https://learn.microsoft.com/ja-jp/dotnet/desktop/wpf/advanced/commanding-overview?view=netframeworkdesktop-4.8">コマンド実行の概要 - WPF .NET Framework | Microsoft Learn</a>
 <a href="https://learn.microsoft.com/ja-jp/dotnet/desktop/wpf/advanced/how-to-hook-up-a-command-to-a-control-with-command-support?view=netframeworkdesktop-4.8">方法: コマンドをサポートするコントロールにコマンドをフックする - WPF .NET Framework | Microsoft Learn</a>
 <a href="https://learn.microsoft.com/ja-jp/dotnet/desktop/wpf/advanced/how-to-hook-up-a-command-to-a-control-with-no-command-support?view=netframeworkdesktop-4.8">方法: コマンドをサポートしないコントロールにコマンドをフックする - WPF .NET Framework | Microsoft Learn</a>
 <a href="https://atmarkit.itmedia.co.jp/ait/articles/1011/09/news102.html">第6回　「コマンド」と「MVVMパターン」を理解する：連載：WPF入門 - ＠IT</a>
 <a href="https://takamints.hatenablog.jp/entry/why-using-commands-in-wpf-mvvm">WPFのMVVMでコマンドをバインディングする利点 - 銀の弾丸</a>
 </div>
-
-</div>
 </details>
 
 <!-- 関連ページ -->
 <details><summary class=link>関連 :</summary>
-<div class=pre><div class="pre"><a href="MVVMパターン.html">MVVMパターン</a>
-<a href="UIイベントの処理.html">UIイベントの処理</a>
-</div>
-
-
+<div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/MVVMパターン.html">MVVMパターン</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/UIイベントの処理.html">UIイベントの処理</a>
 </div>
 </details>
 
@@ -52,7 +47,7 @@
 <div class="pre">GUIアプリケーションにおいては、特定のキーを押す、特定のコントロールをクリックする、といった具体的な操作よりも、
 一段階抽象的な「コピー」、「貼り付け」といった「意味論的(セマンティック)な操作」に処理を関連づけたいことも多い。
 この「意味論的な操作」を<b>コマンド(command)</b>と呼ぶ。
-<img src="file://C:\Users\shinji.takahata\Documents\_Git_Rep\HTML_TIPS\_Img\WPF\Command\01.png" alt="画像">
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\Command\01.png" alt="画像">
 上図のように、「コピー」処理を行うための操作(ユーザアクション)がショートカットキー押下、メニュークリック、ボタンクリックと複数用意されている場合、
 それぞれの具体的操作ではなく、「コピー」処理にイベントハンドラを関連づけることでそれらを包括的に取り扱うことができる。
 逆に言えば、一つのコマンドに複数のユーザアクションを関連づけることができ、コマンドの実行可否を異なるユーザアクションに対して反映することができる。
@@ -60,7 +55,7 @@
 </div>
 
 <h3>コマンドとMVVM</h3>
-<div class=pre>コマンドはデータバインディングと並び、<a href="MVVMパターン.html">MVVMパターン</a>を実現する概念である。
+<div class=pre>コマンドはデータバインディングと並び、<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/MVVMパターン.html">MVVMパターン</a>を実現する概念である。
 旧来のアプリケーションでは特定のUI要素(コントロール)に対する特定の操作にハンドラを関連づけ、処理が実行できない場合はコントロールを無効化するなど、
 UI( View )ごとに異なった処理を実装する必要があり、煩雑で移植性が低かった。
 コマンド(およびデータバインディング)を用いることで、View 固有の処理を削減でき、UIと内部ロジックを分離しやすくなる。
@@ -74,7 +69,7 @@ UI( View )ごとに異なった処理を実装する必要があり、煩雑で�
 <dt>コマンドバインディング</dt><dd>コマンドロジックをコマンドにマップするオブジェクト</dd>
 </dl>
 
-<div class=pre><img src="file://C:\Users\shinji.takahata\Documents\_Git_Rep\HTML_TIPS\_Img\WPF\Command\02.png" alt="画像">
+<div class=pre><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\Command\02.png" alt="画像">
 上図のような、メニューから「貼り付け」をクリックすると、クリップボードにコピーされたテキストを(フォーカスを持つ)テキストボックスに貼り付ける動作においては
 </div>
 <ul>
@@ -228,3 +223,4 @@ ViewModel を DataContext に関連づけることでコマンドを参照可能
 なお、View のコードビハインドは自動的に生成されたままで、コードを一切追加していない。
 MVVMパターンの下では、このようにコードビハインドの記述を最小限にとどめることが推奨される。
 </div>
+

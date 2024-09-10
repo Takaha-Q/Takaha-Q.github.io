@@ -27,16 +27,17 @@ div.code, div.cpp, div.cs, div.java, div.vba, div.xaml
   border-width:         1px;
   border-color:         #996666;
   margin:               6px;
-  padding:              0 1em 1.3em 1em;
+  padding:              0 1em 1.25em 1em;
 }
 
 code
 {
   display:              inline;
-  border-style:         solid;
+  border-style:         dotted;
   border-width:         1px;
-  border-color:         #CC8888;
-  padding:              1px;
+  border-color:         #996666;
+  margin:               1px 3px;
+  padding:              1px 5px;
 }
 
 /* キーワード (<kwd>) */

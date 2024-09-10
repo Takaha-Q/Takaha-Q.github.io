@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
 <!-- スタイルシート -->
@@ -34,7 +34,7 @@
 (ボタンをクリックするなどのイベントを捕捉することができなくなる)<br>
 処理の合間に <b>DoEvents()</b> を実行することで、(一時的に)イベントを捕捉できるようになる。<br>
 
-<p class="code">
+<div class="code">
 <kwd>Dim</kwd> fStop <kwd>As Boolean</kwd>        <cmt>' 停止信号(グローバル変数)</cmt>
 
 <kwd>Sub</kwd> Sample()
@@ -70,7 +70,7 @@
 画面が頻繁に切り替わるような処理を行う場合、そのままでは都度再描画が行われ、処理に時間がかかってしまう。<br>
 都度描画を行う必要が無いのであれば、描画を停止して、終了後にまとめて描画を行うことで処理を速くできる。<br>
 
-<p class="code">
+<div class="code">
 <cmt>' 平均 10.490 秒 </cmt>
 <kwd>Sub</kwd> test1()
     <kwd>Dim</kwd> i <kwd>As Long</kwd>
@@ -85,7 +85,7 @@
 <kwd>End Sub</kwd>
 </p>
 
-<p class="code">
+<div class="code">
 <cmt>' 平均 4.663 秒 </cmt>
 <kwd>Sub</kwd> test2()
     <kwd>Dim</kwd> i <kwd>As Long</kwd>
@@ -115,7 +115,7 @@
 処理の経過をリアルタイムに表示する場合などに、ステータスバーを使うことができる。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MS Excel/VBA_TIPS/01.png"><br>
 
-<p class="code">
+<div class="code">
 <kwd>Sub</kwd> Sample01()
     <kwd>Dim</kwd> i <kwd>As Long</kwd>
     <kwd>For</kwd> i = <ltr>1</ltr> <kwd>To</kwd> <ltr>100</ltr>
@@ -132,3 +132,4 @@
 <b>Application.StatusBar</b> プロパティに文字列を設定することで、その文字列をステータスバーに表示できる。<br>
 そのままだと表示が残ってしまい、Excelが本来の用途でステータスバーを用いることができないので、<br>
 使用後はプロパティに False を設定してExcelが自由に使えるようにする。
+

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
 <!-- スタイルシート -->
@@ -34,7 +34,7 @@
 一般的なWin32 DLLは  <b>DllMain()</b>  をエントリポイントに持つ。<br>
 (Win32アプリケーション(EXE)のエントリポイントは  <b>WinMain()</b>  。)<br>
 DllMain() の一般形(スケルトン)は以下の通り。<br>
-<p class="code">
+<div class="code">
 BOOL WINAPI DllMain(HINSTANCE hinstDll, DWORD dwReason, LPVOID lpReserved)
 {
     <kwd>switch</kwd> (dwReason)
@@ -68,7 +68,7 @@ DLLを(動的に)リンクした場合、DllMain() は以下のタイミング�
 DLL内に静的オブジェクトが存在する場合、 <b>DLLロード時 DllMain() のコールより前に生成され、DLLアンロード時 DllMain() のコール後に破棄される</b> 。<br>
 以下のコードを参照。<br>
 テスト用EXE<br>
-<p class="code">
+<div class="code">
 <kwd>int</kwd> _tmain(<kwd>int</kwd> argc, _TCHAR* argv[])
 {
     wprintf(<ltr>L"Main   , entered\n"</ltr>);
@@ -89,7 +89,7 @@ DLL内に静的オブジェクトが存在する場合、 <b>DLLロード時 Dll
 }
 </p>
 DLL<br>
-<p class="code">
+<div class="code">
 <cmt>// 構造体 Moo 型</cmt>
 <kwd>struct</kwd> Moo
 {
@@ -126,7 +126,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 }
 </p>
 出力結果 (解説のために改行、コメントを追加)<br>
-<p class="code">
+<div class="code">
 Main   , entered
 
 Main   , loading library        <cmt>//&lt; EXEからDLLをロード</cmt>
@@ -140,3 +140,4 @@ Moo    , destructor             <cmt>//&lt; 静的 Moo インスタンス破棄<
 Main   , exiting
 </p>
 <br>
+

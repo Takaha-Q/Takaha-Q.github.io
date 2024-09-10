@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
 <!-- スタイルシート -->
@@ -38,7 +38,7 @@
 
 <h3>コマンド例 (PowerShell)</h3>
 
-<p class="code">
+<div class="code">
 <cmt># ネットワークドライブを割り当てる
 # (\\ComputerName\Users\Takaha-Q\sagawa を J: ドライブとする)</cmt>
 New-PSDrive -Persist -Name J -PSProvider FileSystem -Root \\ComputerName\Users\Takaha-Q\sagawa
@@ -79,7 +79,7 @@ Windowsアプリケーションを<b>管理者権限で実行している場合�
 
 <h4>クラス・関数定義</h4>
 ライブラリ mpr.dll の WNetGetConnection() を用いる。<br>
-<p class="code">
+<div class="code">
 <kwd>using</kwd> System;
 <kwd>using</kwd> System.IO;
 <kwd>using</kwd> System.Runtime.InteropServices;
@@ -127,7 +127,7 @@ Windowsアプリケーションを<b>管理者権限で実行している場合�
 </p>
 
 <h4>関数コール</h4>
-<p class="code">
+<div class="code">
 <cmt>// MappedDriveResolver クラスの GetUNCPath() メソッドをコール
 // ネットワークドライブ下のロケーションを渡す</cmt>
 MappedDriveResolver.GetUNCPath(@<ltr>"J:\ChildDir"</ltr>);
@@ -161,3 +161,4 @@ MappedDriveResolver.GetUNCPath(@<ltr>"J:\ChildDir"</ltr>);
 <td>@"\\ComputerName\AnyDir\ChildDir\"</td>
 </tr>
 </table>
+

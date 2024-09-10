@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
 <!-- スタイルシート -->
@@ -33,7 +33,7 @@
 <h3>C# (.NET)</h3>
 イベントハンドラの<b>第1引数(sender)</b>として渡される。<br>
 sender は object 型にラップされているため、<b>メンバにアクセスするには実際の型にキャストする必要がある</b>。
-<p class="code">
+<div class="code">
 <cmt>// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = -
 // (イベントハンドラ)
 // ラジオボタンチェック状態変更時の処理
@@ -55,7 +55,7 @@ sender は object 型にラップされているため、<b>メンバにアク�
 イベントセンダの情報を取得することで発行元を特定できるため、<br>
 <b>複数のコントロールでイベントハンドラメソッドを共用することができる</b>。<br>
 ⇒ 共通のロジックをDRY化できる。<br>
-<p class="code">
+<div class="code">
 <cmt>// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = -
 // (イベントハンドラ)
 // テキストボックス テキスト変更時の処理
@@ -75,3 +75,4 @@ sender は object 型にラップされているため、<b>メンバにアク�
 直接操作されたラジオボタンは勿論、同一グループにある他のラジオボタンもイベントを発行する。<br>
 ラジオボタンのチェック状態に応じて処理を行うことで、処理の重複を避けることができる。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/Event_Sender/01.png">
+

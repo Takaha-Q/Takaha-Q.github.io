@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
 <!-- スタイルシート -->
@@ -41,7 +41,7 @@
 System.Collections.IList インターフェイスを実装するオブジェクト(List など)、または Array をデータソースに使用可能。
 
 <h6>C#</h6>
-<p class="code">
+<div class="code">
 <cmt>// List 型オブジェクトをデータソース(DataSource)に指定</cmt>
 comboBox_Attendance.DataSource = <kwd>new</kwd> List&lt;<kwd>string</kwd>&gt;(dic_Attendance.Keys);
 </p>
@@ -51,7 +51,7 @@ comboBox_Attendance.DataSource = <kwd>new</kwd> List&lt;<kwd>string</kwd>&gt;(di
 このためドメイン(値の定義域)が共通でも、それぞれを独立して動作させるなら個別にオブジェクトを作成する必要がある。<br>
 (逆に、複数のコントロールで値を連動させたい場合は、共通のオブジェクトをデータソースに設定するとよい。)
 
-<p class="code">
+<div class="code">
 <cmt>// List 型オブジェクトを生成</cmt>
 <kwd>var</kwd> ds = <kwd>new</kwd> List&lt;<kwd>string</kwd>&gt; { <ltr>"rrr"</ltr>, <ltr>"sss"</ltr>, <ltr>"ttt"</ltr> };
 
@@ -63,7 +63,7 @@ comboBox_02.DataSource = ds;
 comboBox_03.DataSource = ds;
 </p>
 
-<p class="code">
+<div class="code">
 <cmt>// (初期化子としての)List 型オブジェクトを生成</cmt>
 <kwd>var</kwd> ds = <kwd>new</kwd> List&lt;<kwd>string</kwd>&gt; { <ltr>"rrr"</ltr>, <ltr>"sss"</ltr>, <ltr>"ttt"</ltr> };
 
@@ -73,3 +73,4 @@ comboBox_01.DataSource = <kwd>new</kwd> List&lt;<kwd>string</kwd>&gt;(ds);
 comboBox_02.DataSource = <kwd>new</kwd> List&lt;<kwd>string</kwd>&gt;(ds);
 comboBox_03.DataSource = <kwd>new</kwd> List&lt;<kwd>string</kwd>&gt;(ds);
 </p>
+

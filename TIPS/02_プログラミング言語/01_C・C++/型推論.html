@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
@@ -52,11 +52,11 @@
 静的な型付けを持つ言語において、変数や関数シグネチャの型を明示的に宣言しなくても、周辺情報および文脈などから自動的(暗黙的)に各々の型を決定する機構のこと。<br>
 初期化のための代入式の右辺値や、関数呼び出し時の実引数などから、変数や関数の戻り値の型を帰納的に決定することができる。<br>
 特にテンプレートやメタプログラミングでは、オブジェクトの型を実装時に特定することが困難(または不可能)であるため、型推論によって最適な型を割り当てることで省力化やヒューマンエラー低減が期待できる。<br>
-Java、C#、Swiftなどモダン言語が型推論をサポートしており、C++には<a href="TIPS/C%E3%83%BBC%2B%2B/C%2B%2B11.html">C++11</a>から導入された。<br>
+Java、C#、Swiftなどモダン言語が型推論をサポートしており、C++には<a href="TIPS/02_プログラミング言語/01_C・C%2B%2B/C%2B%2B11.html">C++11</a>から導入された。<br>
 
 <h2>C++における型推論</h2>
 <h3>auto キーワードによる型推論</h3>
-<p class="code">
+<div class="code">
 <kwd>auto</kwd> someStrangeCallableType = boost::bind(&amp;SomeFunction, _2, _1, someObject);
 <kwd>auto</kwd> otherVariable = <ltr>5</ltr>;
 </p>
@@ -68,7 +68,7 @@ Java、C#、Swiftなどモダン言語が型推論をサポートしており、
 また、同様に <b>auto</b> を用いた変数 otherVariable の型はリテラル(5)によって int となる。<br>
 <br>
 auto はコードの簡略化(冗長性の排除)にも有効である。<br>
-<p class="code">
+<div class="code">
 <cmt>// std::vector&lt;int&gt; myvec (ベクトル)を走査する場合</cmt>
 
 <cmt>// auto を使用しない for ループ</cmt>
@@ -86,16 +86,15 @@ auto はコードの簡略化(冗長性の排除)にも有効である。<br>
 </p>
 
 myvec.begin() の戻り値の型からイテレータ itr の型を推論することができる。<br>
-コンテナがネストするような場合は特に効果が大きい。<a href="TIPS/02_プログラミング言語/01_C・C%2B%2B/01_コンテナ(STL)/コンテナ.html">コンテナ</a>および<a href="TIPS/02_プログラミング言語/01_C・C%2B%2B/01_コンテナ(STL)/イテレータ.html">イテレータ</a>については、リンク先を参照のこと。<br>
+コンテナがネストするような場合は特に効果が大きい。<a href="TIPS/02_プログラミング言語/01_C・C%2B%2B/01_コンテナ(STL)/イテレータ.html">イテレータ</a>については、リンク先を参照のこと。<br>
 
 <h3>decltype キーワードによる型の取得</h3>
 <b>decltype</b> キーワードを用いると、オペランドで指定した式の型をコンパイル時に取得することができる。<br>
-<p class="code">
+<div class="code">
 <kwd>int</kwd> someInt;
 <kwd>decltype</kwd>(someInt) otherIntegerVariable = <ltr>5</ltr>;    <cmt>//&lt; decltype() のオペランド (someInt) により int 型と確定</cmt>
 </p>
 auto で宣言した変数の(実際の)型はコンパイラにしかわからないので<b> decltype と組み合わせることは有用である</b>。<br>
 (この例では、変数 someInt が int 型であるため、変数 otherIntegerVariable は decltype(someInt) の評価結果から int 型となる。)<br>
 <br>
-
 

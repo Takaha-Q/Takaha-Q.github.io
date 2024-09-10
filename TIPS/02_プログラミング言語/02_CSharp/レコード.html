@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
@@ -27,20 +27,17 @@
 <a href="https://learn.microsoft.com/ja-jp/dotnet/csharp/language-reference/keywords/required">required 修飾子 - C# リファレンス - C# | Microsoft Learn</a>
 <a href="https://qiita.com/shimamura_io/items/80982b11ce41eca03e10">【C# 9.0 新機能】レコード（record）型はクラスと比べて何がオトクなのか #C# - Qiita</a>
 <a href="https://takap-tech.com/entry/2018/10/19/004932">C#のクラスと構造体の違い・使い分け方 - PG日誌</a>
-
-<!-- 関連 -->
 </div>
 </details>
 
-<!-- 関連ページ -->
+<!-- 関連 -->
 <details><summary class=link>関連 :</summary>
 <div class=pre><a href="TIPS/02_プログラミング言語/02_CSharp/C%23のアクセス修飾子.html">C#のアクセス修飾子</a>
 <a href="TIPS/02_プログラミング言語/02_CSharp/02_プロパティ/プロパティ.html">プロパティ</a>
 <a href="TIPS/02_プログラミング言語/02_CSharp/02_プロパティ/オブジェクト初期化子とinitアクセサ.html">オブジェクト初期化子とinitアクセサ</a>
 <a href="TIPS/02_プログラミング言語/02_CSharp/[C%23]タプル.html">タプル</a>
 <a href="TIPS/02_プログラミング言語/02_CSharp/コンストラクタからコンストラクタを呼ぶ.html">コンストラクタからコンストラクタを呼ぶ</a>
-
-
+<a href="TIPS/02_プログラミング言語/02_CSharp/プライマリコンストラクタ.html">プライマリコンストラクタ</a>
 </div>
 </details>
 
@@ -166,9 +163,9 @@ Javaにおけるレコードと共通の概念。
 クラス同様参照型であることから、メソッドの引数に用いた場合もオーバーヘッドが小さい。
 
 <h2>プライマリコンストラクタによる初期化</h2>
-C#12以降、クラス、構造体、レコードで「<a href="https://learn.microsoft.com/ja-jp/dotnet/csharp/programming-guide/classes-and-structs/instance-constructors#primary-constructors">プライマリコンストラクタ</a>」を宣言できるようになった。<br>
-(詳細はリンク先を参照。)<br>
+C#12以降、クラス、構造体、レコードでプライマリコンストラクタが宣言できるようになった。<br>
 レコードにプライマリコンストラクタを宣言した場合、コンストラクタ引数と同名のパブリックプロパティが生成される。<br>
+(プライマリコンストラクタの引数は「位置パラメータ」、生成されるプロパティは「位置プロパティ」と呼ばれる。)<br>
 これにより、イミュータブルなレコードを簡潔に定義することができる。
 
 <div class="cs">
@@ -191,10 +188,6 @@ C#12以降、クラス、構造体、レコードで「<a href="https://learn.mi
 これにより、レコード Person の各メンバは必ず値を持つことが保証され、かつ不変となる( set アクセサが定義されないため)。<br>
 プライマリコンストラクタを宣言した場合、引数はすべてのインスタンスの生成に必要であるものと見なされ、<br>
 他のコンストラクタは <a href="TIPS/02_プログラミング言語/02_CSharp/コンストラクタからコンストラクタを呼ぶ.html">this(...)</a> 構文を用いてプライマリコンストラクタを呼び出す必要がある。<br>
-<br>
-レコードにおけるプライマリコンストラクタの引数は「位置パラメータ」と呼ばれ、<br>
-プライマリコンストラクタを宣言すると、コンパイラにより位置パラメータと同名の「位置プロパティ」が作成される。<br>
-(但し、プライマリコンストラクタに独自の処理を記述した場合はその限りではない。)
 <br>
 また、プロパティの一部のみを独自に定義することも可能である。
 <div class="cs">
@@ -241,3 +234,4 @@ PersonRecord { LastName = Wagner, FirstName = Bill }</ltr>
 C#10では record struct が追加された。機能は record と同様であるが、値型である点が異なる。<br>
 同様に参照型であることを明示するための record class も追加されており、これは record と同義である。<br>
 即ち、record は record class の省略形と見ることができる。詳細は<a href="https://learn.microsoft.com/ja-jp/dotnet/csharp/language-reference/builtin-types/record">リンク先</a>を参照。
+

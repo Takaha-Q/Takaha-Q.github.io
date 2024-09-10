@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
 <!-- スタイルシート -->
@@ -40,14 +40,14 @@ VBAからは、ほぼすべてのワークシート関数を呼び出すこと�
 
 <h2>基本の書式</h2>
 <b class="red">WorksheetFunction</b> オブジェクトを用いる。
-<p class="code">
+<div class="code">
 <b class="red">WorksheetFunction</b>.関数名(引数)
 </p>
 
 <h2>ワークシート関数を用いる場合と用いない場合の処理時間の比較</h2>
 セル範囲 A1 : A100000 に入力された数値の総和を求める場合の例<br>
 <h4>VBAに直接記述 ⇒ 0.395秒</h4>
-<p class="code">
+<div class="code">
 <kwd>Sub</kwd> Test1()
     <kwd>Dim</kwd> i <kwd>As Long</kwd>, A <kwd>As Long</kwd>
 
@@ -59,7 +59,7 @@ VBAからは、ほぼすべてのワークシート関数を呼び出すこと�
 </p>
 
 <h4>ワークシート関数( Sum() )を使用 ⇒ 0.002 秒</h4>
-<p class="code">
+<div class="code">
 <kwd>Sub</kwd> Test2()
     <cmt>' ループ制御変数 i は不要</cmt>
     <kwd>Dim</kwd> A <kwd>As Long</kwd>
@@ -68,3 +68,4 @@ VBAからは、ほぼすべてのワークシート関数を呼び出すこと�
     A = <b class="red">WorksheetFunction</b>.Sum(Range("A1:A100000"))
 <kwd>End Sub</kwd>
 </p>
+

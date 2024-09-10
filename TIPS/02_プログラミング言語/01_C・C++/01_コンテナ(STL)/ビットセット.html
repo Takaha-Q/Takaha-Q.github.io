@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
 <!-- スタイルシート -->
@@ -55,7 +55,7 @@ bitset はヒープ(動的メモリ)を使用しないため、デストラク�
 
 <h2>要素の参照</h2>
 特定のビットの状態は添字演算子([])、または test() で参照できる。 <b>添字[0]はLSB(最下位ビット)である点に注意</b> 。<br>
-<p class="code">
+<div class="code">
 <kwd>#include</kwd> &lt;bitset&gt;
 <kwd>#include</kwd> &lt;iostream&gt;
 
@@ -82,7 +82,7 @@ bitset はヒープ(動的メモリ)を使用しないため、デストラク�
 <h2>要素の更新</h2>
 添字演算子([])、set() 、reset() を用いる。<br>
 また、flip() を用いることで指定ビット、または全ビットを反転できる。<br>
-<p class="code">
+<div class="code">
 <kwd>#include</kwd> &lt;bitset&gt;
 
 <kwd>void</kwd> main()
@@ -105,7 +105,7 @@ bitset はヒープ(動的メモリ)を使用しないため、デストラク�
 
 <h2>ビット演算</h2>
 通常の符号なし整数と同様に、ビット演算を行うことができる。<br>
-<p class="code">
+<div class="code">
 <kwd>#include</kwd> &lt;bitset&gt;
 
 <kwd>void</kwd> main()
@@ -123,7 +123,7 @@ bitset はヒープ(動的メモリ)を使用しないため、デストラク�
 
 <h2>入出力</h2>
 bitset は標準入出力ストリームと直接連携できる。<br>
-<p class="code">
+<div class="code">
 <kwd>#include</kwd> &lt;bitset&gt;
 <kwd>#include</kwd> &lt;iostream&gt;
 
@@ -136,7 +136,7 @@ bitset は標準入出力ストリームと直接連携できる。<br>
 }
 </p>
 実行結果<br>
-<p class="code">
+<div class="code">
 1101             <cmt>//&lt; コンソールからの入力内容</cmt>
 0000001101
 </p>
@@ -151,7 +151,7 @@ bitset は標準入出力ストリームと直接連携できる。<br>
 <h3>to_string() に関する注意</h3>
 <h4>C++03以前</h4>
 テンプレート実引数が必要である。<br>
-<p class="code">
+<div class="code">
 <kwd>#include</kwd> &lt;bitset&gt;
 
 <kwd>void</kwd> main()
@@ -164,7 +164,7 @@ bitset は標準入出力ストリームと直接連携できる。<br>
 
 <h4>C++11以降</h4>
 デフォルトのテンプレート実引数が与えられるため、テンプレート実引数の指定は不要。また、false / true に割り当てる文字を指定できる。(省略時は '0' と '1' 。)<br>
-<p class="code">
+<div class="code">
 <kwd>#include</kwd> &lt;bitset&gt;
 
 <kwd>void</kwd> main()
@@ -175,3 +175,4 @@ bitset は標準入出力ストリームと直接連携できる。<br>
     std::<kwd>string</kwd> s = bset.to_string();            <cmt>//&lt; "0011110000"</cmt>
 }
 </p>
+
