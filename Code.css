@@ -21,36 +21,24 @@ code, .code, .cpp, .cs, .java, .vba, .xaml
   line-height:          1.25;
 }
 
-div.code, p.code,
-div.cpp,  p.cpp,
-div.cs,   p.cs,
-div.java, p.java,
-div.vba,  p.vba,
-div.xaml, p.xaml
+div.code, div.cpp, div.cs, div.java, div.vba, div.xaml
 {
   border-style:         solid;
   border-width:         1px;
   border-color:         #996666;
-  margin:               6px 10em 6px 0;
+  margin:               6px;
   padding:              0 1em 1.3em 1em;
 }
-/*
-code,
-span.code, 
-span.cpp, 
-span.cs, 
-span.java, 
-span.vba, 
-span.xaml
+
+code
 {
-  display:              inline-block;
+  display:              inline;
   border-style:         solid;
   border-width:         1px;
-  border-color:         #996666;
-  margin:               5px;
-  padding:              3px 5px;
+  border-color:         #CC8888;
+  padding:              1px;
 }
-*/
+
 /* キーワード (<kwd>) */
 code kwd,
 .code kwd,
