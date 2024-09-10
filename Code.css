@@ -12,8 +12,13 @@ code, .code, .cpp, .cs, .java, .vba, .xaml
 {
   white-space:          pre;
   font-family:          monospace;
-  line-height:          1.2;
+  font-size:            small;
   background-color:     #EEEEEE;
+}
+
+.code, .cpp, .cs, .java, .vba, .xaml
+{
+  line-height:          1.25;
 }
 
 div.code, p.code,
@@ -29,7 +34,7 @@ div.xaml, p.xaml
   margin:               6px 10em 6px 0;
   padding:              0 1em 1.3em 1em;
 }
-
+/*
 code,
 span.code, 
 span.cpp, 
@@ -45,7 +50,7 @@ span.xaml
   margin:               5px;
   padding:              3px 5px;
 }
-
+*/
 /* キーワード (<kwd>) */
 code kwd,
 .code kwd,
