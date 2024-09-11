@@ -1,0 +1,235 @@
+﻿<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<details><summary class=link>出典 :</summary>
+<div class=pre><a href="https://learn.microsoft.com/ja-jp/dotnet/csharp/programming-guide/classes-and-structs/partial-classes-and-methods">部分クラスと部分メソッド - C# | Microsoft Learn</a>
+<a href="https://ufcpp.net/blog/2020/6/extendingpartialmethod/">partial メソッドの拡張 (C# 9.0 候補機能) | ++C++; // 未確認飛行 C ブログ</a>
+</div>
+</details>
+
+<!-- 関連ページ -->
+<details><summary class=link>関連 :</summary>
+<div class=pre><a href="TIPS/02_プログラミング言語/02_CSharp/属性(Attribute).html">属性(Attribute)</a>
+<a href="TIPS/01_ソフトウェア開発一般/01_デザインパターン/インタフェース.html">インタフェース</a>
+</div>
+</details>
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id=toc></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>partial キーワード</h2>
+<div class=pre>「部分」を表し、クラス、構造体、インタフェース、およびメソッドの定義を複数の箇所に分割して記述できる。
+分割された部分型およびメソッドは、コンパイル時に結合される。
+</div>
+
+<h2>部分クラス( partial class )</h2>
+<div class=pre>クラス(など)の定義を分割し、複数のファイルに記述できる。
+</div>
+
+<h6>File1.cs</h6>
+<div class=cs>
+<cmt>// 部分クラス定義#1</cmt>
+<kwd>public partial class</kwd> Employee
+{
+    <kwd>public void</kwd> DoWork()
+    {
+        :
+    }
+}
+</div>
+
+<h6>File2.cs</h6>
+<div class=cs>
+<cmt>// 部分クラス定義#2</cmt>
+<kwd>public partial class</kwd> Employee
+{
+    <kwd>public void</kwd> GoToLunch()
+    {
+        :
+    }
+}
+</div>
+
+<div class=pre>上記の例では、<code>Employee</code>クラスを複数のファイルで分割定義している。
+分割された<code>Employee</code>の定義はコンパイル時に結合されるため、上記のコードは
+</div>
+
+<div class=cs>
+<kwd>public class</kwd> Employee
+{
+    <kwd>public void</kwd> DoWork()
+    {
+        :
+    }
+
+    <kwd>public void</kwd> GoToLunch()
+    {
+        :
+    }
+}
+</div>
+
+<div class=pre>と等価である。メソッドに限らず、フィールド、プロパティなどの構成要素はすべて結合される。
+このように補機能ごとにファイルを分割して階層化したり、複数人で同時に作業を行う際に有用である。
+
+また、分割クラスにそれぞれ異なる属性を付与したり、それぞれが異なるインタフェースを実装している場合もすべて結合される。
+(継承する基底クラスも同様に結合されるが、C#は多重継承が認められていないため、基底クラスが複数になる場合はエラーとなる。)
+</div>
+
+<div class=cs>
+<cmt>// Moon の部分定義#1 : SerializableAttribute 付与</cmt>
+[SerializableAttribute]
+<kwd>partial class</kwd> Moon { }
+
+<cmt>// Moon の部分定義#2 : ObsoleteAttribute 付与</cmt>
+[ObsoleteAttribute]
+<kwd>partial class</kwd> Moon { }
+
+<cmt>// 上記が結合された完全な Moon</cmt>
+[SerializableAttribute]
+[ObsoleteAttribute]
+<kwd>partial class</kwd> Moon { }
+
+<cmt>// Earth の部分定義#1 : Planet を継承、IRotate を実装</cmt>
+<kwd>partial class</kwd> Earth : Planet, IRotate { }
+
+<cmt>// Earth の部分定義#2 : IRevolve を実装</cmt>
+<kwd>partial class</kwd> Earth : IRevolve { }
+
+<cmt>// 上記が結合された完全な Earth</cmt>
+<kwd>class</kwd> Earth : Planet, IRotate, IRevolve { }
+</div>
+
+<h3>部分型定義における制約</h3>
+<ul>
+    <li><code>partial</code>修飾子は<code>class</code>、<code>struct</code>、<code>interface</code>に対して適用できる(<code>record</code>は含まれない)。</li>
+    <li>デリゲートおよび列挙体(<code>enum</code>)には適用できない。</li>
+    <li>同じ型の部分定義は、すべて<code>partial</code>修飾する必要がある(省略が許されない)。</li>
+    <li>同じ型の部分定義は、すべて同一のモジュール( .exe または .dll )内で完結する必要があり、複数のモジュールに跨ることはできない。</li>
+    <li>型が入れ子になっている場合、親・子ともに部分定義ができる。親が<code>partial</code>でない場合も子の部分定義は可能である。
+<div class=cs>
+<cmt>// ClassWithNestedClass1 の部分定義#1</cmt>
+<kwd>partial class</kwd> ClassWithNestedClass1
+{
+    <cmt>// NestedClass の部分定義#1</cmt>
+    <kwd>partial class</kwd> NestedClass { }
+}
+
+<cmt>// ClassWithNestedClass1 の部分定義#2</cmt>
+<kwd>partial class</kwd> ClassWithNestedClass1
+{
+    <cmt>// NestedClass の部分定義#2</cmt>
+    <kwd>partial class</kwd> NestedClass { }
+}
+
+<cmt>// ClassWithNestedClass2 定義</cmt>
+<kwd>class</kwd> ClassWithNestedClass
+{
+    <cmt>// NestedClass の部分定義#1</cmt>
+    <kwd>partial class</kwd> NestedClass { }
+
+    <cmt>// NestedClass の部分定義#2</cmt>
+    <kwd>partial class</kwd> NestedClass { }
+}
+</div>
+    </li>
+    <li>クラス名、およびジェネリック型引数はすべての部分型定義で一致している必要がある。</li>
+    <li>以下のキーワードは、部分型定義のいずれか一つに存在する場合、他の部分型定義では省略が可能である。<br>
+        付与しても問題は無いが、部分定義同士で異なるものを付与(競合)するとエラーとなる。
+        <ul>
+            <li><code>public</code></li>
+            <li><code>private</code></li>
+            <li><code>protected</code></li>
+            <li><code>internal</code></li>
+            <li><code>abstract</code></li>
+            <li><code>sealed</code></li>
+            <li><code>static</code></li>
+            <li><code>new</code>(入れ子にされた部分)</li>
+        </ul>
+        </li>
+</ul>
+
+<h2>部分メソッド( partial method )</h2>
+<div class=pre>部分クラス、または構造体は部分メソッドを含むことができる。
+ある部分クラスでは宣言だけをしておき、別の部分クラスで実装(定義)を行う。
+</div>
+
+<h6>File1.cs</h6>
+<div class=cs>
+<cmt>// SampleClass の部分定義#1</cmt>
+<kwd>partial class</kwd> SampleClass
+{
+    <cmt>// 部分メソッド OnNameChanged() の「宣言」</cmt>
+    <kwd>partial void</kwd> OnNameChanged();
+}
+</div>
+
+<h6>File2.cs</h6>
+<div class=cs>
+<cmt>// SampleClass の部分定義#2</cmt>
+<kwd>partial class</kwd> SampleClass
+{
+    <cmt>// 部分メソッド OnNameChanged() の「定義」</cmt>
+    <kwd>partial void</kwd> OnNameChanged()
+    {
+        :
+    }
+}
+</div>
+
+<div class=pre>部分メソッド<code>OnNameChanged()</code>にアクセス指定子が存在しないことに注意。
+部分メソッドは既定で<code>private</code>となる。
+</div>
+
+<h3>部分メソッドの特徴</h3>
+<div class=pre>部分メソッドが以下の条件をすべて満たす場合、部分メソッドは実装を省略することができる。
+その場合、<b>その部分メソッドおよびそのすべての呼び出し箇所はコンパイル時に削除される</b>。
+(<b>実装されていない部分メソッドを呼び出した場合でもエラーとはならない</b>。)
+</div>
+
+<ul>
+<li>宣言にアクセス修飾子を含まない。この場合のアクセス権は<code>private</code>となる。</li>
+<li>戻り値が無い(<code>void</code>)。</li>
+<li><code>out</code>修飾された引数が無い。</li>
+<li>以下の修飾が無い。<ul>
+<li><code>virtual</code></li>
+<li><code>override</code></li>
+<li><code>sealed</code></li>
+<li><code>new</code></li>
+<li><code>extern</code></li>
+</ul>
+</li>
+</ul>
+
+<div class=pre>部分メソッドは基底(抽象)クラスで宣言され、派生(具象)クラスで定義される抽象メソッドと一見似ている。
+しかし抽象メソッドは具象クラスで必ず実装されなければならず、(条件次第で)実装を省略できる部分メソッドとは異なる。
+</div>
+
+<h3>部分メソッドが使用される局面</h3>
+<div class=pre>テンプレートコードからコードが自動生成される場合、生成されたコード中に部分メソッドが含まれることがある。
+この場合、部分メソッドの実装は任意である。
+</div>
+

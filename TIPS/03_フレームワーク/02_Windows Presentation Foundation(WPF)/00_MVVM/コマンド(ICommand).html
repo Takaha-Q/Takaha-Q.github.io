@@ -85,54 +85,54 @@ UI( View )ごとに異なった処理を実装する必要があり、煩雑で�
 
 <h6>コマンドの定義 : SampleCommand.cs</h6>
 <div class=cs>
-using System;
-using System.ComponentModel;
-using System.Threading;
-using System.Windows.Input;
-using System.Windows.Threading;
+<kwd>using</kwd> <knw>System</knw>;
+<kwd>using</kwd> <knw>System</knw>.<knw>ComponentModel</knw>;
+<kwd>using</kwd> <knw>System</knw>.<knw>Threading</knw>;
+<kwd>using</kwd> <knw>System</knw>.<knw>Windows</knw>.Input;
+<kwd>using</kwd> <knw>System</knw>.<knw>Windows</knw>.<knw>Threading</knw>;
 
-namespace Sample.Commands
+<kwd>namespace</kwd> Sample.Commands
 {
-    // コマンドクラス : ICommand を実装
-    public class SampleCommand : ICommand
+    <cmt>// コマンドクラス : ICommand を実装</cmt>
+    <kwd>public class</kwd> SampleCommand : ICommand
     {
-        // アイドル(コマンド実行可能)フラグ
-        // ⇒ 変更時は CanExecuteChanged イベントを発行
-        private bool _isIdle = false;
-        public bool IsIdle
+        <cmt>// アイドル(コマンド実行可能)フラグ</cmt>
+        <cmt>// ⇒ 変更時は CanExecuteChanged イベントを発行</cmt>
+        <kwd>private bool</kwd> _isIdle = <kwd>false</kwd>;
+        <kwd>public bool</kwd> IsIdle
         {
-            get
+            <kwd>get</kwd>
             {
-                return _isIdle;
+                <kwd>return</kwd> _isIdle;
             }
-            set
+            <kwd>set</kwd>
             {
                 _isIdle = value;
-                CanExecuteChanged?.Invoke( this, new EventArgs() );
+                CanExecuteChanged?.Invoke( <kwd>this</kwd>, <kwd>new</kwd> <knw>EventArgs</knw>() );
             }
         }
 
         //
-        // 以降 ICommand インタフェースの実装
+        <cmt>// 以降 ICommand インタフェースの実装</cmt>
         //
 
-        // CanExecuteChanged イベント
-        public event EventHandler CanExecuteChanged;
+        <cmt>// CanExecuteChanged イベント</cmt>
+        <kwd>public event</kwd> <knw>EventHandler</knw> CanExecuteChanged;
 
-        // CanExecute()
-        // アイドル時のみ実行可能
-        public bool CanExecute(object parameter) => IsIdle;
+        <cmt>// CanExecute()</cmt>
+        <cmt>// アイドル時のみ実行可能</cmt>
+        <kwd>public bool</kwd> CanExecute(<kwd>object</kwd> parameter) =&gt; IsIdle;
 
-        // Execute()
-        public void Execute(object parameter)
+        <cmt>// Execute()</cmt>
+        <kwd>public void</kwd> Execute(<kwd>object</kwd> parameter)
         {
-            // アイドルフラグオフ
-            IsIdle = false;
+            <cmt>// アイドルフラグオフ</cmt>
+            IsIdle = <kwd>false</kwd>;
 
-            // タイマ設定、始動
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Tick += new EventHandler( (s, e) => IsIdle = true; );
-            timer.Interval = new TimeSpan(0, 0, 5);
+            <cmt>// タイマ設定、始動</cmt>
+            DispatcherTimer timer = <kwd>new</kwd> DispatcherTimer();
+            timer.Tick += <kwd>new</kwd> <knw>EventHandler</knw>( (s, e) =&gt; IsIdle = <kwd>true</kwd>; );
+            timer.Interval = <kwd>new</kwd> <knw>TimeSpan</knw>(<ltr>0</ltr>, <ltr>0</ltr>, <ltr>5</ltr>);
             timer.Start();
         }
     }
@@ -141,51 +141,51 @@ namespace Sample.Commands
 
 <h6>ViewModel : MainWindowViewModel.cs</h6>
 <div class=cs>
-using Sample.Commands;
+<kwd>using</kwd> Sample.Commands;
 
-namespace Sample.ViewModels
+<kwd>namespace</kwd> Sample.ViewModels
 {
-    class MainWindowViewModel
+    <kwd>class</kwd> MainWindowViewModel
     {
-        // コマンドを public プロパティとして保持
-        public SampleCommand SampleCommand { get; private set; } = new SampleCommand();
+        <cmt>// コマンドを public プロパティとして保持</cmt>
+        <kwd>public</kwd> SampleCommand SampleCommand { <kwd>get</kwd>; <kwd>private set</kwd>; } = <kwd>new</kwd> SampleCommand();
     }
 }
 </div>
 
 <h6>View(XAML) : MainWindow.xaml</h6>
 <div class=xaml>
-<Window x:Class="Sample.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Sample"
-        xmlns:vm="clr-namespace:Sample.ViewModels"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+&lt;<tag>Window</tag> <prp>x:Class</prp>=<ltr>"Sample.MainWindow"</ltr>
+        <prp>xmlns</prp>=<ltr>"http://schemas.microsoft.com/winfx/2006/xaml/presentation"</ltr>
+        <prp>xmlns:x</prp>=<ltr>"http://schemas.microsoft.com/winfx/2006/xaml"</ltr>
+        <prp>xmlns:d</prp>=<ltr>"http://schemas.microsoft.com/expression/blend/2008"</ltr>
+        <prp>xmlns:mc</prp>=<ltr>"http://schemas.openxmlformats.org/markup-compatibility/2006"</ltr>
+        <prp>xmlns:local</prp>=<ltr>"clr-namespace:Sample"</ltr>
+        <prp>xmlns:vm</prp>=<ltr>"clr-namespace:Sample.ViewModels"</ltr>
+        <prp>mc:Ignorable</prp>=<ltr>"d"</ltr>
+        <prp>Title</prp>=<ltr>"MainWindow"</ltr> <prp>Height</prp>=<ltr>"350"</ltr> <prp>Width</prp>=<ltr>"525"</ltr>&gt;
     
-    <!-- DataContext 宣言 -->
-    <Window.DataContext>
-        <vm:MainWindowViewModel/>
-    </Window.DataContext>
+    <cmt>&lt;!-- DataContext 宣言 --&gt;</cmt>
+    &lt;<tag>Window.DataContext</tag>&gt;
+        &lt;<tag>vm</tag>:MainWindowViewModel/&gt;
+    &lt;/<tag>Window.DataContext</tag>&gt;
 
-    <Grid>
-        <!-- Button にコマンドをバインド -->
-        <Button Command="{Binding SampleCommand}"/>
-    </Grid>
-</Window>
+    &lt;<tag>Grid</tag>&gt;
+        <cmt>&lt;!-- Button にコマンドをバインド --&gt;</cmt>
+        &lt;<tag>Button</tag> <prp>Command</prp>=<ltr>"{Binding Sample<prp>Command</prp>}"</ltr>/&gt;
+    &lt;/<tag>Grid</tag>&gt;
+&lt;/<tag>Window</tag>&gt;
 </div>
 
 <h6>View(コードビハインド) : MainWindow.xaml.cs</h6>
 <div class=cs>
-using System.Windows;
+<kwd>using</kwd> <knw>System</knw>.<knw>Windows</knw>;
 
-namespace Sample
+<kwd>namespace</kwd> Sample
 {
-    public partial class MainWindow : Window
+    <kwd>public partial class</kwd> MainWindow : <knw>Window</knw>
     {
-        public MainWindow()
+        <kwd>public</kwd> MainWindow()
         {
             InitializeComponent();
         }

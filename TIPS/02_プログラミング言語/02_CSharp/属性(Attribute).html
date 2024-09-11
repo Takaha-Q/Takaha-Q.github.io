@@ -24,7 +24,6 @@
 <div class=pre><a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.attribute?view=net-8.0">Attribute クラス (System) | Microsoft Learn</a>
 <a href="https://learn.microsoft.com/ja-jp/dotnet/csharp/advanced-topics/reflection-and-attributes/attribute-tutorial">チュートリアル: カスタム属性の定義と読み取り - C# | Microsoft Learn</a>
 <a href="https://ufcpp.net/study/csharp/sp_attribute.html">属性 - C# によるプログラミング入門 | ++C++; // 未確認飛行 C</a>
-<a href="https://www.w2solution.co.jp/corporate/tech/attribute%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%9F%E4%BF%9D%E5%AE%88%E6%80%A7%E3%81%AE%E4%B8%8A%E3%81%8C%E3%82%8B%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AE%E6%9B%B8%E3%81%8D%E6%96%B9/">Attribute使用した保守性の上がるコードの書き方 | Tech Media | W2株式会社</a>
 </div>
 </details>
 
@@ -45,14 +44,17 @@
 <!-- 本文ここから -->
 
 <h2>C#における属性( Attribute )</h2>
-<div class=pre>クラスやメンバなどに対して追加で付与する情報を「属性(カスタム属性)」と呼ぶ。属性を用いることで以下が可能となる。
+<div class=pre>クラスやメンバなどに対して追加で付与する情報を「属性(カスタム属性)」と呼ぶ。
+C++などの属性と共通の概念で、C#ではユーザが独自に定義した属性をクラスやメンバに対して付与することができる。
+属性を用いることで以下のようなことが可能となる。
 </div>
 <ul>
 <li>条件コンパイルなどの、コンパイラへの指示を行う</li>
 <li>作者情報などをメタデータとしてプログラムに埋め込む</li>
 <li>リフレクション時に参照する情報を付与する</li>
+<li>インタフェースを自動的に実装する</li>
 </ul>
-<div class=pre>C++などの属性と共通の概念で、C#ではユーザが独自に定義した属性をクラスやメンバに対して付与することができる。
+<div class=pre>付与された属性を基にコンパイラがコードを自動生成するものも存在するため、活用することでコードが簡潔となり、保守性が高まる。
 </div>
 
 <h2>属性の使用(付与)</h2>
@@ -331,7 +333,7 @@ BrowsableAttribute</td>
 <kwd>using</kwd> <knw>System</knw>;
 
 <cmt>// Author (作者情報)属性の定義</cmt>
-[AttributeUsage( AttributeTargets.Class | AttributeTargets.Struct )]    <cmt>//&lt; 適用対象の規定</cmt>
+<knw>[AttributeUsage( AttributeTargets.Class | AttributeTargets.Struct )]</knw>    <cmt>//&lt; 適用対象の規定</cmt>
 <kwd>public class</kwd> Author<knw>Attribute</knw> : <knw>Attribute</knw>
 {
     <cmt>// private フィールド</cmt>
@@ -345,14 +347,14 @@ BrowsableAttribute</td>
 }
 
 <cmt>// Author 属性の適用(#1) : 属性パラメータを指定</cmt>
-[Author(<ltr>"Andrei Hejilsberg"</ltr>)]
+<knw>[Author(<ltr>"Andrei Hejilsberg"</ltr>)]</knw>
 <kwd>class</kwd> Test1
 {
     :
 }
 
 <cmt>// Author 属性の適用(#2) : 属性パラメータと名前付きパラメータを指定</cmt>
-[Author(<ltr>"Andrei Hejilsberg"</ltr>, Affiliation=<ltr>"Microsoft"</ltr>)]
+<knw>[Author(<ltr>"Andrei Hejilsberg"</ltr>, Affiliation=<ltr>"Microsoft"</ltr>)]</knw>
 <kwd>class</kwd> Test2
 {
     :

@@ -1,0 +1,265 @@
+﻿<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a><br>
+
+<!-- 出典ページ -->
+<details><summary class=link>出典 :</summary>
+<div class=pre><a href="https://learn.microsoft.com/ja-jp/dotnet/communitytoolkit/mvvm/">MVVM Toolkit の概要 - Community Toolkits for .NET | Microsoft Learn</a>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/communitytoolkit/mvvm/generators/observableproperty">ObservableProperty 属性 - Community Toolkits for .NET | Microsoft Learn</a>
+<a href="https://qiita.com/hqf00342/items/d12bb669d1ac6fed6ab6">.NET用 MVVM Toolkit v8でMVVMコードを短く #C# - Qiita</a>
+<a href="https://qiita.com/hqf00342/items/40a753edd8e37286f996">.NET standard2.x時代のMVVMライブラリ #C# - Qiita</a>
+<a href="https://qiita.com/kk-river/items/d974b02f6c4010433a9e">CommunityToolkit.Mvvm V8 入門 #C# - Qiita</a>
+<a href="https://zenn.dev/naminodarie/articles/c9617df5ca879f">[C#]WPFでのMVVMについてサンプルアプリからまとめ</a>
+<a href="https://shikaku-sh.hatenablog.com/entry/c-sharp-communitytoolkit-mvvm-practice2">C# CommunityToolkit.Mvvm の学習２ ObservableProperty - sh1’s diary</a>
+</div>
+</details>
+
+<!-- 関連ページ -->
+<details><summary class=link>関連 :</summary>
+<div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/MVVMパターン.html">MVVMパターン</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/INotifyPropertyChanged.html">INotifyPropertyChanged</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/コマンド(ICommand).html">コマンド(ICommand)</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/ReactiveProperty.html">ReactiveProperty</a>
+<a href="TIPS/02_プログラミング言語/02_CSharp/属性(Attribute).html">[C#]属性(Attribute)</a>
+<a href="TIPS/02_プログラミング言語/02_CSharp/partial.html">[C#]partial</a>
+</div>
+</details>
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id=toc></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>MVVM Toolkitとは</h2>
+<div class=pre>NuGetで公開されているライブラリで、MVVMパターンの構築を支援する機能を備えており、
+<code>INotifyPropertyChanged</code>や<code>ICommand</code>を簡単に実装できる。
+</div>
+
+<h2>MVVM Toolkitが提供する機能</h2>
+<table>
+  <tr class=row1>
+    <td>提供されるクラス</td>
+    <td>名前空間</td>
+    <td>担当機能</td>
+  </tr>
+  <tr>
+    <td class=code>ObservableObject</td>
+    <td class=code>CommunityToolkit.Mvvm.ComponentModel</td>
+    <td><code>INotifyPropertyChanged</code>を実装したオブジェクトの基底クラス</td>
+  </tr>
+  <tr>
+    <td class=code>RelayCommand</td>
+    <td class=code>CommunityToolkit.Mvvm.Input</td>
+    <td><code>ICommand</code>の実装</td>
+  </tr>
+  <tr>
+    <td class=code>WeakReferenceMessenger</td>
+    <td class=code>CommunityToolkit.Mvvm.Messeging</td>
+    <td>Messenger (詳細割愛)</td>
+  </tr>
+  <tr>
+    <td class=code>IoC</td>
+    <td class=code>CommunityToolkit.Mvvm.DependencyInjection</td>
+    <td>DI 、IoC (詳細割愛)</td>
+  </tr>
+</table>
+
+<h2>主な仕組み</h2>
+<div class=pre>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\MVVM_Toolkit\01.png" alt="画像">
+ViewModelとして用いるクラスを<code>ObservableObject</code>の派生クラスとして定義し、
+データバインディングのソースとして用いるプロパティを含める。
+コマンドは<code>ICommand</code>として作成し、これをコマンドバインディングのソースとする。
+</div>
+
+<h2>実装例(MVVM Toolkit Ver.7)</h2>
+
+<h3>変更通知プロパティ</h3>
+
+<h6>ViewModel : MainWindowVM.cs</h6>
+<div class=cs>
+<kwd>using</kwd> <knw>CommunityToolkit.Mvvm.ComponentModel</knw>;     <cmt>//&lt; ObservableObject の名前解決</cmt>
+
+<cmt>// ViewModel : ObservableObject を継承</cmt>
+<kwd>public class</kwd> MainWindowVM : ObservableObject
+{
+    <cmt>// Name のバッキングフィールド</cmt>
+    <kwd>private string</kwd> _name;
+
+    <cmt>// プロパティ(バインドソース)</cmt>
+    <kwd>public string</kwd> Name
+    {
+        <kwd>get</kwd> =&gt; _name;
+        <kwd>set</kwd> =&gt; SetProperty(<kwd>ref</kwd> _name, value);
+    }
+}
+</div>
+
+<h6>View(XAML) : MainWindow.xaml (抜粋)</h6>
+<div class=xaml>
+<cmt>&lt;!-- TextBlock.Text を DataContext の Name プロパティにバインド --&gt;</cmt>
+&lt;<tag>TextBlock</tag> <prp>Text</prp>=<ltr>"{Binding Name}"</ltr> /&gt;
+</div>
+
+<div class=pre>ViewModel として用いるクラスは、<code>ObservableObject</code>を継承して作成する。
+<code>ObservableObject</code>は<code>INotifyPropertyChanged</code>を実装している。
+プロパティの値を変更(<code>set</code>)した際は View への通知を行うため、<code>SetProperty()</code>を呼び出している。
+
+また、<code>INofityPropertyChanged</code>を実装していない Model クラスをラップして<code>PropertyChanged</code>に反応させることも可能である。
+</div>
+
+<h6>Model : Person.cs</h6>
+<div class=cs>
+<kwd>public class</kwd> Person
+{
+    <kwd>public string</kwd> Name { <kwd>get</kwd>; <kwd>set</kwd>; }
+    <kwd>public int</kwd> Age { <kwd>get</kwd>; <kwd>set</kwd>; }
+}
+</div>
+
+<h6>ViewModel : MainWindowVM.cs</h6>
+<div class=cs>
+<kwd>using</kwd> <knw>CommunityToolkit.Mvvm.ComponentModel</knw>;
+
+<kwd>public class</kwd> MainWindowVM : ObservableObject
+{
+    <kwd>private</kwd> Person _person;
+
+    <kwd>public int</kwd> Age 
+    {
+        <kwd>get</kwd> =&gt; _person.Age;
+        <kwd>set</kwd> =&gt; SetProperty( _person.Age, value, _person, (p, newval) =&gt; p.Age = newval );
+    }
+
+    <kwd>public string</kwd> Name 
+    {
+        <kwd>get</kwd> =&gt; _person.Name;
+        <kwd>set</kwd> =&gt; SetProperty( _person.Name, value, _person, (p, newval) =&gt; p.Name = newval );
+    }
+}
+</div>
+
+<div class=pre>この場合の<code>SetProperty()</code>の引数は、元の値、新しい値、対象オブジェクト、値更新時のコールバック、である。
+_person のプロパティ更新をコールバック内で行っている点に注意。
+</div>
+
+<h3>コマンド</h3>
+<h6>ViewModel : MainWindowVM.cs</h6>
+<div class=cs>
+<kwd>using</kwd> <knw>CommunityToolkit.Mvvm.ComponentModel</knw>;     <cmt>//&lt; ObservableObject の名前解決</cmt>
+<kwd>using</kwd> <knw>CommunityToolkit.Mvvm.Input</knw>;              <cmt>//&lt; RelayCommand の名前解決</cmt>
+
+<kwd>public class</kwd> MainWindowVM : ObservableObject
+{
+    <cmt>// プロパティ(バインドソース)</cmt>
+    <kwd>public</kwd> ICommand ClickCommand { <kwd>get</kwd>; }
+
+    <cmt>// コンストラクタ</cmt>
+    <kwd>public</kwd> MainWindowVM()
+    {
+        ClickCommand = <kwd>new</kwd> RelayCommand(Click);
+    }
+
+    <cmt>// コマンドとしてに実行したい処理</cmt>
+    <kwd>private void</kwd> Click() { Name = <ltr>""</ltr>; }
+}
+</div>
+
+<div class=pre>コマンドは<code>ICommand</code>として作成する。
+実際にコマンドとして実行したい処理は Click() であるため、ViewModel のコンストラクタ中で<code>RelayCommand</code>化してプロパティに関連づける。
+<code>RelayCommand</code>のコンストラクタには複数のオーバーロードが存在し、<code>CanExecute</code>や<code>CommandParameter</code>を指定することも可能である。
+(詳細は<a href="https://learn.microsoft.com/ja-jp/dotnet/communitytoolkit/mvvm/">リファレンス</a>参照。)
+</div>
+
+<h2>Ver.8での変更</h2>
+<div class=pre>MVVM Toolkit Ver.8では各種機能をカスタム属性として利用できるようになり、プログラマの記述を大幅に削減できるようになった。
+Ver.7での記法も引き続き使用できる。
+</div>
+
+<table>
+  <tr class=row1>
+    <td class=col1></td>
+    <td>Ver.7</td>
+    <td>Ver.8</td>
+  </tr>
+  <tr>
+    <td class=col1 rowspan="2">ViewModel<br>クラス定義</td>
+    <td class="border_b_dotted"><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\MVVM_Toolkit\02.png" alt="画像"></td>
+    <td class="border_b_dotted"><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\MVVM_Toolkit\03.png" alt="画像"></td>
+  </tr>
+  <tr>
+    
+    <td class="border_t_dotted"><ul><li>ViewModel は<code>ObservableObject</code>を継承</li></ul></td>
+    <td class="border_t_dotted"><ul><li>ViewModel に<code>INotifyPropertyChanged</code>属性を付与</li>
+    <li>クラスを<code>partial</code>修飾<br>(コードジェネレータにより追加コードが自動生成される)</li></ul></td>
+  </tr>
+  <tr>
+    <td class=col1 rowspan="2">変更通知<br>プロパティ</td>
+    <td class="border_b_dotted"><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\MVVM_Toolkit\06.png" alt="画像"></td>
+    <td class="border_b_dotted"><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\MVVM_Toolkit\07.png" alt="画像"></td>
+  </tr>
+  <tr>
+    
+    <td class="border_t_dotted"><ul><li>バインドソースとバッキングフィールドを記述</li>
+    <li>バインドソースの<code>set</code>内で<code>SetProperty()</code>をコール</li></ul></td>
+    <td class="border_t_dotted"><ul><li>バッキングフィールドのみを記述</li>
+    <li>バッキングフィールドに<code>ObservableProperty</code>属性を付与</li>
+    <li>バインドソース Name は自動的に生成される</li>
+    </ul></td>
+  </tr>
+  <tr>
+    <td class=col1 rowspan="2">コマンド</td>
+    <td class="border_b_dotted"><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\MVVM_Toolkit\04.png" alt="画像"></td>
+    <td class="border_b_dotted"><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\MVVM_Toolkit\05.png" alt="画像"></td>
+  </tr>
+  <tr>
+    
+    <td class="border_t_dotted"><ul><li>バインドソースとハンドラを記述</li></ul></td>
+    <td class="border_t_dotted"><ul><li>ハンドラのみを記述</li>
+    <li>ハンドラに<code>RelayCommand</code>属性を付与</li>
+    <li>バインドソース GreetCommand は自動的に生成される</li></ul></td>
+  </tr>
+</table>
+
+<h3>注意点</h3>
+<div class=pre>変更通知プロパティ、コマンドともにバインドソースとなるプロパティはコードジェネレータにより自動的に生成される。
+その際、変更通知プロパティはバッキングフィールドの先頭文字を大文字にしたもの
+(例 : name ⇒ <b class=blue>N</b>ame)
+コマンドはハンドラメソッドの後に Command を付与したものとなる。
+(例 : Greet ⇒ Greet<b class=blue>Command</b>)
+
+変更通知プロパティの変更直前、直後に処理を行いたい場合、部分メソッド<code>On####Changing()</code>、<code>On####Changed()</code>を定義しておくと、
+それぞれ実行されるようになる。
+( #### はプロパティ名)
+</div>
+
+<div class=cs>
+<knw>[ObservableProperty]</knw>
+<kwd>private string</kwd> name;
+
+<kwd>partial void</kwd> OnNameChanging(<kwd>string</kwd> name)
+    =&gt;<knw>Console</knw>.WriteLine(<ltr>$"Nameプロパティが </ltr>{name}<ltr> に変更されようとしてます"</ltr>);
+
+<kwd>partial void</kwd> OnNameChanged(<kwd>string</kwd> name)
+    =&gt;<knw>Console</knw>.WriteLine(<ltr>$"Nameプロパティが </ltr>{name}<ltr> に変更されました"</ltr>);
+</div>
+

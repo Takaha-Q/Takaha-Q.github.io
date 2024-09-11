@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
@@ -31,9 +31,9 @@
 
 <!-- 関連ページ -->
 <details><summary class=link>関連 :</summary>
-<div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/データバインディング.html">[WPF]データバインディング</a>
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/依存関係プロパティ.html">[WPF]依存関係プロパティ</a>
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/ReactiveProperty.html">[WPF]ReactiveProperty</a>
+<div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/データバインディング.html">[WPF]データバインディング</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/依存関係プロパティ.html">[WPF]依存関係プロパティ</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/ReactiveProperty.html">[WPF]ReactiveProperty</a>
 
 
 </div>
@@ -51,9 +51,9 @@
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\dotNET\INotifyPropertyChanged\01.png" alt="画像"><br>
 
 <h3>データバインディングとの関係</h3>
-INotifyPropertyChanged は<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/データバインディング.html">データバインディング</a>を実現するための手段として用いられる。<br>
+INotifyPropertyChanged は<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/データバインディング.html">データバインディング</a>を実現するための手段として用いられる。<br>
 即ち、プロパティの変更をUIコントロールに通知するために、INotifyPropertyChanged を用いるのが通例であった。<br>
-しかし INotifyPropertyChanged の実装は煩雑なため、WPFでは記述量を削減できる <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/ReactiveProperty.html">ReactiveProperty</a> が別途実装された。<br>
+しかし INotifyPropertyChanged の実装は煩雑なため、WPFでは記述量を削減できる <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/ReactiveProperty.html">ReactiveProperty</a> が別途実装された。<br>
 このためWPFにおけるViewとViewModelのバインディングには特殊なケースを除き、ReactiveProperty を用いればよい。
 
 <h2>実装例</h2>
@@ -62,13 +62,13 @@ INotifyPropertyChanged は<a href="TIPS/03_フレームワーク/02_Windows Pres
 <h6>通知する側</h6>
 <div class="cs">
 <cmt>// プロパティが変更された際に通知を行う Sample クラス</cmt>
-<kwd>public class</kwd> Sample : <b class="red">INotifyPropertyChanged</b>;
+<kwd>public class</kwd> Sample : <b class=red>INotifyPropertyChanged</b>;
 {
     <cmt>// プロパティが変更された際に実行するイベントフック</cmt>
     <kwd>public event</kwd> <knw>PropertyChangedEventHandler</knw> EventHook;
 
     <cmt>// PropertyChanged (プロパティ変更)イベント発行</cmt>
-    <kwd>private void</kwd> RaiseEvent( [CallerMemberName]<kwd>string</kwd> propertyName = <kwd>null</kwd> )
+    <kwd>private void</kwd> RaiseEvent( <knw>[CallerMemberName]</knw><kwd>string</kwd> propertyName = <kwd>null</kwd> )
     {
         <cmt>// EventHook が null でなければ実行</cmt>
         <cmt>// 第1引数 : オブジェクト(イベントセンダ)</cmt>
@@ -109,7 +109,7 @@ INotifyPropertyChanged は<a href="TIPS/03_フレームワーク/02_Windows Pres
     Sample sample = <kwd>new</kwd> Sample();
 
     <cmt>// イベントハンドラを登録</cmt>
-    sample.EventHook += (s, e) =&gt; { <knw>Console</knw>.WriteLine(<ltr>$"</ltr>{e.PropertyName} <ltr>が変更されました。"</ltr>); }
+    sample.EventHook += (s, e) =&gt; { <knw>Console</knw>.WriteLine(<ltr>$"</ltr>{e.PropertyName}<ltr> が変更されました。"</ltr>); }
 
     :
 </div>
