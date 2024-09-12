@@ -54,13 +54,13 @@
 
 <kwd>std</kwd>::vector&lt;<kwd>int</kwd>&gt; v6 = {<ltr>2</ltr>, <ltr>9</ltr>, <ltr>6</ltr>, <ltr>4</ltr>};
 <kwd>std</kwd>::vector&lt;<kwd>int</kwd>&gt; v7(v6);                            <cmt>//&lt; 既存のベクトルを用いて初期化(コピー)</cmt>
-</p>
+</div>
 
 <h2>多次元配列(入れ子)</h2>
 ベクトルの要素をベクトルとすることで、多次元配列を構成できる。<br>
 <div class="code">
 <kwd><kwd>std</kwd></kwd>::vector&lt;<kwd><kwd>std</kwd></kwd>::vector&lt;<kwd>int</kwd>&gt;&gt; vv{{<ltr>1</ltr>, <ltr>2</ltr>, <ltr>3</ltr>}, {<ltr>4</ltr>, <ltr>5</ltr>, <ltr>6</ltr>, <ltr>7</ltr>}};
-</p>
+</div>
 
 <h2>要素の参照・更新</h2>
 <ul>
@@ -72,7 +72,7 @@
     <kwd>std</kwd>::cout &lt;&lt; sampleVec.at(i);      <cmt>//&lt; sampleVec の i 番目の要素を表示</cmt>
     sampleVec.at(i) = i;               <cmt>//&lt; at() は要素への参照を返すため、代入も可能</cmt>
 }
-</p>
+</div>
 </li>
 <li>front() : 先頭要素 <b>への参照</b> を取得</li>
 <li>back() : 末尾要素 <b>への参照</b> を取得</li>
@@ -92,7 +92,7 @@ b = a;    <cmt>//&lt; a の内容を b に代入(以前のbの内容は破棄さ
 
 vector&lt;<kwd>int</kwd>&gt; c, d;
 d = c = b;    <cmt>//&lt; 連続代入も可能</cmt>
-</p>
+</div>
 
 <h2>要素の追加</h2>
 <ul>
@@ -107,7 +107,7 @@ insert() は<b>第1引数にイテレータを取る</b>。 <b>begin() + 添字<
 <div class="code">
 <kwd>std</kwd>::vector&lt;<kwd>int</kwd>&gt; v;		<cmt>//&lt; 空の動的配列を生成</cmt>
 v.push_back(<ltr>123</ltr>);		<cmt>//&lt; 末尾に 123 を追加</cmt>
-</p>
+</div>
 <div class="code">
 <kwd>class</kwd> Hoge {
 <kwd>public</kwd>:
@@ -117,12 +117,12 @@ v.push_back(<ltr>123</ltr>);		<cmt>//&lt; 末尾に 123 を追加</cmt>
     .....
     <kwd>std</kwd>::vector&lt;Hoge&gt; v;
     v.emplace_back(<ltr>"abc"</ltr>, <ltr>123</ltr>);   <cmt>//&lt; emplace_back(Hoge("abc", 123)) と同意</cmt>
-</p>
+</div>
 <div class="code">
 <kwd>std</kwd>::vector&lt;<kwd>int</kwd>&gt; v(<ltr>10</ltr>, <ltr>3</ltr>);        <cmt>//&lt; 要素数 10 、値はすべて 3</cmt>
 v.insert(v.begin() + <ltr>4</ltr>, <ltr>7</ltr>);       <cmt>//&lt;  [4] の位置( begin() + 4 )に 7 を挿入</cmt>
 <cmt>// 結果は {3, 3, 3, 3, 7, 3, 3, 3, 3, 3, 3} となる</cmt>
-</p>
+</div>
 
 <h2>要素の削除</h2>
 <ul>
@@ -133,11 +133,11 @@ elase() は insert() 同様、第1引数にイテレータを取る。<br>
 <div class="code">
 <kwd>std</kwd>::vector&lt;<kwd>int</kwd>&gt; v{<ltr>3</ltr>, <ltr>1</ltr>, <ltr>4</ltr>, <ltr>1</ltr>, <ltr>5</ltr>};
 v.pop_back();            <cmt>//&lt; 末尾データ（この場合は 5）を削除</cmt>
-</p>
+</div>
 <div class="code">
 <kwd>std</kwd>::vector&lt;<kwd>int</kwd>&gt; v{<ltr>3</ltr>, <ltr>1</ltr>, <ltr>9</ltr>, <ltr>4</ltr>};
 v.erase(v.begin() + <ltr>2</ltr>);       <cmt>//&lt; [2]の位置（9）を削除</cmt>
-</p>
+</div>
 
 <h2>ベクトルの状態を取得</h2>
 <ul>

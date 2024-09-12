@@ -65,11 +65,11 @@ JsonSerializer を用いることで、string をキーに用いる Dictionary �
     <cmt>// dic をJSONに変換(シリアライズ)</cmt>
     <kwd>string</kwd> jsonStr = <b>System.Text.Json.JsonSerializer.Serialize</b>(dic);
     System.Diagnostics.Debug.Print("{0}", jsonstr);
-</p>
+</div>
 出力結果
 <div class="code">
 {"Hyogo":"Kobe","Shiga":"Ohtsu","Ishikawa":"Kanazawa","Miyagi":"Sendai"}
-</p>
+</div>
 
 <h3>JSONから Dictionary への変更(デシリアライズ)</h3>
 JSONを Dictionary に変換する際には、Dictionary の完全な型を与える必要がある。
@@ -80,5 +80,5 @@ JSONを Dictionary に変換する際には、Dictionary の完全な型を与�
     <cmt>// dic をJSONに変換(シリアライズ)</cmt>
     <cmt>// 戻り値となる Dictionary の型を指定する</cmt>
     <kwd>var</kwd> dic = <b>System.Text.Json.JsonSerializer.Deserialize</b>&lt;Dictionary&lt;<kwd>string</kwd>, <kwd>string</kwd>&gt;&gt;(jsonStr);
-</p>
+</div>
 

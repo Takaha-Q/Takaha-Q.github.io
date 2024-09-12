@@ -47,7 +47,7 @@
 
 <cmt>// value は int 型であるため、null を格納できない ⇒ コンパイルエラー</cmt>
 value = <kwd>null</kwd>;
-</p>
+</div>
 
 <b>Null許容型(int<blue>?</blue>)</b>
 <div class="code">
@@ -56,7 +56,7 @@ value = <kwd>null</kwd>;
 
 <cmt>// value は int 型の値に加え、null を格納できる ⇒ 正常</cmt>
 value = <kwd>null</kwd>;
-</p>
+</div>
 
 <h2>Null条件演算子</h2>
 検査対象が null でない場合はメンバにアクセスし、null の場合は<b>式全体の評価値が null となる</b>。<br>
@@ -108,7 +108,7 @@ value = <kwd>null</kwd>;
 
 <cmt>// 以下のコードと等価</cmt>
 <kwd>int</kwd> len = (arr?.Count != <kwd>null</kwd>) ? arr.Count : <ltr>0</ltr>;
-</p>
+</div>
 
 複数連結することもでき、その場合は null でない最初の値を返す。
 <div class="cs">
@@ -133,7 +133,7 @@ temp <b class="red">??=</b> xxx.Name;
 
 <cmt>// 以下のコードと等価</cmt>
 temp = xxx.Name <b class="red">??</b> temp;
-</p>
+</div>
 
 <h3>例外送出</h3>
 

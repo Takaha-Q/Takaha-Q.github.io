@@ -49,7 +49,7 @@ Get-PSDrive
 <cmt># ネットワークドライブの割り当てを解除する
 # (J: ドライブを解放する)</cmt>
 Remove-PSDrive -Name J
-</p>
+</div>
 
 <h2>実行権限とネットワークドライブとの関係</h2>
 Windowsアプリケーションを<b>管理者権限で実行している場合、アプリケーションからネットワークドライブに直接アクセスすることができない</b>。<br>
@@ -124,14 +124,14 @@ Windowsアプリケーションを<b>管理者権限で実行している場合�
     }
 
 }   <cmt>// public static class MappedDriveResolver</cmt>
-</p>
+</div>
 
 <h4>関数コール</h4>
 <div class="code">
 <cmt>// MappedDriveResolver クラスの GetUNCPath() メソッドをコール
 // ネットワークドライブ下のロケーションを渡す</cmt>
 MappedDriveResolver.GetUNCPath(@<ltr>"J:\ChildDir"</ltr>);
-</p>
+</div>
 
 <h4>引数・戻り値の相関(例)</h4>
 (\\ComputerName\AnyDir にドライブレター J: を割り当てている場合)<br>

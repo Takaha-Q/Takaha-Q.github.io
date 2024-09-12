@@ -55,7 +55,7 @@ BOOL WINAPI DllMain(HINSTANCE hinstDll, DWORD dwReason, LPVOID lpReserved)
 
     <kwd>return</kwd> TRUE;
 }
-</p>
+</div>
 DLLを(動的に)リンクした場合、DllMain() は以下のタイミングでコールされる。<br>
 <ul>
 <li>DLLロード時(LoadLibrary()) : dwReason = DLL_PROCESS_ATTACH</li>
@@ -87,7 +87,7 @@ DLL内に静的オブジェクトが存在する場合、 <b>DLLロード時 Dll
     wprintf(<ltr>L"Main   , exiting\n"</ltr>);
     <kwd>return</kwd> <ltr>0</ltr>;
 }
-</p>
+</div>
 DLL<br>
 <div class="code">
 <cmt>// 構造体 Moo 型</cmt>
@@ -124,7 +124,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     }
     <kwd>return</kwd> TRUE;
 }
-</p>
+</div>
 出力結果 (解説のために改行、コメントを追加)<br>
 <div class="code">
 Main   , entered
@@ -138,6 +138,6 @@ DllMain, DLL_PROCESS_DETACH     <cmt>//&lt; DllMain() : dwReason = DLL_PROCESS_D
 Moo    , destructor             <cmt>//&lt; 静的 Moo インスタンス破棄</cmt>
 
 Main   , exiting
-</p>
+</div>
 <br>
 

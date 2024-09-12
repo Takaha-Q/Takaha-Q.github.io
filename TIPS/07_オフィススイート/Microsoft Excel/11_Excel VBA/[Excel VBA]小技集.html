@@ -59,7 +59,7 @@
     <cmt>' 停止信号セット</cmt>
     fStop = <kwd>True</kwd>
 <kwd>End Sub</kwd>
-</p>
+</div>
 
 上記の例では、時間のかかる処理(回数の多いForループ)を行っており、中断ボタンを押すことでその処理を中断できるようにしている。<br>
 ここでは重要な点として、Forループを回すごとに DoEvents() をコールしているが、<br>
@@ -83,7 +83,7 @@
         Sheets(<ltr>"Sheet1"</ltr>).Select
     <kwd>Next</kwd> i
 <kwd>End Sub</kwd>
-</p>
+</div>
 
 <div class="code">
 <cmt>' 平均 4.663 秒 </cmt>
@@ -104,7 +104,7 @@
     Application.ScreenUpdating = <kwd>True</kwd>      <cmt>' 描画再開</cmt>
 
 <kwd>End Sub</kwd>
-</p>
+</div>
 
 上記の二つのコードは本質的には全く同じ処理を行っている。<br>
 シート1のセルを選択してシート2にコピーする処理だが、test1() ではシート、セルの選択の都度描画が発生している。<br>
@@ -126,7 +126,7 @@
     <cmt>' ステータスバーをExcelに戻す</cmt>
     Application.StatusBar = <kwd>False</kwd>
 <kwd>End Sub</kwd>
-</p>
+</div>
 
 通常、ステータスバーはExcel自身が通知のために用いているが、<br>
 <b>Application.StatusBar</b> プロパティに文字列を設定することで、その文字列をステータスバーに表示できる。<br>

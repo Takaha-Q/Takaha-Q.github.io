@@ -62,7 +62,7 @@ C++同様、ブーリアン値を格納するための <b>bool</b> 型および�
 <kwd>bool</kwd> b = <kwd>false</kwd>;
 ...
 b = <kwd>true</kwd>;
-</p>
+</div>
 
 <h3>倍精度長整数型のサポート (long long)</h3>
 64ビットの幅を持つ <b>(signed) long long (int) 、unsigned long long (int)</b> を使用可能。<br>
@@ -71,7 +71,7 @@ b = <kwd>true</kwd>;
 <kwd>#define</kwd> S8_MIN (  <kwd>signed long long</kwd>)<ltr>0x8000000000000000LL</ltr>     <cmt>//&lt;   signed long long int 最小値 (接尾辞LL)</cmt>
 <kwd>#define</kwd> S8_MAX (  <kwd>signed long long</kwd>)<ltr>0x7FFFFFFFFFFFFFFFLL</ltr>     <cmt>//&lt;   signed long long int 最大値 (接尾辞LL)</cmt>
 <kwd>#define</kwd> U8_MAX (<kwd>unsigned long long</kwd>)<ltr>0xFFFFFFFFFFFFFFFFULL</ltr>    <cmt>//&lt; unsigned long long int 最大値 (接尾辞ULL)</cmt>
-</p>
+</div>
 
 <h3>ローカル変数の宣言位置制約の撤廃</h3>
 C89ではローカル変数はコードブロック(関数など、{} (ブレース)で囲まれた区間)の先頭で宣言する必要があったが、<br>
@@ -94,7 +94,7 @@ C99では<b>C++同様、コードブロックの途中でも変数を宣言で�
         :
     }
 }
-</p>
+</div>
 <br>
 
 <h4>C99</h4>
@@ -119,7 +119,7 @@ C99では<b>C++同様、コードブロックの途中でも変数を宣言で�
     }
     <cmt>// for 節を抜けた時点で、m の寿命は終わっている</cmt>
 }
-</p>
+</div>
 
 <h3><dgreen>//</dgreen>から始まる一行コメント</h3>
 BCPLやC++と同じスタイルでコメントを記述できる。従来の <dgreen>/*</dgreen> ～ <dgreen>*/</dgreen> スタイルも使用可能。<br>
@@ -133,7 +133,7 @@ BCPLやC++と同じスタイルでコメントを記述できる。従来の <dg
     <cmt>// "DoSomethihg" が出力される</cmt>
     printf(<ltr>"%s"</ltr>, __func__);
 }
-</p>
+</div>
 
 <h3>指示初期化子</h3>
 配列・構造体の特定の要素を指定して初期化できる。<br>
@@ -159,7 +159,7 @@ BCPLやC++と同じスタイルでコメントを記述できる。従来の <dg
     [<ltr>4</ltr>] = <ltr>0</ltr>,    <cmt>//&lt; c[4]</cmt>
     <ltr>4</ltr>,          <cmt>//&lt; c[5] ⇒ 末尾</cmt>
 };
-</p>
+</div>
 
 <h4>構造体</h4>
 <div class="code">
@@ -179,7 +179,7 @@ BCPLやC++と同じスタイルでコメントを記述できる。従来の <dg
         <ltr>100</ltr>      <cmt>//&lt; 要素 y の次 ⇒ 要素 width</cmt>
     };
 }
-</p>
+</div>
 
 <h3>複合リテラル</h3><br>
 構造体・配列(固定長のみ)をリテラルとして生成できる。<br>
@@ -207,7 +207,7 @@ St_Point center(<kwd>const</kwd> St_Point*p1, <kwd>const</kwd> St_Point*p2)
     St_Point p = center(&amp;(St_Point){<ltr>1</ltr>, <ltr>2</ltr>}, &amp;(St_Point){<ltr>2</ltr>, <ltr>3</ltr>});
     printf(<ltr>"(%d, %d)¥n"</ltr>, p.x, p.y);
 }
-</p>
+</div>
 <br>
 
 上記の center() 関数は以下と等価である。<br>
@@ -223,7 +223,7 @@ St_Point center(<kwd>const</kwd> St_Point*p1, <kwd>const</kwd> St_Point*p2)
 
     <kwd>return</kwd> ret;
 }
-</p>
+</div>
 <br>
 
 即ち、暗黙の自動変数を生成している。(関数)スコープを抜けた時点でこの変数の寿命は終わってしまうため、以下のような記述は正常に動作しない。<br>
@@ -237,7 +237,7 @@ St_Point* center(<kwd>const</kwd> St_Point*p1, <kwd>const</kwd> St_Point*p2)
           .y = (p1-&gt;y + p2-&gt;y) / <ltr>2</ltr>
     };
 }
-</p>
+</div>
 
 <h2>注意すべき点( C89との相違 )</h2>
 宣言時に型を省略した場合、C89では暗黙的に int と見なしていたが、C99ではコンパイルエラーとなる。<br>

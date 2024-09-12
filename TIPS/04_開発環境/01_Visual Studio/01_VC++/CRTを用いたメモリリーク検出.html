@@ -42,7 +42,7 @@ CRT(Cランタイム)ライブラリの機能を用いて、メモリリーク�
 <kwd>#define</kwd> _recalloc(p, c, s)    _recalloc_dbg(p, c, s, _NORMAL_BLOCK, __FILE__, __LINE__)
 <kwd>#define</kwd> _expand(p, s)         _expand_dbg(p, s, _NORMAL_BLOCK, __FILE__, __LINE__)
 <kwd>#endif</kwd>
-</p>
+</div>
 (MFC使用時)<br>
 <div class="code">
 <kwd>#if</kwd> _DEBUG
@@ -50,12 +50,12 @@ CRT(Cランタイム)ライブラリの機能を用いて、メモリリーク�
 <kwd>#include</kwd> &lt;crtdbg.h&gt;
 <kwd>#define</kwd> new new(__FILE__, __LINE__)
 <kwd>#endif</kwd>
-</p>
+</div>
 </li>
 <li>エントリ関数(CWinApp::InitInstance() など)の先頭に以下のコードを追記する。<br>
 <div class="code">
 ::_CrtSetDbgFlag(_CRTDBG_LEAK_CHECK_DF | _CRTDBG_ALLOC_MEM_DF);
-</p>
+</div>
 </li>
 <li>プログラムをビルドし、デバッグを開始する。プログラム終了時に「出力」ウィンドウに検出結果が表示される。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/CRT_leak_detection/leak_detect_with_CRT.png"><br>

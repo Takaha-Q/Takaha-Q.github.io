@@ -86,7 +86,7 @@ Dictionary &lt;<kwd>int</kwd>, <kwd>string</kwd>&gt; dic = <kwd>new</kwd> Dictio
 <cmt>// コンストラクタに KeyCollection / ValueCollection を渡す</cmt>
 List&lt;<kwd>int</kwd>&gt;    list_keys   = <kwd>new</kwd> List&lt;<kwd>int</kwd>&gt(keys);
 List&lt;<kwd>string</kwd>&gt; list_values = <kwd>new</kwd> List&lt;<kwd>string</kwd>&gt(values);
-</p>
+</div>
     
 <h2>Dictionaryの逆引き (値からキーを得る)</h2>
 LINQの機能を用いる(System.Linq に依存)。First() 関数とラムダ式を用いて以下のように書ける。<br>
@@ -104,6 +104,6 @@ Dictionary &lt;<kwd>int</kwd>, <kwd>string</kwd>&gt; dic = <kwd>new</kwd> Dictio
 
 <cmt>// 値 (Value) が"みかん"の要素のキー (Key) を取得 (== 1)</cmt>
 <kwd>int</kwd> key = dic.First(x =&gt; x.Value == <ltr>"みかん"</ltr>).Key;
-</p>
+</div>
 First() 関数の代わりに All() 関数を用いると、該当する要素すべて(集合)が返る。
 

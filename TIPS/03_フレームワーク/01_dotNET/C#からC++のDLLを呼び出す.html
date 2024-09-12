@@ -71,7 +71,7 @@ Program.cs<br>
         }
     }
 }
-</p>
+</div>
 
 <h3>注意が必要な点</h3>
 C++とC#では型に互換性が無く、データ授受の際に一部の型を互換性のある形式に変換(マーシャリング)する必要がある。詳細は後述。<br>
@@ -123,7 +123,7 @@ DLLEXPORT <kwd>void</kwd> __stdcall MulUsePointer(<kwd>int</kwd>* x, <kwd>int</k
 {
     *result = (*x) * (*y);
 }
-</p>
+</div>
 
 <h6>アプリケーション(C#)</h6>
 <div class="code">
@@ -157,7 +157,7 @@ DLLEXPORT <kwd>void</kwd> __stdcall MulUsePointer(<kwd>int</kwd>* x, <kwd>int</k
         }
      }
 }
-</p>
+</div>
 
 <h4>文字列</h4>
 C++の string / wstring とC#の string には互換性が無いため、マーシャリングが必要。
@@ -200,7 +200,7 @@ DLLEXPORT <kwd>const wchar_t</kwd>* __stdcall GetNameWStr()
 {
     <kwd>return</kwd> _wstr.c_str();
 }
-</p>
+</div>
 
 <h6>アプリケーション(C#)</h6>
 <div class="code">
@@ -238,7 +238,7 @@ DLLEXPORT <kwd>const wchar_t</kwd>* __stdcall GetNameWStr()
         }
      }
 }
-</p>
+</div>
 
 <h4>配列</h4>
 マーシャリングが必要。<br>
@@ -256,7 +256,7 @@ DLLEXPORT <kwd>void</kwd> __stdcall SetArray(<kwd>const int</kwd>* arr)
 {
     (略)
 }
-</p>
+</div>
 
 <h6>アプリケーション(C#)</h6>
 <div class="code">
@@ -308,7 +308,7 @@ DLLEXPORT <kwd>void</kwd> __stdcall SetArray(<kwd>const int</kwd>* arr)
         }
      }
 }
-</p>
+</div>
 
 <h4>構造体</h4>
 書式指定[StructLayout(LayoutKind.Sequential)]、入力・出力マーシャリング指定[In][Out]の指定が必要。<br>
@@ -341,7 +341,7 @@ DLLEXPORT <kwd>void</kwd> __stdcall GetStruct(stSample* st)
 {
     (略)
 }
-</p>
+</div>
 
 <h6>アプリケーション(C#)</h6>
 <div class="code">
@@ -379,5 +379,5 @@ DLLEXPORT <kwd>void</kwd> __stdcall GetStruct(stSample* st)
         }
      }
 }
-</p>
+</div>
 

@@ -101,11 +101,11 @@ C/C++同様に二重引用符で括ることで文字列を記述できる。<br
 <cmt>//                         └──────│────│───────┘    │              │</cmt>
 <cmt>//                                       └────│──────────┘              │</cmt>
 <cmt>//                                                 └──────────────────┘</cmt>
-</p>
+</div>
 出力結果<br>
 <div class="code">
 Hello, Mark! Today is Wednesday, it's 19:40 now.
-</p>
+</div>
     </td>
   </tr>
     
@@ -125,11 +125,11 @@ Hello, Mark! Today is Wednesday, it's 19:40 now.
 <kwd>var</kwd> date = <knw>DateTime</knw>.Now;
 
 <knw>Console</knw>.WriteLine(<b class="blue">$</b><ltr>"Hello, <b class="dgreen">{name}</b>! Today is <b class="dgreen">{date.DayOfWeek}</b>, it's <b class="dgreen">{date:HH:mm}</b> now."</ltr>);
-</p>
+</div>
 出力結果<br>
 <div class="code">
 Hello, Mark! Today is Wednesday, it's 19:40 now.
-</p>
+</div>
     </td>
   </tr>
 </table>
@@ -142,7 +142,7 @@ Hello, Mark! Today is Wednesday, it's 19:40 now.
 <kwd>string</kwd> str01 = <b class="blue">$</b><b class="red">@</b><ltr>"Mark <b class="dgreen">{</b>"Down"<b class="dgreen">}</b>"</ltr>; <cmt>//< 文字列にリテラルを埋め込む ⇒ Mark Down</cmt>
 <kwd>int</kwd> i = <ltr>100</ltr>;
 <kwd>string</kwd> str02 = <b class="blue">$</b><b class="red">@</b><ltr>"<b class="dgreen">{</b>i<b class="dgreen">}</b> %"</ltr>;         <cmt>//< 文字列に変数値を埋め込む   ⇒ 100 %</cmt>
-</p>
+</div>
 
 <h3>アラインメントの指定</h3>
 挿入する値に続き、値を記述することで出力文字数とアラインメントを指定できる。<br>
@@ -155,7 +155,7 @@ Hello, Mark! Today is Wednesday, it's 19:40 now.
 <div class="code">
 <kwd>string</kwd> str01 = <ltr>$"|</ltr>{"Mark", <b class="red">-7</b>}</ltr>|"</ltr>;  <cmt>//< 7文字・左詰め ⇒ |Mark   |</cmt>
 <kwd>string</kwd> str02 = <ltr>$"|</ltr>{"Mark", <b class="red"> 7</b>}</ltr>|"</ltr>;  <cmt>//< 7文字・右詰め ⇒ |   Mark|</cmt>
-</p>
+</div>
 
 <h3>書式指定文字列</h3>
 値(またはアラインメント指定)に続き、<b class="dgreen"> :[書式指定文字列]</b> の形式で、出力形式を指定できる。<br>
@@ -164,7 +164,7 @@ Hello, Mark! Today is Wednesday, it's 19:40 now.
 <div class="code">
 <kwd>var</kwd> date = <knw>DateTime</knw>.Now;                         <cmt>//< 現在日時を取得</cmt>
 <kwd>string</kwd> str01 = <ltr>$"It's </ltr>{date, <b class="red">-7</b>, <b class="dgreen">:HH:MM</b>}<ltr> now."</ltr>;  <cmt>//< 7文字・左詰め / <b class="dgreen">HH:MM</b>形式 ⇒ It's 17:35   now.</cmt>
-</p>
+</div>
 
 コロンはそのままでは書式指定文字列の始点とみなされるため、コロンが特別な意味を持つ場合(三項演算子)は、条件式自体を丸括弧で囲む。
 <div class="code">
@@ -173,5 +173,5 @@ Hello, Mark! Today is Wednesday, it's 19:40 now.
 
 age = <ltr>1</ltr>;
 <kwd>string</kwd> str02 = <ltr>$"May is {age} year</ltr>{<b class="blue">(</b>age == 1 ? "" <b class="blue">:</b> "s"<b class="blue">)</b>}<ltr> old."</ltr>;     <cmt>//< 同上                                   ⇒ May is 1 year old.</cmt>
-</p>
+</div>
 

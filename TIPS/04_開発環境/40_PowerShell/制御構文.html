@@ -69,7 +69,7 @@ $x = <ltr>100</ltr>
 {
   <kwd>Write-Output</kwd> <ltr>'変数 $x は40未満です。'</ltr>
 }
-</p>
+</div>
 
 <h2>多岐分岐(switch 節)</h2>
 C系言語の switch - case 、VBの select - case 節に相当。<br>
@@ -99,7 +99,7 @@ switch($x)
       <kwd>Write-Output</kwd> <ltr>'変数 $x は1、2、3ではありません。'</ltr>
     }
 }
-</p>
+</div>
 break を記述することで、個別のブロック(case 節に相当)を実行後 switch 節を抜けるようになる。<br>
 break を省略すると switch 節を継続するため、条件に適合するブロックが他にも存在する場合そちらも実行される。<br>
 <div class="code">
@@ -125,12 +125,12 @@ switch($x)
       <kwd>Write-Output</kwd> <ltr>'変数 $x は1、2、3ではありません。'</ltr>
     }
 }
-</p>
+</div>
 実行結果
 <div class="code">
 変数 $x は1です。
 変数 $x は1です。(わかってます)
-</p>
+</div>
 
 <h2>ループ構文</h2>
 <h3>for 節</h3>
@@ -149,11 +149,11 @@ $ary = <ltr>@(100, 120, 300)</ltr>
 
 <cmt># 変数 $sum の値を出力</cmt>
 <kwd>Write-Output</kwd> $sum
-</p>
+</div>
 実行結果
 <div class="code">
 520
-</p>
+</div>
 
 <h3>範囲ベース for</h3>
 C#などの foreach 節と同様。コレクション(集合)の全要素を順に走査して処理できる。
@@ -172,11 +172,11 @@ $ary = <ltr>@(100, 120, 300)</ltr>
 
 <cmt># 変数 $sum の値を出力</cmt>
 <kwd>Write-Output</kwd> $sum
-</p>
+</div>
 実行結果
 <div class="code">
 520
-</p>
+</div>
 
 <h4>ForEach-Object コマンドレットを使用する場合</h4>
 foreach文を使用するよりもリソース消費が少ない。
@@ -194,11 +194,11 @@ foreach文を使用するよりもリソース消費が少ない。
   
   <cmt># 変数 $sum の値を出力</cmt>
   <kwd>Write-Output</kwd> $sum
-</p>
+</div>
 実行結果
 <div class="code">
 520
-</p>
+</div>
 
 <h3>while / do ～ while 節</h3>
 C系言語の while / do ～ while 節と同様。継続条件を満たしている間、ループを繰り返す。<br>
@@ -218,7 +218,7 @@ $ary = <ltr>@(100, 120, 300)</ltr>
 }
 
 <kwd>Write-Output</kwd> $sum
-</p>
+</div>
 
 <h4>do ～ while 節</h4>
 <div class="code">
@@ -233,5 +233,5 @@ $ary = <ltr>@(100, 120, 300)</ltr>
 } <kwd>while</kwd>($i -lt 3) <cmt>#< 変数 $i < 3 の間、ループを継続</cmt>
 
 <kwd>Write-Output</kwd> $sum
-</p>
+</div>
 

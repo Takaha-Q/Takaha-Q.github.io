@@ -44,7 +44,7 @@ System.Collections.IList インターフェイスを実装するオブジェク�
 <div class="code">
 <cmt>// List 型オブジェクトをデータソース(DataSource)に指定</cmt>
 comboBox_Attendance.DataSource = <kwd>new</kwd> List&lt;<kwd>string</kwd>&gt;(dic_Attendance.Keys);
-</p>
+</div>
 
 <h4>注意が必要な点</h4>
 複数のコントロールでデータソースに共通のオブジェクトを用いると、コントロール間で値が連動してしまう。<br>
@@ -61,7 +61,7 @@ comboBox_Attendance.DataSource = <kwd>new</kwd> List&lt;<kwd>string</kwd>&gt;(di
 comboBox_01.DataSource = ds;
 comboBox_02.DataSource = ds;
 comboBox_03.DataSource = ds;
-</p>
+</div>
 
 <div class="code">
 <cmt>// (初期化子としての)List 型オブジェクトを生成</cmt>
@@ -72,5 +72,5 @@ comboBox_03.DataSource = ds;
 comboBox_01.DataSource = <kwd>new</kwd> List&lt;<kwd>string</kwd>&gt;(ds);
 comboBox_02.DataSource = <kwd>new</kwd> List&lt;<kwd>string</kwd>&gt;(ds);
 comboBox_03.DataSource = <kwd>new</kwd> List&lt;<kwd>string</kwd>&gt;(ds);
-</p>
+</div>
 

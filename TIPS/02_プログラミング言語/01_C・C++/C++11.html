@@ -83,7 +83,7 @@ C++ではvoid* 型から<b>他のポインタ型への暗黙的変換が認め�
 <kwd>void</kwd> foo(<kwd>int</kwd>);
 :
 foo(NULL); <cmt>//< ポインタ型のつもりでNULLを与えているが…</cmt>
-</p>
+</div>
 
 上記のコード例ではNULL が 0 に置換されるため、foo(int) が呼ばれることとなる。多くの場合で、これはプログラマの意図に反している。<br>
 <br>
@@ -95,7 +95,7 @@ foo(NULL); <cmt>//< ポインタ型のつもりでNULLを与えているが…</
 <kwd>void</kwd> foo(<kwd>int</kwd>);
 :
 foo(<kwd>nullptr</kwd>); <cmt>//< nullptr はポインタ型と解釈されるため、foo(char*) が呼ばれる</cmt>
-</p>
+</div>
 
 <!-- ～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～ -->
 
@@ -122,7 +122,7 @@ C++ではCと同様、構造体を初期化する際に、初期値をブレー�
 
 St_Object scalar    = { <ltr>0.43F</ltr>, <ltr>10</ltr> };  <cmt>//< St_Object 型変数の初期化</cmt>
 St_Object anArray[] = { {<ltr>13.4F</ltr>, <ltr>3</ltr>}, {<ltr>43.28F</ltr>, <ltr>29</ltr>}, {<ltr>5.934F</ltr>, <ltr>17</ltr>} };  <cmt>//< St_Object 型配列変数の初期化</cmt>
-</p>
+</div>
 
 C++11では初期化子リストがテンプレート <b>std::initializer_list</b> と結び付けられ、コンストラクタなどの関数が<b>初期化子リストを引数として</b>取ることができるようになった。<br>
 
@@ -139,7 +139,7 @@ CSequenceClass someVar = { <ltr>1</ltr>, <ltr>4</ltr>, <ltr>5</ltr>, <ltr>6</ltr
 <cmt>// ↑は↓と等価である</cmt>
 <kwd>std</kwd>::initializer_list&lt;<kwd>int</kwd>&gt; i_er = { <ltr>1</ltr>, <ltr>4</ltr>, <ltr>5</ltr>, <ltr>6</ltr> };
 CSequenceClass someVar(i_er);
-</p>
+</div>
 
 <!-- ～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～ -->
 
@@ -214,7 +214,7 @@ C++11では <b>final</b> キーワードが追加された。クラスに適用�
 {
     :
 };
-</p>
+</div>
 
 <h3>仮想関数の final 修飾</h3>
 仮想関数を final 修飾した場合、 <b>その関数はオーバーライド不可となる</b> 。<br>
@@ -231,7 +231,7 @@ C++11では <b>final</b> キーワードが追加された。クラスに適用�
 {
     <kwd>void</kwd> some_func(<kwd>float</kwd>);    <cmt>//&lt; 不正 : final 修飾された関数をオーバーライドしようとしている</cmt>
 };
-</p>
+</div>
 
 <!-- ～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～・～ -->
 

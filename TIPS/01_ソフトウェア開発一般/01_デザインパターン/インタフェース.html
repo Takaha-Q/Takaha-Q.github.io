@@ -78,7 +78,7 @@ JavaやC#ではクラスの多重継承が認められていないが、イン�
     <cmt>// 「会計」メソッド</cmt>
     <kwd>public void</kwd> bill();
 }
-</p>
+</div>
 class ではなく <b>interface</b> キーワードを用いる点に注意。
 
 <h4>C#</h4>
@@ -90,7 +90,7 @@ class ではなく <b>interface</b> キーワードを用いる点に注意。
     <cmt>// 「会計」メソッド</cmt>
     <kwd>void</kwd> bill();
 }
-</p>
+</div>
 
 <h3>インタフェースの実装</h3>
 <h4>Java</h4>
@@ -107,7 +107,7 @@ class ではなく <b>interface</b> キーワードを用いる点に注意。
         <knw>System</knw>.<kwd>out</kwd>.println(<ltr>"クレジットカードでお会計をいたします。"</ltr>);
     }
 }
-</p>
+</div>
 
 (Cash.java)
 <div class="code">
@@ -122,7 +122,7 @@ class ではなく <b>interface</b> キーワードを用いる点に注意。
         <knw>System</knw>.<kwd>out</kwd>.println(<ltr>"現金でお会計をいたします。"</ltr>);
     }
 }
-</p>
+</div>
 <b>implements</b> キーワードにより、インタフェースを実装することを宣言。bill() をオーバーライド( <b>@Override</b> )する。<br>
 
 <h4>C#</h4>
@@ -138,7 +138,7 @@ class ではなく <b>interface</b> キーワードを用いる点に注意。
         <knw>Console</knw>.WriteLine(<ltr>"クレジットカードでお会計をいたします。"</ltr>);
     }
 }
-</p>
+</div>
 
 (Cash.cs)
 <div class="code">
@@ -152,7 +152,7 @@ class ではなく <b>interface</b> キーワードを用いる点に注意。
         <knw>Console</knw>.WriteLine(<ltr>"現金でお会計をいたします。"</ltr>);
     }
 }
-</p>
+</div>
 書式はC++における継承と同様。<br>
 
 
@@ -176,7 +176,7 @@ class ではなく <b>interface</b> キーワードを用いる点に注意。
         cashier[i].bill();
     }
 }
-</p>
+</div>
 
 CreditCard 、Cash ともに ICashier を実装しているため、Staff では CreditCard 、Cash のいずれであるかを意識することなく、共通の手法で呼び出すことができる。
 
@@ -199,5 +199,5 @@ CreditCard 、Cash ともに ICashier を実装しているため、Staff では
         cashier[i].bill();
     }
 }
-</p>
+</div>
 

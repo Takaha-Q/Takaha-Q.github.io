@@ -68,7 +68,7 @@ using namespace std;
     CBase* pcl_B = new CDerived();
     delete pcl_B ;
 }
-</p>
+</div>
 <br>
 上記コードの実行結果<br>
 <div class="code">
@@ -79,7 +79,7 @@ CBase 破棄       <cmt>//&lt; #1 ここまで</cmt>
 CBase 生成       <cmt>//&lt; #2 ここから</cmt>
 CDerived 生成
 CBase 破棄       <cmt>//&lt; #2 ここまで</cmt>
-</p>
+</div>
 <br>
 #1 (<b>派生クラスのポインタ</b>が派生クラスのインスタンスを指す場合)では正常にコールされているが、<br>
 #2 (<b>基本クラスのポインタ</b>が派生クラスのインスタンスを指す場合)では派生クラスのデストラクタがコールされない。<br>
@@ -99,7 +99,7 @@ CBase 破棄       <cmt>//&lt; #2 ここまで</cmt>
     CDerived () { cout &lt;&lt; <ltr>"CDerived 生成"</ltr> &lt;&lt; <ltr>"\n"</ltr>; }
     ~CDerived () { cout &lt;&lt; <ltr>"CDerived 破棄"</ltr> &lt;&lt; <ltr>"\n"</ltr>; }
 };
-</p>
+</div>
 <h2>デストラクタ仮想化の是非</h2>
 <b>実行時ポリモーフィズムを用いる場合(≒基本クラスがポリモーフィック(仮想関数を含む))は、デストラクタを仮想化する必要がある</b> 。<br>
 これは基本クラスのデストラクタが有意な処理を行わない場合も同様である。(空の仮想デストラクタを定義する必要がある。そもそもデストラクタで何を行うかは問題ではない。)<br>

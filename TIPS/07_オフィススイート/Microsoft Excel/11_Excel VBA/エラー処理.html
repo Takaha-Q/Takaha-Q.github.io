@@ -71,7 +71,7 @@ VBAではエラーへの対処を <b>On Error</b> ステートメントを用い
 
     DoSomething3
 <kwd>End Sub</kwd>
-</p>
+</div>
 
 <b>On Error Resume Next</b> を記述した場合、エラーが発生した際は<b>次の行から処理が継続される</b>。<br>
 この例では、DoSomething1 でエラーが発生した場合もプログラムは停止せず、DoSomething2 からプログラムが継続される。
@@ -93,7 +93,7 @@ VBAではエラーへの対処を <b>On Error</b> ステートメントを用い
     MsgBox <ltr>"エラーが発生しました。"</ltr>, vbExclamation
 
 <kwd>End Sub</kwd>
-</p>
+</div>
 
 <b>On Error GoTo</b> を記述した場合、エラーが発生した際は<b>指定されたラベルから処理が継続される</b>。<br>
 上の例では、エラーが発生した場合に myErr ラベルにジャンプし、そこから処理が継続(メッセージボックス表示)される。<br>
@@ -121,7 +121,7 @@ VBAではエラーへの対処を <b>On Error</b> ステートメントを用い
     MsgBox <ltr>"エラーが発生しました。"</ltr>, vbExclamation
 
 <kwd>End Sub</kwd>
-</p>
+</div>
 
 <h4>Resume Next との複合</h4>
 エラー時の処理に <b>Resume Next</b> を含めた場合、エラー発生時は<b>ラベルにジャンプ後、エラー発生個所の次行より継続される</b>。<br>
@@ -147,7 +147,7 @@ VBAではエラーへの対処を <b>On Error</b> ステートメントを用い
     <kwd>Resume Next</kwd>                                    <cmt>'< ③ ここからエラー発生個所の次行にジャンプ ┘</cmt>
 
 <kwd>End Sub</kwd>
-</p>
+</div>
 
 上の例では、<br>
 ① DoSomething1 でエラーが発生<br>
@@ -193,7 +193,7 @@ VBAではエラーへの対処を <b>On Error</b> ステートメントを用い
     <kwd>End Select</kwd>
 
 <kwd>End Sub</kwd>
-</p>
+</div>
 
 プログラム中でエラーが発生すると、<b>Err</b> オブジェクトにエラー要因に応じた値が格納される。<br>
 これにより、<b>Err.Number</b> (エラー番号 : 数値)および <b>Err.Description</b> (エラーの説明 : 文字列)から、エラー要因を確認することができる。<br>
@@ -231,7 +231,7 @@ VBAではエラーへの対処を <b>On Error</b> ステートメントを用い
     <kwd>End If</kwd>
 
 <kwd>End Sub</kwd>
-</p>
+</div>
 
 <b>Err.Raise</b> メソッドにより、任意の Number および Description のエラーを発生させることができる。<br>
 (これは例外機構がある言語における、例外を投げる(throw)処理に相当する。)<br>

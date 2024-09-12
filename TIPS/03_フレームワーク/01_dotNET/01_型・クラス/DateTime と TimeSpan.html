@@ -60,7 +60,7 @@ Console.WriteLine(dt1.ToString(<ltr>"yyyy/M/d HH:mm:ss"</ltr>));         <cmt>//
 <cmt>// 各要素の抽出</cmt>
 Console.WriteLine(dt1.Hour);                                  <cmt>//< 時   ⇒ 18</cmt>
 Console.WriteLine(dt1.DayOfWeek);                             <cmt>//< 曜日 ⇒ Saturday</cmt>
-</p>
+</div>
 
 <h2>TimeSpan</h2>
 <div class="code">
@@ -79,7 +79,7 @@ Console.WriteLine(ts1.ToString(<ltr>"hh\:mm\:ss\.fff"</ltr>));     <cmt>//< 書�
 Console.WriteLine(ts1.Hours);                           <cmt>//< 時間     ⇒ 3</cmt>
 Console.WriteLine(ts1.Minutes);                         <cmt>//< 分       ⇒ 21</cmt>
 Console.WriteLine(ts1.TotalMinutes);                    <cmt>//< 合計の分 ⇒ 65001 (小数点以下が発生することもある)</cmt>
-</p>
+</div>
 
 <h3>注意が必要な点</h3>
 TimeSpan 型を文字列に変換する際の書式指定文字列には書式指定子以外の文字( = 記号)はそのままでは使用できず、エスケープするか文字列リテラルとする必要がある。<br>
@@ -123,5 +123,5 @@ DateTime dt5 = dt4.Date;                                           <cmt>//<   20
 <cmt>// 時刻部分のみを取り出す (TimeSpan 型となる点に注意)</cmt>
 TimeSpan ts4 = dt4.TimeOfDay;                                      <cmt>//<   2020年 6月 20日 18時   45分  3秒 </cmt>
                                                                    <cmt>//<                   18時   45分  3秒 </cmt>
-</p>
+</div>
 

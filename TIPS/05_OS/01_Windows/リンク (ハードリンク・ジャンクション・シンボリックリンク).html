@@ -121,7 +121,7 @@ WindowsではUNIX/Linux系OSと同様のリンク機能を利用することが�
 <cmt>rem シンボリックリンク C:/here/SLink が //Somewhere/location を指すようにする</cmt>
 
 ><b class="red">mklink</b> <b class="dyellow">/D</b> <b class="dmagenta">"C:/here/SLink"</b> <b class="dcyan">"//Somewhere/location"</b>
-</p>
+</div>
 
 <table>
 <tr class="red">
@@ -169,7 +169,7 @@ PowerShellを <b>管理者権限で</b> 開き、New-Item コマンドを入力�
 <cmt># シンボリックリンク C:/here/SLink が //Somewhere/location を指すようにする</cmt>
 
 ><b class="red">New-Item</b> <b class="blue">-Path 'C:/here'</b> <b class="dmagenta">-Name SLink</b> <b class="dcyan">-Value '//Somewhere/location'</b> <b class="dyellow">-ItemType SymbolicLink</b>
-</p>
+</div>
 
 <table>
 <tr class="red">
@@ -230,5 +230,5 @@ $sLink.LinkType
 <cmt># C:/here/SLink のターゲットを取得</cmt>
 $sLink.Target
 <cmt># UNC\Somewhere\location が返る(UNCパス)</cmt>
-</p>
+</div>
 

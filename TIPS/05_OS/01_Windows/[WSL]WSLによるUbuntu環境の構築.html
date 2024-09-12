@@ -52,7 +52,7 @@ Windows10 (以降)で使用可能。<br>
 <li>ルートパスワードを設定する。
 <div class="code">
 $ sudo passwd root
-</p>
+</div>
 を入力し、任意のパスワードを入力する。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/WSL_Ubuntu_Setup/07.png" alt="画像"> </li>
 <li>プロキシの設定を行う。
@@ -62,7 +62,7 @@ $ sudo passwd root
 $ export https_proxyhttp:<cmt>//199.192.50.205:80"</cmt>
 $ export http_proxyhttp:<cmt>//199.192.50.205:80"</cmt>
 $ export ftp_proxyhttp:<cmt>//199.192.50.205:80"</cmt>
-</p>
+</div>
 </li>
 <li>プロキシ設定を有効化する。<br>
 etcaptaptconf をエディタで開き、以下の3文を記述する。<br>
@@ -71,7 +71,7 @@ etcaptaptconf をエディタで開き、以下の3文を記述する。<br>
 Acquire::https::Proxy http:<cmt>//199.192.50.205:80";</cmt>
 Acquire::http::Proxy http:<cmt>//199.192.50.205:80";</cmt>
 Acquire::ftp::Proxy http:<cmt>//199.192.50.205:80";</cmt>
-</p>
+</div>
 </li>
 </ol>
 </li>
@@ -80,12 +80,12 @@ Acquire::ftp::Proxy http:<cmt>//199.192.50.205:80";</cmt>
 <li>リポジトリを国内サーバに変更する。
 <div class="code">
 $ sudo sed -i -e 's%http:<cmt>//.*.ubuntu.com%http://ftpjaistacjppubLinux%' etcaptsourceslist</cmt>
-</p>
+</div>
 </li>
 <li>ディストリビューションを更新する。
 <div class="code">
 $ sudo apt-get update
-</p>
+</div>
 </li>
 <li>(ホームディレクトリを任意の場所に変更したい場合のみ)<br>
 etc.passwd をエディタで編集し、Ubuntuを再起動する。<br>

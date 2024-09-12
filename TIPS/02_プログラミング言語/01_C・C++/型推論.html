@@ -59,7 +59,7 @@ Java、C#、Swiftなどモダン言語が型推論をサポートしており、
 <div class="code">
 <kwd>auto</kwd> someStrangeCallableType = boost::bind(&amp;SomeFunction, _2, _1, someObject);
 <kwd>auto</kwd> otherVariable = <ltr>5</ltr>;
-</p>
+</div>
 
 明示的に初期化される変数の宣言に <b>auto</b> キーワードを用いると、初期化子によって変数の型が特定される。<br>
 上記の変数 someStrangeCallableType の型は、関数テンプレート boost::bind() がその引数に応じて返す戻り値の型であり、<br>
@@ -83,7 +83,7 @@ auto はコードの簡略化(冗長性の排除)にも有効である。<br>
 {
     :
 }
-</p>
+</div>
 
 myvec.begin() の戻り値の型からイテレータ itr の型を推論することができる。<br>
 コンテナがネストするような場合は特に効果が大きい。<a href="TIPS/02_プログラミング言語/01_C・C%2B%2B/01_コンテナ(STL)/イテレータ.html">イテレータ</a>については、リンク先を参照のこと。<br>
@@ -93,7 +93,7 @@ myvec.begin() の戻り値の型からイテレータ itr の型を推論する�
 <div class="code">
 <kwd>int</kwd> someInt;
 <kwd>decltype</kwd>(someInt) otherIntegerVariable = <ltr>5</ltr>;    <cmt>//&lt; decltype() のオペランド (someInt) により int 型と確定</cmt>
-</p>
+</div>
 auto で宣言した変数の(実際の)型はコンパイラにしかわからないので<b> decltype と組み合わせることは有用である</b>。<br>
 (この例では、変数 someInt が int 型であるため、変数 otherIntegerVariable は decltype(someInt) の評価結果から int 型となる。)<br>
 <br>

@@ -64,7 +64,7 @@
     Fuga();
 
     :
-</p>
+</div>
 
 <h3>サンプルコード : モーダル</h3>
 フォームは元アプリケーションのタスク内で実行される。<br>
@@ -83,7 +83,7 @@
     Fuga();
 
     :
-</p>
+</div>
 
 <h2>フォームの処理結果(DialogResult)</h2>
 フォームの処理結果を <b>DialogResult</b> プロパティ( DialogResult 型)から参照することができる。
@@ -118,7 +118,7 @@
         <b>DialogResult</b> = <b>DialogResult.No</b>;
     }
 }
-</p>
+</div>
 DialogResult プロパティの初期値は DialogResult.None 。<br>
 フォームがモーダルの場合、<b>DialogResult プロパティの値を更新すると自動的にフォームが閉じられる</b>ため、<br>
 Close() を明示的にコールする必要は無い。<br>
@@ -138,7 +138,7 @@ Close() を明示的にコールする必要は無い。<br>
     }
 
     :
-</p>
+</div>
 
 フォームインスタンスを再利用しないのであれば、以下のように簡略化可能。<br>
 ( <b>ShowDialog() は DialogResult プロパティを戻り値として返す</b>。)
@@ -150,7 +150,7 @@ Close() を明示的にコールする必要は無い。<br>
     }
 
     :
-</p>
+</div>
 フォームの実行結果を参照する場合、通常は<b>フォームをモーダルで開く( ShowDialog() )</b>。<br>
 上記のコードでは Form_Sub を閉じるまで後続の処理( if 文以降)が行われないため、単純な処理で DialogResult を確定させてから判定することができる。<br>
 <br>

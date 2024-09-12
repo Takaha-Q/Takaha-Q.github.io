@@ -50,12 +50,12 @@ for() 文はC++11以降であれば、
 を用いて以下のように書ける。<br>
 <div class="code">
 <kwd>for</kwd>( <kwd>auto</kwd> it = aVector.begin(); it != aVector.end(); ++it )
-</p>
+</div>
 また、end() が周回ごとに呼ばれるのを避ける( end() に重い処理を含む場合など)には、以下のようにする。<br>
 <div class="code">
 <kwd>auto</kwd> end = aVector.end();
 <kwd>for</kwd>( <kwd>auto</kwd> it = aVector.begin(); it != end ; ++it )
-</p>
+</div>
 <h2>イテレータとポインタの違い</h2>
 vector 、array 、およびC互換の配列は各要素が添字順にメモリに格納されるため、先頭要素へのポインタを加算することで要素を順に走査できる。<br>
 しかしそれ以外のコンテナでは、メモリへの格納順がコンテナにおける序列と必ずしも一致せず、ポインタを使用して順に走査することはできない。<br>

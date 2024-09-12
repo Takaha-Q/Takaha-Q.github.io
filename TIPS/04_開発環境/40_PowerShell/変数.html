@@ -45,12 +45,12 @@ $AnyParam_2 = <ltr>"abc"</ltr>
 <cmt># 変数の参照</cmt>
 <kwd>Write-Host</kwd> $AnyParam_1
 <kwd>Write-Host</kwd> $AnyParam_2
-</p>
+</div>
 実行結果
 <div class="code">
 123
 abc
-</p>
+</div>
 
 <h2>変数の命名規則</h2>
 <ul>
@@ -80,7 +80,7 @@ PS > $ttt.GetType()
 IsPublic IsSerial Name                                     BaseType                                                                                                                     
 -------- -------- ----                                     --------                                                                                                                     
 True     True     String                                   System.Object                                                                                                                
-</p>
+</div>
 
 <h2>文字列変数の自動展開</h2>
 文字列を表現する際は引用符(シングルクォート ('') 、またはダブルクォート ("") )で囲む必要があるが、<br>
@@ -95,12 +95,12 @@ $name = <ltr>"山田"</ltr>
 
 <cmt># シングルクォートで囲んだ場合 : $name が展開されない</cmt>
 <kwd>Write-Host</kwd> <ltr>'私は $name です'</ltr>
-</p>
+</div>
 実行結果
 <div class="code">
 私は 山田 です
 私は $name です
-</p>
+</div>
 
 <h2>配列</h2>
 <h3>初期化</h3>
@@ -113,7 +113,7 @@ $arr = <ltr>@(1, 2, 3, 4)</ltr>
 <cmt>#       │ │ $arr[2]</cmt>
 <cmt>#       │ $arr[1]</cmt>
 <cmt>#       $arr[0]</cmt>
-</p>
+</div>
 
 <h3>参照</h3>
 <b>変数名[添字]</b> の形式で指定する。<br>
@@ -134,7 +134,7 @@ PS > $arr      <cmt>#< 全要素にアクセス</cmt>
 3
 4
 PS >
-</p>
+</div>
 
 <h2>連想配列(ハッシュテーブル)</h2>
 連想配列とは、値と、値を連想させる「キー」の対を保持する配列のこと。<br>
@@ -150,7 +150,7 @@ PS >
 <cmt># 変数 $map_height を連想配列として初期化</cmt>
 <cmt># 氏名と身長を対にして保持する</cmt>
 $map_height = <ltr>@{"相原" = 168; "新井" = 170; "早矢仕" = 180}</ltr>
-</p>
+</div>
 
 <h3>参照</h3>
 <b>変数名[キー]</b> または <b>変数名.キー</b> の形式で指定する。<br>
@@ -185,5 +185,5 @@ PS > $map_height.Values         <cmt>#< Values プロパティで値の一覧を
 180
 
 PS >
-</p>
+</div>
 

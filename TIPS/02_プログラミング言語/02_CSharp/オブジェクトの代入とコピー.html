@@ -90,7 +90,7 @@ C#のクラスは参照型であり、クラスオブジェクトの「代入」
         <knw>Console</knw>.WriteLine(<ltr>"ob2.valB = "</ltr> + ob2.valB);
     }
 }
-</p>
+</div>
 
 実行結果 :
 <div class="code">
@@ -104,7 +104,7 @@ ob1.valA = <ltr>4</ltr>
 ob1.valB = oops    <cmt>//< 直接編集していない ob1.valB が書き換えられている</cmt>
 ob2.valA = <ltr>4</ltr>
 ob2.valB = oops    <cmt>//< 直接編集した ob2.valB</ltr></cmt>
-</p>
+</div>
 
 <h2>シャローコピーとディープコピー</h2>
 前節のように単純にオブジェクト(参照)の代入を行った場合、変数が指すインスタンスは共通となる。<br>
@@ -169,7 +169,7 @@ C#の Object 型には、コピーを行うための MemberwiseClone() メソッ
         }
     }
 }
-</p>
+</div>
 
 実行結果 :
 <div class="code">
@@ -179,7 +179,7 @@ C#の Object 型には、コピーを行うための MemberwiseClone() メソッ
 編集後の値
 コピー元 : <ltr>3</ltr> / cannon   <cmt>// コピー元を編集しても</cmt>
 コピー先 : <ltr>3</ltr> / rifle    <cmt>// コピー先はそのまま</cmt>
-</p>
+</div>
 
 MemberwiseClone() は代入と異なり、別のインスタンスを生成するため、値型(およびstring)のメンバを編集しても他方に影響が及ぶことは無い。<br>
 しかし参照型のメンバはシャローコピーであるため、完全なディープコピーを作成する場合はメンバごとの処置が必要となる。<br>
@@ -213,7 +213,7 @@ MemoryStream と BinaryFormatter を用いることで、オブジェクトの�
 
     :
 }
-</p>
+</div>
 
 <h2>その他の手法</h2>
 C++と同様、コピーコンストラクタを定義するなどの方法でディープコピーを実現できるが、ここでは割愛する。

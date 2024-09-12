@@ -61,7 +61,7 @@ C++に限らず、オブジェクト指向言語では一般的な概念。継�
 Vehicle* pOb_Vehicle;
 Car Ob_Car;
 pOb_Vehicle = &amp;Ob_Car;
-</p>
+</div>
 但し、(派生クラスオブジェクトを指す) <b>基本クラスポインタを用いてアクセスできるのは、基本クラスに存在するメンバのみである</b> 。<br>
  <b>(派生クラスで新たに追加したメンバは、基本クラスポインタを用いてアクセスすることはできない。キャストを用いて強引に行うことは不可能ではないが、推奨されない。)</b><br>
 仮想関数も例外ではないが、 <b>基本クラスに存在する仮想関数を派生クラスで再定義しているため</b> 、<br>
@@ -100,7 +100,7 @@ pOb_Vehicle = &amp;Ob_Car;
     <cmt>// 仮想関数 Accelarate() を定義しない ⇒ Vehicle の Accelarate() を使用</cmt>
     :
 }
-</p>
+</div>
 <br>
 関数を再定義(上書き)することを <b>「オーバーライド (Override)」</b> と呼ぶ。<br>
 仮想関数のオーバーライドの際は、 <b>基本クラスでの定義と引数の型・数、戻り値の型がすべて一致していなければならない</b> 。<br>
@@ -119,7 +119,7 @@ pOb_Vehicle = &amp;Ob_Car;
     pOb_Vehicle = ( i == <ltr>0</ltr>) ? &amp;Ob_Car : &amp;Ob_Motorcycle;
     pOb_Vehicle-&gt;Accelarate();
 }
-</p>
+</div>
 <br>
 ここで、i の値はプログラムを実行するまで確定しない(コンパイル時に決定できない)ため、pOb_Vehicle が Ob_Car と Ob_Motorcycle のいずれを指すかは実行時までわからない。<br>
 しかし、Accelarate() を基本クラスで仮想関数として定義しておけば、基本クラスポインタがいずれの派生クラスを指す場合でも、インタフェース(Accelarate() のコール)を変更する必要が無い。<br>
@@ -139,7 +139,7 @@ pOb_Vehicle はプログラムの実行時に、Car 、Motorcycle いずれの�
 </ol>
 <div class="code">
 <kwd>virtual retval-type</kwd> func-name (parameter-list) <b>= 0</b>; <cmt>//&lt; 末尾に <b>= 0</b> を付与することで純粋仮想化</cmt>
-</p>
+</div>
 <br>
 <b>純粋仮想関数を含むクラスを「抽象クラス(Abstract Class)」と呼ぶ</b> 。<br>
 重要な点として、 <b>抽象クラスは、自身のインスタンスを作成することができない</b> 。継承されて初めて意味を持つクラスであり、継承され、純粋仮想関数がオーバーライドされることを前提としている。<br>
@@ -166,7 +166,7 @@ pOb_Vehicle はプログラムの実行時に、Car 、Motorcycle いずれの�
     }
     :
 }
-</p>
+</div>
 
 <h2>明示的な仮想関数オーバーライド (C++11)</h2>
 基底クラスの仮想関数をオーバーライドする際に、(タイプミスなどで)意図に反する新しい仮想関数を作成してしまうことがある。
@@ -188,7 +188,7 @@ pOb_Vehicle はプログラムの実行時に、Car 、Motorcycle いずれの�
     <kwd>virtual bool</kwd> on_eror();         <cmt>//&lt; 基底クラスの on_error() をオーバーライドするつもりが、</cmt>
                                     <cmt>//&lt; 関数名(シグネチャ)を誤っている</cmt>
 };
-</p>
+</div>
 
 上記は派生クラスで基底クラスの仮想関数をオーバーライドしようとして、意図に反して新たな仮想関数を作成してしまった例である。<br>
 文法上は誤りではないためコンパイルエラーとはならず、間違いに気づくことができない。<br>
@@ -210,7 +210,7 @@ C++11では <b>override</b> キーワードが導入され、仮想関数のオ�
     <kwd>virtual void</kwd> some_func(<kwd>int</kwd>) <kwd>override</kwd>;    <cmt>//&lt; 不正 : 引数の型が異なっている</cmt>
     <kwd>virtual bool</kwd> on_eror() <kwd>override</kwd>;         <cmt>//&lt; 不正 : 関数名(シグネチャ)を誤っている</cmt>
 };
-</p>
+</div>
 
 上記は <b>override</b> 修飾により、仮想関数のオーバーライドであることを明示している。 <br>
 これらが基底クラスのオーバーライド元と一致しない場合、コンパイルエラーとして検出できる。
