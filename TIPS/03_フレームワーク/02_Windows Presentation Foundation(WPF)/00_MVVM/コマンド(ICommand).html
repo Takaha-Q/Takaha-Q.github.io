@@ -33,6 +33,7 @@
 <details><summary class=link>関連 :</summary>
 <div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/MVVMパターン.html">MVVMパターン</a>
 <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/UIイベントの処理.html">UIイベントの処理</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/MVVM Toolkit.html">MVVM Toolkit</a>
 </div>
 </details>
 
@@ -220,7 +221,6 @@ IsIdle == true 時のみコマンドが実行可能で、Execute() 実行時に�
 ViewModel を DataContext に関連づけることでコマンドを参照可能となる。
 ボタンの Command に SampleCommand プロパティをバインドすることで、ボタンとコマンドが関連づけられる。
 ( Click ハンドラなどは実装する必要が無い。)
-なお、View のコードビハインドは自動的に生成されたままで、コードを一切追加していない。
-MVVMパターンの下では、このようにコードビハインドの記述を最小限にとどめることが推奨される。
+このように、ユーザアクションのハンドリングをコマンドに集約することで、コードビハインドの記述を最小限にとどめることができる。
 </div>
 
