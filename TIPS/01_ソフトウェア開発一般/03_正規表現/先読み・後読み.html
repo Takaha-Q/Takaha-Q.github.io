@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
@@ -53,7 +53,7 @@
     <tr>
         <td class=col1>先読み</td>
         <td>「<bg_lg>○○</bg_lg><b class=red>が後に続く</b>✕✕」にマッチ</td>
-        <td><img src="file:/C:/Users/shinji.takahata/_Git_Local_Rep/Murasame Lab/html_tips/_Img/Regexp/Foreread Backread/01.png" alt="画像"></td>
+        <td><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Regexp/Foreread Backread/01.png" alt="画像"></td>
         <td class="code">
 パターン :
 \w+<b><red>(?=</red></b><bg_lg> tea</bg_lg><b><red>)</red></b>        ⇒ 後に "<bg_lg> tea</bg_lg>" が続く文字列にマッチ
@@ -67,7 +67,7 @@ milk coffee        ⇒ "<bg_lg> tea</bg_lg>" が存在しないためマッチ�
     <tr>
         <td class=col1>否定先読み</td>
         <td>「<bg_lg>○○</bg_lg><b class=red>が後に続かない</b>✕✕」にマッチ</td>
-        <td><img src="file:/C:/Users/shinji.takahata/_Git_Local_Rep/Murasame Lab/html_tips/_Img/Regexp/Foreread Backread/02.png" alt="画像"></td>
+        <td><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Regexp/Foreread Backread/02.png" alt="画像"></td>
         <td class="code">
 パターン :
 \w+<b><red>(?!</red></b><bg_lg> tea</bg_lg><b><red>)</red></b>        ⇒ 後に "<bg_lg> tea</bg_lg>" が続かない文字列にマッチ
@@ -81,7 +81,7 @@ milk coffee        ⇒ "milk" および "coffee" にマッチ
     <tr>
         <td class=col1>後読み</td>
         <td>「<bg_lg>○○</bg_lg><b class=blue>の後に続く</b>✕✕」にマッチ</td>
-        <td><img src="file:/C:/Users/shinji.takahata/_Git_Local_Rep/Murasame Lab/html_tips/_Img/Regexp/Foreread Backread/03.png" alt="画像"></td>
+        <td><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Regexp/Foreread Backread/03.png" alt="画像"></td>
         <td class="code">
 パターン :
 <b><blue>(?&lt;=</blue></b><bg_lg>good </bg_lg><b><blue>)</blue></b>\w+      ⇒ "<bg_lg>good </bg_lg>" の後に続く文字列にマッチ
@@ -95,7 +95,7 @@ bad evening        ⇒ "<bg_lg>good </bg_lg>" が存在しないためマッチ�
     <tr>
         <td class=col1>否定後読み</td>
         <td>「<bg_lg>○○</bg_lg><b class=blue>の後に続かない</b>✕✕」にマッチにマッチ</td>
-        <td><img src="file:/C:/Users/shinji.takahata/_Git_Local_Rep/Murasame Lab/html_tips/_Img/Regexp/Foreread Backread/04.png" alt="画像"></td>
+        <td><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Regexp/Foreread Backread/04.png" alt="画像"></td>
         <td class="code">
 パターン :
 <b><blue>(?&lt;!</blue></b><bg_lg>good </bg_lg><b><blue>)</blue></b>\w+      ⇒ "<bg_lg>good </bg_lg>" の後に続かない文字列にマッチ
@@ -110,3 +110,4 @@ bad evening        ⇒ "bad" および "evening" にマッチ
 
 <h2>留意事項</h2>
 一部の処理系では、先読みは有効でも後読みが使えないことがある。
+

@@ -19,16 +19,10 @@
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a>
 
-<!-- 出典・関連ページ -->
-</div>
-</details>
-
 <!-- 関連ページ -->
 <details><summary class=link>関連 :</summary>
 <div class=pre><a href="TIPS/01_ソフトウェア開発一般/03_正規表現/正規表現のススメ.html">正規表現のススメ</a>
 <a href="TIPS/01_ソフトウェア開発一般/03_正規表現/先読み・後読み.html">先読み・後読み</a>
-
-
 </div>
 </details>
 
@@ -47,59 +41,62 @@
 Hello, &lt;strong&gt;Regexp&lt;/strong&gt; !
 </div>
 
-ここで、<code>&lt;strong&gt;</code>を抽出すべく<code>&lt;.*&gt;</code>を指定しても、期待通りの動作とはならない。<br>
-これは量指定子 <b>*</b> が行末までを検索対象とする「貪欲マッチ」であることによる。<br>
-最初に検出された &gt; で検索を止めたい場合は、<b>*</b> ではなく <b>*?</b> を用いるとよい(無欲マッチ)。<br>
-<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Regexp/Longest Shortest/01.png" alt="画像"><br>
+<div class=pre><code>&lt;strong&gt;</code>を抽出しようとした場合、<code>&lt;.*&gt;</code>を指定しても期待通りの動作とはならない。
+これは量指定子<code>*</code>が行末までを検索対象とする「貪欲マッチ」であることによる。
+最初に検出された &gt; で検索を止めたい場合は、<code>*</code>ではなく<code>*?</code>を用いるとよい(無欲マッチ)。
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Regexp/Longest Shortest/01.png" alt="画像">
+</div>
 
 <h2>貪欲・無欲に対応する量指定子</h2>
 
 <table>
 <tr class="row1">
 <td>検索方法</td>
-<td>貪欲</td>
-<td>無欲</td>
+<td width="54">貪欲</td>
+<td width="54">無欲</td>
 <td>備考</td>
 </tr>
 
 <tr>
 <td>0回以上の繰り返し</td>
-<td>*</td>
-<td>*?</td>
+<td class="code center">*</td>
+<td class="code center">*?</td>
 <td>処理系によっては *? は使用できない</td>
 </tr>
 
 <tr>
 <td>1回以上の繰り返し</td>
-<td>+</td>
-<td>+?</td>
+<td class="code center">+</td>
+<td class="code center">+?</td>
 <td></td>
 </tr>
 
 <tr>
 <td>0回または1回の出現</td>
-<td>?</td>
-<td>??</td>
+<td class="code center">?</td>
+<td class="code center">??</td>
 <td></td>
 </tr>
 
 <tr>
 <td>n回以上の繰り返し</td>
-<td>{n,}</td>
-<td>{n,}?</td>
+<td class="code center">{n,}</td>
+<td class="code center">{n,}?</td>
 <td></td>
 </tr>
 
 <tr>
 <td>n回以上m回以下の繰り返し</td>
-<td>{n,m}</td>
-<td>{n,m}?</td>
+<td class="code center">{n,m}</td>
+<td class="code center">{n,m}?</td>
 <td></td>
 </tr>
 
 </table>
 
 <h2>注意が必要な点</h2>
-貪欲・無欲の違いはマッチ終了位置にのみ表れ、マッチ開始位置には影響しない。このため、以下のような動作となる。<br>
+
+<div class=pre>貪欲・無欲の違いはマッチ終了位置にのみ表れ、マッチ開始位置には影響しない。このため以下のような動作となる。
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Regexp/Longest Shortest/02.png" alt="画像">
+</div>
 

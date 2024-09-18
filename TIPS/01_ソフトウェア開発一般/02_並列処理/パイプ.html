@@ -26,15 +26,12 @@
 <a href="https://learn.microsoft.com/ja-jp/windows/win32/ipc/named-pipes">名前付きパイプ - Win32 apps | Microsoft Learn</a>
 <a href="https://learn.microsoft.com/ja-jp/dotnet/standard/io/how-to-use-named-pipes-for-network-interprocess-communication">方法: ネットワークのプロセス間通信で名前付きパイプを使用する - .NET | Microsoft Learn</a>
 <a href="https://qiita.com/tera1707/items/c1cee4a810bf859a88a0">[C#] 名前付きパイプでプロセス間の双方向通信を行う #プロセス間通信 - Qiita</a>
-
 </div>
 </details>
 
 <!-- 関連ページ -->
 <details><summary class=link>関連 :</summary>
 <div class=pre><a href="TIPS/01_ソフトウェア開発一般/02_並列処理/プロセス間通信.html">プロセス間通信</a>
-
-
 </div>
 </details>
 
@@ -50,12 +47,14 @@
 語源である「パイプライン」と呼ばれたり、後述の「名前付きパイプ」と区別するために「無名パイプ」とも呼ばれる。<br>
 発祥であるUNIXおよびUnix系OSの特徴であった。Windowsにも同様の機構が実装されている。<br>
 
-<h3>パイプの利点</h3>
-パイプによって連結された各プログラムは<b>前のプログラムの終了を待たずに開始する(マルチタスク)</b>ため、特にプログラムのオーバーヘッドが重い場合に威力を発揮する。<br>
+<h3>パイプの特徴(利点)</h3>
+パイプによって連結された各プログラムは<b>前のプログラムの終了を待たずに開始する(マルチタスク)</b>ため、<br>
+特にプログラムのオーバーヘッドが重い場合に威力を発揮する。<br>
 また、<b>パイプを用いたデータの受け渡しは主記憶(メモリ)上で完結し、補助記憶を消費しない</b>。
 
 <h3>シェル(コマンドライン)での使用</h3>
-最も一般的なパイプの用途である。" | "(バーティカルバー)はシェルに対してパイプを指示する演算子で、それぞれのプログラムの出力は次のプログラムの入力として渡される。<br>
+最も一般的なパイプの用途である。" | "(バーティカルバー)はシェルに対してパイプを指示する演算子で、<br>
+それぞれのプログラムの出力は次のプログラムの入力として渡される。
 
 <div class="code">
 grep 札幌市 Address.txt | a2ps | lpr 
@@ -81,7 +80,7 @@ lpr &lt; print.ps
 そこで、「一つだけの仕事をする道具のようなソフトウェア」をパイプラインによって組み合わせることで複雑な処理を実現するという発想が生まれた。<br>
 それぞれの処理を行うプログラムは小さくて単純なため、整備・再利用が容易である。<br>
 但し、ユーザは役割(道具)ごとに処理させるデータを分割する必要がある。<br>
-(パイプの使用を前提として、「構造設計」を行う必要がある。)
+(パイプの使用を前提とした「構造設計」を行う必要がある。)
 
 <h2>名前付きパイプ</h2>
 上述のパイプを拡張したもの。UNIXおよびUnix系とWindowsで使用可能であるが、意味合いは異なる。
@@ -113,8 +112,8 @@ Windowsにおける名前付きパイプはクライアントサーバ型通信�
 名前付きパイプが専用のファイルシステム(Named Pipe FileSystem - NPFS)上に作成される点、<br>
 また無名パイプと同様に永続性が無く、そのパイプをオープンしているプロセスが存在しなくなると自動的に消滅する点がUnix系と異なる。<br>
 <br>
-名前付きパイプはNPFSのルートディレクトリに置かれ、<code class="bg_lr">\\.\pipe\</code>という専用のパスにマウントされる。<br>
-例えば、<code><i class="bg_lg">my_pipe</i></code>という名前付きパイプのパスは <code class="bg_lr">\\.\pipe\<i class="bg_lg">my_pipe</i></code>となる。
+名前付きパイプはNPFSのルートディレクトリに置かれ、<code><bg_lr>\\.\pipe\</bg_lr></code>という専用のパスにマウントされる。<br>
+例えば、<code><i class="bg_lg">my_pipe</i></code>という名前付きパイプのパスは <code><bg_lr>\\.\pipe\</bg_lr><i class="bg_lg">my_pipe</i></code>となる。
 
 <h4>実装例</h4>
 <a href="https://qiita.com/tera1707/items/c1cee4a810bf859a88a0">出典元</a>を参照。

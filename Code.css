@@ -36,8 +36,7 @@ code
   border-style:         dotted;
   border-width:         1px;
   border-color:         #996666;
-  margin:               1px 3px;
-  padding:              1px 5px;
+  padding:              0.2em 0.5em;
 }
 
 /* キーワード (<kwd>) */
@@ -51,7 +50,7 @@ code kwd,
   color:                #0000FF;
 }
   
-/* タグ (<tag>) */
+/* タグ (<tag>) : XAMLのみ */
 .xaml tag
 {
   color:                #0000FF;
@@ -68,7 +67,7 @@ code knw,
   color:                #20B0D0;
 }
 
-/* プロパティ (<prp>) */
+/* プロパティ (<prp>) : XAMLのみ */
 .xaml prp
 {
   color:                #20B0D0;
@@ -96,4 +95,16 @@ code ltr,
 .xaml ltr
 {
   color:                #990000;
+}
+
+/* 強調なし (<flt>) */
+code flt,
+.code flt,
+.cpp  flt,
+.cs   flt,
+.java flt,
+.vba  flt,
+.xaml flt
+{
+  color:                #000000;
 }
