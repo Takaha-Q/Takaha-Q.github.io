@@ -113,9 +113,9 @@ UI( View )ごとに異なった処理を実装する必要があり、煩雑で�
             }
         }
 
-        //
+        <cmt>//</cmt>
         <cmt>// 以降 ICommand インタフェースの実装</cmt>
-        //
+        <cmt>//</cmt>
 
         <cmt>// CanExecuteChanged イベント</cmt>
         <kwd>public event</kwd> <knw>EventHandler</knw> CanExecuteChanged;
@@ -173,7 +173,7 @@ UI( View )ごとに異なった処理を実装する必要があり、煩雑で�
 
     &lt;<tag>Grid</tag>&gt;
         <cmt>&lt;!-- Button にコマンドをバインド --&gt;</cmt>
-        &lt;<tag>Button</tag> <prp>Command</prp>=<ltr>"{Binding Sample<prp>Command</prp>}"</ltr>/&gt;
+        &lt;<tag>Button</tag> <prp>Command</prp>=<ltr>"{Binding SampleCommand}"</ltr>/&gt;
     &lt;/<tag>Grid</tag>&gt;
 &lt;/<tag>Window</tag>&gt;
 </div>

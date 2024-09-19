@@ -213,17 +213,17 @@ MatchCollection matches = <knw>Regex</knw>.Matches( input, pattern );
 <table>
   <tr class="row1" height="36">
     <td class="col1"></td>
-    <td width="195">入力文字列中で参照(後方参照)</td>
-    <td width="195">置換文字列中で参照</td>
+    <td width="180">番号によるキャプチャ</td>
+    <td width="180">名前付きキャプチャ</td>
   </tr>
   <tr height="36">
-    <td class="col1" width="135">番号によるキャプチャ</td>
+    <td class="col1">入力文字列中で参照(後方参照)</td>
     <td class="center"><b class=red>\</b><i>1</i>, <b class=red>\</b><i>2</i>, ...</td>
-    <td class="center"><b class=blue>$</b><i>1</i>, <b class=blue>$</b><i>2</i>, ...</td>
+    <td class="center"><b class=red>\k&lt;</b><i>CaptureName</i><b class=red>&gt;</b></td>
   </tr>
   <tr height="36">
-    <td class="col1">名前付きキャプチャ</td>
-    <td class="center"><b class=red>\k&lt;</b><i>CaptureName</i><b class=red>&gt;</b></td>
+    <td class="col1">置換文字列中で参照</td>
+    <td class="center"><b class=blue>$</b><i>1</i>, <b class=blue>$</b><i>2</i>, ...</td>
     <td class="center"><b class=blue>${</b><i>CaptureName</i><b class=blue>}</b></td>
   </tr>
 </table>
