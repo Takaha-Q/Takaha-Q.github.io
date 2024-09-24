@@ -28,22 +28,18 @@
 <a href="https://qiita.com/YouKnow/items/6a0fefdfa5fdc4727d9f">WPF超絶入門から学び直し1【MVVM】 #C# - Qiita</a>
 <a href="https://qiita.com/ebipilaf/items/6ba056807f64546367d1">MVVMパターンを使用したWPFにおける View - ViewModel の連携について #C# - Qiita</a>
 <a href="https://gaishiengineer.hatenablog.com/entry/2022/09/30/112008">【C#-WPF】MVVMパターンにおけるViewとViewModel間のインスタンス生成方法について - 業務のためのC#・C言語・C++学習</a>
-
 </div>
 </details>
 
 <!-- 関連ページ -->
 <details><summary class=link>関連 :</summary>
-<div class=pre></div><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/INotifyPropertyChanged.html">INotifyPropertyChanged</a>
+<div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/INotifyPropertyChanged.html">INotifyPropertyChanged</a>
 <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/コマンド(ICommand).html">コマンド(ICommand)</a>
 <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/MVVM Toolkit.html">MVVM Toolkit</a>
 <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/データバインディング.html">データバインディング</a>
 <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/ReactiveProperty.html">ReactiveProperty</a>
 <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/依存関係プロパティ.html">依存関係プロパティ</a>
 <a href="TIPS/02_プログラミング言語/02_CSharp/デリゲートとイベント.html">デリゲートとイベント</a>
-</div>
-
-
 </div>
 </details>
 
@@ -110,7 +106,8 @@ View 側のデータバインディングされたプロパティ(ターゲッ�
 UIへの操作を ViewModel に伝えたい場合はコマンドを使用する。詳細はリンク先を参照。
 
 <h3>View と ViewModel の結合</h3>
-任意のクラスを ViewModel として新たに作成し、View の DataContext に設定する。
+<div class=pre>任意のクラスを ViewModel として新たに作成し、View の<code>DataContext</code>に設定する。
+</div>
 
 <h6>ViewModel : MainViewModel.cs</h6>
 
@@ -121,7 +118,7 @@ UIへの操作を ViewModel に伝えたい場合はコマンドを使用する�
     <kwd>class</kwd> MainViewModel
     {
         <cmt>// プロパティ</cmt>
-        <kwd>public string</kwd> Message { <kwd>get</kwd>; <kwd>set</kwd>; } = <ltr>"サンプルメッセージ"</ltr>
+        <kwd>public string</kwd> Message { <kwd>get</kwd>; <kwd>set</kwd>; } = <ltr>"サンプルメッセージ"</ltr>;
     }
 }
 </div>
@@ -143,8 +140,11 @@ UIへの操作を ViewModel に伝えたい場合はコマンドを使用する�
     &lt;<tag>TextBlock</tag> <prp>Text</prp>=<ltr>"{Binding Message}"</ltr> /&gt;
 </div>
 
-<div class=pre>DataContext の指定はコードビハインドから行うことも可能(推奨されない)。
-その場合はコンストラクタ中で ViewModel のインスタンスを DataContext に代入する。
+<div class=pre>ここでは<code>MainViewModel</code>を<code>Window</code>の<code>DataContext</code>として設定している。
+なお<code>local</code>は<code>MainViewModel</code>が属する名前空間(<code>Sample</code>)のエイリアスである。
+<code>MainViewModel</code>の<code>Message</code>プロパティを<code>TextBlock</code>の<code>Text</code>へとデータバインディングを行っているが、
+<code>MainViewModel</code>を<code>DataContext</code>として関連づけているため、プロパティ名(<code>Message</code>)のみを記述すればよい。
+(<code>MainViewModel.Message</code>などとする必要は無い。詳細は<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/データバインディング.html">データバインディング</a>を参照。)
 </div>
 
 <h6>View : MainWindow.xaml.cs</h6>
@@ -162,6 +162,15 @@ UIへの操作を ViewModel に伝えたい場合はコマンドを使用する�
         }
     }
 }
+</div>
+
+<div class=pre><code>DataContext</code>の指定はコードビハインドから行うことも可能(推奨されない)。
+その場合はコンストラクタ中で ViewModel のインスタンスを<code>DataContext</code>に代入する。
+</div>
+
+<h4>注意が必要な点</h4>
+<div class=pre>XAMLから<code>DataContext</code>の指定を行う場合、<b>呼び出せる ViewModel のコンストラクタはデフォルトコンストラクタ(引数の無いコンストラクタ)に限定される</b>。
+このため、デフォルトコンストラクタ以外を呼びたい場合はコードビハインドで指定を行うなど回避策をとる必要がある。
 </div>
 
 <h3>ViewModel 構築の支援</h3>

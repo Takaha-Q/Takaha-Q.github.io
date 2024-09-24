@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
@@ -21,25 +21,28 @@
 
 <!-- 出典ページ -->
 <details><summary class=link>出典 :</summary>
-<div class=pre><a href="https://atmarkit.itmedia.co.jp/ait/articles/1010/08/news123.html">第5回　WPFの「データ・バインディング」を理解する：連載：WPF入門（1/3 ページ） - ＠IT</a>
+<div class=pre><a href="https://qiita.com/izumi_0x01/items/8066f7263a3324764716">xamlのデータバインディングを知ろう！ #C# - Qiita</a>
+<a href="https://atmarkit.itmedia.co.jp/ait/articles/1010/08/news123.html">第5回　WPFの「データ・バインディング」を理解する：連載：WPF入門（1/3 ページ） - ＠IT</a>
 <a href="https://marikooota.hatenablog.com/entry/2017/05/30/002059">データ・バインディングを理解する - marikoootaの日記</a>
 <a href="https://threeshark3.com/wpf-binding-datacontext/">【WPF】Binding入門1。DataContextの伝搬 | さんさめのC＃ブログ</a>
 <a href="https://qiita.com/shunta01/items/ed46b904071841957f8a">MVCとMVVMの違いを理解する - Qiita</a>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.data.binding?view=windowsdesktop-8.0">Binding クラス (System.Windows.Data) | Microsoft Learn</a>
 <a href="https://learn.microsoft.com/ja-jp/dotnet/desktop/wpf/data/how-to-create-a-binding-in-code?view=netframeworkdesktop-4.8">方法: コードでバインディングを作成する - WPF .NET Framework | Microsoft Learn</a>
 <a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.frameworkelement.setbinding?view=windowsdesktop-7.0">FrameworkElement.SetBinding メソッド (System.Windows) | Microsoft Learn</a>
 <a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.data.bindingoperations.setbinding?view=windowsdesktop-7.0">BindingOperations.SetBinding メソッド (System.Windows.Data) | Microsoft Learn</a>
-
 </div>
 </details>
 
 <!-- 関連ページ -->
 <details><summary class=link>関連 :</summary>
-<div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/依存関係プロパティ.html">依存関係プロパティ</a>
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/ReactiveProperty.html">ReactiveProperty</a>
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/RelativeSource.html">RelativeSource</a>
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/コンバーター.html">コンバーター</a>
-
-
+<div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/MVVMパターン.html">MVVMパターン</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/INotifyPropertyChanged.html">INotifyPropertyChanged</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/依存関係プロパティ.html">依存関係プロパティ</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/コンバーター.html">コンバーター</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/マルチバインディング.html">マルチバインディング</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/RelativeSource.html">RelativeSource</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/ReactiveProperty.html">ReactiveProperty</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/コマンド(ICommand).html">コマンド(ICommand)</a>
 </div>
 </details>
 
@@ -51,109 +54,112 @@
 <!-- 本文ここから -->
 
 <h2>WPFにおけるデータバインディング(Data Binding)とは</h2>
-データの提供元(データソース)とUI要素を結びつけること。<br>
-一度バインディングを構成しておくと、データソースの値が変化した場合もUIの表示を自動的に更新したり、<br>
-逆にUIからデータソースの値を更新できるようになる。<br>
-同様の概念はWinFormsにも存在するが、より手順が体系化され、使いやすくなっている。<br>
-
+<div class=pre>データの提供元(データソース)とUI要素を結びつけること。
+一度バインディングを構成しておくと、データソースの値が変化した場合にUIの表示を自動的に更新したり、逆にUIからデータソースの値を更新できるようになる。
+同様の概念はWindows Formsにも存在するが、より手順が体系化され、使いやすくなっている。
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/WPF/DataBinding/01.png" alt="画像">
+</div>
 
-<h2>前提 : ソース(Source)とターゲット(Target)</h2>
-データバインディングには、ソース(参照元)とターゲット(反映先)があり、<br>
-通常、ソースに加えた変更がターゲットに反映される。(設定によっては逆方向や、双方向も可能。)<br>
-このとき、<b>ソースに設定できるのは(通常の)プロパティ、ターゲットに設定できるのは
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/依存関係プロパティ.html">依存関係プロパティ(DependencyProperty)</a>に
-限定される</b>。<br>
-即ち、<b>データバインディングは依存関係プロパティをプロパティに同期させる処置と言える</b>。<br>
-(<b>コントロール(UI要素)のプロパティはすべて依存関係プロパティとして実装されている</b>ため、いずれもターゲットに設定する際に特別な手順を必要としない。)<br>
+<h2>前提1 : ソース(Source)とターゲット(Target)</h2>
+<div class=pre>データバインディングには、ソース(参照元)とターゲット(反映先)があり、通常、ソースに加えた変更がターゲットに反映される。
+(設定によっては逆方向や、双方向も可能。)
+これは「ソースの変更をターゲットに通知する(<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/INotifyPropertyChanged.html">変更通知プロパティ</a>)」の仕組みによって成り立つ。
+<b>ソースに設定できるのは(通常の)プロパティ、ターゲットに設定できるのは<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/依存関係プロパティ.html">依存関係プロパティ(DependencyProperty)</a>に限定される</b>。
+即ち、<b>データバインディングは依存関係プロパティをプロパティに同期させる処置と言える</b>。
+(<b>コントロール(UI要素)のプロパティはすべて依存関係プロパティとして実装されている</b>ため、いずれもターゲットに設定する際に特別な手順を必要としない。)
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_DependencyProp/02.png">
+</div>
 
-<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_DependencyProp/02.png"><br>
+<h2>前提2 : <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/MVVMパターン.html">MVVMパターン</a></h2>
+<div class=pre>(リンク先を併せて参照のこと。)
+WPFではデザインパターンとしてMVVM (Model - View - ViewModel) が推奨されており、これはWEB開発におけるMVCパターンと類似する。
+データバインディングはMVVMの構成要素で、View と ViewModel を関連付ける操作(の一部)である。
+</div>
 
 <h2>データバインディングの実装例</h2>
 
-<h3>XAMLでバインディングを構成</h3>
+<h3>View(XAML)でバインディングを構成</h3>
+<div class=pre>ViewModel (のインスタンス)を View の<code>DataContext</code>として設定することがデータバインディングの基本である。
+任意のクラスを ViewModel として新たに作成し、View の<code>DataContext</code>に設定する。
+</div>
 
-<h6>SampleModel.cs (Model)</h6>
-<div class="code">
-<kwd>using</kwd> Reactive.Bindings;         <cmt>// ReactivePropertySlim を使用するための参照</cmt>
+<h6>ViewModel : MainViewModel.cs</h6>
 
-<cmt>// データソース用クラス</cmt>
-<kwd>public class</kwd> SampleModel
+<div class="cs">
+<kwd>namespace</kwd> Sample
 {
-    <cmt>// バインディングソース <b>Count</b> を ReactivePropertySlim として宣言</cmt>
-    <kwd>public</kwd> ReactivePropertySlim&lt;<kwd>int</kwd>&gt; <b class="red">Count</b>
-    { <kwd>get</kwd>; }
-    = <kwd>new</kwd> ReactivePropertySlim&lt;<kwd>int</kwd>&gt;();
+    <cmt>// ViewModel の本体</cmt>
+    <kwd>class</kwd> MainViewModel
+    {
+        <cmt>// プロパティ</cmt>
+        <kwd>public string</kwd> Message { <kwd>get</kwd>; <kwd>set</kwd>; } = <ltr>"サンプルメッセージ"</ltr>;
+    }
 }
 </div>
-データソースとして用いるためのクラスとして SampleModel を定義している。<br>
-プロパティを <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/ReactiveProperty.html">ReactiveProperty</a> としているのは、ソースからターゲットへの波及を容易に実装するため。
 
-<h6>MainWindow.xaml (View : XAML)</h6>
-<div class="code">
-&lt;StackPanel&gt;
-    &lt;!-- TextBlock の <b class="dgreen">Text</b> を <b><font color="darkorange">DataContext</font></b> の <b class="red">Count</b> に関連付け (<b><font color="purple">Binding</font></b>) --&gt;
-    &lt;TextBlock <b class="dgreen">Text</b>="{<b><font color="purple">Binding</font></b> <b class="red">Path=Count.Value</b>}"/&gt;
-    &lt;Button Click="CountUp_Click" Content="Count Up!"/&gt;
-&lt;/StackPanel&gt;
+<h6>View : MainWindow.xaml</h6>
+
+<div class="xaml">
+&lt;<tag>Window</tag>
+(略)
+&gt;
+    <cmt>&lt;!-- MainViewModel を DataContext に設定 --&gt;</cmt>
+    &lt;<tag>Window.DataContext</tag>&gt;
+        &lt;<tag>local</tag>:MainViewModel /&gt;
+    &lt;/<tag>Window.DataContext</tag>&gt;
+
+    :
+
+    <cmt>&lt;!-- TextBlock.Text を DataContext ( MainViewModel )の Message とバインド --&gt;</cmt>
+    &lt;<tag>TextBlock</tag> <prp>Text</prp>=<ltr>"{Binding Message}"</ltr> /&gt;
 </div>
-バインディングのターゲットとなる TextBlock の Text をデータソース (DataContext) の Count に紐づけている。<br>
-Count は ReactivePropertySlim であるため、値は Value で参照する。
 
-<h6>MainWindow.xaml.cs (ViewModel : コードビハインド)</h6>
-<div class="code">
-<kwd>public partial class</kwd> MainWindow : Window
+<h6>View : MainWindow.xaml.cs</h6>
+
+<div class="cs">
+<kwd>namespace</kwd> Sample
 {
-    <cmt>// データソースの実体</cmt>
-    <kwd>private</kwd> SampleModel dataSource;
-
-    <cmt>// コンストラクタ</cmt>
-    <kwd>public</kwd> MainWindow()
+    <kwd>public partial class</kwd> MainWindow : <knw>Window</knw>
     {
-        InitializeComponent();
-
-        <cmt>// <b><font color="darkorange">DataContext</font></b> (データソース)の指定</cmt>
-        dataSource = <kwd>new</kwd> SampleViewModel()
+        <cmt>// コンストラクタ</cmt>
+        <kwd>public</kwd> MainWindow()
         {
-            <b class="red">Count.Value</b> = 0
-        };
-        <kwd>this</kwd>.<b><font color="darkorange">DataContext</font></b> = dataSource;
-    }
-    
-    <cmt>// ボタン「Count Up!」クリック時の処理</cmt>
-    <kwd>private void</kwd> CountUp_Click(<kwd>object</kwd> sender, RoutedEventArgs e)
-    {
-        dataSource.<b class="red">Count.Value</b>++;
+            InitializeComponent();
+        }
     }
 }
 </div>
-ウィンドウのデータソース( DataContext )に SampleModel 型のオブジェクト( dataSource )を指定している。<br>
 
 <h4>解説</h4>
-上記は Button を押すごとに TextBlock の表示(数値)がインクリメントされる Window の例である。<br>
-<br>
-WPFではデザインパターンとしてMVVM (Model - View - ViewModel) を推奨しており、これはWEB開発におけるMVCパターンと類似する。<br>
-MVVMの詳細は複雑であるためここでは割愛するが、
-<ul>
-<li>Model : データ(データソース)を定義</li>
-<li>View : 画面表示を担当(XAML)</li>
-<li>ViewModel : データソースと表示を結びつける(XAML.CS : コードビハインド)</li>
-</ul>
-と考えれば概ね正しい。<br>
-<br>
-データバインディングは上記のように <b>DataContext</b> を用いるのが基本である。<br>
-( DataContext を用いる以外の方法としては <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/RelativeSource.html">RelativeSource</a> が存在する。)<br>
-Window の DataContext を設定しておけば、Window 上の子要素は等しく DataContext (のメンバ)を参照できる。<br>
-DataContext には任意の型のオブジェクトを渡すことができ、ここでは SampleModel 型のオブジェクト( dataSource )を渡している。<br>
-以上のことから dataSource.Count.Value の値を変更すると、バインドされた TextBlock.Text は自動的に変化する。<br>
-<br>
-ここで、ソース( dataSource.Count.Value )の変更はターゲット( TextBlock.Text )に波及するが、逆は起こらない。<br>
-XAML上でバインディングの Mode を変更することで、逆方向への波及を行えるようになる(詳細は割愛)。
+<div class=pre>上記は<code>MainViewModel</code>の<code>Message</code>プロパティが変更された際に、
+<code>MainWindow</code>上の<code>TextBlock</code>の表示に反映される例である。
 
-<h3>コード(CS)でバインディングを構成</h3>
+まず<code>MainViewModel</code>を<code>Window</code>(<code>MainWindow</code>)の<code>DataContext</code>として設定している。
+ここで、<code>local</code>は<code>MainViewModel</code>が属する名前空間(<code>Sample</code>)のエイリアスである。
+
+<code>MainViewModel</code>の<code>Message</code>プロパティを<code>TextBlock</code>の<code>Text</code>へとデータバインディングを行っているが、
+<code>MainViewModel</code>を<code>DataContext</code>として関連づけているため、プロパティ名(<code>Message</code>)のみを記述すればよい。
+(<code>MainViewModel.Message</code>などとする必要は無い。)
+
+<code>DataContext</code>の指定はコードビハインドから行うことも可能である。
+(ただしMVVMとしては推奨されない。)
+その場合はコンストラクタ中で ViewModel のインスタンスを<code>DataContext</code>に代入する。
+
+なお、XAMLから<code>DataContext</code>の指定を行う場合、<b>呼び出せる ViewModel のコンストラクタはデフォルトコンストラクタ(引数の無いコンストラクタ)に限定される</b>。
+このため、デフォルトコンストラクタ以外を呼びたい場合はコードビハインドで指定を行うなど回避策をとる必要がある。
+
+また<code>DataContext</code>以外に、<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/RelativeSource.html">RelativeSource</a>を用いることも可能である。
+</div>
+
+<h3>コードビハインドでバインディングを構成</h3>
+
+以下のバインディングを構成する。
+<dl>
+<td>ソース</td><td><code>myDataObject</code>(<code>MyData</code>)の<code>MyDataProperty</code></td>
+<td>ターゲット</td><td><code>myText</code>(<code>TextBlock</code>)の<code>Text</code></td>
+</dl>
 
 <h4><a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.frameworkelement.setbinding?view=windowsdesktop-7.0">FrameworkElement.SetBinding() メソッド</a>を用いる場合</h4>
-TextBlock コントロール myText の Text プロパティをターゲット、MyData オブジェクトの MyDataProperty プロパティをソースとしてバインディングを行う場合の実装例を示す。
 
 <div class="code">
 <cmt>// ソースオブジェクトの作成
@@ -168,7 +174,6 @@ myText.SetBinding(TextBlock.TextProperty, myBinding);
 </div>
 
 <h4><a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.data.bindingoperations.setbinding?view=windowsdesktop-7.0">BindingOperations.SetBinding() メソッド</a>を用いる場合</h4>
-ソースおよびターゲットは前節と同様。
 
 <div class="code">
 <cmt>// ソースオブジェクトの作成
@@ -181,3 +186,82 @@ myBinding.Source = myDataObject;
 // (ターゲットは依存関係プロパティに限定されるため、Text ではなく TextProperty を指定する)</cmt>
 BindingOperations.SetBinding(myText, TextBlock.TextProperty, myBinding);
 </div>
+
+<h2>バインディングの書式</h2>
+<div class=pre><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/WPF/DataBinding/02.png" alt="画像">
+XAMLにおけるバインディングの書式は上記のようになる。
+<code>Binding</code>の子要素(プロパティ)を<code>,</code>(カンマ)で区切って書き連ね、全体を<code>{}</code>(ブレース)で囲む。
+ここで、<code>Path</code>は省略可能で、
+</div>
+
+<div class=xaml>
+<cmt>&lt;!-- Path を明記 --&gt;</cmt>
+&lt;<tag>TextBlock</tag> <prp>Text</prp>=<ltr>"{Binding Path=Message,
+                          Mode=TwoWay}"</ltr>/&gt;
+</div>
+
+と
+
+<div class=xaml>
+<cmt>&lt;!-- Path を省略 --&gt;</cmt>
+&lt;<tag>TextBlock</tag> <prp>Text</prp>=<ltr>"{Binding Message,
+                          Mode=TwoWay}"</ltr>/&gt;
+</div>
+
+<div class=pre>は等価である。
+
+下表に、設定可能な<code>Binding</code>の主要なプロパティを抜粋する。
+これ以外は<code>Binding</code>クラスの<a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.data.binding?view=windowsdesktop-8.0">リファレンス</a>を参照のこと。
+</div>
+
+<table>
+  <tr class=row1>
+    <td class=col1>プロパティ名</td>
+    <td>解説</td>
+    <td colspan="2">取りうる値</td>
+    <td>備考</td>
+  </tr>
+  <tr>
+    <td class=col1>Path</td>
+    <td>ソースプロパティのパス</td>
+    <td colspan="2"></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td class=col1>RelativeSource</td>
+    <td>ソースオブジェクトを、ターゲットからの相対位置で指定する</td>
+    <td colspan="2"></td>
+    <td><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/RelativeSource.html">参考ページ(RelativeSource)</a></td>
+  </tr>
+  <tr>
+    <td class=col1 rowspan="5">Mode</td>
+    <td rowspan="5">バインドの方向<br>(省略時はDefault)</td>
+    <td>Default</td>
+    <td>コントロールごとの既定値</td>
+    <td rowspan="5"><a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.data.bindingmode?view=windowsdesktop-8.0">リファレンス(BindingMode)</a></td>
+  </tr>
+  <tr>
+    <td>OneTime</td><td>ソース⇒ターゲット(1回のみ)</td>
+  </tr>
+  <tr>
+    <td>OneWay</td><td>ソース⇒ターゲット</td>
+  </tr>
+  <tr>
+    <td>OneWayToSource</td><td>ターゲット⇒ソース</td>
+  </tr>
+  <tr>
+    <td>TwoWay</td><td>ソース⇔ターゲット</td>
+  </tr>
+  <tr>
+    <td class=col1>Converter</td>
+    <td>使用するコンバーター</td>
+    <td colspan="2"></td>
+    <td rowspan="2"><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/コンバーター.html">参考ページ(コンバーター)</a></td>
+  </tr>
+  <tr>
+    <td class=col1>ConverterParameter</td>
+    <td>コンバーターに渡すパラメータ</td>
+    <td colspan="2"></td>
+  </tr>
+</table>
+
