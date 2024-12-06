@@ -18,7 +18,7 @@
 
 <!-- 関連ページ -->
 <details><summary class=link>関連 :</summary>
-<div class=pre><a href="TIPS/03_フレームワーク/03_Windows Forms/UI(コントロール)とデリゲート.html">[WinForms]UI(コントロール)とデリゲート</a>
+<div class=pre><a href="TIPS/03_フレームワーク/03_Windows Forms/UI(コントロール)とデリゲート.html">[Windows Forms]UI(コントロール)とデリゲート</a>
 <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/01_コントロール/コントロールの再描画.html">コントロールの再描画</a>
 <a href="TIPS/02_プログラミング言語/02_CSharp/デリゲートとイベント.html">[C#]デリゲートとイベント</a>
 <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/DispatcherTimer.html">DispatcherTimer</a>
@@ -35,12 +35,12 @@
 <!-- 本文ここから -->
 
 <h2>コントロールの操作に関する制約</h2>
-WPFでは、WinFormsと同様に<b>コントロールに対する操作はUIスレッドから行う必要がある</b>。<br>
+WPFでは、Windows Formsと同様に<b>コントロールに対する操作はUIスレッドから行う必要がある</b>。<br>
 UIスレッドには、各ウィンドウに関連付けられたイベントハンドラが該当する。<br>
 即ち原則として、コントロールの操作はイベントハンドラ(と同一のスレッド)からでなければ実行することができない。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/UI_delegate/UiControl_and_Delegate_01.png" alt="画像"><br>
 別スレッド(ワーカースレッド)からコントロールの操作を行う場合、UIスレッドに処理を委譲する必要がある。<br>
-尚、WinFormsと異なり、InvokeRequired プロパティは存在しない。
+尚、Windows Formsと異なり、InvokeRequired プロパティは存在しない。
 
 <h2>処理の委譲先</h2>
 <ul>

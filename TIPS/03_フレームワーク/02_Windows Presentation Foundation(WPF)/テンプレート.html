@@ -54,12 +54,12 @@
 <!-- 本文ここから -->
 
 <h2>テンプレート(コントロール・テンプレート)とは</h2>
-コントロールの機能を残したまま、外観を任意に変更できる仕組み。<br>
-WinFormsなどの従来のフレームワークでは「ボタンのクリック」といった機能を残しながら外観を一新したい場合、コントロールを一から作成する必要があった。<br>
+コントロールの機能を保ったまま、外観を任意に変更できる仕組み。<br>
+Windows Formsなどの従来のフレームワークでは「ボタンのクリック」といった機能を残しながら外観を一新したい場合、コントロールを一から作成する必要があった。<br>
 これは外観の新規作成に加え、「ボタンのクリック」や「テキストの選択」など標準のコントロールに実装されている機能を作り直すことになり、開発負荷が非常に高かった。<br>
-WPFではこのコントロール・テンプレートを用いることで外観のみを変更(カスタマイズ)することが可能である。<br>
+WPFではこのコントロール・テンプレートを用いることで外観のみを変更(カスタマイズ)でき、Windows Formsと比較して大幅に開発負荷を低減することができる。<br>
 テンプレートは強力で、カスタマイズできる内容は多岐に渡る。詳細は出典元を参照のこと。<br>
-尚、このコントロール・テンプレートを用いて作成されたカスタマイズ可能なコントロールを「カスタムコントロール」と呼ぶ。<br>
+尚、このコントロール・テンプレートを用いて作成されたカスタマイズ可能なコントロールを「<b>カスタムコントロール</b>」と呼ぶ。<br>
 
 <h2>基本的な例</h2>
 <div class="xaml">
@@ -87,7 +87,7 @@ ControlTemplate クラスはコントロールの<b>「視覚的な構造と動�
 
 <h3>ControlTemplate の作成例</h3>
 下図のような NumericUpDown コントロールを作成する場合を考える。(<a href="https://learn.microsoft.com/ja-jp/dotnet/desktop/wpf/controls/creating-a-control-that-has-a-customizable-appearance?view=netframeworkdesktop-4.8%23defining-the-visual-structure-and-visual-behavior-of-a-control-in-a-controltemplate">出典</a>)<br>
-( NumericUpDown はWinFormsでは標準コントロールに含まれているが、WPFでは除外されている。)<br>
+( NumericUpDown はWindows Formsでは標準コントロールに含まれているが、WPFでは除外されている。)<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/WPF/Control_Template/01.png" alt="画像"><br>
 
 <h6>XAML(特定のコントロールに紐づかない - 例 : themes/generic.xaml)</h6>
