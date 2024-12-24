@@ -15,7 +15,7 @@
 <!-- 出典・関連ページ -->
 <details><summary class=link>出典 :</summary>
 <div class=pre><a href="https://dobon.net/vb/dotnet/process/shell.html">外部アプリケーションを起動する、ファイルを関連付けられたソフトで開く - .NET Tips (VB.NET,C#...)</a>
-
+<a href="https://qiita.com/yasukotelin/items/605b9d4260a8c9ebcbeb">C#でProcessを使って別アプリを実行（起動）する方法 #C# - Qiita</a>
 </div>
 </details>
 
@@ -26,11 +26,11 @@
 <!-- 本文ここから -->
 
 <h2>外部プログラムの呼び出し</h2>
-Process.Start() メソッドを用いることで、外部プログラムを起動できる。
+System.Diagnostics.Process オブジェクトを用いることで、別のプログラムを起動できる。
 
 <h2>コード例(同期呼び出し)</h2>
 <div class="code">
-using System.Diagnostics;
+<kwd>using</kwd> <knw>System.Diagnostics</knw>;
 
 <cmt>// プロセス起動情報( ProcessStartInfo )生成</cmt>
 <kwd>var</kwd> sInfo = <kwd>new</kwd> <knw>ProcessStartInfo</knw>
