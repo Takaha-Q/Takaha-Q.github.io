@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
@@ -26,9 +26,7 @@
 
 <!-- 関連ページ -->
 <details><summary class=link>関連 :</summary>
-<div class=pre><a href="https://takaha-q.github.io/TIPS/Visual%20Studio/スニペット(Visual Studio).html">[Visual Studio]スニペット</a>
-
-
+<div class=pre><a href="TIPS/04_開発環境/01_Visual Studio/スニペット(Visual Studio).html">[Visual Studio]スニペット</a>
 </div>
 </details>
 
@@ -46,12 +44,14 @@
 
 <ol>
 <li>
-「設定(歯車アイコン)」>「ユーザー スニペット」を選択する。<br>
+「設定(歯車アイコン)」>「スニペット」を選択する。<br>
+(旧バージョン : 「ユーザー スニペット」表記)
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/VSCode/Make_User_Snippet/01.png" alt="画像"><br>
 </li>
 
 <li>
 スニペットを呼び出すファイル形式を選択する。<br>
+(HTMLファイルであれば html.json )<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/VSCode/Make_User_Snippet/02.png" alt="画像"><br>
 </li>
 
@@ -80,13 +80,16 @@ JSONを上書き保存すると、スニペットが使用可能となる。
 },
 </div>
 
-"prefix" にスニペットを呼び出す際に入力する文字列を、<br>
-"body" に呼び出される文字列を記述する(詳細は後述)。<br>
-前節の例では、img と入力し、Tab キーを押すことで<br>
-&lt;img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/xxxxxxxx" alt="画像"&gt;<br>
-を呼び出すことができる。<br>
-<br>
+<div class=pre>
+"prefix" にスニペットを呼び出す際に入力する文字列を、
+"body" に呼び出される文字列を記述する(詳細は後述)。
+この例では、inputStr と入力し、Tab キーを押すことで
+content 
+を呼び出すことができる。
+
 また、一つのJSONファイルには複数のスニペットを定義できる。スニペット同士は , (カンマ)で区切る。
+(この例では Snippet #1 、Snippet #2 の2つを定義している。末尾のカンマは削除しなくてもよい。)
+</div>
 
 <h3>body 要素記述時の注意点</h3>
 <ul>
