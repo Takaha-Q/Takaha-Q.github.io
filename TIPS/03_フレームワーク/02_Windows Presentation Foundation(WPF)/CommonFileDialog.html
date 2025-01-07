@@ -47,16 +47,16 @@ Windows10以降に適合するのは Microsoft-Windows<b>10</b>-APICodePack-Shel
 <ol>
     <li>
         Visual Studioの「プロジェクト」>「NuGet パッケージの管理」を選択する。<br>
-        <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_CommonFileDialog/01.png" alt="">
+        <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/WPF/CommonFileDialog/01.png" alt="">
     </li>
     <li>
         検索欄に "Windows<b>10</b>-APICodePack" と入力し、表示された Microsoft-Windows10-APICodePack-Shell を選択、「インストール」を押下する。<br>
         (2022.9.27 時点の最新版は1.1.8。)<br>
-        <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_CommonFileDialog/02.png" alt="">
+        <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/WPF/CommonFileDialog/02.png" alt="">
     </li>
     <li>
         プロジェクト配下の「パッケージ」に Microsoft-Windows10-APICodePack-Shell 、更にその配下に Microsoft-Windows10-APICodePack-Core が追加されていれば準備完了。<br>
-        <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_CommonFileDialog/03.png" alt="">
+        <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/WPF/CommonFileDialog/03.png" alt="">
     </li>
 </ol>
 
@@ -121,7 +121,7 @@ Windows10以降に適合するのは Microsoft-Windows<b>10</b>-APICodePack-Shel
 このフィルタは CommonFileDialogFilterCollection 型で、CommonFileDialogFilter のコレクション(≒List)となっている。即ち、複数のフィルタを設定することができる。<br>
 CommonFileDialogFilter は DisplayName (表示名)と Extensions (拡張子の列)で構成されており、ひとつのフィルタに対して複数の拡張子を指定することができる。<br>
 尚、拡張子を記述する際には "." (ドット)を含めない。<br>
-<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_CommonFileDialog/04.png" alt=""><br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/WPF/CommonFileDialog/04.png" alt=""><br>
 ここで、EnsureValidNames プロパティを true に指定すると、フィルタのチェックが厳密となり、合致しないファイルを選択肢から除外することができる。<br>
 影響を受けるのは ".lnk" (ショートカット)で、リンク先のファイルがフィルタに合致しない場合に選択ができなくなる。<br>
 (フォルダリンクはこの限りではない。リンク先のフォルダに遷移し、ダイアログの動作は継続される。)<br>

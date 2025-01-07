@@ -39,14 +39,14 @@
 <h2>WPFのイベントシステム : ルーティングイベント</h2>
 WPFにおいては、コントロールの階層構造における親(外側の)要素から子(内側の)要素、およびその逆方向のイベント伝播が発生する。<br>
 これにより、発生元(子)のコントロールに限らず、親コントロールでもイベントを捕捉することができる。<br>
-<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_RootingEvent/01.png"><br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/WPF/RootingEvent/01.png"><br>
 
 <h2>Preview イベント</h2>
 親要素から子要素へ伝わるトンネルイベントは、いずれも <b>Preview</b> から始まっている。それ以外はバブルイベントで、子要素から親要素へ伝わる。<br>
 この Preview イベントは、キーやマウスを操作した際に発生するイベント(以下「本イベント」)と対になっており、本イベントの直前に発生する。<br>
 例えば、キーを押下した際に発生する KeyDown イベントには、対応する PreviewKeyDown イベントが用意されており、<br>
 PreviewKeyDown がイベント発生元まで伝播した後に KeyDown が逆方向に伝播する。<br>
-<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/WPF_RootingEvent/02.png"><br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/WPF/RootingEvent/02.png"><br>
 <br>
 なお、イベント引数( KeyDown イベントであれば KeyEventArgs 型)のプロパティ <b>Handled</b> をいずれかのハンドラ内で true にセットすると、<br>
 イベントが「処理済」となり、後続のイベントは発生しなくなる。<br>
