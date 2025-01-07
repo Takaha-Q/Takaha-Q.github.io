@@ -1,16 +1,127 @@
 ﻿<!DOCTYPE html>
-<!-- 基準URI -->匁<base href="https://takaha-q.github.io/">
-<!-- スタイルシート -->匁<link rel="stylesheet" href="Sytle001.css" type="text/css">
-<!-- スクリプト -->匁<!-- タイトル表示 -->匁<script src="MakeTitle.js" type="text/javascript"></script>
-<!-- 目次表示 -->匁<script src="MakeToc_L.js" type="text/javascript"></script>
-<!-- ページタイトル(ページ内表示) -->匁<span id="title"></span>
-<!-- リンク(ホームに戻る) -->匁<a href="index.html">ホームに戻る</a>
-<!-- 出典ページ -->匁<details><summary class=link>出典 :</summary>匁    <div class=pre><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/how-to-create-project-templates?view=vs-2022">ウィザードまたは XML ファイルを使用してプロジェクト テンプレートを作成する - Visual Studio (Windows) | Microsoft Learn</a>匁    <a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/creating-project-and-item-templates?view=vs-2022">プロジェクトとファイルのテンプレート - Visual Studio (Windows) | Microsoft Learn</a>匁    <a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/template-parameters?view=vs-2022">プロジェクト テンプレートと項目テンプレートのパラメーター - Visual Studio (Windows) | Microsoft Learn</a>匁    <a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/how-to-substitute-parameters-in-a-template?view=vs-2022">プロジェクトと項目テンプレートに名前パラメーターを追加する - Visual Studio (Windows) | Microsoft Learn</a>匁    <a href="https://qiita.com/kamikawa_m/items/75c337f101d9d2f6080e">Visual Studioから利用できるプロジェクトテンプレートを作成する #C# - Qiita</a>匁    </div>匁    </details>匁    匁<!-- 関連ページ -->匁<details><summary class=link>関連 :</summary>匁<div class=pre><a href="プロジェクトの場所(デフォルト).html">プロジェクトの場所(デフォルト)</a>
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a>
+<!-- 出典ページ -->
+<details><summary class=link>出典 :</summary>
+<div class=pre><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/creating-project-and-item-templates?view=vs-2022">プロジェクトとファイルのテンプレート - Visual Studio (Windows) | Microsoft Learn</a>
+    <a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/how-to-create-project-templates?view=vs-2022">ウィザードまたは XML ファイルを使用してプロジェクト テンプレートを作成する - Visual Studio (Windows) | Microsoft Learn</a>
+    <a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/template-parameters?view=vs-2022">プロジェクト テンプレートと項目テンプレートのパラメーター - Visual Studio (Windows) | Microsoft Learn</a>
+<a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/how-to-substitute-parameters-in-a-template?view=vs-2022">プロジェクトと項目テンプレートに名前パラメーターを追加する - Visual Studio (Windows) | Microsoft Learn</a>
+<a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/how-to-update-existing-templates?view=vs-2022">既存のプロジェクト項目テンプレートの更新 - Visual Studio (Windows) | Microsoft Learn</a>
+<a href="https://learn.microsoft.com/ja-jp/visualstudio/extensibility/visual-studio-template-schema-reference?view=vs-2022">Visual Studio テンプレート スキーマ参照 - Visual Studio (Windows) | Microsoft Learn</a>
+<a href="https://qiita.com/kamikawa_m/items/75c337f101d9d2f6080e">Visual Studioから利用できるプロジェクトテンプレートを作成する #C# - Qiita</a>
 </div></details>
-<!-- 目次 -->匁<h5>目次 :</h5>匁<div id="toc"></div>匁<hr>
-<!-- 本文ここから -->匁<h2>Visual Studioプロジェクトテンプレートの作成</h2>匁プロジェクトに含まれるファイル群を再利用しやすいよう、テンプレート化することができる。<br>匁以下、Visual Studio 2022を例に挙げる。
-<h2>テンプレートに含まれるファイル</h2>匁プロジェクトに含まれるすべてのファイルおよびフォルダが対象となる。<br>
-<h2>手順</h2>匁<h3>テンプレートの保存</h3>匁<ol>匁    <li>出力するプロジェクトを整理する。<br>(テンプレートに不要なファイルやコードの削除)</li>匁    <li>「プロジェクト」>「テンプレートのエクスポート」を選択する。<br>匁    <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\MSVS\Project_Template\05.png" alt="画像"></li>匁</ol>
-<h3>作成したテンプレートの呼び出し</h3>匁手順1で作成したテンプレートは、標準のテンプレートと異なりタグが付与されていないため、絞り込みを解除しなければ表示されない。<br>匁(「すべての言語」、「すべてのプラットフォーム」、「すべてのプロジェクトの種類」を選択することで表示される。)<br>匁テンプレートを特定できる語句を検索欄に入力し、テンプレートを選択する。以降の手順は標準テンプレートを用いる場合と同様。<br>匁<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\MSVS\Project_Template\06.png" alt="画像">
-<h3>テンプレートのインポート・削除</h3>匁C:\Users\[ユーザ名]\Documents\Visual Studio 2022\Templates\ProjectTemplates<br>匁にテンプレート(ZIP)を配置すると、呼び出し候補に含まれるようになる。<br>匁テンプレート(ZIP)を削除すると、呼び出し候補に含まれなくなる。<br>匁<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\MSVS\Project_Template\07.png" alt="画像">
+    
+<!-- 関連ページ -->
+<details><summary class=link>関連 :</summary>
+<div class=pre><a href="TIPS/04_開発環境/01_Visual Studio/プロジェクトの場所(デフォルト).html">プロジェクトの場所(デフォルト)</a>
+</div></details>
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+<hr>
+<!-- 本文ここから -->
+
+<h2>Visual Studioプロジェクトテンプレートの作成</h2>
+<div class=pre>プロジェクトテンプレートを作成することで、ファイル群を再利用してプロジェクト作成の手間を省くことができる。
+テンプレートにはプロジェクト配下のすべてのファイルおよびフォルダが含まれる。
+以下、Visual Studio 2022を例に挙げる。
+</div>
+
+<h2>手順</h2>
+<h3>1. テンプレートの作成</h3>
+<ol>
+    <li><span class=pre>出力するプロジェクトを整理する。
+        (テンプレートに不要なファイルやコードの削除)</span></li>
+    <li><span class=pre>「プロジェクト」>「テンプレートのエクスポート」を選択する。
+        <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Project_Template/01.png" alt="画像"></span></li>
+    <li><span class=pre>ラジオボタン「プロジェクト テンプレート」にチェックを入れ、
+        テンプレートの元にするプロジェクトを選択し、「次へ」をクリックする。
+        <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Project_Template/02.png" alt="画像"></span></li>
+    <li><span class=pre>「テンプレート名」、「テンプレートの説明」を入力し、「完了」をクリックすると、「出力場所」にテンプレート(ZIP)が出力される。
+        このとき、「テンプレートを自動的にVisual Studioにインポート」にチェックが入っていると、作成したテンプレートがインポートされ、使用可能となる。
+        <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Project_Template/03.png" alt="画像"></span></li>
+</ol>
+
+<h3>2. テンプレートのインポート</h3>
+<div class=pre>
+    手順1-4で「テンプレートを自動的にVisual Studioにインポート」にチェックを入れた場合はこの手順は不要。
+</div>
+
+<ol>
+    <li><span class=pre>ユーザープロジェクトテンプレートの場所を確認する。任意の場所に変更してもよい。
+            (<a href="TIPS/04_開発環境/01_Visual Studio/プロジェクトの場所(デフォルト).html">プロジェクトの場所(デフォルト)</a>参照。)
+    </span></li>
+    <li><span class=pre>1. の場所にプロジェクトテンプレート(ZIP)を配置する。
+        サブディレクトリ(1. でプロジェクトテンプレートの場所を変更するとサブディレクトリが自動生成される)への配置も可能だが、
+        有効なサブディレクトリ名は限られていることに注意。
+        <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Project_Template/04.png" alt="画像"></span></li>
+    <li><span class=pre>2. で配置したテンプレートを削除すると、そのテンプレートは使用できなくなる。</span></li>
+</ol>
+
+<h3>3. テンプレートの呼び出し</h3>
+<div class=pre>手順1で作成したテンプレートは組み込みのテンプレートと同様、プロジェクトの新規作成時に雛形として使用できる。
+    ただし、組み込みテンプレートと異なり、プラットフォームおよびプロジェクト種類のタグが付与されていない。
+    (「言語」はテンプレート作成時に元となったプロジェクトのものが適用される。)
+    「すべてのプラットフォーム」、「すべてのプロジェクトの種類」を選択して絞り込みを解除した上で
+    テンプレートを特定できる語句を検索欄に入力し、テンプレートを選択する。
+    以降は組み込みテンプレートと同様。
+    <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\MSVS\Project_Template\05.png" alt="画像">
+</div>
+
+<h3>4. テンプレートの編集</h3>
+<div class=pre>    ※この節は書きかけです。
+    ZIPを解凍し、VSTEMPLATE ファイルを編集することでプロジェクト情報を変更することができる。ファイルの実体はXML。
+    VSTEMPLATE の各要素は<a href="https://learn.microsoft.com/ja-jp/visualstudio/extensibility/visual-studio-template-schema-reference?view=vs-2022">リファレンス</a>を参照。
+</div>
+
+<h4>VSTEMPLATE の例</h4>
+<div class=xaml>
+&lt;<tag>VSTemplate</tag> <prp>Version</prp>=<ltr>"3.0.0"</ltr> <prp>xmlns</prp>=<ltr>"http://schemas.microsoft.com/developer/vstemplate/2005"</ltr> <prp>Type</prp>=<ltr>"Project"</ltr>&gt;
+    &lt;<tag>TemplateData</tag>&gt;
+        &lt;<tag>Name</tag>&gt;WPF_App_Standard&lt;<tag>/Name</tag>&gt;
+        &lt;<tag>Description</tag>&gt;WPFアプリケーション 標準テンプレート&lt;<tag>/Description</tag>&gt;
+        &lt;<tag>ProjectType</tag>&gt;CSharp&lt;<tag>/ProjectType</tag>&gt;
+        &lt;<tag>ProjectSubType</tag>&gt;
+        &lt;<tag>/ProjectSubType</tag>&gt;
+        &lt;<tag>SortOrder</tag>&gt;1000&lt;<tag>/SortOrder</tag>&gt;
+        &lt;<tag>CreateNewFolder</tag>&gt;true&lt;<tag>/CreateNewFolder</tag>&gt;
+        &lt;<tag>DefaultName</tag>&gt;WPF_App_Standard&lt;<tag>/DefaultName</tag>&gt;
+        &lt;<tag>ProvideDefaultName</tag>&gt;true&lt;<tag>/ProvideDefaultName</tag>&gt;
+        &lt;<tag>LocationField</tag>&gt;Enabled&lt;<tag>/LocationField</tag>&gt;
+        &lt;<tag>EnableLocationBrowseButton</tag>&gt;true&lt;<tag>/EnableLocationBrowseButton</tag>&gt;
+        &lt;<tag>CreateInPlace</tag>&gt;true&lt;<tag>/CreateInPlace</tag>&gt;
+        &lt;<tag>Icon</tag>&gt;__TemplateIcon.ico&lt;<tag>/Icon</tag>&gt;
+    &lt;<tag>/TemplateData</tag>&gt;
+    &lt;<tag>TemplateContent</tag>&gt;
+        &lt;<tag>Project</tag> <prp>TargetFileName</prp>=<ltr>"WPF_App_Standard.csproj"</ltr> <prp>File</prp>=<ltr>"WPF_App_Standard.csproj"</ltr> <prp>ReplaceParameters</prp>=<ltr>"true"</ltr>&gt;
+            &lt;<tag>Folder</tag> <prp>Name</prp>=<ltr>"_Asset"</ltr> <prp>TargetFolderName</prp>=<ltr>"_Asset"</ltr> /&gt;
+            &lt;<tag>Folder</tag> <prp>Name</prp>=<ltr>"_Converter"</ltr> <prp>TargetFolderName</prp>=<ltr>"_Converter"</ltr> /&gt;
+            &lt;<tag>Folder</tag> <prp>Name</prp>=<ltr>"_CustomControl"</ltr> <prp>TargetFolderName</prp>=<ltr>"_CustomControl"</ltr> /&gt;
+            &lt;<tag>Folder</tag> <prp>Name</prp>=<ltr>"_Style"</ltr> <prp>TargetFolderName</prp>=<ltr>"_Style"</ltr> /&gt;
+            &lt;<tag>Folder</tag> <prp>Name</prp>=<ltr>"_UserControl"</ltr> <prp>TargetFolderName</prp>=<ltr>"_UserControl"</ltr> /&gt;
+            &lt;<tag>Folder</tag> <prp>Name</prp>=<ltr>"_Window"</ltr> <prp>TargetFolderName</prp>=<ltr>"_Window"</ltr>&gt;
+                &lt;<tag>Folder</tag> <prp>Name</prp>=<ltr>"MainWindow"</ltr> <prp>TargetFolderName</prp>=<ltr>"MainWindow"</ltr>&gt;
+                    &lt;<tag>ProjectItem</tag> <prp>ReplaceParameters</prp>=<ltr>"true"</ltr> <prp>TargetFileName</prp>=<ltr>"MainWindow.xaml"</ltr>&gt;MainWindow.xaml&lt;<tag>/ProjectItem</tag>&gt;
+                    &lt;<tag>ProjectItem</tag> <prp>ReplaceParameters</prp>=<ltr>"true"</ltr> <prp>TargetFileName</prp>=<ltr>"MainWindow.xaml.cs"</ltr>&gt;MainWindow.xaml.cs&lt;<tag>/ProjectItem</tag>&gt;
+                &lt;<tag>/Folder</tag>&gt;
+            &lt;<tag>/Folder</tag>&gt;
+            &lt;<tag>ProjectItem</tag> <prp>ReplaceParameters</prp>=<ltr>"true"</ltr> <prp>TargetFileName</prp>=<ltr>"App.xaml"</ltr>&gt;App.xaml&lt;<tag>/ProjectItem</tag>&gt;
+            &lt;<tag>ProjectItem</tag> <prp>ReplaceParameters</prp>=<ltr>"true"</ltr> <prp>TargetFileName</prp>=<ltr>"App.xaml.cs"</ltr>&gt;App.xaml.cs&lt;<tag>/ProjectItem</tag>&gt;
+            &lt;<tag>ProjectItem</tag> <prp>ReplaceParameters</prp>=<ltr>"true"</ltr> <prp>TargetFileName</prp>=<ltr>"AssemblyInfo.cs"</ltr>&gt;AssemblyInfo.cs&lt;<tag>/ProjectItem</tag>&gt;
+        &lt;<tag>/Project</tag>&gt;
+    &lt;<tag>/TemplateContent</tag>&gt;
+&lt;<tag>/VSTemplate</tag>&gt;
+</div>
 
