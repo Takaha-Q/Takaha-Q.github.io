@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
@@ -29,20 +29,15 @@
 <a href="https://learn.microsoft.com/ja-jp/windows/uwp/xaml-platform/custom-dependency-properties">カスタム依存関係プロパティ - UWP applications | Microsoft Learn</a>
 <a href="https://qiita.com/tricogimmick/items/62cd9f5deca365a83858">WPF 依存プロパティの作り方 #C# - Qiita</a>
 <a href="https://ikorin2.hatenablog.jp/entry/2018/11/09/075145">DependencyPropertyとBindingについて - ネコのために鐘は鳴る</a>
-
-</div>
-</details>
+</div></details>
 
 <!-- 関連ページ -->
 <details><summary class=link>関連 :</summary>
-<div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/データバインディング.html">データバインディング</a>
+<div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/データバインディング.html">データバインディング</a>
 <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/01_コントロール/ユーザーコントロール.html">ユーザーコントロール</a>
 <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/テンプレート.html">テンプレート</a>
 <a href="TIPS/02_プログラミング言語/02_CSharp/02_プロパティ/プロパティ.html">[.NET]プロパティ</a>
-
-
-</div>
-</details>
+</div></details>
 
 <!-- 目次 -->
 <h5>目次 :</h5>
@@ -51,7 +46,7 @@
 <!-- 本文ここから -->
 
 <h2>依存関係プロパティ( DependencyProperty )とは</h2>
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/データバインディング.html">データバインディング</a>のターゲットに指定できるプロパティ。<br>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/データバインディング.html">データバインディング</a>のターゲットに指定できるプロパティ。<br>
 WPFの「依存関係プロパティシステム」はソース(プロパティ)の変更を通知し、ターゲット(依存関係プロパティ)に反映するという機構であり、データバインディングの根幹をなしている。<br>
 この依存関係プロパティシステムに参加できるプロパティが、依存関係プロパティである。<br>
 
@@ -191,3 +186,4 @@ TitleProperty が変更されると OnTitleChanged() が呼ばれ、TextBlock.Te
 </ol>
 
 ラッパープロパティを介して依存関係プロパティ同士をバインドすることも可能であるが、ここでは紹介のみに留める。
+

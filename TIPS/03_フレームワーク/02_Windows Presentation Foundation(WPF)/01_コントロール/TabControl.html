@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
@@ -27,21 +27,16 @@
 <a href="https://qiita.com/WPF_Tarou/items/65285a0c945ed4b485aa">[C#/WPF]動的にタブを生成するタブコントロール #C# - Qiita</a>
 <a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.controls.primitives.selector?view=windowsdesktop-8.0">Selector クラス (System.Windows.Controls.Primitives) | Microsoft Learn</a>
 <a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.controls.itemscontrol?view=windowsdesktop-8.0"></a>
-
-</div>
-</details>
+</div></details>
 
 <!-- 関連ページ -->
 <details><summary class=link>関連 :</summary>
 <div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/01_コントロール/Grid.html">Grid</a>
 <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/01_コントロール/DockPanel・StackPanel.html">DockPanel・StackPanel</a>
 <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/テンプレート.html">テンプレート</a>
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/データバインディング.html">データバインディング</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/データバインディング.html">データバインディング</a>
 <a href="TIPS/02_プログラミング言語/02_CSharp/LINQ (Language Integrated Query).html">[C#]LINQ (Language Integrated Query)</a>
-
-
-</div>
-</details>
+</div></details>
 
 <!-- 目次 -->
 <h5>目次 :</h5>
@@ -157,8 +152,9 @@ TabControl クラスは Selector を継承しているため、 ItemsSource プ�
 ここでは<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/テンプレート.html">テンプレート</a>を使用し、ItemTemplate でタブの表題( Header )、ContentTemplate でタブの内容( Content )を指定する。<br>
 Person 型のコレクション source を TabControl の ItemsSource プロパティに代入すると、TabControl では source の要素ごとにタブを割り当てる。<br>
 ( source の初期化時に<a href="TIPS/02_プログラミング言語/02_CSharp/LINQ (Language Integrated Query).html">LINQ( Select() )</a>を使用している点に注意。)<br>
-TabControl.ItemsSource が割り当てられているため、XAML側では<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/データバインディング.html">データバインディング</a>により値を参照できる。<br>
+TabControl.ItemsSource が割り当てられているため、XAML側では<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/データバインディング.html">データバインディング</a>により値を参照できる。<br>
 
 <h2>タブの高さを揃える</h2>
 通常、TabItem の高さは内容によって変化するため、タブを選択するたびに TabControl 全体の高さが変わってしまう。<br>
 <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/01_コントロール/Grid.html#Grid 要素間のサイズ共有">Grid</a> の機能を用いることで、高さの変化をある程度抑制できる。
+

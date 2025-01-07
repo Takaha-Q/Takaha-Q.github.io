@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
@@ -22,18 +22,13 @@
 <!-- 出典ページ -->
 <details><summary class=link>出典 :</summary>
 <div class=pre><a href="https://qiita.com/tera1707/items/8a6ee07ffe2d6f4c05e1">[WPF]マルチバインディングで複数プロパティを繋げて、一つのTextBlockに表示する #C# - Qiita</a>
-
-</div>
-</details>
+</div></details>
 
 <!-- 関連ページ -->
 <details><summary class=link>関連 :</summary>
-<div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/データバインディング.html">データバインディング</a>
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/コンバーター.html">コンバーター</a>
-
-
-</div>
-</details>
+<div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/データバインディング.html">データバインディング</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/コンバーター.html">コンバーター</a>
+</div></details>
 
 <!-- 目次 -->
 <h5>目次 :</h5>
@@ -43,14 +38,14 @@
 <!-- 本文ここから -->
 
 <h2>マルチバインディング</h2>
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/データバインディング.html">データバインディング</a>において、複数のプロパティをソースにとることができる機構。<br>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/データバインディング.html">データバインディング</a>において、複数のプロパティをソースにとることができる機構。<br>
 これにより、
 <ul>
     <li>複数の string プロパティを連結して一つの TextBlock に表示する</li>
     <li>複数の bool プロパティを参照し、コントロールの有効・無効を切り替える</li>
 </ul>
 といったことが可能となる。<br>
-但し複数の値を一つのターゲットに反映する都合上、<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/03_データバインディング/コンバーター.html">コンバーター</a>の実装が必須である。
+但し複数の値を一つのターゲットに反映する都合上、<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/コンバーター.html">コンバーター</a>の実装が必須である。
 
 <h2>実装例 : 複数の TextBox を参照し、いずれも空でない場合のみ Button を有効としたい</h2>
 XAMLは要点を抜粋。
@@ -175,3 +170,4 @@ XAMLは要点を抜粋。
     <li>ConvertBack() の第2引数と戻り値が配列となっている</li>
 </ul>
 である。ConvertBack() の第2引数が配列であることからもわかるように、複数のソースはそれぞれが異なる型であっても問題はない。
+

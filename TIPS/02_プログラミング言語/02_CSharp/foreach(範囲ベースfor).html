@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <!-- 基準URI -->
 <base href="https://takaha-q.github.io/">
@@ -25,18 +25,13 @@
 <a href="https://programming.pc-note.net/csharp/foreach.html">foreach文(C#) - 超初心者向けプログラミング入門</a>
 <a href="https://learn.microsoft.com/ja-jp/troubleshoot/developer/visualstudio/csharp/language-compilers/make-class-foreach-statement">foreach ステートメントでクラスを使用可能にする - C# | Microsoft Learn</a>
 <a href="https://qiita.com/Marimoiro/items/bf560d7406511380d7b6">そのforeach本当に要りますか？～for/foreach等をLINQに書き換える～ - Qiita</a>
-
-</div>
-</details>
+</div></details>
 
 <!-- 関連ページ -->
 <details><summary class=link>関連 :</summary>
 <div class=pre><a href="TIPS/03_フレームワーク/01_dotNET/01_型・クラス/コレクション.html">[.NET]コレクション</a>
-<a href="TIPS/02_プログラミング言語/01_C・C%2B%2B/範囲ベースfor.html">範囲ベースfor</a>
-
-
-</div>
-</details>
+<a href="TIPS/02_プログラミング言語/01_C・C%2B%2B/範囲ベースfor.html">[C++]範囲ベースfor</a>
+</div></details>
 
 <!-- 目次 -->
 <h5>目次 :</h5>
@@ -45,7 +40,8 @@
 
 <!-- 本文ここから -->
 <h2>foreach() 文</h2>
-データの集合(コレクション)の全要素に対して繰り返し処理を行う制御構文。
+コレクションの全要素に対して繰り返し処理を行う制御構文。
+
 <div class="code">
 <kwd>using</kwd> <knw>System</knw>;
  
@@ -79,9 +75,13 @@ e
 コレクションの全要素に対して共通の処理が実行される。<br>
 for ループと異なり、インデクスの指定や加算、終了判定が必要なく、確実にコレクションの全要素を走査することができる。<br>
 また、一時変数は var による型推論を使用できる。
+
 <h2>foreach における制限</h2>
-コレクションの要素が値型(数値型および構造体)の場合、foreach 節内で要素の値を書き換えることは不可能である。<br>
-その場合は for や while など、別の手段を用いるしかない。
+<div class=pre>
+コレクションの要素が値型(数値型および構造体)の場合、foreach 節内で要素の値を書き換えることは不可能である。
+その場合は for や while 、または<a href="TIPS/02_プログラミング言語/02_CSharp/LINQ (Language Integrated Query).html">LINQ</a>による写像を用いるとよい。
+</div>
+
 <div class="code">
 <kwd>static void</kwd> Main()
 {
@@ -94,3 +94,4 @@ for ループと異なり、インデクスの指定や加算、終了判定が�
     }
 }
 </div>
+

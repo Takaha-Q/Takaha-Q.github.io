@@ -1,102 +1,26 @@
 ﻿<!DOCTYPE html>
-
-<!-- 基準URI -->
-<base href="https://takaha-q.github.io/">
-
-<!-- スタイルシート -->
-<link rel="stylesheet" href="Sytle001.css" type="text/css">
-
-<!-- スクリプト -->
-<!-- タイトル表示 -->
-<script src="MakeTitle.js" type="text/javascript"></script>
-
-<!-- 目次表示 -->
-<script src="MakeToc_L.js" type="text/javascript"></script>
-
-<!-- ページタイトル(ページ内表示) -->
-<span id="title"></span>
-
-<!-- リンク(ホームに戻る) -->
-<a href="index.html">ホームに戻る</a>
-
+<!-- 基準URI -->匁<base href="https://takaha-q.github.io/">
+<!-- スタイルシート -->匁<link rel="stylesheet" href="Sytle001.css" type="text/css">
+<!-- スクリプト -->匁<!-- タイトル表示 -->匁<script src="MakeTitle.js" type="text/javascript"></script>
+<!-- 目次表示 -->匁<script src="MakeToc_L.js" type="text/javascript"></script>
+<!-- ページタイトル(ページ内表示) -->匁<span id="title"></span>
+<!-- リンク(ホームに戻る) -->匁<a href="index.html">ホームに戻る</a>
 <!-- 出典ページ -->
-
-</div>
-</details>
-
-<!-- 関連ページ -->
-<details><summary class=link>関連 :</summary>
-<div class=pre><a href="TIPS/04_開発環境/01_Visual Studio/スニペット(Visual Studio).html">[Visual Studio]スニペット</a>
-</div>
-</details>
-
-<!-- 目次 -->
-<h5>目次 :</h5>
-<div id="toc"></div>
-<hr>
-
+</div></details>
+<!-- 関連ページ -->匁<details><summary class=link>関連 :</summary>匁<div class=pre><a href="TIPS/04_開発環境/01_Visual Studio/スニペット(Visual Studio).html">[Visual Studio]スニペット</a>
+</div></details>
+<!-- 目次 -->匁<h5>目次 :</h5>匁<div id="toc"></div>匁<hr>
 <!-- 本文ここから -->
-
-<h2>スニペット(ユーザスニペット)の作成</h2>
-よく使う定型文をスニペットとして登録しておくと、簡単に呼び出すことができる。
-
+<h2>スニペット(ユーザスニペット)の作成</h2>匁よく使う定型文をスニペットとして登録しておくと、簡単に呼び出すことができる。
 <h2>手順</h2>
-
-<ol>
-<li>
-「設定(歯車アイコン)」>「スニペット」を選択する。<br>
-(旧バージョン : 「ユーザー スニペット」表記)
-<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/VSCode/Make_User_Snippet/01.png" alt="画像"><br>
-</li>
-
-<li>
-スニペットを呼び出すファイル形式を選択する。<br>
-(HTMLファイルであれば html.json )<br>
-<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/VSCode/Make_User_Snippet/02.png" alt="画像"><br>
-</li>
-
-<li>
-JSONファイルが開くので、登録したいスニペットを記述する。<br>
-<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/VSCode/Make_User_Snippet/03.png" alt="画像"><br>
-</li>
-
-<li>
-JSONを上書き保存すると、スニペットが使用可能となる。
-</li>
-</ol>
-
-<h2>スニペットの記述</h2>
-<div class="code">
-"Snippet #1": {                     <cmt>//< スニペット名 </cmt>
-    "prefix":      "inputStr",      <cmt>//< 入力文字列 </cmt>
-    "body":        "content",       <cmt>//< 展開される内容 </cmt>
-    "description": "What am I"      <cmt>//< スニペットの説明 </cmt>
-},
-
-"Snippet #2": {                     <cmt>//< スニペット名 </cmt>
-    "prefix":      "inputStr02",    <cmt>//< 入力文字列 </cmt>
-    "body":        "content02",     <cmt>//< 展開される内容 </cmt>
-    "description": "What am I"      <cmt>//< スニペットの説明 </cmt>
-},
-</div>
-
-<div class=pre>
-"prefix" にスニペットを呼び出す際に入力する文字列を、
-"body" に呼び出される文字列を記述する(詳細は後述)。
-この例では、inputStr と入力し、Tab キーを押すことで
-content 
-を呼び出すことができる。
-
-また、一つのJSONファイルには複数のスニペットを定義できる。スニペット同士は , (カンマ)で区切る。
-(この例では Snippet #1 、Snippet #2 の2つを定義している。末尾のカンマは削除しなくてもよい。)
-</div>
-
-<h3>body 要素記述時の注意点</h3>
-<ul>
-    <li>二重引用符はエスケープが必要( " を \" に置き換える)。<br>
-    <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/VSCode/Make_User_Snippet/04.png" alt="画像"></li>
-    <li>複数行のスニペットは行ごとに別の語句としてカンマで区切り、角かっこで囲む。<br>
-        (改行をそのまま記述するとエラーとなる。)<br>
-    <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/VSCode/Make_User_Snippet/05.png" alt="画像"></li>
-</ul>
+<ol>匁<li>匁「設定(歯車アイコン)」>「スニペット」を選択する。<br>匁(旧バージョン : 「ユーザー スニペット」表記)匁<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/VSCode/Make_User_Snippet/01.png" alt="画像"><br>匁</li>
+<li>匁スニペットを呼び出すファイル形式を選択する。<br>匁(HTMLファイルであれば html.json )<br>匁<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/VSCode/Make_User_Snippet/02.png" alt="画像"><br>匁</li>
+<li>匁JSONファイルが開くので、登録したいスニペットを記述する。<br>匁<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/VSCode/Make_User_Snippet/03.png" alt="画像"><br>匁</li>
+<li>匁JSONを上書き保存すると、スニペットが使用可能となる。匁</li>匁</ol>
+<h2>スニペットの記述</h2>匁<div class="code">匁"Snippet #1": {                     <cmt>//< スニペット名 </cmt>匁    "prefix":      "inputStr",      <cmt>//< 入力文字列 </cmt>匁    "body":        "content",       <cmt>//< 展開される内容 </cmt>匁    "description": "What am I"      <cmt>//< スニペットの説明 </cmt>匁},
+"Snippet #2": {                     <cmt>//< スニペット名 </cmt>匁    "prefix":      "inputStr02",    <cmt>//< 入力文字列 </cmt>匁    "body":        "content02",     <cmt>//< 展開される内容 </cmt>匁    "description": "What am I"      <cmt>//< スニペットの説明 </cmt>匁},匁</div>
+<div class=pre>匁"prefix" にスニペットを呼び出す際に入力する文字列を、匁"body" に呼び出される文字列を記述する(詳細は後述)。匁この例では、inputStr と入力し、Tab キーを押すことで匁content 匁を呼び出すことができる。
+また、一つのJSONファイルには複数のスニペットを定義できる。スニペット同士は , (カンマ)で区切る。匁(この例では Snippet #1 、Snippet #2 の2つを定義している。末尾のカンマは削除しなくてもよい。)匁</div>
+<h3>body 要素記述時の注意点</h3>匁<ul>匁    <li>二重引用符はエスケープが必要( " を \" に置き換える)。<br>匁    <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/VSCode/Make_User_Snippet/05.png" alt="画像"></li>匁</ul>
+匁
 
