@@ -12,8 +12,20 @@
 <span id="title"></span>
 <!-- リンク(ホームに戻る) -->
 <a href="index.html">ホームに戻る</a>
-<!-- 出典・関連ページ -->
-</div></details>
+
+<!-- 出典 -->
+<details><summary class=link>出典 :</summary>
+	<div class=pre></div><a href="https://jm1xtk.com/cnt/109_task/index.php">タスクスケジューラの設定内容を詳細について詳しく説明 - JM1XTK</a>
+	<a href="https://sananeblog.com/taskschedule-sleeptimer/">「スリープ解除タイマーの許可」表示されないときの解決方法！タスクスケジューラをスリープ状態で実行するときの手順を紹介｜sananeblog</a>
+	<a href="https://qiita.com/waokitsune/items/f34b57d123094ebf893f">C#.NETでWindowsのタスクスケジューラー情報を取得したい #C# - Qiita</a>
+	</div></details>
+	
+<!-- 関連 -->
+<details><summary class=link>関連 :</summary>
+	<div class=pre></div><a href="TIPS/03_フレームワーク/01_dotNET/25_外部プログラム・ファイル操作/外部プログラムの実行.html">[.NET]外部プログラムの実行</a>
+	<a href="TIPS/04_開発環境/01_Visual Studio/アプリケーションを常に管理者権限で実行(マニフェスト).html">[Visual Studio]アプリケーションを常に管理者権限で実行(マニフェスト)</a>
+	</div></details>
+	
 
 <!-- 目次 -->
 <h5>目次 :</h5>
@@ -22,12 +34,18 @@
 <!-- 本文ここから -->
 
 <h2>タスクスケジューラの機能</h2>
-指定した処理を、別途指定した時刻や周期で自動的に実行させることができる。<br>
+<div class=pre>指定した処理を、別途指定した時刻や周期で自動的に実行させることができる。
 コンピュータが動作していれば、ユーザがログオフしている場合でも実行可能。
+</div>
+
+<h3>スリープ状態でのタスク実行</h3>
+<div class=pre>コンピュータがスリープ状態にあるときにタスクを実行させるには、別途設定が必要となる。
+<a href="https://sananeblog.com/taskschedule-sleeptimer/">リンク先</a>を参照。
+</div>
 
 <h2>使い方</h2>
 <h3>タスクスケジューラの起動</h3>
-「ここに入力して検索」に「タスク」と入力すると、「タスク スケジューラ」が表示されるため開く。<br>
+検索ボックスから「タスク スケジューラ」を検索して実行する。<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Windows/Task_Scheduler/task_scheduler_01.png"><br>
 
 <h3>準備(フォルダの作成)</h3>
@@ -110,4 +128,32 @@
 	</li>
 
 </ol>
+
+<h2>[.NET]アプリケーションからタスクスケジューラを操作</h2>
+.NET(.NET Frameworkを含む)アプリケーションからタスクスケジューラを操作する際は、COM参照 "TaskScheduler" を使用する。
+
+<h3>注意が必要な点</h3>
+タスクを登録する際は、実行時に管理者権限を要する。<br>
+(管理者権限なしで実行するとエラーとなる。)<br>
+管理者権限の付与手順は<a href="TIPS/04_開発環境/01_Visual Studio/アプリケーションを常に管理者権限で実行(マニフェスト).html">リンク先</a>を参照。
+
+<h3>準備</h3>
+※ 書きかけです。
+
+<h3>サンプルコード</h3>
+※ 書きかけです。
+
+<h3>関数呼び出しと登録イメージ</h3>
+<div class="code">
+<cmt>// C:\Somewhere\sample.exe を</cmt>
+<cmt>// 2020/6/23 17:30:45 に実行</cmt>
+RegistTask( "ユーザタスク",                          <cmt>//&lt; <red>登録先フォルダ</red></cmt>
+            "遅延実行サンプルタスク",                <cmt>//&lt; <dgreen>タスク名</dgreen></cmt>
+            @"C:\Somewhere\sample.exe",              <cmt>//&lt; <black>実行するプログラム</black></cmt>
+            new DateTime(2020, 6, 23, 17, 30, 45),   <cmt>//&lt; <dmagenta>実行日時</dmagenta></cmt>
+            "Solid Snake",                           <cmt>//&lt; <black>作成者</black></cmt>
+            "俺は未来のために銃を握っている" );      <cmt>//&lt; <black>説明</black></cmt>
+</div>
+
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/Windows/Task_Scheduler/x1.png" alt="画像">
 
