@@ -10,17 +10,18 @@ table {
   margin:               6px 0;
 }
 
+table, tr, td, th {
+  border-color:         #996666;
+}
+
 td, th {
   border-style:         solid;
   border-width:         1px;
 }
 
+/* 通常セル */
 td {
   padding:              4px 8px;
-}
-
-table, tr, td, th {
-  border-color:         #996666;
 }
 
 /* ヘッダ行・列 */
@@ -56,6 +57,18 @@ th, .row1, .col1, .row0, .col0 {
 /* テキスト中央揃え */
 .center {
   text-align:           center;
+}
+
+/* OK */
+.ok {
+  text-align:           center;
+  background-color:     #C0FFC0;
+}
+
+/* NG */
+.ng {
+  text-align:           center;
+  background-color:     #FFC0C0;
 }
 
 /* ---------------------------------- */
