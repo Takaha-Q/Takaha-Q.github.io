@@ -34,7 +34,7 @@
 WPFでは、Windows Formsと同様に<b>コントロールに対する操作はUIスレッドから行う必要がある</b>。<br>
 UIスレッドには、各ウィンドウに関連付けられたイベントハンドラが該当する。<br>
 即ち原則として、コントロールの操作はイベントハンドラ(と同一のスレッド)からでなければ実行することができない。<br>
-<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS_DotNet_CSharp/UI_delegate/UiControl_and_Delegate_01.png" alt="画像"><br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/dotNET/UI_delegate/UiControl_and_Delegate_01.png" alt="画像"><br>
 別スレッド(ワーカースレッド)からコントロールの操作を行う場合、UIスレッドに処理を委譲する必要がある。<br>
 尚、Windows Formsと異なり、InvokeRequired プロパティは存在しない。
 
@@ -43,6 +43,7 @@ UIスレッドには、各ウィンドウに関連付けられたイベントハ
     <li>操作対象が自身のWindow : <b>Window.Dispatcher</b></li>
     <li>操作対象が自身ではない(自身に対しても使用可) : <b>Application.Current.Dispatcher</b></li>
 </ul>
+いずれも <b>Invoke()</b> メソッドに行いたい処理を引数として渡す。
 
 <h2>ワーカースレッドからのコントロール操作</h2>
 

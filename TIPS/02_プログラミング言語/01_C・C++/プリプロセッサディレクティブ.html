@@ -48,36 +48,36 @@
 
 <h2>マクロの定義に関するもの : #define / #undef</h2>
 <div class="cpp">
-<kwd>#define</kwd> SIMBOL01    <ltr>"VALUE"</ltr>                             <cmt>//< マクロ SIMBOL01 を定義 (値 "VALUE" を割り当て)</cmt>
-<kwd>#define</kwd> SIMBOL02                                        <cmt>//< マクロ SIMBOL02 を定義 (値を割り当てない)</cmt>
+<kwd>#define</kwd> SYMBOL01    <ltr>"VALUE"</ltr>                             <cmt>//< マクロ SYMBOL01 を定義 (値 "VALUE" を割り当て)</cmt>
+<kwd>#define</kwd> SYMBOL02                                        <cmt>//< マクロ SYMBOL02 を定義 (値を割り当てない)</cmt>
 
 <kwd>#define</kwd> max(x, y)   ( ( (x) > (y) ) ? ( (x) : (y) ) )   <cmt>//< 関数型マクロ max の定義</cmt>
 
 <kwd>void</kwd> DoSomething1()
 {
-    <kwd>string</kwd>  s = SIMBOL01;           <cmt>//< マクロ SIMBOL01 は "VALUE" に置換される</cmt>
+    <kwd>string</kwd>  s = SYMBOL01;           <cmt>//< マクロ SYMBOL01 は "VALUE" に置換される</cmt>
     <kwd>int</kwd>     i = max(<ltr>2</ltr>, <ltr>3</ltr>);          <cmt>//< 関数型マクロ max(2, 3) は ( ( (2) > (3) ) ? ( (2) : (3) ) ) に置換される</cmt>
 
     :
 }
 
-<kwd>#undef</kwd> SIMBOL01                     <cmt>//< マクロ SIMBOL01 の定義を消去</cmt>
+<kwd>#undef</kwd> SYMBOL01                     <cmt>//< マクロ SYMBOL01 の定義を消去</cmt>
 
 <kwd>void</kwd> DoSomething2()
 {
-    <cmt>// string  s = SIMBOL01;           //< SIMBOL01 が定義されていないため、この文はエラーとなる</cmt>
+    <cmt>// string  s = SYMBOL01;           //< SYMBOL01 が定義されていないため、この文はエラーとなる</cmt>
 
     :
 }
 </div>
 
 <b>#define</b> はマクロの定義、<b>#undef</b> は定義されたマクロの消去を行う。<br>
-上記のコード例では、シンボル SIMBOL01 がマクロとして定義されている。<br>
-以降に記述される SIMBOL01 はプリプロセッサによって、SIMBOL01 に割り当てられた値 "VALUE" に置換される。<br>
+上記のコード例では、シンボル SYMBOL01 がマクロとして定義されている。<br>
+以降に記述される SYMBOL01 はプリプロセッサによって、SYMBOL01 に割り当てられた値 "VALUE" に置換される。<br>
 つまり、DoSomething1() における
 
 <div class="cpp">
-<kwd>string</kwd>  s = SIMBOL01;
+<kwd>string</kwd>  s = SYMBOL01;
 </div>
 
 はコンパイル開始時点では
@@ -87,7 +87,7 @@
 </div>
 
 となっている。<br>
-SIMBOL02 はマクロとして定義されているが、値は割り当てられていない。記述としては有効で、これは主に後述の条件付きコンパイルで用いる。<br>
+SYMBOL02 はマクロとして定義されているが、値は割り当てられていない。記述としては有効で、これは主に後述の条件付きコンパイルで用いる。<br>
 
 <h3>関数型マクロ</h3>
 上記のコード例における max(x, y) は仮引数 x 、y をとる関数形式となっており、関数型マクロと呼ばれる。<br>
@@ -102,19 +102,19 @@ SIMBOL02 はマクロとして定義されているが、値は割り当てら�
 <h3>#if / #else / #elif / #endif</h3>
 
 <div class="cpp">
-<kwd>#define</kwd> SIMBOL01    <ltr>1</ltr>       <cmt>//< マクロ SIMBOL01 を定義 (値 1 を割り当て)</cmt>
-<kwd>#define</kwd> SIMBOL02            <cmt>//< マクロ SIMBOL02 を定義 (値を割り当てない)</cmt>
+<kwd>#define</kwd> SYMBOL01    <ltr>1</ltr>       <cmt>//< マクロ SYMBOL01 を定義 (値 1 を割り当て)</cmt>
+<kwd>#define</kwd> SYMBOL02            <cmt>//< マクロ SYMBOL02 を定義 (値を割り当てない)</cmt>
 
-<kwd>#if</kwd> SIMBOL01 == <ltr>1</ltr>           <cmt>//< (1)</cmt>
-    <cmt>// SIMBOL01 が 1 ならば、ここからのコードは有効                 ┓</cmt>
+<kwd>#if</kwd> SYMBOL01 == <ltr>1</ltr>           <cmt>//< (1)</cmt>
+    <cmt>// SYMBOL01 が 1 ならば、ここからのコードは有効                 ┓</cmt>
     <cmt>:                                                              (A)</cmt>
     <cmt>// ここまで                                                     ┛</cmt>
-<kwd>#elif</kwd> SIMBOL01 == <ltr>2</ltr>         <cmt>//< (2)</cmt>
-    <cmt>// SIMBOL01 が 1 でなく 2 ならば、ここからのコードは有効        ┓</cmt>
+<kwd>#elif</kwd> SYMBOL01 == <ltr>2</ltr>         <cmt>//< (2)</cmt>
+    <cmt>// SYMBOL01 が 1 でなく 2 ならば、ここからのコードは有効        ┓</cmt>
     <cmt>:                                                              (B)</cmt>
     <cmt>// ここまで                                                     ┛</cmt>
 <kwd>#else</kwd>                       <cmt>//< (3)</cmt>
-    <cmt>// SIMBOL01 が 1 でも 2 でもなければ、ここからのコードは有効    ┓</cmt>
+    <cmt>// SYMBOL01 が 1 でも 2 でもなければ、ここからのコードは有効    ┓</cmt>
     <cmt>:                                                              (C)</cmt>
     <cmt>// ここまで                                                     ┛</cmt>
 <kwd>#endif</kwd>
@@ -134,38 +134,38 @@ SIMBOL02 はマクロとして定義されているが、値は割り当てら�
 
 <b>#if</b> および <b>#elif</b> (else if に相当)は続く式が真である場合に、次の #elif / #else / #endif までの行を有効とする。<br>
 <b>#else</b> は直前の #if または #elif の条件に該当しない場合にのみ、次の #endif までの行を有効とする。<br>
-上記の例においては、(1)の SIMBOL01 == 1 が真であれば、(A)のコードが有効となる。<br>
-(直前で SIMBOL01 に 1 が割り当てられているため、この式は真となる。)<br>
-SIMBOL01 == 1 が偽であれば、続く(2)の SIMBOL01 == 2 が判定され、その結果によって(B)、(C)のいずれかのコードが有効となる。<br>
+上記の例においては、(1)の SYMBOL01 == 1 が真であれば、(A)のコードが有効となる。<br>
+(直前で SYMBOL01 に 1 が割り当てられているため、この式は真となる。)<br>
+SYMBOL01 == 1 が偽であれば、続く(2)の SYMBOL01 == 2 が判定され、その結果によって(B)、(C)のいずれかのコードが有効となる。<br>
 コード中と同様真は非零、偽は零であるため、(4)のように #if 0 を記述した場合、続くコード(D)は無効となる。<br>
 これはコードを削除することなく(一時的に)無効化したい場合に用いられる。<br>
 
 <h3>#ifdef / #ifndef</h3>
 
 <div class="cpp">
-<kwd>#define</kwd> SIMBOL02            <cmt>//< マクロ SIMBOL02 を定義 (値を割り当てない)</cmt>
+<kwd>#define</kwd> SYMBOL02            <cmt>//< マクロ SYMBOL02 を定義 (値を割り当てない)</cmt>
 
-<kwd>#ifdef</kwd> SIMBOL02
-    <cmt>// SIMBOL02 が定義されていれば、ここからのコードは有効</cmt>
+<kwd>#ifdef</kwd> SYMBOL02
+    <cmt>// SYMBOL02 が定義されていれば、ここからのコードは有効</cmt>
     :
     <cmt>// ここまで</cmt>
 <kwd>#endif</kwd>
 
-<kwd>#ifndef</kwd> SIMBOL03
-    <cmt>// SIMBOL03 が定義されていなければ、ここからのコードは有効</cmt>
+<kwd>#ifndef</kwd> SYMBOL03
+    <cmt>// SYMBOL03 が定義されていなければ、ここからのコードは有効</cmt>
     :
     <cmt>// ここまで</cmt>
 <kwd>#endif</kwd>
 
-<kwd>#if</kwd> defined SIMBOL02        <cmt>//< #ifdef SIMBOL02 と等価</cmt>
+<kwd>#if</kwd> defined SYMBOL02        <cmt>//< #ifdef SYMBOL02 と等価</cmt>
     :
-<kwd>#elif</kwd> defined SIMBOL03
+<kwd>#elif</kwd> defined SYMBOL03
     :
 <kwd>#endif</kwd>
 
-<kwd>#if</kwd> !defined SIMBOL03       <cmt>//< #ifndef SIMBOL03 と等価</cmt>
+<kwd>#if</kwd> !defined SYMBOL03       <cmt>//< #ifndef SYMBOL03 と等価</cmt>
     :
-<kwd>#elif</kwd> !defined SIMBOL02
+<kwd>#elif</kwd> !defined SYMBOL02
     :
 <kwd>#else</kwd>
     :
