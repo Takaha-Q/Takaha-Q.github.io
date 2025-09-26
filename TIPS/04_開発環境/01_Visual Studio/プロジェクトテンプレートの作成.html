@@ -15,8 +15,8 @@
 <!-- 出典ページ -->
 <details><summary class=link>出典 :</summary>
 <div class=pre><a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/creating-project-and-item-templates?view=vs-2022">プロジェクトとファイルのテンプレート - Visual Studio (Windows) | Microsoft Learn</a>
-    <a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/how-to-create-project-templates?view=vs-2022">ウィザードまたは XML ファイルを使用してプロジェクト テンプレートを作成する - Visual Studio (Windows) | Microsoft Learn</a>
-    <a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/template-parameters?view=vs-2022">プロジェクト テンプレートと項目テンプレートのパラメーター - Visual Studio (Windows) | Microsoft Learn</a>
+<a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/how-to-create-project-templates?view=vs-2022">ウィザードまたは XML ファイルを使用してプロジェクト テンプレートを作成する - Visual Studio (Windows) | Microsoft Learn</a>
+<a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/template-parameters?view=vs-2022">プロジェクト テンプレートと項目テンプレートのパラメーター - Visual Studio (Windows) | Microsoft Learn</a>
 <a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/how-to-substitute-parameters-in-a-template?view=vs-2022">プロジェクトと項目テンプレートに名前パラメーターを追加する - Visual Studio (Windows) | Microsoft Learn</a>
 <a href="https://learn.microsoft.com/ja-jp/visualstudio/ide/how-to-update-existing-templates?view=vs-2022">既存のプロジェクト項目テンプレートの更新 - Visual Studio (Windows) | Microsoft Learn</a>
 <a href="https://learn.microsoft.com/ja-jp/visualstudio/extensibility/visual-studio-template-schema-reference?view=vs-2022">Visual Studio テンプレート スキーマ参照 - Visual Studio (Windows) | Microsoft Learn</a>
@@ -33,41 +33,48 @@
 <hr>
 <!-- 本文ここから -->
 
-<h2>Visual Studioプロジェクトテンプレートの作成</h2>
-<div class=pre>プロジェクトテンプレートを作成することで、ファイル群を再利用してプロジェクト作成の手間を省くことができる。
-テンプレートにはプロジェクト配下のすべてのファイルおよびフォルダが含まれる。
-以下、Visual Studio 2022を例に挙げる。
+<h2>Visual Studioテンプレートの作成</h2>
+<div class=pre>プロジェクトテンプレートや項目テンプレートを作成・流用することで、プロジェクトや個別のソースファイルを効率的に作成することができる。
+プロジェクトテンプレートはプロジェクトに属するファイルすべてを含み、項目テンプレートは単一のモジュールに対応するファイルのみとなる。
+ウィンドウ、クラスライブラリなどの個別のモジュールは項目テンプレートを用いるとよい。
 </div>
 
-<h2>手順</h2>
+<h2>手順 : プロジェクトテンプレート</h2>
+以下、Visual Studio 2026を例に挙げる。
+
 <h3>1. テンプレートの作成</h3>
 <ol>
     <li><span class=pre>出力するプロジェクトを整理する。
-        (テンプレートに不要なファイルやコードの削除)</span></li>
+        (テンプレートに含める内容のみを残す。)</span></li>
     <li><span class=pre>「プロジェクト」>「テンプレートのエクスポート」を選択する。
         <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Project_Template/01.png" alt="画像"></span></li>
     <li><span class=pre>ラジオボタン「プロジェクト テンプレート」にチェックを入れ、
-        テンプレートの元にするプロジェクトを選択し、「次へ」をクリックする。
+        テンプレートとしてエクスポートするプロジェクトを選択し、「次へ」をクリックする。
         <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Project_Template/02.png" alt="画像"></span></li>
     <li><span class=pre>「テンプレート名」、「テンプレートの説明」を入力し、「完了」をクリックすると、「出力場所」にテンプレート(ZIP)が出力される。
+        ここで、「テンプレートを自動的にVisual Studioにインポート」にチェックを入れると、システムのテンプレートに組み込まれ、すぐに使用できるようになる。
+        (その環境でのみ)
         <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Project_Template/03.png" alt="画像"></span></li>
 </ol>
 
 <h3>2. テンプレートのインポート</h3>
-<div class=pre>
-    手順1-4で「テンプレートを自動的にVisual Studioにインポート」にチェックを入れた場合はこの手順は不要。
+<div class=pre>他の環境で作成されたテンプレートを使用する場合は以下の手順を行う。
 </div>
 
 <ol>
-    <li><span class=pre>ユーザープロジェクトテンプレートの場所を確認する。任意の場所に変更してもよい。
-            (<a href="TIPS/04_開発環境/01_Visual Studio/プロジェクトの場所(デフォルト).html">プロジェクトの場所(デフォルト)</a>参照。)
+    <li><span class=pre>ユーザープロジェクトテンプレートの場所を確認する。
+        メニューから「ツール」＞「オプション」を選択してオプションを開き、
+        「すべての設定」＞「プロジェクトとソリューション」＞「場所」を選択する。
+        このとき、テンプレートの場所は任意に変更してよい。
+                <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Project_Template/06.png" alt="画像">
+            (<a href="TIPS/04_開発環境/01_Visual Studio/プロジェクトの場所(デフォルト).html">プロジェクトの場所(デフォルト)</a>も参照。)
     </span></li>
     <li><span class=pre>1. の場所にプロジェクトテンプレート(ZIP)を配置する。
         サブディレクトリ(1. でプロジェクトテンプレートの場所を変更するとサブディレクトリが自動生成される)への配置も可能だが、
         有効なサブディレクトリ名は限られていることに注意。
         (例えば「Visual C#」は有効だが「C#」は無効。)
-        <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Project_Template/04.png" alt="画像"></span></li>
-    <li><span class=pre>2. で配置したテンプレートを削除すると、そのテンプレートは使用できなくなる。</span></li>
+        <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Project_Template/04.png" alt="画像">
+        配置後にテンプレートを削除すると、そのテンプレートは使用できなくなる。</span></li>
 </ol>
 
 <h3>3. テンプレートの呼び出し</h3>
