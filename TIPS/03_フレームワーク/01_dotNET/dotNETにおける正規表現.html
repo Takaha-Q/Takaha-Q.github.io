@@ -121,8 +121,11 @@ Match match = <knw>Regex</knw>.Match( input, pattern );
 <ltr>LastWord  : 'moon'</ltr>    <cmt>//&lt; 名前付きキャプチャ "LastWord"</cmt>
 </div>
 
-<div class=pre>注意が必要な点として、割り当てられるキャプチャ番号は名前無し⇒名前付きの順となる。
-GetGroupNumbers() の節にて後述する。
+<h6>解説</h6>
+<div class=pre>上記のコードでは、通常のキャプチャと名前付きキャプチャを同時に行っている。
+注意が必要な点として、割り当てられるキャプチャ番号は名前無し⇒名前付きの順となる。
+(最も左にある "FirstWord" は名前付きのためスキップされ、名前無しのキャプチャに番号 1 が割り当てられる。
+ちなみに番号 0 はキャプチャではなく、パターン全体のマッチ結果となる。)
 </div>
 
 <h2>Matches() : パターンにマッチする箇所の一覧</h2>
@@ -208,7 +211,7 @@ MatchCollection matches = <knw>Regex</knw>.Matches( input, pattern );
 <kwd>string</kwd> output = <knw>Regex</knw>.Replace( input, pattern, replacement );
 </div>
 
-<h3><a href="TIPS/01_ソフトウェア開発一般/03_正規表現/キャプチャ.html">キャプチャおよび名前付きキャプチャ</a></h3>
+<h3>キャプチャおよび名前付きキャプチャ</h3>
 <div class=pre>置換後文字列中でキャプチャを参照する場合は表記が異なる。
 </div>
 
@@ -230,6 +233,8 @@ MatchCollection matches = <knw>Regex</knw>.Matches( input, pattern );
   </tr>
 </table>
 
+<h6>記述例</h6>
+
 <div class=cs>
 <kwd>using</kwd> <knw>System</knw>.<knw>Text</knw>.RegularExpressions;
 
@@ -244,6 +249,7 @@ MatchCollection matches = <knw>Regex</knw>.Matches( input, pattern );
 <kwd>string</kwd> output = <knw>Regex</knw>.Replace( input, pattern, replacement );
 </div>
 
+<h6>解説</h6>
 <div class=pre>入力文字列 "Good morning. Good evening." を検索パターン "(Good) (\w+)\. \1 (\w+)\." で評価しており、</div>
 <ul>
     <li>キャプチャ 1 : Good</li>
@@ -253,8 +259,6 @@ MatchCollection matches = <knw>Regex</knw>.Matches( input, pattern );
 <div class=pre>となる。
 キャプチャ 1 は検索パターン中で参照するため<code>\1</code>表記だが、キャプチャ 2 および 3 は置換後文字列中で参照するため<code>$2</code> <code>$3</code>表記となる。
 </div>
-
-
 
 <h2>GetGroupNames() : キャプチャしたグループ名をすべて取得</h2>
 <div class=pre>Match() でのキャプチャに使用した名称の一覧を返す。
@@ -322,7 +326,6 @@ MatchCollection matches = <knw>Regex</knw>.Matches( input, pattern );
 キャプチャグループ名を取得するには<code>Match()</code>を実行した<code>RegEx</code>オブジェクトが必要となるため、<code>Match()</code>実行前にインスタンスを作成している。
 <code>RegEx.GetGroupNames()</code>を実行すると名前付きキャプチャ(<code>"FirstWord"</code>および<code>"LastWord"</code>)に加え、通常の(番号による)キャプチャ結果も返される。
 (例えばキャプチャ番号 1 には名称 "1" が割り当てられる。<code>Match.Groups[1]</code>と<code>Match.Groups["1"]</code>の結果は等しい。)
-このとき、0 番目の結果はキャプチャではなく、パターン全体のマッチ結果となる。
 1 番目、2 番目のキャプチャは複数回実行(該当箇所が複数存在)され、結果は最新のもので上書きされる。
 </div>
 
