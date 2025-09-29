@@ -77,7 +77,7 @@ Match match = <knw>Regex</knw>.Match( input, pattern );
 
 <h3>キャプチャ結果の取得</h3>
 <div class=pre>添字付きプロパティ <code class="b">Match.Groups[]</code>を用いることで、番号または名前を指定してキャプチャ結果を参照できる。
-キャプチャ結果の文字列を取り出すにはさらに<code>Value</code>プロパティを用いる。
+キャプチャ結果の文字列は <code class="b">Value</code> プロパティで取得できる。
 </div>
 
 <h6>記述例</h6>
@@ -104,10 +104,10 @@ Match match = <knw>Regex</knw>.Match( input, pattern );
         Match match = <knw>Regex</knw>.Match( input, pattern );
         <kwd>if</kwd> (match.Success)
         {
-            <knw>Console</knw>.WriteLine( <ltr>$@"1         : '{match.Group[1].Value}'"</ltr> );
-            <knw>Console</knw>.WriteLine( <ltr>$@"2         : '{match.Group[2].Value}'"</ltr> );
-            <knw>Console</knw>.WriteLine( <ltr>$@"FirstWord : '{match.Group["FirstWord"].Value}'"</ltr> );
-            <knw>Console</knw>.WriteLine( <ltr>$@"LastWord  : '{match.Group["LastWord"].Value}'"</ltr> );
+            <knw>Console</knw>.WriteLine( <ltr>$@"1         : '</ltr>{match.Groups[1].Value}<ltr>'"</ltr> );
+            <knw>Console</knw>.WriteLine( <ltr>$@"2         : '</ltr>{match.Groups[2].Value}<ltr>'"</ltr> );
+            <knw>Console</knw>.WriteLine( <ltr>$@"FirstWord : '</ltr>{match.Groups["FirstWord"].Value}<ltr>'"</ltr> );
+            <knw>Console</knw>.WriteLine( <ltr>$@"LastWord  : '</ltr>{match.Groups["LastWord"].Value}<ltr>'"</ltr> );
         }
     }
 }
@@ -119,6 +119,10 @@ Match match = <knw>Regex</knw>.Match( input, pattern );
 <ltr>2         : 'the'</ltr>     <cmt>//&lt; キャプチャ番号 2 ( \2 )</cmt>
 <ltr>FirstWord : 'The'</ltr>     <cmt>//&lt; 名前付きキャプチャ "FirstWord"</cmt>
 <ltr>LastWord  : 'moon'</ltr>    <cmt>//&lt; 名前付きキャプチャ "LastWord"</cmt>
+</div>
+
+<div class=pre>注意が必要な点として、割り当てられるキャプチャ番号は名前無し⇒名前付きの順となる。
+GetGroupNumbers() の節にて後述する。
 </div>
 
 <h2>Matches() : パターンにマッチする箇所の一覧</h2>
@@ -162,8 +166,8 @@ MatchCollection matches = <knw>Regex</knw>.Matches( input, pattern );
 
 :
 
-<kwd>string</kwd> input = <ltr>"0120-444-444"</ltr>;    <cmt>//&lt; 入力文字列</cmt>
-<kwd>string</kwd> pattern = <ltr>@"\d+"</ltr>           <cmt>//&lt; 検索パターン</cmt>
+<kwd>string</kwd> input   = <ltr>"0120-444-444"</ltr>;    <cmt>//&lt; 入力文字列</cmt>
+<kwd>string</kwd> pattern = <ltr>@"\d+"</ltr>             <cmt>//&lt; 検索パターン</cmt>
 
 <cmt>// input 中に pattern にマッチする箇所が存在するかを取得 ⇒ 存在するため true</cmt>
 <kwd>bool</kwd> isMatch = <knw>Regex</knw>.IsMatch( input, pattern );
@@ -179,8 +183,8 @@ MatchCollection matches = <knw>Regex</knw>.Matches( input, pattern );
 
 :
 
-<kwd>string</kwd> input = <ltr>"0120-444-444"</ltr>;    <cmt>//&lt; 入力文字列</cmt>
-<kwd>string</kwd> pattern = <ltr>@"\d+"</ltr>           <cmt>//&lt; 検索パターン</cmt>
+<kwd>string</kwd> input   = <ltr>"0120-444-444"</ltr>;    <cmt>//&lt; 入力文字列</cmt>
+<kwd>string</kwd> pattern = <ltr>@"\d+"</ltr>             <cmt>//&lt; 検索パターン</cmt>
 
 <cmt>// input 中の pattern にマッチする個数を取得 ⇒ 3</cmt>
 <kwd>int</kwd> count = <knw>Regex</knw>.Count( input, pattern );
@@ -196,9 +200,9 @@ MatchCollection matches = <knw>Regex</knw>.Matches( input, pattern );
 
 :
 
-<kwd>string</kwd> input = <ltr>"0120-444-444"</ltr>;    <cmt>//&lt; 入力文字列</cmt>
-<kwd>string</kwd> pattern = <ltr>@"\d{3}"</ltr>         <cmt>//&lt; 検索パターン</cmt>
-<kwd>string</kwd> replacement = <ltr>"###"</ltr>;       <cmt>//&lt; 置換後文字列</cmt>
+<kwd>string</kwd> input       = <ltr>"0120-444-444"</ltr>;    <cmt>//&lt; 入力文字列</cmt>
+<kwd>string</kwd> pattern     = <ltr>@"\d{3}"</ltr>;          <cmt>//&lt; 検索パターン</cmt>
+<kwd>string</kwd> replacement = <ltr>"###"</ltr>;             <cmt>//&lt; 置換後文字列</cmt>
 
 <cmt>// input 中の pattern にマッチする箇所を replacement で置換 ⇒ "0120-###-###"</cmt>
 <kwd>string</kwd> output = <knw>Regex</knw>.Replace( input, pattern, replacement );
@@ -215,16 +219,42 @@ MatchCollection matches = <knw>Regex</knw>.Matches( input, pattern );
     <td width="180">名前付きキャプチャ</td>
   </tr>
   <tr height="36">
-    <td class="col1">入力文字列中で参照(後方参照)</td>
+    <td class="col1">検索パターン中で参照(後方参照)</td>
     <td class="center"><b class=red>\</b><i>1</i>, <b class=red>\</b><i>2</i>, ...</td>
     <td class="center"><b class=red>\k&lt;</b><i>CaptureName</i><b class=red>&gt;</b></td>
   </tr>
   <tr height="36">
-    <td class="col1">置換文字列中で参照</td>
+    <td class="col1">置換後文字列中で参照</td>
     <td class="center"><b class=blue>$</b><i>1</i>, <b class=blue>$</b><i>2</i>, ...</td>
     <td class="center"><b class=blue>${</b><i>CaptureName</i><b class=blue>}</b></td>
   </tr>
 </table>
+
+<div class=cs>
+<kwd>using</kwd> <knw>System</knw>.<knw>Text</knw>.RegularExpressions;
+
+:
+
+<kwd>string</kwd> input       = <ltr>"Good morning. Good evening."</ltr>;    <cmt>//&lt; 入力文字列</cmt>
+<kwd>string</kwd> pattern     = <ltr>@"(Good) (\w+)\. \1 (\w+)\."</ltr>;     <cmt>//&lt; 検索パターン</cmt>
+<kwd>string</kwd> replacement = <ltr>@"Bad $2. Bad $3."</ltr>;               <cmt>//&lt; 置換後文字列</cmt>
+
+<cmt>// 検索パターンおよび置換後文字列でキャプチャ結果を参照</cmt>
+<cmt>// "Good morning. Good evening." ⇒ "Bad morning. Bad evening."</cmt>
+<kwd>string</kwd> output = <knw>Regex</knw>.Replace( input, pattern, replacement );
+</div>
+
+<div class=pre>入力文字列 "Good morning. Good evening." を検索パターン "(Good) (\w+)\. \1 (\w+)\." で評価しており、</div>
+<ul>
+    <li>キャプチャ 1 : Good</li>
+    <li>キャプチャ 2 : morning</li>
+    <li>キャプチャ 3 : evening</li>
+</ul>
+<div class=pre>となる。
+キャプチャ 1 は検索パターン中で参照するため<code>\1</code>表記だが、キャプチャ 2 および 3 は置換後文字列中で参照するため<code>$2</code> <code>$3</code>表記となる。
+</div>
+
+
 
 <h2>GetGroupNames() : キャプチャしたグループ名をすべて取得</h2>
 <div class=pre>Match() でのキャプチャに使用した名称の一覧を返す。
