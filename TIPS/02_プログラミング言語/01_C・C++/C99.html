@@ -28,6 +28,7 @@
 <!-- 関連ページ -->
 <details><summary class=link>関連 :</summary>
 <div class=pre><a href="TIPS/02_プログラミング言語/01_C・C%2B%2B/インライン関数 (Inline Function).html">インライン関数 (Inline Function)</a>
+<a href="TIPS/02_プログラミング言語/01_C・C%2B%2B/標準の定義済みマクロ.html">標準の定義済みマクロ</a>
 <a href="TIPS/02_プログラミング言語/01_C・C%2B%2B/C%2B%2B11.html">C++11</a>
 </div></details>
 
@@ -118,17 +119,6 @@ C99では<b>C++同様、コードブロックの途中でも変数を宣言で�
 
 <h3><dgreen>//</dgreen>から始まる一行コメント</h3>
 BCPLやC++と同じスタイルでコメントを記述できる。従来の <dgreen>/*</dgreen> ～ <dgreen>*/</dgreen> スタイルも使用可能。<br>
-
-<h3>__func__ マクロ</h3>
-現在実行中の関数名を取得できる。<br>
-
-<div class="code">
-<kwd>void</kwd> DoSomething()
-{
-    <cmt>// "DoSomethihg" が出力される</cmt>
-    printf(<ltr>"%s"</ltr>, __func__);
-}
-</div>
 
 <h3>指示初期化子</h3>
 配列・構造体の特定の要素を指定して初期化できる。<br>
@@ -234,6 +224,20 @@ St_Point* center(<kwd>const</kwd> St_Point*p1, <kwd>const</kwd> St_Point*p2)
 }
 </div>
 
+<h3>__func__ マクロ</h3>
+現在実行中の関数名を取得できる。<br>
+
+<div class="code">
+<kwd>void</kwd> DoSomething()
+{
+    <cmt>// "DoSomethihg" が出力される</cmt>
+    printf(<ltr>"%s"</ltr>, __func__);
+}
+</div>
+
+その他、<a href="TIPS/02_プログラミング言語/01_C・C%2B%2B/標準の定義済みマクロ.html">標準の定義済みマクロ</a>一覧はリンク先を参照のこと。
+
+
 <h2>注意すべき点( C89との相違 )</h2>
 宣言時に型を省略した場合、C89では暗黙的に int と見なしていたが、C99ではコンパイルエラーとなる。<br>
 同様に、プロトタイプの無い関数はC89では戻り値の型は int 、引数の数、型は任意と解釈されるが、C99では文法違反となる。<br>
@@ -246,4 +250,4 @@ St_Point* center(<kwd>const</kwd> St_Point*p1, <kwd>const</kwd> St_Point*p2)
 尚、コンパイラがC++をサポートしているかはマクロ  <b>__cplusplus</b>  が定義されているかで確認できる。<br>
 GCCはC99の大半の機能をサポートするが、一部未実装のものもあり、完全準拠は果たしていない。<br>
 Microsoft Visual C++ は2013からC99の大半に適合する。<br>
-
+詳細は<a href="TIPS/02_プログラミング言語/01_C・C%2B%2B/標準の定義済みマクロ.html">リンク先</a>を参照のこと。
