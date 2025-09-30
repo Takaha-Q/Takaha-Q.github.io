@@ -83,9 +83,14 @@
 
 <h2>主な仕組み</h2>
 <div class=pre><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\MVVM_Toolkit\01.png" alt="画像">
-ViewModelとして用いるクラスを<code>ObservableObject</code>の派生クラスとして定義し、
+ViewModelとして用いるクラスを <code class="b">ObservableObject</code> の派生クラスとして定義し、
 データバインディングのソースとして用いるプロパティ(変更通知プロパティ)を含める。
-コマンドは<code>ICommand</code>として作成し、これをコマンドバインディングのソースとする。
+コマンドは <code class="b">ICommand</code> として作成し、これをコマンドバインディングのソースとする。
+</div>
+
+<h2>準備</h2>
+<div class=pre><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\MVVM_Toolkit\08.png" alt="画像">
+  CommunityToolkit.Mvvm がインストールされていない場合は、Nuget より取得する。
 </div>
 
 <h2>実装例(MVVM Toolkit Ver.7)</h2>
