@@ -26,6 +26,7 @@
 <!-- 関連ページ -->
 <details><summary class=link>関連 :</summary>
 <div class=pre><a href="TIPS/04_開発環境/01_Visual Studio/プロジェクトの場所(デフォルト).html">プロジェクトの場所(デフォルト)</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/[WPF]テンプレート.html">[WPF]テンプレート</a>
 </div></details>
 <!-- 目次 -->
 <h5>目次 :</h5>
@@ -35,14 +36,15 @@
 
 <h2>Visual Studioテンプレートの作成</h2>
 <div class=pre>プロジェクトテンプレートや項目テンプレートを作成・流用することで、プロジェクトや個別のソースファイルを効率的に作成することができる。
-プロジェクトテンプレートはプロジェクトに属するファイルすべてを含み、項目テンプレートは単一のモジュールに対応するファイルのみとなる。
-ウィンドウ、クラスライブラリなどの個別のモジュールは項目テンプレートを用いるとよい。
+なお、WPFの<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/[WPF]テンプレート.html">テンプレート(カスタムコントロール)</a>とは異なる。
+手順はいずれもVisual Studio 2026における例である。
 </div>
 
-<h2>手順 : プロジェクトテンプレート</h2>
-以下、Visual Studio 2026を例に挙げる。
+<h2>プロジェクトテンプレート</h2>
+<div class=pre>プロジェクトテンプレートはプロジェクトに属するファイル群の雛型である。
+</div>
 
-<h3>1. テンプレートの作成</h3>
+<h3>手順1. テンプレートの作成</h3>
 <ol>
     <li><span class=pre>出力するプロジェクトを整理する。
         (テンプレートに含める内容のみを残す。)</span></li>
@@ -57,7 +59,7 @@
         <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Project_Template/03.png" alt="画像"></span></li>
 </ol>
 
-<h3>2. テンプレートのインポート</h3>
+<h3>手順2. テンプレートのインポート</h3>
 <div class=pre>他の環境で作成されたテンプレートを使用する場合は以下の手順を行う。
 </div>
 
@@ -72,12 +74,12 @@
     <li><span class=pre>1. の場所にプロジェクトテンプレート(ZIP)を配置する。
         サブディレクトリ(1. でプロジェクトテンプレートの場所を変更するとサブディレクトリが自動生成される)への配置も可能だが、
         有効なサブディレクトリ名は限られていることに注意。
-        (例えば「Visual C#」は有効だが「C#」は無効。)
+        (例えばVS2022では「Visual C#」は有効だが「C#」は無効。)
         <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/MSVS/Project_Template/04.png" alt="画像">
         配置後にテンプレートを削除すると、そのテンプレートは使用できなくなる。</span></li>
 </ol>
 
-<h3>3. テンプレートの呼び出し</h3>
+<h3>手順3. テンプレートの呼び出し</h3>
 <div class=pre>手順1で作成したテンプレートは組み込みのテンプレートと同様、プロジェクトの新規作成時に雛形として使用できる。
     ただし、組み込みテンプレートと異なり、プラットフォームおよびプロジェクト種類のタグが付与されていない。
     (「言語」はテンプレート作成時に元となったプロジェクトのものが適用される。)
@@ -87,9 +89,9 @@
     <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\MSVS\Project_Template\05.png" alt="画像">
 </div>
 
-<h3>4. テンプレートの編集</h3>
+<h3>手順4. テンプレートの編集</h3>
 <div class=pre>    ※この節は書きかけです。
-    ZIPを解凍し、VSTEMPLATE ファイルを編集することでプロジェクト情報を変更することができる。ファイルの実体はXML。
+    ZIPを解凍し、VSTEMPLATE (実体はXML)ファイルを編集することでプロジェクト情報を変更することができる。
     VSTEMPLATE の各要素は<a href="https://learn.microsoft.com/ja-jp/visualstudio/extensibility/visual-studio-template-schema-reference?view=vs-2022">リファレンス</a>を参照。
 </div>
 
@@ -132,3 +134,30 @@
 &lt;<tag>/VSTemplate</tag>&gt;
 </div>
 
+<h2>項目テンプレート</h2>
+<div class=pre>項目テンプレートは、単一のモジュール(クラスライブラリやウィンドウなどのコンポーネント)に対応するファイルの雛型である。
+</div>
+
+<h3>有効な場面</h3>
+<div class=pre>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\MSVS\Project_Template\07.png" alt="画像">
+上図のように、Window に外部ファイルで定義されるリソースを適用する場合を考える。
+リソースファイルの指定やスタイル(キー)の指定がボイラープレートとなっているため、
+Window を項目テンプレートとすることで、ボイラープレートを都度記述する必要がなくなる。
+このとき、テンプレート化する MainWindow が参照している(依存関係にある) _Style/General.xaml も項目テンプレートに含まれるため、
+依存関係にあるファイルを都度プロジェクトに追加する必要もない。
+</div>
+
+<h3>テンプレートの作成</h3>
+<ol>
+    <li><span class=pre>「プロジェクト」>「テンプレートのエクスポート」を選択する(プロジェクトテンプレートと共通)。</span></li>
+    <li><span class=pre>ラジオボタン「項目テンプレート」にチェックを入れ、
+        エクスポートする項目が含まれるプロジェクトを選択し、「次へ」をクリックする。</span></li>
+    <li><span class=pre>エクスポートする項目にチェックを入れ、「次へ」をクリックする。
+        (ここでは MainWindow.xaml を選択。)
+        <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\MSVS\Project_Template\08.png" alt="画像"></span></li>
+    <li><span class=pre>テンプレートに参照を含める場合、必要なものにチェックを入れる。「次へ」をクリックする。</span></li>
+    <li><span class=pre>「テンプレート名」、「テンプレートの説明」を入力し、「完了」をクリックすると、「出力場所」にテンプレート(ZIP)が出力される(プロジェクトテンプレートと共通)。</span></li>
+</ol>
+
+テンプレートの適用、編集はプロジェクトテンプレートと共通である。
