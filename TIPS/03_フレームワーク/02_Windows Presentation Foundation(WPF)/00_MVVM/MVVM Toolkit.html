@@ -104,7 +104,7 @@ ViewModelとして用いるクラスを <code class="b">ObservableObject</code> 
 <cmt>// ViewModel : ObservableObject を継承</cmt>
 <kwd>public class</kwd> MainWindowVM : ObservableObject
 {
-    <cmt>// Name のバッキングフィールド</cmt>
+    <cmt>// Name のパッキングフィールド</cmt>
     <kwd>private string</kwd> _name;
 
     <cmt>// プロパティ(バインドソース)</cmt>
@@ -194,7 +194,7 @@ _person のプロパティ更新をコールバック内で行っている点に
 
 <h2>Ver.8での変更</h2>
 <div class=pre>MVVM Toolkit Ver.8では各種機能をカスタム属性として利用できるようになり、コードの記述を大幅に削減できるようになった。
-Ver.7での記法も引き続き使用できる。
+Ver.7での記法も引き続き有効である。
 </div>
 
 <table>
@@ -210,7 +210,7 @@ Ver.7での記法も引き続き使用できる。
   </tr>
   <tr>
     
-    <td class="border_t_dotted"><ul><li>ViewModel は<code>ObservableObject</code>を継承</li></ul></td>
+    <td class="border_t_dotted"></td>
     <td class="border_t_dotted"><ul><li>ViewModel に<code>INotifyPropertyChanged</code>属性を付与</li>
     <li>クラスを<code>partial</code>修飾<br>(コードジェネレータにより追加コードが自動生成される)</li></ul></td>
   </tr>
@@ -221,10 +221,10 @@ Ver.7での記法も引き続き使用できる。
   </tr>
   <tr>
     
-    <td class="border_t_dotted"><ul><li>バインドソースとバッキングフィールドを記述</li>
+    <td class="border_t_dotted"><ul><li>バインドソースとパッキングフィールドを記述</li>
     <li>バインドソースの<code>set</code>内で<code>SetProperty()</code>をコール</li></ul></td>
-    <td class="border_t_dotted"><ul><li>バッキングフィールドのみを記述</li>
-    <li>バッキングフィールドに<code>ObservableProperty</code>属性を付与</li>
+    <td class="border_t_dotted"><ul><li>パッキングフィールドのみを記述</li>
+    <li>パッキングフィールドに<code>ObservableProperty</code>属性を付与</li>
     <li>バインドソース Name は自動的に生成される</li>
     </ul></td>
   </tr>
@@ -244,7 +244,7 @@ Ver.7での記法も引き続き使用できる。
 
 <h3>注意点</h3>
 <div class=pre>変更通知プロパティ、コマンドともにバインドソースとなるプロパティはコードジェネレータにより自動的に生成される。
-その際、変更通知プロパティはバッキングフィールドの先頭文字を大文字にしたもの
+その際、変更通知プロパティはパッキングフィールドの先頭文字を大文字にしたもの
 (例 : name ⇒ <b class=blue>N</b>ame)
 コマンドはハンドラメソッドの後に Command を付与したものとなる。
 (例 : Greet ⇒ Greet<b class=blue>Command</b>)
