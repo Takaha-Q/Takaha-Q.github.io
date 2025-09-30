@@ -217,39 +217,38 @@ Mutex は Semaphore よりもリソース効率が悪く、積極的に用いる
 
 <table class="center">
   <tr class="row1">
-    <td class="col1">ロック種別</td>
-    <td width="90">同時エントリ数</td>
-    <td width="90">await の使用</td>
-    <td width="90">他プロセスと共有</td>
-    <td width="90">リソース消費<br>(相対)</td>
+    <td class="col1"></td>
+    <td width="135">lock</td>
+    <td width="135">SemaphoreSlim</td>
+    <td width="135">Semaphore</td>
+    <td width="135">Mutex</td>
   </tr>
   <tr>
-    <td class="col1">lock</td>
+    <td class="col1">同時エントリ数</td>
     <td class="bg_lc">1</td>
+    <td class="bg_ly">可変</td>
+    <td class="bg_ly">可変</td>
+    <td class="bg_lc">1</td>
+  </tr>
+  <tr>
+    <td class="col1">await の使用</td>
+    <td class="bg_lr">不可</td>
+    <td class="bg_lg">可</td>
     <td class="bg_lr">不可</td>
     <td class="bg_lr">不可</td>
+  </tr>
+  <tr>
+    <td class="col1">他プロセスと共有</td>
+    <td class="bg_lr">不可</td>
+    <td class="bg_lr">不可</td>
+    <td class="bg_lg">可</td>
+    <td class="bg_lg">可</td>
+  </tr>
+  <tr>
+    <td class="col1">リソース消費</td>
     <td>最小</td>
-  </tr>
-  <tr>
-    <td class="col1">SemaphoreSlim</td>
-    <td class="bg_ly">可変</td>
-    <td class="bg_lg">可</td>
-    <td class="bg_lr">不可</td>
     <td>小</td>
-  </tr>
-  <tr>
-    <td class="col1">Semaphore</td>
-    <td class="bg_ly">可変</td>
-    <td class="bg_lr">不可</td>
-    <td class="bg_lg">可</td>
     <td>大</td>
-  </tr>
-  <tr>
-    <td class="col1">Mutex</td>
-    <td class="bg_lc">1</td>
-    <td class="bg_lr">不可</td>
-    <td class="bg_lg">可</td>
     <td>最大</td>
   </tr>
 </table>
-
