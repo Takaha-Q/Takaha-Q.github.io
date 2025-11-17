@@ -21,7 +21,8 @@
 
 <!-- 出典 -->
 <details><summary class=link>出典 :</summary>
-<div class=pre><a href="https://www.wareko.jp/blog/nullable-type-null-condition-operator-null-coalescing-operator-three-nulls-brothers">【ワレコC#】int?はNull許容型･ナンチャラ?.はNull条件演算子･??はNull合体演算子【ヌル三兄弟】</a>
+<div class=pre><a href="https://learn.microsoft.com/ja-jp/dotnet/csharp/language-reference/operators/null-forgiving">! (null 非厳格) 演算子 - C# reference | Microsoft Learn</a>
+<a href="https://www.wareko.jp/blog/nullable-type-null-condition-operator-null-coalescing-operator-three-nulls-brothers">【ワレコC#】int?はNull許容型･ナンチャラ?.はNull条件演算子･??はNull合体演算子【ヌル三兄弟】</a>
 <a href="https://www.ipentec.com/document/csharp-null-conditional-operators">変数名の後ろに"?" がある - Null条件演算子の利用 - iPentec</a>
 <a href="https://johobase.com/csharp-null-operator/">null合体演算子とnull条件演算子でショートコードプログラミング [C#] | JOHOBASE</a>
 
@@ -53,6 +54,30 @@ value = <kwd>null</kwd>;
 
 <cmt>// value は int 型の値に加え、null を格納できる ⇒ 正常</cmt>
 value = <kwd>null</kwd>;
+</div>
+
+<h2>Null免除演算子</h2>
+<div class="pre">「null抑制演算子」とも呼ばれる。変数の後ろに <b class="red">!</b> を付与することで当該変数がnullでないことを保証し、コンパイラによるnull参照の警告を抑制する。
+コンパイラのフロー分析にのみ影響し、実行結果にはまったく影響しない。
+</div>
+
+<div class="code">
+<cmt>// null許容型の someStr 変数</cmt>
+<kwd>string?</kwd> someStr = <kwd>null</kwd>;
+
+<kwd>if</kwd> ( i == 0 )
+{
+    someStr = <ltr>"ゼロ"</ltr>;
+}
+<kwd>else</kwd>
+{
+    someStr = <ltr>"ゼロ以外"</ltr>;
+}
+
+<cmt>// この時点で someStr が null ではないことは確実</cmt>
+
+<cmt>// Null免除演算子により、someStr を参照する際の警告を抑制する</cmt>
+DoSomething( someStr<b class="red">!</b> );
 </div>
 
 <h2>Null条件演算子</h2>
