@@ -61,7 +61,7 @@
 
 <h2>タスクの開始と完了待ち</h2>
 
-<h3>Task.Run()</h3>
+<h3>タスクの開始 : Task.Run()</h3>
 <div class=cs>
 <knw>Task</knw> task = <knw>Task</knw>.Run( () =&gt; HeavyWork(<ltr>2000000000</ltr>) );
 </div>
@@ -73,7 +73,7 @@
 また Task.Run() は指定された処理をスレッドプールに投入するのみで、通常、その処理をどのスレッドで実行するのかは問わない。
 </div>
 
-<h3>async / await</h3>
+<h3>タスクの簡易的な完了待ち : async / await</h3>
 非同期処理の完了を待つ。後述の Wait() と異なり、スレッドをブロックしない点が特徴。
 
 <ul>
@@ -142,7 +142,7 @@
 開始した非同期タスクを変数に格納しておき、あとで await する手法。<br>
 メッセージボックス表示の裏でHTTP通信を行うので、体感的な待ち時間の短縮が期待できる。
 
-<h3>Wait() / Result / WaitAll() / WaitAny()</h3>
+<h3>タスクの完了待ちと実行結果取得 : Wait() / Result / WaitAll() / WaitAny()</h3>
 <div class="code">
 <knw>HttpClient</knw> hc = <kwd>new</kwd> HttpClient();
 
@@ -185,7 +185,7 @@ t1.Wait();
 <div class=pre>await と異なり、呼び元に制御を戻さない。
 </div>
 
-<h3>WhenAll() / WhenAny()</h3>
+<h3>タスクの終了通知受け取り : WhenAll() / WhenAny()</h3>
 タスクの終了通知を受け取る。複数のタスクを await する際に用いる。戻り値が異なる点に注意。
 <div class="code">
 <knw>HttpClient</knw> hc = <kwd>new</kwd> HttpClient();
