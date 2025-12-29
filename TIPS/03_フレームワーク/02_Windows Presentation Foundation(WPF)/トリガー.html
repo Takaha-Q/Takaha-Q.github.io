@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a>
+
+<!-- 出典ページ -->
+<details><summary class=link>出典 :</summary>
+<div class=pre><a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.trigger?view=netframework-4.8">Trigger クラス (System.Windows) | Microsoft Learn</a>
+    <a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.datatrigger?view=netframework-4.8">DataTrigger クラス (System.Windows) | Microsoft Learn</a>
+    <a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.eventtrigger?view=windowsdesktop-10.0">EventTrigger クラス (System.Windows) | Microsoft Learn</a>
+<a href="https://qiita.com/tera1707/items/7591889617efc69fcb95">[WPF]DataTriggerを使って、ViewModelのフラグ等にバインドして、見た目を変化させる #C# - Qiita</a>
+<a href="https://threeshark3.com/wpf-binding-datatrigger/">【WPF】Binding入門5。DataTriggerの活用 | さんさめのC＃ブログ</a>
+</div></details>
+
+<!-- 関連ページ -->
+<details><summary class=link>関連 :</summary>
+<div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/MVVMパターン.html">MVVMパターン</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/MVVM Toolkit.html">MVVM Toolkit</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/ビヘイビア.html">ビヘイビア</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/スタイル.html">スタイル</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/コンバーター.html">コンバーター</a>
+</div></details>
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>トリガーとは</h2>
+<div class=pre>コントロールなどのプロパティ(依存関係プロパティ)が変化した際の動作を指定できる仕組み。
+    トリガーを用いることで、
+</div>
+    <ul>
+        <li>Button をクリックしている間だけ、Button の背景色を変化させる</li>
+        <li>ItemsControl に表形式でデータを表示し、特定の値がセットされた場合に背景色や表示する文字を変化させる</li>
+    </ul>
+<div class=pre>    といった動作が可能となる。
+    UIの振舞いに関わることから、<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/ビヘイビア.html">ビヘイビア</a>の一部に含まれることもある。
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/スタイル.html">スタイル</a>として適用するのが一般的である。
+</div>
+
+<h3><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/コンバーター.html">コンバーター</a>との関連</h3>
+<div class=pre>トリガーとコンバーターは表現できる動作が類似しており、コンバーターをトリガーで代替できることも多い。
+    トリガーはXAML上で記述が完結するため、コンバーターよりも簡便に用いることができる。
+    その他、詳細は<a href="https://threeshark3.com/wpf-binding-datatrigger/">出典元</a>を参照。
+</div>
+
+<h2><a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.trigger?view=netframework-4.8">Trigger</a></h2>
+Trigger は、コントロールが持つプロパティが変化した際の動作を規定できる。
+
+<h6>例 : Button が無効( IsEnabled == false )ならば背景色を青に変更</h6>
+<div class=xaml>
+&lt;<tag>Style</tag> <prp>TargetType</prp>=<ltr>"{x:Type Button}"</ltr>&gt;
+    &lt;<tag>Setter</tag> <prp>Property</prp>=<ltr>"Background"</ltr> <prp>Value</prp>=<ltr>"Red"</ltr>/&gt; 
+    &lt;<tag>Style.Triggers</tag>&gt;
+        <cmt>&lt;!-- 無効状態なら背景色を青に --&gt;</cmt>
+        &lt;<tag>Trigger</tag> <prp>Property</prp>=<ltr>"IsEnabled"</ltr> <prp>Value</prp>=<ltr>"False"</ltr>&gt;
+            &lt;<tag>Setter</tag> <prp>Property</prp>=<ltr>"Background"</ltr> <prp>Value</prp>=<ltr>"Blue"</ltr>/&gt;
+        &lt;/<tag>Trigger</tag>&gt;
+    &lt;/<tag>Style.Triggers</tag>&gt;
+&lt;/<tag>Style</tag>&gt;
+</div>
+
+<div class=pre> Style.Triggers 下に Trigger を定義している。
+    Button が無効になれば背景色が青になるが、再び有効になれば元の色(赤)に戻る。
+    つまり、トリガーによる変更は永続的なものではなく一時的なものである。
+    また、複数のプロパティの状態に基づいて変更を適用できる MultiTrigger も存在する。詳細は割愛。
+</div>
+
+<h2><a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.datatrigger?view=netframework-4.8">DataTrigger</a></h2>
+DataTrigger は、バインドされたデータが変化した際の動作を規定できる。
+
+<h6>例 : Button の Name プロパティが空文字か null ならば背景色を青に変更</h6>
+<div class=xaml>
+&lt;<tag>Style</tag> <prp>TargetType</prp>=<ltr>"{x:Type Button}"</ltr>&gt;
+    &lt;<tag>Setter</tag> <prp>Property</prp>=<ltr>"Background"</ltr> <prp>Value</prp>=<ltr>"Red"</ltr>/&gt; 
+    &lt;<tag>Style.Triggers</tag>&gt;
+        <cmt>&lt;!-- Name が空文字か null なら背景色を青に --&gt;</cmt>
+        &lt;<tag>DataTrigger</tag> <prp>Binding</prp>=<ltr>"{Binding Name}"</ltr> <prp>Value</prp>=<ltr>""</ltr>&gt;
+            &lt;<tag>Setter</tag> <prp>Property</prp>=<ltr>"Background"</ltr> <prp>Value</prp>=<ltr>"Blue"</ltr>/&gt;
+        &lt;/<tag>DataTrigger</tag>&gt;
+        &lt;<tag>DataTrigger</tag> <prp>Binding</prp>=<ltr>"{Binding Name}"</ltr> <prp>Value</prp>=<ltr>"{x:Null}"</ltr>&gt;
+            &lt;<tag>Setter</tag> <prp>Property</prp>=<ltr>"Background"</ltr> <prp>Value</prp>=<ltr>"Blue"</ltr>/&gt;
+        &lt;/<tag>DataTrigger</tag>&gt;
+    &lt;/<tag>Style.Triggers</tag>&gt;
+&lt;/<tag>Style</tag>&gt;
+</div>
+
+<div class=pre>自身のプロパティを基に判断する Trigger と異なり、DataTrigger はバインディングされたソースの値を基に判断する。
+    つまりデータバインディングに特化したトリガーであり、扱えるプロパティの自由度が高い。
+    複数のバインドソースの状態に基づいて変更を適用できる MultiDataTrigger が存在する。詳細は割愛。
+</div>
+
+<h2><a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.eventtrigger?view=windowsdesktop-10.0">EventTrigger</a></h2>
+特定のイベント(主にユーザー操作)を契機とした動作を規定できる。詳細はリンク先を参照。
