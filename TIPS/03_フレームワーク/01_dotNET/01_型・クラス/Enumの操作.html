@@ -379,9 +379,62 @@ Enum.GetNames() の戻り値は string[] 。
 </div>
 
 <h2>指定した値を列挙オブジェクトに変換する : Parse() / TryParse()</h2>
-Parse() は指定した値が列挙体に変換可能( IsDefined() == true )ならば変換を実行、変換できない場合は例外を発する。<br>
+Parse() は指定した値が列挙体に変換可能ならば変換を実行、変換できない場合は例外を発する。<br>
 TryParse() は変換が可能であれば変換を行うとともに true を返し、変換できなければ false を返す。<br>
 いずれも複数のオーバーロードが存在するが、ここでは代表的なもののみを紹介する。
+
+<table class="center">
+  <tr class="row1">
+    <td class="col1" width="165"></td>
+    <td width="165">Parse()</td>
+    <td width="165">Parse&lt;TEnum&gt;()</td>
+  </tr>
+  <tr>
+    <td class="col1">変換成功時の戻り値</td>
+    <td>object 型</td>
+    <td>TEnum 型</td>
+  </tr>
+  <tr>
+    <td class="col1">変換失敗時</td>
+    <td colspan="2">ArgumentException</td>
+  </tr>
+</table>
+
+<table class="center">
+    <tr class="row1">
+		<td class="col1" colspan="2" width="165"></td>
+		<td width="165">TryParse()</td>
+		<td width="165">TryParse&lt;TEnum&gt;()</td>
+    </tr>
+    <tr>
+		<td class="col1" colspan="2">out引数の型</td>
+		<td>object 型</td>
+		<td>TEnum 型</td>
+    </tr>
+    <tr>
+		<th class="col1" rowspan="2">out引数の値</th>
+		<td class="col1">変換成功時</td>
+		<td colspan="2">対応する列挙体オブジェクト</td>
+
+    </tr>
+    <tr>
+
+		<td class="col1">変換失敗時</td>
+		<td>null</td>
+		<td>TEnum の既定値</td>
+    </tr>
+    <tr>
+		<th class="col1" rowspan="2">戻り値</th>
+		<td class="col1">変換成功時</td>
+		<td colspan="2">true</td>
+
+    </tr>
+    <tr>
+
+		<td class="col1">変換失敗時</td>
+		<td colspan="2">false</td>
+    </tr>
+</table>
 
 <div class="code">
 <cmt>// MultiHue に Black が含まれていれば result1 は MultiHue.Black と等価、</cmt>
@@ -401,48 +454,9 @@ MultiHue result2 = <knw>Enum</knw>.Parse&lt;MultiHue&gt;("Green");
 <kwd>bool</kwd> succeed =  <knw>Enum</knw>.TryParse&lt;MultiHue&gt;("Red", <kwd>out</kwd> MultiHue result4);
 </div>
 
-<table>
-  <tr class="row1">
-    <td class="col1" width="165"></td>
-    <td width="165">変換成功時<br>(戻り値)</td>
-    <td width="165">変換失敗時</td>
-  </tr>
-  <tr>
-    <td class="col1">Parse()</td>
-    <td>object 型</td>
-    <td rowspan="2">ArgumentException</td>
-  </tr>
-  <tr>
-    <td class="col1">Parse&lt;TEnum&gt;()</td>
-    <td>TEnum 型</td>
-  </tr>
-</table>
-
-<table>
-	<tr>
-		<th class="col1" rowspan="2" width="165"></th>
-		<th rowspan="2" width="120">out引数の型</th>
-		<th colspan="2">変換成功時</th>
-		<th colspan="2">変換失敗時</th>
-	</tr>
-	<tr class="row1">
-		<td width="120">out引数の値</td>
-		<td width="120">戻り値</td>
-		<td width="120">out引数の値</td>
-		<td width="120">戻り値</td>
-	</tr>
-	<tr>
-		<td class="col1">TryParse()</td>
-		<td>object 型</td>
-		<td rowspan="2">対応する列挙オブジェクト</td>
-		<td rowspan="2">true</td>
-		<td>null</td>
-		<td rowspan="2">false</td>
-	</tr>
-	<tr>
-		<td class="col1">TryParse&lt;TEnum&gt;()</td>
-		<td>TEnum 型</td>
-		<td>TEnum の既定値</td>
-	</tr>
-</table>
-
+<h3>注意が必要な点</h3>
+<div class=pre>上記のコードでは Parse() または TryParse() の引数として列挙子のラベル("Black" など)を指定しているため、指定した列挙子が定義されていない場合は変換不可と判断されるが、
+    整数値に変換可能な文字列("0"、"03" など)を指定した場合は、整数変換後の値に対応する列挙子が定義されていない場合でも変換可能とみなされる。
+    つまり、TryParse() だけでは「変換後の整数値が列挙子として定義されているか」を判別することはできない。
+    この場合は一度 int.Parse() などで整数値に変換しておき、IsDefined() で判別するとよい。
+</div>
