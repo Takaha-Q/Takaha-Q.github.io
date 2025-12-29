@@ -35,12 +35,12 @@
 <!-- 関連ページ -->
 <details><summary class=link>関連 :</summary>
 <div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/MVVMパターン.html">MVVMパターン</a>
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/INotifyPropertyChanged.html">INotifyPropertyChanged</a>
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/依存関係プロパティ.html">依存関係プロパティ</a>
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/コンバーター.html">コンバーター</a>
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/マルチバインディング.html">マルチバインディング</a>
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/RelativeSource.html">RelativeSource</a>
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/ReactiveProperty.html">ReactiveProperty</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/INotifyPropertyChanged.html">INotifyPropertyChanged</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/依存関係プロパティ.html">依存関係プロパティ</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/コンバーター.html">コンバーター</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/マルチバインディング.html">マルチバインディング</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/RelativeSource.html">RelativeSource</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/ReactiveProperty.html">ReactiveProperty</a>
 <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/コマンド(ICommand).html">コマンド(ICommand)</a>
 </div></details>
 
@@ -61,8 +61,8 @@
 <h2>前提1 : ソース(Source)とターゲット(Target)</h2>
 <div class=pre>データバインディングには、ソース(参照元)とターゲット(反映先)があり、通常、ソースに加えた変更がターゲットに反映される。
 (設定によっては逆方向や、双方向も可能。)
-これは「ソースの変更をターゲットに通知する(<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/INotifyPropertyChanged.html">変更通知プロパティ</a>)」の仕組みによって成り立つ。
-<b>ソースに設定できるのは(通常の)プロパティ、ターゲットに設定できるのは<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/依存関係プロパティ.html">依存関係プロパティ(DependencyProperty)</a>に限定される</b>。
+これは「ソースの変更をターゲットに通知する(<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/INotifyPropertyChanged.html">変更通知プロパティ</a>)」の仕組みによって成り立つ。
+<b>ソースに設定できるのは(通常の)プロパティ、ターゲットに設定できるのは<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/依存関係プロパティ.html">依存関係プロパティ(DependencyProperty)</a>に限定される</b>。
 即ち、<b>データバインディングは依存関係プロパティをプロパティに同期させる処置と言える</b>。
 (<b>コントロール(UI要素)のプロパティはすべて依存関係プロパティとして実装されている</b>ため、いずれもターゲットに設定する際に特別な手順を必要としない。)
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/WPF/DependencyProp/02.png">
@@ -146,7 +146,7 @@ WPFではデザインパターンとしてMVVM (Model - View - ViewModel) が推
 なお、XAMLから<code>DataContext</code>の指定を行う場合、<b>呼び出せる ViewModel のコンストラクタはデフォルトコンストラクタ(引数の無いコンストラクタ)に限定される</b>。
 このため、デフォルトコンストラクタ以外を呼びたい場合はコードビハインドで指定を行うなど回避策をとる必要がある。
 
-また<code>DataContext</code>以外に、<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/RelativeSource.html">RelativeSource</a>を用いることも可能である。
+また<code>DataContext</code>以外に、<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/RelativeSource.html">RelativeSource</a>を用いることも可能である。
 </div>
 
 <h3>コードビハインドでバインディングを構成</h3>
@@ -229,7 +229,7 @@ XAMLにおけるバインディングの書式は上記のようになる。
     <td class=col1>RelativeSource</td>
     <td>ソースオブジェクトを、ターゲットからの相対位置で指定する</td>
     <td colspan="2"></td>
-    <td><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/RelativeSource.html">参考ページ(RelativeSource)</a></td>
+    <td><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/RelativeSource.html">参考ページ(RelativeSource)</a></td>
   </tr>
   <tr>
     <td class=col1 rowspan="5">Mode</td>
@@ -254,7 +254,7 @@ XAMLにおけるバインディングの書式は上記のようになる。
     <td class=col1>Converter</td>
     <td>使用するコンバーター</td>
     <td colspan="2"></td>
-    <td rowspan="2"><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/コンバーター.html">参考ページ(コンバーター)</a></td>
+    <td rowspan="2"><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/コンバーター.html">参考ページ(コンバーター)</a></td>
   </tr>
   <tr>
     <td class=col1>ConverterParameter</td>

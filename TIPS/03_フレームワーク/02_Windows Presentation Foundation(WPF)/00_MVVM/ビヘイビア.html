@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a>
+
+<!-- 出典ページ -->
+<details><summary class=link>出典 :</summary>
+<div class=pre><a href="https://qiita.com/flasksrw/items/04818070091fe82495e7">WPFのビヘイビア #C# - Qiita</a>
+<a href="https://blog.okazuki.jp/entry/20100823/1282561787">ビヘイビア(Behavior)の作り方 - かずきのBlog@hatena</a>
+<a href="https://qiita.com/ebipilaf/items/fa64eb804e58c98ecdcc">WPFの添付ビヘイビア #C# - Qiita</a>
+<a href="https://marunaka-blog.com/wpf-eventtrigger-event-binding-mvvm/9213/">【WPF】BehaviorsでイベントをCommandへバインドする方法(MVVM)</a>
+</div></details>
+
+<!-- 関連ページ -->
+<details><summary class=link>関連 :</summary>
+<div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/MVVMパターン.html">MVVMパターン</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/MVVM Toolkit.html">MVVM Toolkit</a>
+</div></details>
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>ビヘイビア(Behavior)とは</h2>
+<div class="pre">    「振舞い」の日本語が示すように、ユーザインタフェースの「動作」を規定したクラス。
+    MVVM以前はコードビハインドに記述していたような「ユーザ操作のハンドリング」を独立させることで、コントロールの振舞いのみを再利用することができる。
+</div>
+
+<h2>ビヘイビアの簡単な例 : TextBox への文字入力を制限</h2>
+<div class=pre>    入力できる文字を TextBox ごとに切り替える場合、ビヘイビアを用いないのであれば、それぞれの TextBox に PreviewTextInput や PreviewKeyDown のイベントを実装する方法が考えられる。
+    ビヘイビアを用いることで、これらの「(イベントに対する)振舞い」の部品化が可能となる。
+</div>
+
+<h6>ビヘイビアの本体 : RestrictInputForTextBoxBehavior.cs</h6>
+<div class=pre><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\Behavior\01.png" alt="画像">
+</div>
+
+<h6>ビヘイビアの適用先 : ######.xaml (UserControl)</h6>
+<div class=pre><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\Behavior\02.png" alt="画像">
+</div>
+

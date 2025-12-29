@@ -26,8 +26,8 @@
 
 <!-- 関連ページ -->
 <details><summary class=link>関連 :</summary>
-<div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/データバインディング.html">データバインディング</a>
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/コンバーター.html">コンバーター</a>
+<div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/データバインディング.html">データバインディング</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/コンバーター.html">コンバーター</a>
 </div></details>
 
 <!-- 目次 -->
@@ -38,14 +38,14 @@
 <!-- 本文ここから -->
 
 <h2>マルチバインディング</h2>
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/データバインディング.html">データバインディング</a>において、複数のプロパティをソースにとることができる機構。<br>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/データバインディング.html">データバインディング</a>において、複数のプロパティをソースにとることができる機構。<br>
 これにより、
 <ul>
     <li>複数の string プロパティを連結して一つの TextBlock に表示する</li>
     <li>複数の bool プロパティを参照し、コントロールの有効・無効を切り替える</li>
 </ul>
 といったことが可能となる。<br>
-但し複数の値を一つのターゲットに反映する都合上、<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/コンバーター.html">コンバーター</a>の実装が必須である。
+但し複数の値を一つのターゲットに反映する都合上、<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/コンバーター.html">コンバーター</a>の実装が必須である。
 
 <h2>実装例 : 複数の TextBox を参照し、いずれも空でない場合のみ Button を有効としたい</h2>
 XAMLは要点を抜粋。
