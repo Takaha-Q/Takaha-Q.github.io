@@ -44,76 +44,42 @@
 
 <!-- 本文ここから -->
 
-<h2>LINQ (Language Integrated Query)とは</h2>
-C# 3.0から導入された、オブジェクト、データベース、XMLなどのデータ集合に対して、クエリ(問い合わせ)を発行できる仕組みのこと。<br>
-集合に対する操作を、型によらない共通の手法で実現できる。<br>
-
-<h2>LINQ to Objects</h2>
-<b>IEnumerable&lt;T&gt;</b> インタフェースを実装するすべてのオブジェクトに対してLINQが使用できる。<br>
-配列やコレクションなどのデータ列が該当し、これらは「シーケンス」と総称される。<br>
-
-<h2>基本的な例( Where() メソッド)</h2>
-LINQを使用する際は、名前空間 <b>System.Linq</b> を参照する。
-<div class="code">
-<kwd>using</kwd> <knw>System</knw>;
-<kwd>using</kwd> <knw>System</knw>.Collections.Generic;
-<kwd>using</kwd> <knw>System</knw>.Linq;                  <cmt>//&lt; LINQを使用する際に必要</cmt>
-
-:
-
-    <cmt>// シーケンス(List)の定義</cmt>
-    <kwd>var</kwd> names = <kwd>new</kwd> <knw>List</knw>&lt;<kwd>string</kwd>&gt;
-        {
-            <ltr>"Tokyo"</ltr>,    <ltr>"New Delhi"</ltr>,    <ltr>"Bangkok"</ltr>,  <ltr>"London"</ltr>,
-            <ltr>"Paris"</ltr>,    <ltr>"Berlin"</ltr>,       <ltr>"Canberra"</ltr>, <ltr>"Hong Kong"</ltr>,
-        };
-
-    <cmt>// クエリ : Where() メソッド</cmt>
-    <cmt>// シーケンスから条件を満たす要素を抽出する</cmt>
-    IEnumerable&lt;<kwd>string</kwd>&gt; query = names.Where( s =&gt; s.Length &lt;= <ltr>5</ltr> );
-
-    <cmt>// クエリで抽出した部分集合に対する処理</cmt>
-    <kwd>foreach</kwd> (<kwd>var</kwd> s <kwd>in</kwd> query)
-    {
-        <knw>Console</knw>.WriteLine(s);
-    }
+<h2>LINQ(Language Integrated Query)とは</h2>
+<div class=pre>C# 3.0から導入された、オブジェクト、データベース、XMLなどのデータ集合に対して、クエリ(問い合わせ)を発行できる仕組みのこと。<b>System.Linq</b> 名前空間に属する。
+<b>IEnumerable&lt;T&gt;</b> インタフェースを実装するすべてのオブジェクト(配列、コレクションが該当。シーケンスと総称される)に対してLINQが使用できる。
+LINQの機能は「クエリ演算子」によって提供され、これらは IEnumerable&lt;T&gt; に対する拡張メソッドとして定義されている。
+メソッドの戻り値もまた IEnumerable&lt;T&gt; であるため、メソッドチェーンが有効である。
 </div>
-Where() メソッドの引数には、検索条件として<br>
-<b>「引数(s)にシーケンス(names)の要素を与えた場合に true を返す」</b><br>
-ラムダ式を指定する。<br>
-ここでは、「文字列の長さが5以下の要素」がヒットする。<br>
-(上記のラムダ式は<code>(s) =&gt; { return s.Length &lt;= 5; }</code>の省略。)<br>
-Where() の実行結果もまた IEnumerable&lt;T&gt; であるため、さらにクエリを実行することも可能である。メソッドチェーンも有効。
 
-<h2>クエリ演算子</h2>
-LINQが提供する Where() などのメソッドを「クエリ演算子」と呼ぶ。<br>
-これらは IEnumerable&lt;T&gt; に対する拡張メソッドとして定義されている。<br>
-クエリ演算子は多数存在するが、代表的なものを下表に示す。
-<table>
-    <tr class="row1">
-        <td class="col1">クエリ演算子</td>
-        <td>機能</td>
-        <td>記述例</td>
-    </tr>
-    <tr>
-        <td class="col1">Where</td>
-        <td>条件に基づいてシーケンスをフィルタ処理する(条件に合致する要素を抽出する)</td>
-        <td>names.Where( s =&gt; s.Length &lt;= 5 )<br>
-        (Length が5以下の要素を抽出)</td>
-    </tr>
-    <tr>
-        <td class="col1">Select</td>
-        <td>シーケンスの各要素に指定された演算を施す(射影)</td>
-        <td>names.Select( s =&gt; s.ToLower() )<br>
-        (各要素を小文字に変換)</td>
-    </tr>
-    <tr>
-        <td class="col1">Count</td>
-        <td>シーケンスの要素数を返す</td>
-        <td>names.Count( s =&gt; s.Length &lt;= 5 )<br>
-        (Length が5以下の要素数を取得)</td>
-    </tr>
-</table>
+<h3>LINQとループの比較</h3>
+<div class=cs>
+<cmt>// 基となるシーケンス(配列)</cmt>
+<kwd>int</kwd>[] seq = {<ltr>1</ltr>, <ltr>2</ltr>, <ltr>3</ltr>, <ltr>4</ltr>, <ltr>5</ltr>, <ltr>6</ltr>, <ltr>7</ltr>, <ltr>8</ltr>};
+
+<cmt>// foreach を用いた場合</cmt>
+<kwd>int</kwd>[] mod1 = <kwd>new int</kwd>[seq.Length];
+<kwd>int</kwd> i = <ltr>0</ltr>;
+<kwd>foreach</kwd>(<kwd>int</kwd> s <kwd>in</kwd> seq)
+{
+    mod1[i] = s * <ltr>3</ltr>;
+}
+
+<cmt>// LINQ( Select() )を用いた場合</cmt>
+<kwd>int</kwd>[] mod2 = seq.<b>Select</b>(s =&gt; s * <ltr>3</ltr>).ToArray();
+</div>
+
+<div class=pre>上記の例では、配列 seq の各要素に 3 を乗じた配列 mod1 、mod2 を作成しているが、
+LINQを用いた場合は foreach を用いる場合と比較してコードが簡潔であり、配列の初期化やインデクスも不要である。
+Select() は写像を行うクエリ演算子である。Select() は引数にラムダ式をとるが、ラムダ式の引数( s )はシーケンス(ここでは seq )の各要素である。
+ラムダ式の戻り値( => 演算子の右辺である s * 3 )は写像を行った結果新たに作成されるシーケンスの要素となる。
+上記の例では seq 、mod1 、mod2 はいずれも同じ型であるが、写像前後で型が異なっていても構わない。
+</div>
+
+<h3>クエリ式との比較</h3>
+<div class=pre>LINQと同様、<a href="TIPS/02_プログラミング言語/02_CSharp/クエリ式(select、from、where).html">クエリ式</a>でもクエリを実行することができる。
+しかしクエリ式はSQLの知識が要求され、記述も煩雑となりがちであるが、LINQはクエリ式の弱点を補うべく開発された経緯から、比較的簡潔に記述できる。
+逆にSQLに慣れているのであれば、クエリ式を用いることも選択肢となり得る。
+</div>
 
 <h2>実用例</h2>
 
@@ -132,10 +98,4 @@ KeyValuePair は Key でキー、Value で値を参照できる。<br>
 OfType&lt;RadioButton&gt;() メソッドにより、「RadioButton」に該当するもののみを抽出している。<br>
 ここまでの groupBox1.Controls.OfType&lt;RadioButton&gt;() がLINQの対象シーケンス(集合 : グループボックス内のラジオボタン)となる。<br>
 緑線がLINQの提供する Single() メソッドで、ラムダ式を満たす唯一のオブジェクトを結果として返す。<br>
-
-<h2>クエリ式との比較</h2>
-LINQと同様、<a href="TIPS/02_プログラミング言語/02_CSharp/クエリ式(select、from、where).html">クエリ式</a>でもクエリを実行することができる。<br>
-しかしクエリ式はSQLの知識が要求され、また記述も煩雑となりがちである。<br>
-LINQはクエリ式の弱点を補うべく開発された経緯から、よりプログラミング言語との親和性が高く、簡潔に記述できる利点がある。<br>
-逆にSQLに慣れているのであれば、クエリ式を用いることも選択肢となり得る。
 
