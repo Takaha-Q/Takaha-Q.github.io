@@ -31,8 +31,8 @@
 <!-- 関連ページ -->
 <details><summary class=link>関連 :</summary>
 <div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/01_コントロール/Grid.html">コントロールの重ね描き</a>
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/データバインディング.html">データバインディング</a>
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/依存関係プロパティ.html">依存関係プロパティ</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/データバインディング.html">データバインディング</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/依存関係プロパティ.html">依存関係プロパティ</a>
 <a href="TIPS/03_フレームワーク/01_dotNET/14_マルチタスク/Taskの開始と終了待ち.html">Taskの開始と終了待ち</a>
 </div></details>
 
@@ -48,15 +48,15 @@ UI要素の可視性を司るプロパティ。取得( get )および設定( set
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\Visibility\01.png" alt="画像"><br>
 
 <h3>補足</h3>
-Visibility は<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/依存関係プロパティ.html">依存関係プロパティ</a>であるため、
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/データバインディング.html">データバインディング</a>のターゲットとすることが可能である。<br>
+Visibility は<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/依存関係プロパティ.html">依存関係プロパティ</a>であるため、
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/データバインディング.html">データバインディング</a>のターゲットとすることが可能である。<br>
 また、Visibility が変更されると、IsVisible プロパティが連動して変化する。<br>
 これは値の取得のみが可能で、Visibility == Visible 時は true 、それ以外は false となる。
 
 <h2>注意が必要な点(データバインディング)</h2>
 UIイベントハンドラ(ボタンクリックなど)内で Visibility に紐づくソース値を変更した場合、アプリケーションに処理が戻るまでは表示が更新されない。<br>
 (これは Visibility に限らず、ZIndex などの表示に関連する他のプロパティも同様である。)<br>
-<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\Visibility\01.png" alt="画像"><br>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\Visibility\02.png" alt="画像"><br>
 この場合、時間のかかる処理をハンドラ内で同期的に実行せず、非同期処理とすればよい。<br>
 (<a href="TIPS/03_フレームワーク/01_dotNET/14_マルチタスク/Taskの開始と終了待ち.html#async / await"> await </a>でアプリケーションに処理を戻す。)<br>
 (データバインディングを用いず、プロパティを直接操作した場合も同様？要調査)
@@ -97,13 +97,13 @@ UIイベントハンドラ(ボタンクリックなど)内で Visibility に紐�
 <cmt>/// &lt;summary&gt;</cmt>
 <cmt>/// ボタンクリック時の処理(主処理) ⇒ 非同期( async )化</cmt>
 <cmt>/// &lt;/summary&gt;</cmt>
-<kwd>private <b>async</kwd> <knw>Task</b></knw> ClickHandler_Core()
+<kwd>private async</kwd> <knw>Task</knw> ClickHandler_Core()
 {
     <cmt>// Visibility を更新</cmt>
     ViewModel.LabelVisibility.Value = Visibility.Visible;
 
     <cmt>// 時間がかかる処理 ⇒ await で呼び元に処理を戻す</cmt>
-    <kwd><b>await</kwd> <knw>Task</knw>.Run</b>( () =&gt; HeavyProc() );
+    <kwd>await</kwd> <knw>Task</knw>.Run( () =&gt; HeavyProc() );
 
     <cmt>// (HeavyProc() 開始直後に表示が変化する)</cmt>
 }

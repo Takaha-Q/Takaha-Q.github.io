@@ -34,7 +34,7 @@
 <div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/01_コントロール/ComboBox.html">ComboBox</a>
 <a href="TIPS/03_フレームワーク/01_dotNET/01_型・クラス/コレクション.html">[.NET]コレクション</a>
 <a href="TIPS/03_フレームワーク/01_dotNET/01_型・クラス/Dictionary(連想配列).htmll">[.NET]Dictionary(連想配列)</a>
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/ReactiveProperty.html">ReactiveProperty</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/ReactiveProperty.html">ReactiveProperty</a>
 </div></details>
 
 <!-- 目次 -->
@@ -53,7 +53,7 @@
 
 <h6>XAML</h6>
 <div class=xaml>
-&lt;<tag>Window</tag> <prp>x:Class</prp>=<ltr>"WPF021.Main<tag>Window</tag>"</ltr>
+&lt;<tag>Window</tag> <prp>x:Class</prp>=<ltr>"WPF021.MainWindow"</ltr>
         <prp>xmlns</prp>=<ltr>"http://schemas.microsoft.com/winfx/2006/xaml/presentation"</ltr>
         <prp>xmlns:x</prp>=<ltr>"http://schemas.microsoft.com/winfx/2006/xaml"</ltr>
         <prp>xmlns:d</prp>=<ltr>"http://schemas.microsoft.com/expression/blend/2008"</ltr>
@@ -64,7 +64,7 @@
     &lt;<tag>Grid</tag>&gt;
 
         <cmt>&lt;!-- ListBox --&gt;</cmt>
-        &lt;<tag>ListBox</tag> <prp>x:Name</prp>=<ltr>"My<tag>ListBox</tag>"</ltr>
+        &lt;<tag>ListBox</tag> <prp>x:Name</prp>=<ltr>"MyListBox"</ltr>
                  <prp>HorizontalAlignment</prp>=<ltr>"Left"</ltr>
                  <prp>VerticalAlignment</prp>=<ltr>"Top"</ltr>
                  <prp>Margin</prp>=<ltr>"10"</ltr>
@@ -80,7 +80,7 @@
                                <prp>Margin</prp>=<ltr>"10"</ltr>/&gt;
 
                         <cmt>&lt;!-- コレクション要素の Name にバインド --&gt;</cmt>
-                        &lt;<tag><prp>Text</prp>Block</tag> <prp>Text</prp>=<ltr>"{Binding Name}"</ltr>
+                        &lt;<tag>TextBlock</tag> <prp>Text</prp>=<ltr>"{Binding Name}"</ltr>
                                    <prp>Margin</prp>=<ltr>"10"</ltr>/&gt;
                     &lt;/<tag>StackPanel</tag>&gt;
                 &lt;/<tag>DataTemplate</tag>&gt;
@@ -102,7 +102,7 @@
     <cmt>///</cmt>
     <cmt>/// MainWindow.xaml の相互作用ロジック</cmt>
     <cmt>/// </cmt>
-    <kwd>public partial class</kwd> Main<knw>Window</knw> : <knw>Window</knw>
+    <kwd>public partial class</kwd> MainWindow : <knw>Window</knw>
     {
         <cmt>// ListBox の ItemsSource として用いる ObservableCollection</cmt>
         <kwd>private</kwd> ObservableCollection _persons = <kwd>new</kwd> ObservableCollection();
@@ -146,7 +146,7 @@ ListBox の各行には画像とテキストを表示しており、画像のパ
 
 ListBox の項目一覧は ItemsSource で規定され、ここでは Person からなる ObservableCollection を用いている。
 ( ObservableCollection を用いているのは、コレクションに変更があった場合にターゲットである ListBox (の ItemsSource )に通知を発行するため。
-これにより、ターゲットをソースに連動して変更させられる。<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/ReactiveProperty.html">ReactiveProperty</a> で代用可能。)
+これにより、ターゲットをソースに連動して変更させられる。
 </div>
 
 <h2>ItemsSource に指定できるデータ</h2>
@@ -195,8 +195,7 @@ SelectedValue で取得する値は Dictionary の値、とすることができ
 いずれも元の型をラップするため、内容を取り出すにはキャストが必要。
 
 <h3>SelectedItems へのデータバインディング</h3>
-<div class=pre>
-ListBox.SelectedItems をターゲットとしたデータバインディングは通常では行えない。
+<div class=pre>ListBox.SelectedItems をターゲットとしたデータバインディングは通常では行えない。
 ビヘイビアを作成することでバインディングが可能となる。詳細は<a href="https://yoshiiz.blog.fc2.com/blog-entry-881.html">出典元</a>を参照。
 </div>
 

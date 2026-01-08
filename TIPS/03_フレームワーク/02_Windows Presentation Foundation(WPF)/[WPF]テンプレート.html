@@ -35,8 +35,8 @@
 <details><summary class=link>関連 :</summary>
 <div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/リソース.html">リソース</a>
 <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/スタイル.html">スタイル</a>
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/データバインディング.html">データバインディング</a>
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/依存関係プロパティ.html">依存関係プロパティ</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/データバインディング.html">データバインディング</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/依存関係プロパティ.html">依存関係プロパティ</a>
 <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/UIイベントの処理.html">UIイベントの処理</a>
 <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/01_コントロール/ユーザーコントロール.html">ユーザーコントロール</a>
 </div></details>
@@ -58,14 +58,14 @@ WPFではこのコントロール・テンプレートを用いることで外�
 
 <h2>基本的な例</h2>
 <div class="xaml">
-&lt;Button&gt;
+&lt;<tag>Button</tag>&gt;
     <cmt>&lt;!-- Button.Template に ControlTemplate を設定 --&gt;</cmt>
-    &lt;Button.Template&gt;
-        &lt;ControlTemplate TargetType=<ltr>"Button"</ltr>&gt;
-            &lt;Ellipse Fill=<ltr>"LightBlue"</ltr> Width=<ltr>"80"</ltr> Height=<ltr>"30"</ltr>/&gt;
-        &lt;/ControlTemplate&gt;
-    &lt;/Button.Template&gt;
-&lt;/Button&gt;
+    &lt;<tag>Button.Template</tag>&gt;
+        &lt;<tag>ControlTemplate</tag> <prp>TargetType</prp>=<ltr>"Button"</ltr>&gt;
+            &lt;<tag>Ellipse</tag> <prp>Fill</prp>=<ltr>"LightBlue"</ltr> <prp>Width</prp>=<ltr>"80"</ltr> <prp>Height</prp>=<ltr>"30"</ltr>/&gt;
+        &lt;/<tag>ControlTemplate</tag>&gt;
+    &lt;/<tag>Button.Template</tag>&gt;
+&lt;/<tag>Button</tag>&gt;
 </div>
 
 上記は、テンプレートを用いてボタンの外観を水色の楕円に変更している。<br>
@@ -88,86 +88,86 @@ ControlTemplate クラスはコントロールの<b>「視覚的な構造と動�
 <h6>XAML(特定のコントロールに紐づかない - 例 : themes/generic.xaml)</h6>
 <div class="xaml">
 <cmt>&lt;!-- リソース定義 --&gt;</cmt>
-&lt;ResourceDictionary
-    xmlns=<ltr>"http://schemas.microsoft.com/winfx/2006/xaml/presentation"</ltr>
-    xmlns:x=<ltr>"http://schemas.microsoft.com/winfx/2006/xaml"</ltr>
-    xmlns:local=<ltr>"clr-namespace:VSMCustomControl"</ltr>&gt;
+&lt;<tag>ResourceDictionary</tag>
+    <prp>xmlns</prp>=<ltr>"http://schemas.microsoft.com/winfx/2006/xaml/presentation"</ltr>
+    <prp>xmlns:x</prp>=<ltr>"http://schemas.microsoft.com/winfx/2006/xaml"</ltr>
+    <prp>xmlns:local</prp>=<ltr>"clr-namespace:VSMCustomControl"</ltr>&gt;
 
     <cmt>&lt;!-- スタイル定義 --&gt;</cmt>
     <cmt>&lt;!-- ( VSMCustomControl.NumericUpDown 向け) --&gt;</cmt>
-    &lt;Style TargetType=<ltr>"{x:Type local:NumericUpDown}"</ltr>&gt;
-        &lt;Setter Property=<ltr>"Template"</ltr>&gt;
-            &lt;Setter.Value&gt;
+    &lt;<tag>Style</tag> <prp>TargetType</prp>=<ltr>"{x:Type local:NumericUpDown}"</ltr>&gt;
+        &lt;<tag>Setter</tag> <prp>Property</prp>=<ltr>"Template"</ltr>&gt;
+            &lt;<tag>Setter.Value</tag>&gt;
 
                 <cmt>&lt;!-- コントロール・テンプレート定義 --&gt;</cmt>
                 <cmt>&lt;!-- ( VSMCustomControl.NumericUpDown 向け) --&gt;</cmt>
-                &lt;ControlTemplate TargetType=<ltr>"local:NumericUpDown"</ltr>&gt;
+                &lt;<tag>ControlTemplate</tag> <prp>TargetType</prp>=<ltr>"local:NumericUpDown"</ltr>&gt;
 
-                    &lt;Grid Margin=<ltr>"3"</ltr> 
-                          Background=<ltr>"{TemplateBinding Background}"</ltr>&gt;
+                    &lt;<tag>Grid</tag> <prp>Margin</prp>=<ltr>"3"</ltr> 
+                          <prp>Background</prp>=<ltr>"{TemplateBinding Background}"</ltr>&gt;
 
                         <cmt>&lt;!-- 視覚的動作( VisualState )の定義 --&gt;</cmt>
-                        &lt;VisualStateManager.VisualStateGroups&gt;
-                            &lt;VisualStateGroup Name=<ltr>"ValueStates"</ltr>&gt;
+                        &lt;<tag>VisualStateManager.VisualStateGroups</tag>&gt;
+                            &lt;<tag>VisualStateGroup</tag> <prp>Name</prp>=<ltr>"ValueStates"</ltr>&gt;
 
                                 <cmt>&lt;!-- Value が負ならば TextBlock のフォントを赤字にする --&gt;</cmt>
-                                &lt;VisualState Name=<ltr>"Negative"</ltr>&gt;
-                                    &lt;Storyboard&gt;
-                                        &lt;ColorAnimation To=<ltr>"Red"</ltr>
-                                                        Storyboard.TargetName=<ltr>"TextBlock"</ltr> 
-                                                        Storyboard.TargetProperty="(Foreground).(Color)"/&gt;
-                                    &lt;/Storyboard&gt;
-                                &lt;/VisualState&gt;
+                                &lt;<tag>VisualState</tag> <prp>Name</prp>=<ltr>"Negative"</ltr>&gt;
+                                    &lt;<tag>Storyboard</tag>&gt;
+                                        &lt;<tag>ColorAnimation</tag> <prp>To</prp>=<ltr>"Red"</ltr>
+                                                        <prp>Storyboard.TargetName</prp>=<ltr>"TextBlock"</ltr> 
+                                                        <prp>Storyboard.TargetProperty</prp>=<ltr>"(Foreground).(Color)"</ltr>/&gt;
+                                    &lt;/<tag>Storyboard</tag>&gt;
+                                &lt;/<tag>VisualState</tag>&gt;
 
                                 <cmt>&lt;!-- Value が正ならば TextBlock のフォントを黒字にする(デフォルトに戻す) --&gt;</cmt>
-                                &lt;VisualState Name=<ltr>"Positive"</ltr>/&gt;
+                                &lt;<tag>VisualState</tag> <prp>Name</prp>=<ltr>"Positive"</ltr>/&gt;
 
-                            &lt;/VisualStateGroup&gt;
-                        &lt;/VisualStateManager.VisualStateGroups&gt;
+                            &lt;/<tag>VisualStateGroup</tag>&gt;
+                        &lt;/<tag>VisualStateManager.VisualStateGroups</tag>&gt;
                         <cmt>&lt;!-- 視覚的動作の定義 ここまで --&gt;</cmt>
 
-                        &lt;Grid&gt;
-                            &lt;Grid.RowDefinitions&gt;
-                                &lt;RowDefinition/&gt;
-                                &lt;RowDefinition/&gt;
-                            &lt;/Grid.RowDefinitions&gt;
-                            &lt;Grid.ColumnDefinitions&gt;
-                                &lt;ColumnDefinition/&gt;
-                                &lt;ColumnDefinition/&gt;
-                            &lt;/Grid.ColumnDefinitions&gt;
+                        &lt;<tag>Grid</tag>&gt;
+                            &lt;<tag>Grid.RowDefinitions</tag>&gt;
+                                &lt;<tag>RowDefinition</tag>/&gt;
+                                &lt;<tag>RowDefinition</tag>/&gt;
+                            &lt;/<tag>Grid.RowDefinitions</tag>&gt;
+                            &lt;<tag>Grid.ColumnDefinitions</tag>&gt;
+                                &lt;<tag>ColumnDefinition</tag>/&gt;
+                                &lt;<tag>ColumnDefinition</tag>/&gt;
+                            &lt;/<tag>Grid.ColumnDefinitions</tag>&gt;
 
-                            &lt;Border BorderThickness=<ltr>"1"</ltr> BorderBrush=<ltr>"Gray"</ltr> Margin=<ltr>"7,2,2,2"</ltr> Grid.RowSpan=<ltr>"2"</ltr> 
-                                    Background=<ltr>"#E0FFFFFF"</ltr>
-                                    VerticalAlignment=<ltr>"Center"</ltr> 
-                                    HorizontalAlignment=<ltr>"Stretch"</ltr>&gt;
+                            &lt;<tag>Border</tag> <prp>BorderThickness</prp>=<ltr>"1"</ltr> <prp>BorderBrush</prp>=<ltr>"Gray"</ltr> <prp>Margin</prp>=<ltr>"7,2,2,2"</ltr> <prp>Grid.RowSpan</prp>=<ltr>"2"</ltr> 
+                                    <prp>Background</prp>=<ltr>"#E0FFFFFF"</ltr>
+                                    <prp>VerticalAlignment</prp>=<ltr>"Center"</ltr> 
+                                    <prp>HorizontalAlignment</prp>=<ltr>"Stretch"</ltr>&gt;
 
                                 <cmt>&lt;!-- TextBlock : 数値の表示 --&gt;</cmt>
                                 <cmt>&lt;!-- ( Value プロパティにバインド) --&gt;</cmt>
-                                &lt;TextBlock Name=<ltr>"TextBlock"</ltr>
-                                           Width=<ltr>"60"</ltr> TextAlignment=<ltr>"Right"</ltr> Padding=<ltr>"5"</ltr>
-                                           Text="{Binding RelativeSource={RelativeSource FindAncestor, 
-                                                                          AncestorType={x:Type src:NumericUpDown}}, 
-                                                          Path=Value}"/&gt;
-                            &lt;/Border&gt;
+                                &lt;<tag>TextBlock</tag> <prp>Name</prp>=<ltr>"TextBlock"</ltr>
+                                           <prp>Width</prp>=<ltr>"60"</ltr> <prp>TextAlignment</prp>=<ltr>"Right"</ltr> <prp>Padding</prp>=<ltr>"5"</ltr>
+                                           <prp>Text</prp>="{Binding <prp>RelativeSource</prp>={RelativeSource FindAncestor, 
+                                                                          <prp>AncestorType</prp>={x:Type src:NumericUpDown}}, 
+                                                          <prp>Path</prp>=Value}"/&gt;
+                            &lt;/<tag>Border</tag>&gt;
 
                             <cmt>&lt;!-- RepeatButton : 加算 --&gt;</cmt>
-                            &lt;RepeatButton Name=<ltr>"UpButton"</ltr> Content=<ltr>"Up"</ltr> 
-                                          Margin=<ltr>"2,5,5,0"</ltr> Grid.Column=<ltr>"1"</ltr> Grid.Row=<ltr>"0"</ltr>/&gt;
+                            &lt;<tag>RepeatButton</tag> <prp>Name</prp>=<ltr>"UpButton"</ltr> <prp>Content</prp>=<ltr>"Up"</ltr> 
+                                          <prp>Margin</prp>=<ltr>"2,5,5,0"</ltr> <prp>Grid.Column</prp>=<ltr>"1"</ltr> <prp>Grid.Row</prp>=<ltr>"0"</ltr>/&gt;
 
                             <cmt>&lt;!-- RepeatButton : 減算 --&gt;</cmt>
-                            &lt;RepeatButton Name=<ltr>"DownButton"</ltr> Content=<ltr>"Down"</ltr> 
-                                          Margin=<ltr>"2,0,5,5"</ltr> Grid.Column=<ltr>"1"</ltr> Grid.Row=<ltr>"1"</ltr>/&gt;
+                            &lt;<tag>RepeatButton</tag> <prp>Name</prp>=<ltr>"DownButton"</ltr> <prp>Content</prp>=<ltr>"Down"</ltr> 
+                                          <prp>Margin</prp>=<ltr>"2,0,5,5"</ltr> <prp>Grid.Column</prp>=<ltr>"1"</ltr> <prp>Grid.Row</prp>=<ltr>"1"</ltr>/&gt;
 
-                        &lt;/Grid&gt;
+                        &lt;/<tag>Grid</tag>&gt;
 
-                    &lt;/Grid&gt;
-                &lt;/ControlTemplate&gt;
+                    &lt;/<tag>Grid</tag>&gt;
+                &lt;/<tag>ControlTemplate</tag>&gt;
                 <cmt>&lt;!-- コントロール・テンプレート定義 ここまで --&gt;</cmt>
 
-            &lt;/Setter.Value&gt;
-        &lt;/Setter&gt;
-    &lt;/Style&gt;
-&lt;/ResourceDictionary&gt;
+            &lt;/<tag>Setter.Value</tag>&gt;
+        &lt;/<tag>Setter</tag>&gt;
+    &lt;/<tag>Style</tag>&gt;
+&lt;/<tag>ResourceDictionary</tag>&gt;
 </div>
 
 <h6>NumericUpDown のコード(XAMLに紐づかない)</h6>
@@ -181,8 +181,8 @@ ControlTemplate クラスはコントロールの<b>「視覚的な構造と動�
 <kwd>namespace</kwd> VSMCustomControl
 {
     <cmt>// テンプレート宣言</cmt>
-    [TemplatePart(Name = <ltr>"UpButtonElement"</ltr>, Type = <kwd>typeof</kwd>(RepeatButton))]
-    [TemplatePart(Name = <ltr>"DownButtonElement"</ltr>, Type = <kwd>typeof</kwd>(RepeatButton))]
+    [TemplatePart(Name = <ltr>"UpButtonElement"</ltr>, <knw>Type</knw> = <kwd>typeof</kwd>(RepeatButton))]
+    [TemplatePart(Name = <ltr>"DownButtonElement"</ltr>, <knw>Type</knw> = <kwd>typeof</kwd>(RepeatButton))]
     [TemplateVisualState(Name = <ltr>"Positive"</ltr>, GroupName = <ltr>"ValueStates"</ltr>)]
     [TemplateVisualState(Name = <ltr>"Negative"</ltr>, GroupName = <ltr>"ValueStates"</ltr>)]
 
@@ -197,8 +197,8 @@ ControlTemplate クラスはコントロールの<b>「視覚的な構造と動�
 
         <cmt>// 依存関係プロパティ ValueProperty 宣言</cmt>
         <cmt>// (プロパティ変更時のコールバックとして ValueChangedCallback() を登録)</cmt>
-        <kwd>public static readonly</kwd> DependencyProperty ValueProperty = 
-            DependencyProperty.Register( <ltr>"Value"</ltr>, 
+        <kwd>public static readonly</kwd> <knw>DependencyProperty</knw> ValueProperty = 
+            <knw>DependencyProperty</knw>.Register( <ltr>"Value"</ltr>, 
                                          <kwd>typeof</kwd>(<kwd>int</kwd>), 
                                          <kwd>typeof</kwd>(NumericUpDown),
                                          <kwd>new</kwd> PropertyMetadata( <kwd>new</kwd> PropertyChangedCallback(ValueChangedCallback) ) );
@@ -250,7 +250,7 @@ ControlTemplate クラスはコントロールの<b>「視覚的な構造と動�
         <kwd>private void</kwd> UpdateStates( <kwd>bool</kwd> useTransitions )
         {
             <cmt>// Value が 0 以上ならば "Positive" 、そうでなければ "Negative" を適用する</cmt>
-            <kwd>if</kwd> (Value >= <ltr>0</ltr>)
+            <kwd>if</kwd> (Value &gt;= <ltr>0</ltr>)
             {
                 VisualStateManager.GoToState(<kwd>this</kwd>, <ltr>"Positive"</ltr>, useTransitions);
             }
@@ -263,8 +263,8 @@ ControlTemplate クラスはコントロールの<b>「視覚的な構造と動�
         <cmt>// テンプレート適用時の処理</cmt>
         <kwd>public override void</kwd> OnApplyTemplate()
         {
-            UpButtonElement   = GetTemplateChild(<ltr>"UpButton"</ltr>)   as RepeatButton;
-            DownButtonElement = GetTemplateChild(<ltr>"DownButton"</ltr>) as RepeatButton;
+            UpButtonElement   = GetTemplateChild(<ltr>"UpButton"</ltr>)   <kwd>as</kwd> RepeatButton;
+            DownButtonElement = GetTemplateChild(<ltr>"DownButton"</ltr>) <kwd>as</kwd> RepeatButton;
 
             UpdateStates(<kwd>false</kwd>);
         }

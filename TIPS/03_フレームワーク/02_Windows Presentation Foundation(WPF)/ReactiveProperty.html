@@ -34,9 +34,9 @@
 
 <!-- 関連ページ -->
 <details><summary class=link>関連 :</summary>
-<div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/MVVMパターン.html">MVVMパターン</a>
+<div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/MVVMパターン.html">MVVMパターン</a>
 <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/データバインディング.html">データバインディング</a>
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/コマンド.html">コマンド</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/コマンド.html">コマンド</a>
 <a href="TIPS/04_開発環境/01_Visual Studio/NuGetパッケージの追加.html">NuGetパッケージの追加</a>
 </div></details>
 
@@ -222,34 +222,34 @@ ReactiveProperty も同様の記述となる。
 {
     <cmt>// バインディングソース Count を ReactivePropertySlim として宣言</cmt>
     <cmt>// 初期値に 0 を指定</cmt>
-    <kwd>public readonly</kwd> <b class="red">ReactivePropertySlim</b>&lt;<kwd>int</kwd>&gt; Count { <kwd>get</kwd>; }
-    = <kwd>new</kwd> <b class="red">ReactivePropertySlim</b>&lt;<kwd>int</kwd>&gt;(0);
+    <kwd>public readonly</kwd> <knw>ReactivePropertySlim</knw>&lt;<kwd>int</kwd>&gt; Count { <kwd>get</kwd>; }
+    = <kwd>new</kwd> <knw>ReactivePropertySlim</knw>&lt;<kwd>int</kwd>&gt;(<ltr>0</ltr>);
 }
 </div>
 
 <h6>View(XAML) : MainWindow.xaml</h6>
 <div class="xaml">
-&lt;Window&gt;
+&lt;<tag>Window</tag>&gt;
 
   (略)
 
-  &lt;!-- DataContext の指定 --&gt;
+  <cmt>&lt;!-- DataContext の指定 --&gt;</cmt>
   &lt;<tag>Window.DataContext</tag>&gt;
       &lt;<tag>local</tag>:SampleViewModel /&gt;
   &lt;/<tag>Window.DataContext</tag>&gt;
 
-  &lt;StackPanel&gt;
-      &lt;!-- TextBlock の Text を DataContext の Count に関連付け --&gt;
-      &lt;TextBlock Text="{Binding Path=Count.Value}"/&gt;
-      &lt;Button Click="CountUp_Click" Content="Count Up!"/&gt;
-  &lt;/StackPanel&gt;
+  &lt;<tag>StackPanel</tag>&gt;
+      <cmt>&lt;!-- TextBlock の Text を DataContext の Count に関連付け --&gt;</cmt>
+      &lt;<tag>TextBlock</tag> <prp>Text</prp>=<ltr>"{Binding <prp>Path</prp>=Count.Value}"</ltr>/&gt;
+      &lt;<tag>Button</tag> <prp>Click</prp>=<ltr>"CountUp_Click"</ltr> <prp>Content</prp>=<ltr>"Count Up!"</ltr>/&gt;
+  &lt;/<tag>StackPanel</tag>&gt;
 
-&lt;/Window&gt;
+&lt;/<tag>Window</tag>&gt;
 </div>
 
 <h6>View(コードビハインド) : MainWindow.xaml.cs</h6>
 <div class="cs">
-<kwd>public partial class</kwd> MainWindow : Window
+<kwd>public partial class</kwd> MainWindow : <knw>Window</knw>
 {
     <cmt>// コンストラクタ</cmt>
     <kwd>public</kwd> MainWindow()
@@ -258,7 +258,7 @@ ReactiveProperty も同様の記述となる。
     }
     
     <cmt>// ボタン「Count Up!」クリック時の処理</cmt>
-    <kwd>private void</kwd> CountUp_Click(<kwd>object</kwd> sender, RoutedEventArgs e)
+    <kwd>private void</kwd> CountUp_Click(<kwd>object</kwd> sender, <knw>RoutedEventArgs</knw> e)
     {
         ( (SampleViewModel)DataContext ).Count.Value++;
     }

@@ -34,7 +34,7 @@
 <div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/01_コントロール/Grid.html">Grid</a>
 <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/01_コントロール/DockPanel・StackPanel.html">DockPanel・StackPanel</a>
 <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/[WPF]テンプレート.html">テンプレート</a>
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/データバインディング.html">データバインディング</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/データバインディング.html">データバインディング</a>
 <a href="TIPS/02_プログラミング言語/02_CSharp/LINQ (Language Integrated Query).html">[C#]LINQ (Language Integrated Query)</a>
 </div></details>
 
@@ -88,7 +88,7 @@ TabControl クラスは Selector を継承しているため、 ItemsSource プ�
 
 <h6>View(MainWindow.cs.xaml)</h6>
 <div class="xaml">
-<cmt>&lt;!-- TabControl : "tabControl" --&gt;</cmt>
+<cmt>&lt;!-- TabControl : <ltr>"tabControl"</ltr> --&gt;</cmt>
 &lt;<tag>TabControl</tag> <prp>x:Name</prp>=<ltr>"tabControl"</ltr>&gt;
     <cmt>&lt;!-- ItemTemplate : タブの表題( Header )に関連 --&gt;</cmt>
     &lt;<tag>TabControl.ItemTemplate</tag>&gt;
@@ -137,7 +137,7 @@ TabControl クラスは Selector を継承しているため、 ItemsSource プ�
 
     <cmt>// コレクション source の初期化</cmt>
     <kwd>var</kwd> source = <knw>Enumerable</knw>.Range(<ltr>1</ltr>, <ltr>10</ltr>)
-        .Select(i => <kwd>new</kwd> Person { Name = <ltr>"おおた"</ltr> + i, Age = <ltr>20</ltr> + i });
+        .Select(i =&gt; <kwd>new</kwd> Person { Name = <ltr>"おおた"</ltr> + i, Age = <ltr>20</ltr> + i });
 
     <cmt>// tabControl の ItemsSource にコレクション source を指定</cmt>
     <kwd>this</kwd>.tabControl.ItemsSource = source;
@@ -152,7 +152,7 @@ TabControl クラスは Selector を継承しているため、 ItemsSource プ�
 ここでは<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/[WPF]テンプレート.html">テンプレート</a>を使用し、ItemTemplate でタブの表題( Header )、ContentTemplate でタブの内容( Content )を指定する。<br>
 Person 型のコレクション source を TabControl の ItemsSource プロパティに代入すると、TabControl では source の要素ごとにタブを割り当てる。<br>
 ( source の初期化時に<a href="TIPS/02_プログラミング言語/02_CSharp/LINQ (Language Integrated Query).html">LINQ( Select() )</a>を使用している点に注意。)<br>
-TabControl.ItemsSource が割り当てられているため、XAML側では<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/データバインディング.html">データバインディング</a>により値を参照できる。<br>
+TabControl.ItemsSource が割り当てられているため、XAML側では<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/データバインディング.html">データバインディング</a>により値を参照できる。<br>
 
 <h2>タブの高さを揃える</h2>
 通常、TabItem の高さは内容によって変化するため、タブを選択するたびに TabControl 全体の高さが変わってしまう。<br>

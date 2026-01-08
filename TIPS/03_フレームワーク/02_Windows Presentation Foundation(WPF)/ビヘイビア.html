@@ -29,8 +29,10 @@
 
 <!-- 関連ページ -->
 <details><summary class=link>関連 :</summary>
-<div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/MVVMパターン.html">MVVMパターン</a>
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/MVVM Toolkit.html">MVVM Toolkit</a>
+<div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/MVVMパターン.html">MVVMパターン</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/MVVM Toolkit.html">MVVM Toolkit</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/依存関係プロパティ.html">依存関係プロパティ</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/添付プロパティ.html">添付プロパティ</a>
 </div></details>
 
 <!-- 目次 -->
@@ -43,18 +45,29 @@
 <h2>ビヘイビア(Behavior)とは</h2>
 <div class="pre">    「振舞い」の日本語が示すように、ユーザインタフェースの「動作」を規定したクラス。
     MVVM以前はコードビハインドに記述していたような「ユーザ操作のハンドリング」を独立させることで、コントロールの振舞いのみを再利用することができる。
+    本記事は<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/MVVM Toolkit.html">MVVM Toolkit</a>に含まれる BlendBehavior について記す。
+    (基底クラスは Microsoft.Xaml.Behaviors.Behavior&lt;TTarget&gt; 。)
 </div>
 
-<h2>ビヘイビアの簡単な例 : TextBox への文字入力を制限</h2>
+<h2>ビヘイビアの例 : TextBox への文字入力を制限</h2>
 <div class=pre>    入力できる文字を TextBox ごとに切り替える場合、ビヘイビアを用いないのであれば、それぞれの TextBox に PreviewTextInput や PreviewKeyDown のイベントを実装する方法が考えられる。
     ビヘイビアを用いることで、これらの「(イベントに対する)振舞い」の部品化が可能となる。
 </div>
 
 <h6>ビヘイビアの本体 : RestrictInputForTextBoxBehavior.cs</h6>
 <div class=pre><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\Behavior\01.png" alt="画像">
+    BlendBehavior は Microsoft.Xaml.Behaviors.Behavior&lt;TTarget&gt; を継承して作成する。TTarget は適用先(コントロール)の型(ここでは TextBox )である。
+    BlendBehavior には<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/依存関係プロパティ.html">依存関係プロパティ</a>を実装でき、データバインディングのターゲットとすることができる。
+    ( ViewModel の状況に応じてビヘイビアの振舞いを切り替えたい場合に有効。)
+    必須の手順としては、OnAttached() メソッドのオーバーライドが挙げられる。これはコントロールの生成時にコールされ、ビヘイビアをコントロールに適用する際の処理である。
 </div>
 
 <h6>ビヘイビアの適用先 : ######.xaml (UserControl)</h6>
 <div class=pre><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\Behavior\02.png" alt="画像">
+    ビヘイビアを適用するコントロールに Interaction.Behaviors タグを記述し、その中に適用したいビヘイビアを記述する。
+    (複数のビヘイビアを列記できる。)
 </div>
+
+<h2><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/添付プロパティ#添付ビヘイビア.html">添付ビヘイビア</a></h2>
+BlendBehavior とは異なり、ビヘイビアを添付プロパティとして実装する手法である。詳細はリンク先を参照。
 

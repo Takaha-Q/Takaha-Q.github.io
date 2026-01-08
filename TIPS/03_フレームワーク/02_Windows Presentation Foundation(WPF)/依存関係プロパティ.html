@@ -36,6 +36,7 @@
 <div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/データバインディング.html">データバインディング</a>
 <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/01_コントロール/ユーザーコントロール.html">ユーザーコントロール</a>
 <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/[WPF]テンプレート.html">テンプレート</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/添付プロパティ.html">添付プロパティ</a>
 <a href="TIPS/02_プログラミング言語/02_CSharp/02_プロパティ/プロパティ.html">[.NET]プロパティ</a>
 </div></details>
 
@@ -51,25 +52,23 @@ WPFの「依存関係プロパティシステム」はソース(プロパティ)
 この依存関係プロパティシステムに参加できるプロパティが、依存関係プロパティである。<br>
 
 <h3>原則</h3>
-<https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/WPF/DependencyProperty/03.png" alt=""><br>
+<div class=pre><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/WPF/DependencyProperty/03.png" alt="">
+DependencyProperty を保有(登録)できるのは DependencyObject とその派生クラスに限定される。
+(<b>DependencyObject</b> は依存関係プロパティシステムに参加できるオブジェクトである。)
+既存のUI要素(コントロールなど)は DependencyObject を継承しているため、明示的に継承を行う必要は無い。
+また、UI要素の既存プロパティはすべて依存関係プロパティとして実装されているため、そのままデータバインディングのターゲットとすることができる。
 
-<b>DependencyObject</b> は依存関係プロパティシステムに参加できるオブジェクトで、DependencyProperty を保有(登録)できるのは DependencyObject およびその派生クラスに限定される。<br>
-但し、既存のUI要素(コントロールなど)は DependencyObject を継承しているため、明示的に継承を行う必要は無い。<br>
-また、UI要素の既存プロパティはすべて依存関係プロパティとして実装されているため、そのままデータバインディングのターゲットとすることができる。<br>
-<br>
-依存関係プロパティの登録は登録用メソッド(通常は <b>DependencyProperty.Register()</b> )を用いる。<br>
-上記コードにおける MyNameProperty が依存関係プロパティである。ここで、第1引数( DependencyProperty.Name の値となる)が "MyName" となっているが、<br>
-これはXAMLから当該プロパティを参照する際のエイリアス(別名)として機能する。<br>
-<br>
-依存関係プロパティが保持する実際の値の取得は <b>DependencyObject.GetValue()</b> 、更新は <b>DependencyObject.SetValue()</b> を用いる。<br>
-ただこれでは煩雑なので、ラッパープロパティ( MyName )を定義し、通常のプロパティとしてアクセスできるようにしている。<br>
-参照名およびラッパープロパティを "○○" 、依存関係プロパティを "○○Property" と命名することが推奨されている。<br>
+依存関係プロパティの登録はメソッド <b>DependencyProperty.Register()</b> を用いる。
+依存関係プロパティ MyNameProperty に対し、Register() の第1引数は "MyName" となっているが、
+これはXAMLから MyNameProperty を参照する際のエイリアス(別名)として機能する。
+
+依存関係プロパティが保持する実際の値の取得は <b>DependencyObject.GetValue()</b> 、更新は <b>DependencyObject.SetValue()</b> を用いる。
+ただこれでは煩雑なので、ラッパープロパティ( MyName )を定義し、通常のプロパティとしてアクセスできるようにしている。
+参照名およびラッパープロパティを "○○" 、依存関係プロパティを "○○Property" と命名することが推奨されている。
 Visual Studioでは組み込みスニペット <b>propdp</b> を用いることで、雛型を呼び出すことができる。
+</div>
 
 <h2>実装例</h2>
-前述の通り、既存のコントロールのプロパティはいずれも依存関係プロパティとして実装されているため、単にこれらを用いる場合は依存関係プロパティを作成する必要はほぼ無く、<br>
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/01_コントロール/ユーザーコントロール.html">ユーザーコントロール</a>や
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/[WPF]テンプレート.html">カスタムコントロール</a>が主用途となる。<br>
 以下、ユーザーコントロールでの使用例を挙げる。
 
 <h6>ユーザーコントロールのコードビハインド : SampleControl.xaml.cs</h6>
@@ -77,8 +76,8 @@ Visual Studioでは組み込みスニペット <b>propdp</b> を用いること�
 <kwd>public partial class</kwd> SampleControl : <knw>UserControl</knw>
 {
     <cmt>// #1 : 依存関係プロパティ TitleProperty の作成</cmt>
-    <kwd>public static readonly</kwd> DependencyProperty TitleProperty =
-        DependencyProperty.Register( <ltr>"Title"</ltr>, 
+    <kwd>public static readonly</kwd> <knw>DependencyProperty</knw> TitleProperty =
+        <knw>DependencyProperty</knw>.Register( <ltr>"Title"</ltr>, 
                                      <kwd>typeof</kwd>(<kwd>string</kwd>),
                                      <kwd>typeof</kwd>(SampleControl),
                                      <kwd>new</kwd> FrameworkPropertyMetadata( <ltr>"Title"</ltr>, <kwd>new</kwd> PropertyChangedCallback(OnTitleChanged) ) );
@@ -94,7 +93,7 @@ Visual Studioでは組み込みスニペット <b>propdp</b> を用いること�
     <kwd>private static void</kwd> OnTitleChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
     {
         <cmt>// オブジェクトを取得して処理する</cmt>
-        SampleControl ctrl = obj as SampleControl;
+        SampleControl ctrl = obj <kwd>as</kwd> SampleControl;
         <kwd>if</kwd> (ctrl != <kwd>null</kwd>)
         {
             ctrl.TitleTextBlock.<knw>Text</knw> = ctrl.Title;
@@ -161,7 +160,7 @@ Visual Studioでは組み込みスニペット <b>propdp</b> を用いること�
     &lt;/<tag>Window.Resources</tag>&gt;
 
     &lt;<tag>Grid</tag> <prp>DataContext</prp>=<ltr>"{StaticResource ViewModel}"</ltr>&gt;
-        <cmt>&lt;!-- #4 : 作成した SampleControl の "Title" にViewModelのプロパティを "TitleStr" としてバインドする --&gt;</cmt>
+        <cmt>&lt;!-- #<ltr>4</ltr> : 作成した SampleControl の <ltr>"Title"</ltr> にViewModelのプロパティを <ltr>"TitleStr"</ltr> としてバインドする --&gt;</cmt>
         &lt;<tag>local</tag>:SampleControl <prp>Title</prp>=<ltr>"{Binding TitleStr}"</ltr> /&gt;
     &lt;/<tag>Grid</tag>&gt;
 
@@ -185,5 +184,9 @@ TitleProperty が変更されると OnTitleChanged() が呼ばれ、TextBlock.Te
     <li>2. により、OnTitleChanged() が呼ばれるため、TitleTextBlock.Text が更新される</li>
 </ol>
 
-ラッパープロパティを介して依存関係プロパティ同士をバインドすることも可能であるが、ここでは紹介のみに留める。
+ラッパープロパティを介して依存関係プロパティ同士をバインドすることも可能であるが、詳細は割愛する。
+
+<h2><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/添付プロパティ.html">添付プロパティ</a></h2>
+<div class=pre>異なる DependencyObject に依存関係プロパティを付与できる機構。詳細は当該記事を参照。
+</div>
 

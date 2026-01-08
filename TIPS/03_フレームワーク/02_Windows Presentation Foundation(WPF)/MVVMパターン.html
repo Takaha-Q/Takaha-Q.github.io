@@ -32,12 +32,12 @@
 
 <!-- 関連ページ -->
 <details><summary class=link>関連 :</summary>
-<div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/INotifyPropertyChanged.html">INotifyPropertyChanged</a>
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/コマンド(ICommand).html">コマンド(ICommand)</a>
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/MVVM Toolkit.html">MVVM Toolkit</a>
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/データバインディング.html">データバインディング</a>
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/ReactiveProperty.html">ReactiveProperty</a>
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/依存関係プロパティ.html">依存関係プロパティ</a>
+<div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/INotifyPropertyChanged.html">INotifyPropertyChanged</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/コマンド(ICommand).html">コマンド(ICommand)</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/MVVM Toolkit.html">MVVM Toolkit</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/データバインディング.html">データバインディング</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/ReactiveProperty.html">ReactiveProperty</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/依存関係プロパティ.html">依存関係プロパティ</a>
 <a href="TIPS/02_プログラミング言語/02_CSharp/デリゲートとイベント.html">デリゲートとイベント</a>
 </div></details>
 
@@ -63,10 +63,10 @@ View はXAMLとコードビハインド(XAML.CS)から成り、外観を司る�
 ViewModel は View とは独立しており、ViewModel のインスタンスが View の DataContext として関連づけられる。
 これにより ViewModel のプロパティ(CLIプロパティ)と View の依存関係プロパティとが関連づけられ、
 ViewModel の変更が View に伝播する。
-この View と関連づけられた ViewModel のプロパティを「<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/INotifyPropertyChanged.html">変更通知プロパティ</a>」と呼び、
-View と ViewModel とのプロパティの関連づけを「<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/データバインディング.html">データバインディング</a>」と呼ぶ。
+この View と関連づけられた ViewModel のプロパティを「<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/INotifyPropertyChanged.html">変更通知プロパティ</a>」と呼び、
+View と ViewModel とのプロパティの関連づけを「<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/データバインディング.html">データバインディング</a>」と呼ぶ。
 
-逆に View に対するユーザの操作(イベント)は ViewModel の「<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/コマンド(ICommand).html">コマンド</a>」に関連づけられ、ユーザ操作が ViewModel に伝播する。
+逆に View に対するユーザの操作(イベント)は ViewModel の「<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/コマンド(ICommand).html">コマンド</a>」に関連づけられ、ユーザ操作が ViewModel に伝播する。
 (コマンドバインディング)
 
 Model ( ViewModel ではない)は外観によらないデータおよび業務ロジックを指し、ViewModel に組み込まれることで外観に関連づけられる。
@@ -90,7 +90,7 @@ ViewModel はいかなる場合も自動では作成されない(MVVMに準拠�
 </div>
 
 <h2>ViewModel の実装</h2>
-<h3>ViewModel のプロパティ変化を View に通知 : <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/INotifyPropertyChanged.html">変更通知プロパティ</a></h3>
+<h3>ViewModel のプロパティ変化を View に通知 : <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/INotifyPropertyChanged.html">変更通知プロパティ</a></h3>
 <div class=pre>ViewModel で保持している情報が変化した際に View 側で何らかの動作を起こしたい(例えば、UIの表示を変更する)場合は、
 ViewModel に<code>INotifyPropertyChanged</code>インタフェースを実装したうえで<code>PropertyChanged</code>イベントを発生させる。
 View 側は<code>PropertyChanged</code>イベントフックに、イベント発生時にコールしたいコールバック(イベントハンドラ)を登録する。
@@ -100,7 +100,7 @@ View 側のデータバインディングされたプロパティ(ターゲッ�
 詳細はリンク先を参照。
 </div>
 
-<h3>View の操作を ViewModel に通知 : <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/コマンド(ICommand).html">コマンド</a></h3>
+<h3>View の操作を ViewModel に通知 : <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/コマンド(ICommand).html">コマンド</a></h3>
 UIへの操作を ViewModel に伝えたい場合はコマンドを使用する。詳細はリンク先を参照。
 
 <h3>View と ViewModel の結合</h3>
@@ -142,7 +142,7 @@ UIへの操作を ViewModel に伝えたい場合はコマンドを使用する�
 なお<code>local</code>は<code>MainViewModel</code>が属する名前空間(<code>Sample</code>)のエイリアスである。
 <code>MainViewModel</code>の<code>Message</code>プロパティを<code>TextBlock</code>の<code>Text</code>へとデータバインディングを行っているが、
 <code>MainViewModel</code>を<code>DataContext</code>として関連づけているため、プロパティ名(<code>Message</code>)のみを記述すればよい。
-(<code>MainViewModel.Message</code>などとする必要は無い。詳細は<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/データバインディング.html">データバインディング</a>を参照。)
+(<code>MainViewModel.Message</code>などとする必要は無い。詳細は<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/データバインディング.html">データバインディング</a>を参照。)
 </div>
 
 <h6>View : MainWindow.xaml.cs</h6>
@@ -174,6 +174,6 @@ UIへの操作を ViewModel に伝えたい場合はコマンドを使用する�
 <h3>ViewModel 構築の支援</h3>
 <div class=pre>変更通知プロパティやコマンドを含めた ViewModel の実装は煩雑であるが、
 ViewModel の構築を支援してくれるライブラリが複数存在し、それらを活用することでコードの記述を大幅に削減できる。
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/ReactiveProperty.html">ReactiveProperty</a>が代表的。詳細はリンク先を参照。
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/ReactiveProperty.html">ReactiveProperty</a>が代表的。詳細はリンク先を参照。
 </div>
 

@@ -34,14 +34,14 @@
 
 <!-- 関連ページ -->
 <details><summary class=link>関連 :</summary>
-<div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/MVVMパターン.html">MVVMパターン</a>
+<div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/MVVMパターン.html">MVVMパターン</a>
 <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/INotifyPropertyChanged.html">INotifyPropertyChanged</a>
 <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/依存関係プロパティ.html">依存関係プロパティ</a>
 <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/コンバーター.html">コンバーター</a>
 <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/マルチバインディング.html">マルチバインディング</a>
 <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/RelativeSource.html">RelativeSource</a>
 <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/ReactiveProperty.html">ReactiveProperty</a>
-<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/コマンド(ICommand).html">コマンド(ICommand)</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/コマンド(ICommand).html">コマンド(ICommand)</a>
 </div></details>
 
 <!-- 目次 -->
@@ -68,7 +68,7 @@
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/WPF/DependencyProp/02.png">
 </div>
 
-<h2>前提2 : <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/00_MVVM/MVVMパターン.html">MVVMパターン</a></h2>
+<h2>前提2 : <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/MVVMパターン.html">MVVMパターン</a></h2>
 <div class=pre>(リンク先を併せて参照のこと。)
 WPFではデザインパターンとしてMVVM (Model - View - ViewModel) が推奨されており、これはWEB開発におけるMVCパターンと類似する。
 データバインディングはMVVMの構成要素で、View と ViewModel を関連付ける操作(の一部)である。
@@ -194,16 +194,16 @@ XAMLにおけるバインディングの書式は上記のようになる。
 
 <div class=xaml>
 <cmt>&lt;!-- Path を明記 --&gt;</cmt>
-&lt;<tag>TextBlock</tag> <prp>Text</prp>=<ltr>"{Binding Path=Message,
-                          Mode=TwoWay}"</ltr>/&gt;
+&lt;<tag>TextBlock</tag> <prp>Text</prp>="{Binding <prp>Path</prp>=Message,
+                          <prp>Mode</prp>=TwoWay}"/&gt;
 </div>
 
 と
 
 <div class=xaml>
 <cmt>&lt;!-- Path を省略 --&gt;</cmt>
-&lt;<tag>TextBlock</tag> <prp>Text</prp>=<ltr>"{Binding Message,
-                          Mode=TwoWay}"</ltr>/&gt;
+&lt;<tag>TextBlock</tag> <prp>Text</prp>="{Binding Message,
+                          <prp>Mode</prp>=TwoWay}"/&gt;
 </div>
 
 <div class=pre>は等価である。

@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a>
+<!-- 出典 -->
+<details><summary class=link>出典 :</summary>
+    <div class=pre><a href="https://learn.microsoft.com/ja-jp/dotnet/desktop/wpf/properties/attached-properties-overview">添付プロパティの概要 - WPF | Microsoft Learn</a>
+        <a href="https://learn.microsoft.com/ja-jp/dotnet/desktop/wpf/properties/how-to-register-an-attached-property">添付プロパティを登録する方法 - WPF | Microsoft Learn</a>
+        <a href="https://blog.okazuki.jp/entry/2014/08/20/081810">WPF4.5入門 その45 「添付プロパティ」 - かずきのBlog@hatena</a>
+        <a href="https://qiita.com/kawasawa/items/36c18fdb512cc1bcbd54">View を支える添付プロパティ #C# - Qiita</a></div></details>
+
+<!-- 関連 -->
+<details><summary class=link>関連 :</summary>
+<div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/依存関係プロパティ.html">依存関係プロパティ</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/ビヘイビア.html">ビヘイビア</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/スタイル.html">スタイル</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/リソース.html">リソース</a>
+<a href="TIPS/02_プログラミング言語/02_CSharp/拡張メソッド.html">[C#]拡張メソッド</a></div></details>
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>添付プロパティとは</h2>
+<div class=pre>DependencyObject を継承した別のクラスに対して、任意のプロパティ(依存関係プロパティ)を設定できる機構。
+    添付先の実装を変更することなく、依存関係プロパティを追加することができる。</div>
+
+<h3>添付プロパティの例</h3>
+<div class=pre><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\Attatched_Property\01.png" alt="画像">
+    Grid.Row 、Grid.Column や DockPanel.Dock は代表的な添付プロパティである。
+    これらは Button ではなく Grid または DockPanel に定義されるが、Button を含めた様々なコントロールに設定可能である。
+既存の実装に手を加えず拡張できる点は<a href="TIPS/02_プログラミング言語/02_CSharp/拡張メソッド.html">拡張メソッド</a>に類似する。
+</div>
+
+<h2>添付プロパティの定義</h2>
+    <h6>Sample.cs</h6>
+<div class=pre><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\Attatched_Property\02.png" alt="画像">
+    Sample クラスに添付プロパティを定義する場合の例である。
+    <b>添付プロパティは依存関係プロパティとして定義するが、Sample クラスは DependencyObject を継承する必要は無い</b>。
+    通常の依存関係プロパティは Register() メソッドを用いるが、<b>添付プロパティでは RegisterAttached() メソッドを用いる</b>点が異なる。
+    また、通常の依存関係プロパティではプログラム中からのアクセスを簡便に行うためのラッパープロパティを使用できたが、
+    添付プロパティでは対象の DependencyObject が自身とは異なるため、ラッパープロパティは使用できない。
+    代わりにラッパーメソッド( Get[プロパティ名]() 、Set[プロパティ名]() )を定義するのが一般的である。
+</div>
+
+<h2>添付ビヘイビア</h2>
+<div class=pre>添付プロパティの効果的な使用法としては「<b>添付ビヘイビア</b>」がある。</div>
+
+<h6>AttachedBehavior.cs</h6>
+<div class=cs>
+<kwd>using</kwd> <knw>System</knw>.<knw>Windows</knw>;
+<kwd>using</kwd> <knw>System</knw>.<knw>Windows</knw>.Input;
+
+<kwd>namespace</kwd> TestApp.Views.Behaviors
+{
+    <kwd>public class</kwd> WindowAttachedBehavior
+    {
+        <cmt>// ドラッグ移動を可能とする添付プロパティ DraggableAnywhere の定義</cmt>
+        <cmt>// (ラッパーメソッドを含む)</cmt>
+        <kwd>public static readonly</kwd> <knw>DependencyProperty</knw> DraggableAnywhereProperty
+            = <knw>DependencyProperty</knw>.RegisterAttached(
+                <ltr>"DraggableAnywhere"</ltr>,
+                <kwd>typeof</kwd>(<kwd>bool</kwd>),
+                <kwd>typeof</kwd>(WindowAttachedBehavior),
+                <kwd>new</kwd> PropertyMetadata(OnDraggableAnywhereChanged));
+        <kwd>public static bool</kwd> GetDraggableAnywhere(DependencyObject obj)
+            =&gt; (<kwd>bool</kwd>)obj.GetValue(DraggableAnywhereProperty);
+        <kwd>public static void</kwd> SetDraggableAnywhere(DependencyObject obj, <kwd>bool</kwd> value)
+            =&gt; obj.SetValue(DraggableAnywhereProperty, value);
+
+        <cmt>// プロパティ DraggableAnywhere 変更時の処理</cmt>
+        <kwd>private static void</kwd> OnDraggableAnywhereChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            <cmt>// Window 以外のコントロールには適用不可</cmt>
+            <kwd>if</kwd> (!(sender <kwd>is</kwd> <knw>Window</knw> window))
+            {
+                <kwd>return</kwd>;
+            }
+
+            <cmt>// 変更前が true ( true ⇒ false ) : ハンドラの適用を解除</cmt>
+            <kwd>if</kwd> ((<kwd>bool</kwd>)e.OldValue)
+            {
+                window.MouseLeftButtonDown -= MouseLeftButtonDown;
+            }
+
+            <cmt>// 変更後が true ( false ⇒ true ) : ハンドラを適用</cmt>
+            <kwd>if</kwd> ((<kwd>bool</kwd>)e.NewValue)
+            {
+                window.MouseLeftButtonDown += MouseLeftButtonDown;
+            }
+        }
+
+        <cmt>// マウス左ボタン押下時の処理</cmt>
+        <kwd>private static void</kwd> MouseLeftButtonDown(<kwd>object</kwd> sender, MouseButtonEventArgs e)
+        {
+            <cmt>// Window 以外のコントロールには適用不可</cmt>
+            <kwd>if</kwd> (!(sender <kwd>is</kwd> <knw>Window</knw> window))
+            {
+                <kwd>return</kwd>;
+            }
+
+            <cmt>// マウスボタンが押されていない(離された)場合は何もしない</cmt>
+            <kwd>if</kwd> (e.ButtonState != MouseButtonState.Pressed)
+            {
+                <kwd>return</kwd>;
+            }
+
+            <cmt>// 対象をドラッグ移動</cmt>
+            window.DragMove();
+
+            <cmt>// イベントを処理済みとする</cmt>
+            e.Handled = <kwd>true</kwd>;
+        }
+    }
+}
+</div>
+
+<div class=pre>MVVM Toolkitに含まれる<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/ビヘイビア.html"> BlendBehavior </a>同様、コントロールの振舞いのみを分離できる。
+    (この添付ビヘイビアは、BlendBehavior 登場以前から存在していた実装法である。)
+    コントロールのプロパティと同様に取り扱えるため<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/スタイル.html">スタイル</a>として登録でき、複数のコントロールに一括適用することができる。
+一方 BlendBehavior は添付プロパティを定義する必要が無く、ビヘイビア自体の実装は比較的簡潔である。
+</div>
+
