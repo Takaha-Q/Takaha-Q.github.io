@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a>
+
+<!-- 出典ページ -->
+<details><summary class=link>出典 :</summary>
+<div class=pre><a href="https://learn.microsoft.com/ja-jp/dotnet/desktop/wpf/data/data-templating-overview">データ テンプレートの概要 - WPF | Microsoft Learn</a>
+    <a href="https://blog.okazuki.jp/entry/2014/08/25/164331">WPF4.5入門 その47 「コンテンツモデル」 - かずきのBlog@hatena</a>
+    <a href="https://qiita.com/Takuma_Kondo/items/77040e562497fc87157d">WPF の DataTemplate を活用した MVVM パターンの実践 #WPF - Qiita</a>
+    <a href="https://qiita.com/MetroOsamu/items/572bdb0f86b284fea588">【WPF】DataTemplateSelectorクラスを使用して、動的にコントロールの種類を変更する方法【C#】 #Xaml - Qiita</a>
+    <a href="https://tan.hatenadiary.jp/entry/20151022/1445440049">WPFのControlTemplateとDataTemplateの違い、それとContentPresenter - プログラム系統備忘録ブログ</a>
+
+</div></details>
+
+<!-- 関連ページ -->
+<details><summary class=link>関連 :</summary>
+<div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/データバインディング.html">データバインディング</a>
+    <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/MVVMパターン.html">MVVMパターン</a>
+    <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/リソース.html">リソース</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/スタイル.html">スタイル</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/ControlTemplate.html">ControlTemplate</a>
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/トリガー.html">トリガー</a>
+</div></details>
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>データ・テンプレート(DataTemplate)とは</h2>
+<div class=pre>コントロールの主に Content プロパティにオブジェクトが設定されている場合、どのようにそのオブジェクトを表示するかを定義する。
+特に<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/データバインディング.html">データバインディング</a>を行う場合に有効で、DataTemplate を定義しておくことで様々な型をソースとすることができるとともに、
+ソースの型が同じ場合でも、異なる DataTemplate を割り当てることで表示方法を柔軟にカスタマイズすることができる。
+</div>
+
+<h2>DataTemplate の作用機構</h2>
+<div class=pre>WPFにおいてコントロールの表示は ContentControl クラスが担っており、これは「 Content プロパティに設定された単一の要素を表示する」という機能を提供する。
+    DataTemplate は、ContentControl が表示を決定する際の基準となる。
+</div>
+<ul>
+<li>ContentTemplate に DataTemplate が設定されている場合、Content プロパティに ContentTemplate を適用した結果を表示する</li>
+<li>ContentTemplateSelector に DataTemplateSelector が設定されている場合、Content プロパティに ContentTemplateSelector が返した DataTemplate を適用した結果を表示する</li>
+<li>Content プロパティに設定された値の型に紐づけられた DataTemplate がある場合、その DataTemplate を適用した結果を表示する</li>
+<li>Content プロパティが UIElement 型ならばそのまま表示する<br>( UIElement にすでに親がいる場合は例外となる)</li>
+<li>Content プロパティに設定された値の型に紐づけられた TypeConverter で UIElement に変換するものがある場合は、変換した結果を表示する</li>
+<li>Content プロパティに設定された値の型に紐づけられた TypeConverter で String 型に変換するものがある場合は、String 型に変換して TextBlock にラップして表示する</li>
+<li>Content プロパティに設定された値の型が XmlElement の場合は、InnerText プロパティの値を TextBlock にラップして表示する</li>
+<li>Content プロパティに設定された値を ToString した結果を TextBlock にラップして表示する</li>
+</ul>
+<div class=pre>ロジックは複雑ではあるが、端的には
+</div>
+<ul>
+    <li>可能な限り UIElemnt に変換する</li>
+    <li>UIElemnt に変換できなければ文字列型に変換して TextBlock に格納して表示する</li>
+</ul>
+<div class=pre>となる。Button や Label 、ListBoxItem は ContentControl を継承しているため、以下のような直感的な記述が可能である。
+</div>
+<div class=cs>
+    <cmt>// Button に文字列を表示 : Content に文字列を設定</cmt>
+    <kwd>this</kwd>.button.Content = <ltr>"こんにちは世界"</ltr>;
+
+    <cmt>// Button 内に Button を表示 ; Content に Button を設定</cmt>
+    <kwd>this</kwd>.button.Content = <kwd>new</kwd> <knw>Button</knw> { Content = <ltr>"ボタンの中のボタン"</ltr> };
+</div>
+
+<h2>DataTemplate の適用対象</h2>
+<div class=pre>対象のコントロールが ContentControl 、ItemsControl のいずれから派生しているかによって、DataTemplate を割り当てるプロパティが異なる。
+    ItemsControl はコレクションをソースし、DataTemplate は ItemsControl 全体ではなく、コレクションの各項目に作用する。
+</div>
+
+<table>
+    <tr class="row1">
+        <td class="col1">対象のコントロール</td>
+        <td>割り当て先のプロパティ</td>
+    </tr>
+    <tr>
+        <td class="col1">ContentControl 派生<br>( Button 、Label など)</td>
+        <td>ContentTemplate</td>
+    </tr>
+    <tr>
+        <td class="col1">ItemsControl 派生<br>( ComboBox 、ListBox、DataGrid など)</td>
+        <td>ItemTemplate</td>
+    </tr>
+</table>
+
+<h2>DataTemplate の例</h2>
+<div class=pre>DataTemplate は ContentControl (を継承する)クラスの ContentTemplate プロパティとして設定する。
+</div>
+
+<h6>View : MainWindow.xaml</h6>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\DataTemplate\01.png" alt="画像">
+
+<h6>Model : Person.cs</h6>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\DataTemplate\02.png" alt="画像">
+
+<h6>画面表示</h6>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\DataTemplate\03.png" alt="画像">
+
+<div class=pre>ここでは解説のために ListBox 中に DataTemplate を定義しているが、<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/リソース.html">リソース</a>として定義するほうが
+再利用がしやすい。詳細は<a href="https://blog.okazuki.jp/entry/2014/08/25/164331">出典元</a>を参照。
+</div>
+
+<h2>トリガー</h2>
+<div class=pre>DataTemplate には<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/トリガー.html">トリガー</a>を含めることができる。
+</div>
+
+<h6>Model : Person.cs</h6>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\DataTemplate\04.png" alt="画像">
+
+<h6>View : MainWindow.xaml</h6>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\DataTemplate\05.png" alt="画像">
+
+<h6>画面表示</h6>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\DataTemplate\06.png" alt="画像">
+
+<h2>DateTemplateSelector</h2>
+<div class=pre>DateTemplateSelector は、条件に応じて DataTemplate を切り替える仕組みである。
+    複数の DataTemplate から条件に応じてひとつを選択する。
+</div>
+
+<h6>DateTemplateSelector の定義 : PersonDateTemplateSelector.cs</h6>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\DataTemplate\07.png" alt="画像">
+
+<div class=pre>ここでは、DateTemplateSelector として PersonDateTemplateSelector を定義している。
+    クラスは DateTemplateSelector を継承し、SelectTemplate() メソッドで適用する DataTemplate を返す。
+</div>
+
+<h6>View : MainWindow.xaml</h6>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\DataTemplate\08.png" alt="画像">
+
+<div class=pre>DataTemplate の候補である PersonTemplate1 、PersonTemplate2 は Window の Resource として定義している。
+    DateTemplateSelector の適用先は ListBox では ItemTemplateSelector となる( ItemTemplate ではない点に注意)。
+</div>
+
+<h6>画面表示</h6>
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\DataTemplate\09.png" alt="画像">
+
+<div class=pre>PersonDateTemplateSelector の定義通り、Person.Age が 40 未満ならば PersonTemplate1 が、
+    それ以外は PersonTemplate2 が適用される。
+</div>
+
+<h2><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/ControlTemplate.html">ControlTemplate</a>との違い</h2>
+<div class=pre>いずれもコントロールの外見に作用するが、
+</div>
+<dl>
+    <dt>ControlTemplate</dt><dd>コントロールのすべての要素に影響する</dd>
+    <dt>DataTemplate</dt><dd>コントロールの Content 以下の要素に影響する</dd>
+</dl>
+<div class=pre>という違いがある。
+    ControlTemplate には ContentPresenter を含めることができ、ContentPresenter の ContentTemplate プロパティに DataTemplate を割り当てた場合は
+コントロールの ContentTemplate プロパティに DataTemplate を割り当てた場合と同様の動作となる。
+<img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\DataTemplate\10.png" alt="画像">
+このため、Content 以下の要素のみを制御するのであれば DataTemplate 、
+( Content を含めた)すべての要素を制御するのであれば ControlTemplate を用いることになる。
+</div>
+
