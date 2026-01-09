@@ -87,7 +87,7 @@ ControlTemplate クラスはコントロールの<b>「視覚的な構造と動�
 ( NumericUpDown はWindows Formsでは標準コントロールに含まれているが、WPFでは除外されている。)<br>
 <img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img/WPF/Control_Template/01.png" alt="画像"><br>
 
-<h6>XAML(特定のコントロールに紐づかない - 例 : themes/generic.xaml)</h6>
+<h6>ControlTemplate を含む ResourceDicionary の定義 : ####.xaml</h6>
 <div class="xaml">
 <cmt>&lt;!-- リソース定義 --&gt;</cmt>
 &lt;<tag>ResourceDictionary</tag>
@@ -172,7 +172,7 @@ ControlTemplate クラスはコントロールの<b>「視覚的な構造と動�
 &lt;/<tag>ResourceDictionary</tag>&gt;
 </div>
 
-<h6>NumericUpDown のコード(XAMLに紐づかない)</h6>
+<h6>NumericUpDown の定義 : NumericUpDown.cs</h6>
 <div class="cs">
 <kwd>using</kwd> <knw>System</knw>.<knw>Windows</knw>;
 <kwd>using</kwd> <knw>System</knw>.<knw>Windows</knw>.Controls;
