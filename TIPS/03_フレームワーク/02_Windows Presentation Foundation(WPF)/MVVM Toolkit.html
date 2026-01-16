@@ -48,7 +48,7 @@
 <!-- 本文ここから -->
 
 <h2>MVVM Toolkitとは</h2>
-<div class=pre>NuGetで公開されているライブラリで、MVVMパターンの構築を支援する機能を備えており、
+<div class=pre>MVVMパターンの構築を支援するライブラリ(フレームワーク)のひとつ。
 <code>INotifyPropertyChanged</code>や<code>ICommand</code>を簡単に実装できる。
 </div>
 
@@ -81,187 +81,80 @@
   </tr>
 </table>
 
-<h2>主な仕組み</h2>
-<div class=pre><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\MVVM_Toolkit\01.png" alt="画像">
-ViewModelとして用いるクラスを <code class="b">ObservableObject</code> の派生クラスとして定義し、
-データバインディングのソースとして用いるプロパティ(変更通知プロパティ)を含める。
-コマンドは <code class="b">ICommand</code> として作成し、これをコマンドバインディングのソースとする。
-</div>
-
 <h2>準備</h2>
 <div class=pre><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\MVVM_Toolkit\08.png" alt="画像">
   CommunityToolkit.Mvvm がインストールされていない場合は、Nuget より取得する。
 </div>
 
-<h2>実装例(MVVM Toolkit Ver.7)</h2>
-
-<h3>変更通知プロパティ</h3>
-
-<h6>ViewModel : MainWindowVM.cs</h6>
-<div class=cs>
-<kwd>using</kwd> <knw>CommunityToolkit.Mvvm.ComponentModel</knw>;     <cmt>//&lt; ObservableObject の名前解決</cmt>
-
-<cmt>// ViewModel : ObservableObject を継承</cmt>
-<kwd>public class</kwd> MainWindowVM : ObservableObject
-{
-    <cmt>// Name のバッキングフィールド</cmt>
-    <kwd>private string</kwd> _name;
-
-    <cmt>// プロパティ(バインドソース)</cmt>
-    <kwd>public string</kwd> Name
-    {
-        <kwd>get</kwd> =&gt; _name;
-        <kwd>set</kwd> =&gt; SetProperty(<kwd>ref</kwd> _name, value);
-    }
-}
+<h2>実装例(MVVM Toolkit Ver.8以降)</h2>
+<h6>ViewModel : ViewModel.cs</h6>
+<div class=pre><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\MVVM_Toolkit\01.png" alt="画像">
 </div>
 
-<h6>View(XAML) : MainWindow.xaml (抜粋)</h6>
-<div class=xaml>
-<cmt>&lt;!-- TextBlock.Text を DataContext の Name プロパティにバインド --&gt;</cmt>
-&lt;<tag>TextBlock</tag> <prp>Text</prp>=<ltr>"{Binding Name}"</ltr> /&gt;
+<h6>View : View.xaml</h6>
+<div class=pre><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\MVVM_Toolkit\02.png" alt="画像">
 </div>
 
-<div class=pre>ViewModel として用いるクラスは、<code>ObservableObject</code>を継承して作成する。
-<code>ObservableObject</code>は<code>INotifyPropertyChanged</code>を実装している。
-プロパティの値を変更(<code>set</code>)した際は View への通知を行うため、<code>SetProperty()</code>を呼び出している。
-
-また、<code>INofityPropertyChanged</code>を実装していない Model クラスをラップして<code>PropertyChanged</code>に反応させることも可能である。
-</div>
-
-<h6>Model : Person.cs</h6>
-<div class=cs>
-<kwd>public class</kwd> Person
-{
-    <kwd>public string</kwd> Name { <kwd>get</kwd>; <kwd>set</kwd>; }
-    <kwd>public int</kwd> Age { <kwd>get</kwd>; <kwd>set</kwd>; }
-}
-</div>
-
-<h6>ViewModel : MainWindowVM.cs</h6>
-<div class=cs>
-<kwd>using</kwd> <knw>CommunityToolkit.Mvvm.ComponentModel</knw>;
-
-<kwd>public class</kwd> MainWindowVM : ObservableObject
-{
-    <kwd>private</kwd> Person _person;
-
-    <kwd>public int</kwd> Age 
-    {
-        <kwd>get</kwd> =&gt; _person.Age;
-        <kwd>set</kwd> =&gt; SetProperty( _person.Age, value, _person, (p, newval) =&gt; p.Age = newval );
-    }
-
-    <kwd>public string</kwd> Name 
-    {
-        <kwd>get</kwd> =&gt; _person.Name;
-        <kwd>set</kwd> =&gt; SetProperty( _person.Name, value, _person, (p, newval) =&gt; p.Name = newval );
-    }
-}
-</div>
-
-<div class=pre>この場合の<code>SetProperty()</code>の引数は、元の値、新しい値、対象オブジェクト、値更新時のコールバック、である。
-_person のプロパティ更新をコールバック内で行っている点に注意。
-</div>
-
-<h3>コマンド</h3>
-<h6>ViewModel : MainWindowVM.cs</h6>
-<div class=cs>
-<kwd>using</kwd> <knw>CommunityToolkit.Mvvm.ComponentModel</knw>;     <cmt>//&lt; ObservableObject の名前解決</cmt>
-<kwd>using</kwd> <knw>CommunityToolkit.Mvvm.Input</knw>;              <cmt>//&lt; RelayCommand の名前解決</cmt>
-
-<kwd>public class</kwd> MainWindowVM : ObservableObject
-{
-    <cmt>// プロパティ(バインドソース)</cmt>
-    <kwd>public</kwd> ICommand ClickCommand { <kwd>get</kwd>; }
-
-    <cmt>// コンストラクタ</cmt>
-    <kwd>public</kwd> MainWindowVM()
-    {
-        ClickCommand = <kwd>new</kwd> RelayCommand(Click);
-    }
-
-    <cmt>// コマンドとしてに実行したい処理</cmt>
-    <kwd>private void</kwd> Click() { Name = <ltr>""</ltr>; }
-}
-</div>
-
-<div class=pre>コマンドは<code>ICommand</code>として作成する。
-実際にコマンドとして実行したい処理は Click() であるため、ViewModel のコンストラクタ中で<code>RelayCommand</code>化してプロパティに関連づける。
-<code>RelayCommand</code>のコンストラクタには複数のオーバーロードが存在し、<code>CanExecute</code>や<code>CommandParameter</code>を指定することも可能である。
-(詳細は<a href="https://learn.microsoft.com/ja-jp/dotnet/communitytoolkit/mvvm/">リファレンス</a>参照。)
-</div>
-
-<h2>Ver.8での変更</h2>
-<div class=pre>MVVM Toolkit Ver.8では各種機能をカスタム属性として利用できるようになり、コードの記述を大幅に削減できるようになった。
-Ver.7での記法も引き続き有効である。
+<h6>解説</h6>
+<div class=pre>ViewModel は <code>ObservableObject</code> を継承する。
+  変更通知プロパティとなるバッキングフィールドには <code>[ObservableProperty]</code> 属性、コマンドには <code>[RelayCommand]</code> 属性を付与する。
+  実際にバインドソースとなるプロパティおよびハンドラは、ビルド時に自動生成される。それらの命名規則は下表を参照。
+  コード中においても、元の定義名でのアクセスはエラーとなるため、生成されたシンボル名でアクセスする。
 </div>
 
 <table>
-  <tr class=row1>
-    <td class=col1></td>
-    <td>Ver.7</td>
-    <td>Ver.8</td>
-  </tr>
-  <tr>
-    <td class=col1 rowspan="2">ViewModel<br>クラス定義</td>
-    <td class="border_b_dotted"><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\MVVM_Toolkit\02.png" alt="画像"></td>
-    <td class="border_b_dotted"><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\MVVM_Toolkit\03.png" alt="画像"></td>
-  </tr>
-  <tr>
-    
-    <td class="border_t_dotted"><ul><li>ViewModel は<code>ObservableObject</code>を継承</li></ul></td>
-    <td class="border_t_dotted"><ul><li>ViewModel に<code>INotifyPropertyChanged</code>属性を付与</li>
-    <li>クラスを<code>partial</code>修飾<br>(コードジェネレータにより追加コードが自動生成される)</li></ul></td>
-  </tr>
-  <tr>
-    <td class=col1 rowspan="2">変更通知<br>プロパティ</td>
-    <td class="border_b_dotted"><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\MVVM_Toolkit\06.png" alt="画像"></td>
-    <td class="border_b_dotted"><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\MVVM_Toolkit\07.png" alt="画像"></td>
-  </tr>
-  <tr>
-    
-    <td class="border_t_dotted"><ul><li>バインドソースとバッキングフィールドを記述</li>
-    <li>バインドソースの<code>set</code>内で<code>SetProperty()</code>をコール</li></ul></td>
-    <td class="border_t_dotted"><ul><li>バッキングフィールドのみを記述</li>
-    <li>バッキングフィールドに<code>ObservableProperty</code>属性を付与</li>
-    <li>バインドソース Name は自動的に生成される</li>
-    </ul></td>
-  </tr>
-  <tr>
-    <td class=col1 rowspan="2">コマンド</td>
-    <td class="border_b_dotted"><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\MVVM_Toolkit\04.png" alt="画像"></td>
-    <td class="border_b_dotted"><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\MVVM_Toolkit\05.png" alt="画像"></td>
-  </tr>
-  <tr>
-    
-    <td class="border_t_dotted"><ul><li>バインドソースとハンドラを記述</li></ul></td>
-    <td class="border_t_dotted"><ul><li>ハンドラのみを記述</li>
-    <li>ハンドラに<code>RelayCommand</code>属性を付与</li>
-    <li>バインドソース GreetCommand は自動的に生成される</li></ul></td>
-  </tr>
+<tr class="row1">
+  <td rowspan="3" class="col1" width="165">変更通知プロパティ</td>
+  <td width="165">ViewModel における定義</td>
+  <td width="165">生成されるプロパティ</td>
+  <td width="165">バインド時に指定するパス</td>
+</tr>
+<tr>
+  <td class="code"><b class="red">n</b>ame<br>(先頭が小文字)</td>
+  <td class="code"><b class="red">N</b>ame<b class="blue">Property</b></td>
+  <td class="code"><b class="red">N</b>ame</td>
+</tr>
+<tr>
+  <td class="code"><b class="red">_n</b>ame<br>(先頭がアンダースコア + 小文字)</td>
+  <td class="code"><b class="red">N</b>ame<b class="blue">Property</b></td>
+  <td class="code"><b class="red">N</b>ame</td>
+</tr>
 </table>
 
-<h3>注意点</h3>
-<div class=pre>変更通知プロパティ、コマンドともにバインドソースとなるプロパティはコードジェネレータにより自動的に生成される。
-その際、変更通知プロパティはバッキングフィールドの先頭文字を大文字にしたもの
-(例 : name ⇒ <b class=blue>N</b>ame)
-コマンドはハンドラメソッドの後に Command を付与したものとなる。
-(例 : Greet ⇒ Greet<b class=blue>Command</b>)
+<table>
+<tr class="row1">
+  <td width="165" rowspan="3" class="col1">コマンド</td>
+  <td width="165">ViewModel における定義</td>
+  <td width="165">生成されるハンドラ</td>
+  <td width="165">バインド時に指定するパス</td>
+</tr>
+<tr>
+  <td class="code">DoSomething()<br>(一般的なメソッド名)</td>
+  <td class="code">DoSomething<b class="blue">Command</b>()</td>
+  <td class="code">DoSomething<b class="blue">Command</b></td>
+</tr>
+<tr>
+  <td class="code"><b class="red">On</b>DoSomething()<br>(先頭が "On" )</td>
+  <td class="code">DoSomething<b class="blue">Command</b>()</td>
+  <td class="code">DoSomething<b class="blue">Command</b></td>
+</tr>
+</table>
 
-変更通知プロパティの変更直前、直後に処理を行いたい場合、部分メソッド<code>On####Changing()</code>、<code>On####Changed()</code>を定義しておくと、
-それぞれ実行されるようになる。
-( #### はプロパティ名)
+<div class=pre>なお、変更通知プロパティの変更直前、直後に処理を行いたい場合は、部分メソッド <code>On####Changing()</code> 、<code>On####Changed()</code> を定義する。
+( #### は Property を除くプロパティ名)
 </div>
 
 <div class=cs>
+<cmt>// バッキングフィールド</cmt>
 <knw>[ObservableProperty]</knw>
 <kwd>private string</kwd> name;
 
-<kwd>partial void</kwd> OnNameChanging(<kwd>string</kwd> name)
-    =&gt;<knw>Console</knw>.WriteLine(<ltr>$"Nameプロパティが </ltr>{name}<ltr> に変更されようとしてます"</ltr>);
+<cmt>// Name プロパティ( NameProperty )の変更直前処理</cmt>
+<kwd>partial void</kwd> OnNameChanging(<kwd>string</kwd> modified)
+    =&gt;<knw>Console</knw>.WriteLine(<ltr>$" Name プロパティが </ltr>{modified}<ltr> に変更されようとしています。"</ltr>);
 
-<kwd>partial void</kwd> OnNameChanged(<kwd>string</kwd> name)
-    =&gt;<knw>Console</knw>.WriteLine(<ltr>$"Nameプロパティが </ltr>{name}<ltr> に変更されました"</ltr>);
+<cmt>// Name プロパティ( NameProperty )の変更直後処理</cmt>
+<kwd>partial void</kwd> OnNameChanged(<kwd>string</kwd> modified)
+    =&gt;<knw>Console</knw>.WriteLine(<ltr>$" Name プロパティが </ltr>{modified}<ltr> に変更されました。"</ltr>);
 </div>
 
