@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a>
+
+<!-- 出典ページ -->
+<details><summary class=link>出典 :</summary>
+<div class=pre><a href="https://learn.microsoft.com/ja-jp/dotnet/desktop/wpf/data/how-to-implement-binding-validation">方法: バインド検証を実装する - WPF | Microsoft Learn</a>
+    <a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.controls.validationrule?view=windowsdesktop-8.0">ValidationRule クラス (System.Windows.Controls) | Microsoft Learn</a>
+    <a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.controls.validationstep?view=windowsdesktop-7.0">ValidationStep 列挙型 (System.Windows.Controls) | Microsoft Learn</a>
+    <a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.controls.notifydataerrorvalidationrule?view=windowsdesktop-6.0">NotifyDataErrorValidationRule クラス (System.Windows.Controls) | Microsoft Learn</a>
+    <a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.data.binding.validatesonnotifydataerrors?redirectedfrom=MSDN&view=windowsdesktop-6.0">Binding.ValidatesOnNotifyDataErrors プロパティ (System.Windows.Data) | Microsoft Learn</a>
+    <a href="https://blog.hn-pgtech.com/2024-11-14/">【C#/WPF】MVVMパターンで実装するTextBoxバリデーション手法の完全解説 | hn_pgtech</a>
+</div></details>
+
+<!-- 関連ページ -->
+<details><summary class=link>関連 :</summary>
+<div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/データバインディング.html">データバインディング</a>
+    <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/バインディングに関わるプロパティ.html">バインディングに関わるプロパティ</a>
+    <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/MVVMパターン.html">MVVMパターン</a>
+    <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/スタイル.html">スタイル</a>
+    <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/ControlTemplate.html">ControlTemplate</a>
+</div></details>
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+
+<h2>バリデーション(検証)</h2>
+<div class=pre>ユーザが入力した値の有効・無効を判定するとともに、無効な値が入力された旨をユーザに視覚的に通知することができる。
+</div>
+
+<h2>バリデーションの類型</h2>
+<div class=pre>バリデーションを View で行うか、ViewModel / Model で行うかによって実装が異なる。
+</div>
+
+<h3>View でのバリデーション</h3>
+
+<h4>Binding (単一プロパティ)単位</h4>
+<div class=pre>単一のプロパティに対してのチェックを行う。
+</div>
+
+<h6>検証ルールの定義 : RangeRule.cs</h6>
+<div class=pre><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\Validation\02.png" alt="画像">
+</div>
+
+<h6>View : ####.xaml (抜粋)</h6>
+<div class=pre><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\Validation\01.png" alt="画像">
+</div>
+
+<h6>解説</h6>
+<div class=pre>TextBox の入力値を検証する場合の例。検証ルールは <b>ValidationRule</b> を継承して作成する。
+    値の判定は <b>Validate()</b> メソッドで行う。Validate() はソース(ここでは Age プロパティ)の値が変化したタイミングでコールされる。
+    (UpateSourceTrigger="PropertyChanged" により、値は入力後即座に反映される。入力された値は第1引数 value に格納される。)
+    戻り値 ValidationResult 型のコンストラクタは第1引数に value の有効( true )・無効( false )、第2引数にエラーの内容をとる。
+    ValidationResult.ValidResult は ValidationResult(true, null) と等価。
+    View 内で完結し、実装も比較的単純だが、ViewModel を介さないためテストが難しいという欠点もある。
+</div>
+
+<h4>BindingGroup (複数プロパティ)単位</h4>
+<div class=pre>複数プロパティの相関チェックを行う。「保存時にまとめて検証を行う」場合に有効。
+</div>
+
+<h6>検証ルールの定義 : DateRangeRule.cs</h6>
+<div class=pre><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\Validation\03.png" alt="画像">
+</div>
+
+<h6>View : ####.xaml (抜粋)</h6>
+<div class=pre><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\Validation\04.png" alt="画像">
+</div>
+
+<h6>解説</h6>
+<div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/バインディングに関わるプロパティ.html">BindingGroup</a> (詳細はリンク先参照)を検証する場合の例。
+ValidationRule の適用時に <a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.controls.validationstep?view=windowsdesktop-7.0">ValidationStep</a> を指定し、検証( Validate() )が行われるタイミングを制御(ここではコミット時)する。
+</div>
+
+<h3>ViewModel / Model でのバリデーション</h3>
+
+<h4>INotifyDataErrorInfo</h4>
+現在のWPFで主流となっている手法。MVVMモデルと相性がよく、非同期のチェックにも対応している。
+
+<h6>ViewModel : PersonViewModel.cs</h6>
+<div class=pre><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\Validation\05.png" alt="画像">
+</div>
+
+<h6>View : ####.xaml (抜粋)</h6>
+<div class=pre><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\Validation\06.png" alt="画像">
+</div>
+
+<h6>解説</h6>
+<div class=pre>ViewModel または Model に <b>INotifyDataErrorInfo</b> を実装し、データバインディング時に <b>ValidatesOnNotifyDataErrors</b> を true に設定することで、
+    当該 ViewModel / Model に組み込まれた NotifyDataErrorValidationRule を ValidationRules に関連付けることができる。
+    <b>ErrorsChanged</b> イベント、<b>HasErrors</b> プロパティ、<b>GetErrors()</b> メソッドは、INotifyDataErrorInfo によって定義される。
+    ここでは PersonViewModel.Name の値が更新された際に検証を行い、不正な値であればエラー一覧にプロパティ名とエラーの内容のペアを追加するとともに、
+    ErrorsChanged イベントを発行し、エラー状態の変化を通知する。
+    すべての処理が ViewModel / Model で完結するためテストが容易である。
+    なお、以前は IDataErrorInfo が用いられていたが、より改良された INotifyDataErrorInfo によって置き換えられ、現在は推奨されていない。
+</div>
+
+<h2>エラーの表示 (Validation.ErrorTemplate)</h2>
+
+<h6>View : ####.xaml (抜粋)</h6>
+<div class=pre><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\Validation\07.png" alt="画像">
+</div>
+
+<h6>解説</h6>
+<div class=pre>ここでは、<b>ErrorTemplate</b> をスタイルとして定義している。TextBox の入力値が有効でない場合、エラー内容を赤字で表示する。
+    ControlTemplate を編集することで、表示方法をカスタマイズできる。
+    <b>AdornedElementPlaceholder</b> はバリデーションの対象となるコントロール(ここでは TextBox )の位置を表すプレースホルダである。
+    エラー内容を取得する際に Binding.ElementName を用いるため、AdornedElementPlaceholder.Name をそのまま用いる。
+</div>
+
+<h2>実装例</h2>
+
+<h3>#1 : TextBox</h3>
+
+<h6>画面表示</h6>
+<div class=pre><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\Validation\08.png" alt="画像">
+    有効な値は 0 以上 10 未満の数値で、それ以外が入力されると TextBox の枠を赤色とし、エラーの内容を TextBox の下に表示する。
+</div>
+
+<h6>View : MainWindow.xaml</h6>
+<div class=pre><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\Validation\09.png" alt="画像">
+</div>
+
+<h6>ValidationRule : TextBoxRule.cs</h6>
+<div class=pre><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\Validation\10.png" alt="画像">
+</div>
+
+<h6>ViewModel 基底クラス : ViewModelBase.cs</h6>
+<div class=pre><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\Validation\11.png" alt="画像">
+</div>
+
+<h6>ViewModel : SampleViewModel.cs</h6>
+<div class=pre><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\Validation\12.png" alt="画像">
+</div>
+
+<h6>解説</h6>
+<div class=pre>ここでは ValidationRule と INotifyDataErrorInfo それぞれを用いたバリデーションを行っている。検証内容は共通である。
+    ErrorTemplate は共通で、Window のリソースとして定義している。
+    INotifyDataErrorInfo は ViewModel に直接記述するのではなく、INotifyDataErrorInfo を実装した基底クラス( ViewModelBase )を作成している。
+    これによりボイラープレートの縮小を目論んでいる。
+    ValidateProperty() は抽象メソッドであるため、具象クラスでオーバーライドが必要である。
+    引数にとったプロパティ名に応じて処理を分化できるため、複数のプロパティを取り扱うことが可能である。
+</div>
+
+<h3>#2 : DataGrid</h3>
+(Under Construction...)
+
