@@ -21,11 +21,17 @@
 
 <!-- 出典ページ -->
 <details><summary class=link>出典 :</summary>
-<div class=pre><a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.data.bindinggroup?view=windowsdesktop-7.0">BindingGroup クラス (System.Windows.Data) | Microsoft Learn</a>
-    <a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.data.bindingbase.bindinggroupname?view=windowsdesktop-7.0">BindingBase.BindingGroupName プロパティ (System.Windows.Data) | Microsoft Learn</a>
+<div class=pre>    <a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.data.binding.bindsdirectlytosource?view=windowsdesktop-9.0">Binding.BindsDirectlyToSource プロパティ (System.Windows.Data) | Microsoft Learn</a>
+    <a href="https://learn.microsoft.com/ja-jp/uwp/api/windows.ui.xaml.data.binding.elementname?view=winrt-26100">Binding.ElementName プロパティ (Windows.UI.Xaml.Data) - Windows UWP applications | Microsoft Learn</a>
+<a href="https://learn.microsoft.com/ja-jp/windows/windows-app-sdk/api/winrt/microsoft.ui.xaml.data.relativesource?view=windows-app-sdk-1.8">RelativeSource Class (Microsoft.UI.Xaml.Data) - Windows App SDK | Microsoft Learn</a>
+    <a href="https://learn.microsoft.com/ja-jp/windows/apps/develop/platform/xaml/relativesource-markup-extension">RelativeSource マークアップ拡張 - Windows apps | Microsoft Learn</a>
     <a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.data.binding.updatesourcetrigger?view=windowsdesktop-10.0">Binding.UpdateSourceTrigger プロパティ (System.Windows.Data) | Microsoft Learn</a>
-    <a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.data.binding.bindsdirectlytosource?view=windowsdesktop-9.0">Binding.BindsDirectlyToSource プロパティ (System.Windows.Data) | Microsoft Learn</a>
+    <a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.data.bindinggroup?view=windowsdesktop-7.0">BindingGroup クラス (System.Windows.Data) | Microsoft Learn</a>
+    <a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.data.bindingbase.bindinggroupname?view=windowsdesktop-7.0">BindingBase.BindingGroupName プロパティ (System.Windows.Data) | Microsoft Learn</a>
     <a href="https://qiita.com/furugen/items/6201f74cf5d5a823d92b">Bindingの各プロパティ(UpdateSourceTrigger,Delay,NotifyOnSourceUpdated)の動作について #C# - Qiita</a>
+    <a href="https://zenn.dev/oyasumi731/articles/adf11b0087c4a3">[WPF]忘れがち！ModeとUpdateSourceTrigger</a>
+<a href="https://qiita.com/tera1707/items/73cda312b7cd9c4df40d">【WPF】RelativeSource(バインディング)の使い方メモ - Qiita</a>
+<a href="https://qiita.com/Yoshihara_Y/items/f8edb705fd7bbe445a7e">【備忘録】WPFにおけるRelativeSourceについて #WPF - Qiita</a>
     <a href="https://tnakamura.hatenablog.com/entry/20090825/wpf_binding_group">バインドしたデータの検証や更新を BindingGroup を使って一括で行う - present</a>
 </div></details>
 
@@ -33,6 +39,8 @@
 <details><summary class=link>関連 :</summary>
 <div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/データバインディング.html">データバインディング</a>
     <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/バリデーション.html">バリデーション</a>
+    <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/ControlTemplate.html">ControlTemplate</a>
+    <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/DataTemplate.html">DataTemplate</a>
 </div></details>
 
 <!-- 目次 -->
@@ -41,4 +49,228 @@
 <hr>
 
 <!-- 本文ここから -->
+
+<h2>BindsDirectlyToSource : オブジェクトそのものをバインドソースとするか</h2>
+<div class=pre>Binding.Path で指定するバインドソースを「オブジェクト( ViewModel / DataContext )の特定のプロパティ」ではなく「オブジェクトそのもの」としたい場合に使用する。
+<code>{Binding}</code> または <code>{Binding .}</code> と記述した場合もオブジェクトをそのまま渡すことができるが、この場合はプロパティ解決が行われることがある。
+このため、<b>「プロパティ解決の介入を避け、確実にオブジェクトを渡したい場合」</b>に用いる。
+但し、DataTemplate 内で DataContext が明確にデータアイテムとなっていれば <code>{Binding}</code> / <code>{Binding .}</code> でもオブジェクトが渡るため、特殊な場合を除き指定する必要は無い。
+</div>
+
+<h2>Mode : バインディングの方向</h2>
+<div class=pre>バインディングの方向と回数を指定する。BindingMode 列挙型。
+</div>
+
+<table>
+<tr class="row1">
+    <td class="col1">設定値</td>
+    <td>方向</td>
+    <td>回数</td>
+</tr>
+
+<tr>
+    <td class="col1 pre">OneWay
+    </td>
+    <td class>ソース ⇒ ターゲット</td>
+    <td class>無制限</td>
+</tr>
+
+<tr>
+    <td class="col1 pre">OneTime
+    </td>
+    <td class>ソース ⇒ ターゲット</td>
+    <td class>バインド構成時のみ</td>
+</tr>
+
+<tr>
+    <td class="col1 pre">OneWayToSource
+    </td>
+    <td class>ターゲット ⇒ ソース</td>
+    <td class>無制限</td>
+</tr>
+
+<tr>
+    <td class="col1 pre">TwoWay
+    </td>
+    <td class>双方向</td>
+    <td class>無制限</td>
+</tr>
+</table>
+
+<h2>ElementName : バインドソースとして使用する要素名</h2>
+<div class=pre>他のUI要素の Name または x:Name を指定し、そのUI要素をバインドソースとする。
+    これにより、UI要素間での値の共有が簡単に行える。RelativeSource とは排他。
+</div>
+
+<h6>例(XAML)</h6>
+<div class=xaml>
+&lt;<tag>Slider</tag> <prp>x:Name</prp>=<ltr>"slider1"</ltr> <prp>Minimum</prp>=<ltr>"1"</ltr> <prp>Maximum</prp>=<ltr>"100"</ltr>/&gt;
+&lt;<tag>TextBox</tag> <prp>Text</prp>=<ltr>"{Binding <prp>ElementName</prp>=slider1, <prp>Path</prp>=Value, <prp>Mode</prp>=TwoWay}"</ltr>/&gt;
+</div>
+
+<div class=pre>上記は、Slider と TextBox の両コントロール間で値を共有する例である。
+    Slider の x:Name に指定した名称を、TextBox の <b>Binding.ElementName</b> として指定し、
+</div>
+
+<ul>
+    <li>ソース : Slider.Value (slider1.Value)</li>
+    <li>ターゲット : TextBox.Text</li>
+</ul>
+
+<div class=pre>の双方向( <code>Mode=TwoWay</code> )バインディングを構成している。
+    これにより、Slider で選択した値が TextBox に表示されるとともに、TextBox に値を入力した場合も Slider に反映される。
+</div>
+
+<h2>RelativeSource : バインドソースとして使用する要素を相対的に指定</h2>
+<div class=pre>他のUI要素を相対的に指定してバインドソースとする。ElementName とは排他。
+</div>
+
+<h6>例(XAML)</h6>
+<div class=xaml>
+&lt;<tag>Binding</tag> <prp>RelativeSource</prp>=<ltr>"{RelativeSource TemplatedParent}"</ltr>/&gt;
+&lt;<tag>Binding</tag> <prp>RelativeSource</prp>=<ltr>"{RelativeSource Self}"</ltr>/&gt;
+&lt;<tag>Object</tag> <prp>property</prp>=<ltr>"{Binding <prp>RelativeSource</prp>={RelativeSource TemplatedParent} ...}"</ltr> ... /&gt;
+</div>
+
+<div class=pre>RelativeSource を指定する際は RelativeSource マークアップ拡張( <code>RelativeSource="{RelativeSource mode}"</code> )を用いる。
+<code>mode</code> には下表の参照モードを指定する。</div>
+
+<table class="pre">
+    <tr class="row1">
+        <td class="col1">参照モード
+            ( RelativeSource.Mode )
+        </td>
+        <td>説明</td>
+    </tr>
+
+    <tr>
+        <td class="col1">FindAncestor (既定値)</td>
+        <td>先祖のプロパティを参照</td>
+    </tr>
+
+    <tr>
+        <td class="col1">Self</td>
+        <td>自身のプロパティを参照</td>
+    </tr>
+
+    <tr>
+        <td class="col1">PreviousData</td>
+        <td>直前の要素のプロパティを参照</td>
+    </tr>
+
+    <tr>
+        <td class="col1">TemplatedParent</td>
+        <td>テンプレートの適用先(親)のプロパティを参照</td>
+    </tr>
+</table>
+
+<h3>FindAncestor : 先祖を参照</h3>
+<div class=pre>    指定された条件に合致するまで親要素を辿り、該当する要素のプロパティを参照する。
+</div>
+
+<table class="pre">
+<tr>
+<td class="col1">AncestorType</td>
+<td>参照先要素の型</td>
+<td class="center bg_lr">必須</td>
+</tr>
+
+<tr>
+<td class="col1">AncestorLevel</td>
+<td>自身を基準として、何番目の AncestorType を参照するか(既定値 : 1 )</td>
+<td class="center bg_lg">省略可能</td>
+</tr>
+</table>
+
+<h6>例(XAML)</h6>
+<div class=pre><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\Binding_Property\01.png" alt="画像">
+    AncestorType (ここでは Canvas )に該当する要素が見つかるまで親を辿り、見つかった AncestorType をバインドソースとする。
+    AncestorLevel に n (自然数)を指定した場合「 n 番目に見つかった AncestorType 」をバインドソースとする。AncestorLevel は省略可能で、既定値は 1 である。
+    上記のコードでは最初に見つかった Canvas の ActualWidth 、ActualHeight を Border の Width および Height とバインドする。
+    Border の下位にある InkCanvas も同様である。
+</div>
+
+<h3>TemplatedParent : テンプレートの親を参照</h3>
+<div class=pre><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\Binding_Property\02.png" alt="画像">
+        <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/DataTemplate.html">DataTemplate</a> 内部から、当該テンプレートを適用した要素のプロパティを参照する際に用いる。
+        上記のコードではテンプレート( <code>TargetType="Button"</code> )中で TemplatedParent を用いているため、テンプレートが適用された Button の Content プロパティがバインドソースとなる。
+</div>
+
+
+<h2>UpdateSourceTrigger : バインドソースを更新する契機</h2>
+<div class=pre>バインディングターゲットの値が変更された際に、内容をソースに反映するタイミングを制御する。UpdateSourceTrigger 列挙型。
+    通常、多くのコントロールではターゲットの変更が即座に反映されるが、Text プロパティは例外的にコントロールがフォーカスを失った際に反映される。
+    このため TextBox の入力を<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/バリデーション.html">検証</a>したり、入力に連動してコントロールの状態を変更する場合などはこのプロパティを変更し、ソースの変更が即座に行われるようにする。
+</div>
+
+<table>
+<tr class="row1">
+    <td class="col1">設定値</td>
+    <td>説明</td>
+    <td>備考</td>
+</tr>
+
+<tr>
+    <td class="col1 pre">Default (既定値)
+    </td>
+    <td class="pre">ターゲットプロパティごとの既定値を適用
+    </td>
+    <td class="pre">Text プロパティは LostFocus、それ以外は PropertyChanged
+    </td>
+</tr>
+
+<tr>
+    <td class="col1 pre">PropertyChanged
+    </td>
+    <td class="pre">ターゲットの変更を即座にソースに反映
+    </td>
+    <td class="pre">
+    </td>
+</tr>
+
+<tr>
+    <td class="col1 pre">LostFocus
+    </td>
+    <td class="pre">コントロールがフォーカスを失った際に反映
+    </td>
+    <td class="pre">
+    </td>
+</tr>
+
+<tr>
+    <td class="col1 pre">Explicit
+    </td>
+    <td class="pre">UpdateSource() メソッドがコールされた際に反映
+    </td>
+    <td class="pre">
+    </td>
+</tr>
+</table>
+
+<h2>Delay : ソース更新前の待機時間</h2>
+<div class=pre>ソースを更新する契機の発生後、指定された時間だけ待機してからソースを更新する。ミリ秒単位で指定。
+</div>
+
+<h2>NotifyOnSourceUpdated / <br>NotifyOnTargetUpdated : プロパティ更新時にイベントを発行するか</h2>
+ソースおよびターゲットの更新時にイベントを発行する場合に指定する。
+
+<table class="pre">
+    <tr class="row1">
+        <td class="col1"></td>
+        <td>説明</td>
+        <td>発生するイベント</td>
+    </tr>
+
+    <tr>
+        <td class="col1">NotifyOnSourceUpdated</td>
+        <td>ソース更新時にイベントを発行する</td>
+        <td>Binding.SourceUpdated</td>
+    </tr>
+
+    <tr>
+        <td class="col1">NotifyOnTargetUpdated</td>
+        <td>ターゲット更新時にイベントを発行する</td>
+        <td>Binding.TargetUpdated</td>
+    </tr>
+</table>
 

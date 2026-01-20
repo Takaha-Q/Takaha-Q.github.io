@@ -129,11 +129,7 @@ ValidationRule の適用時に <a href="https://learn.microsoft.com/ja-jp/dotnet
     エラー内容を取得する際に Binding.ElementName を用いるため、AdornedElementPlaceholder.Name をそのまま用いる。
 </div>
 
-<h2>実装例</h2>
-
-<h3>#1 : TextBox</h3>
-
-<h6>画面表示</h6>
+<h2>実装例 : TextBox</h3>
 <div class=pre><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\Validation\08.png" alt="画像">
     有効な値は 0 以上 10 未満の数値で、それ以外が入力されると TextBox の枠を赤色とし、エラーの内容を TextBox の下に表示する。
 </div>
@@ -162,7 +158,4 @@ ValidationRule の適用時に <a href="https://learn.microsoft.com/ja-jp/dotnet
     ValidateProperty() は抽象メソッドであるため、具象クラスでオーバーライドが必要である。
     引数にとったプロパティ名に応じて処理を分化できるため、複数のプロパティを取り扱うことが可能である。
 </div>
-
-<h3>#2 : DataGrid</h3>
-(Under Construction...)
 
