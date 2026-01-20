@@ -145,7 +145,7 @@
 
     <tr>
         <td class="col1">FindAncestor (既定値)</td>
-        <td>先祖のプロパティを参照</td>
+        <td>先祖のプロパティを参照(後述)</td>
     </tr>
 
     <tr>
@@ -160,7 +160,7 @@
 
     <tr>
         <td class="col1">TemplatedParent</td>
-        <td>テンプレートの適用先(親)のプロパティを参照</td>
+        <td>テンプレートの適用先(親)のプロパティを参照(後述)</td>
     </tr>
 </table>
 
@@ -168,34 +168,47 @@
 <div class=pre>    指定された条件に合致するまで親要素を辿り、該当する要素のプロパティを参照する。
 </div>
 
-<table class="pre">
-<tr>
-<td class="col1">AncestorType</td>
-<td>参照先要素の型</td>
-<td class="center bg_lr">必須</td>
+<dl>
+    <dt>AncestorType</dt><dd>参照先要素の型</dd>
+    <dt>AncestorLevel</dt><dd>自身を基準として、何番目の要素を参照するか</dd>
+</dl>
+
+<table class="pre center">
+<tr height="36">
+<td class="col1" rowspan="2" colspan="2"></td>
+<th colspan="2">AncestorLevel</th>
 </tr>
 
-<tr>
-<td class="col1">AncestorLevel</td>
-<td>自身を基準として、何番目の AncestorType を参照するか(既定値 : 1 )</td>
-<td class="center bg_lg">省略可能</td>
+<tr class="row1" height="36">
+<td>n (1以上の自然数)</td>
+<td>指定なし</td>
+</tr>
+
+<tr height="36">
+<th rowspan="2" width="135">AncestorType</th>
+<td class="col1" width="135">T (UI要素の型)</td>
+<td width="135">n 番目に見つかった T</td>
+<td width="135">最初に見つかった T</td>
+</tr>
+
+<tr height="36">
+<td class="col1">指定なし</td>
+<td>n 番目の要素</td>
+<td>直接の親</td>
 </tr>
 </table>
 
 <h6>例(XAML)</h6>
 <div class=pre><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\Binding_Property\01.png" alt="画像">
-    AncestorType (ここでは Canvas )に該当する要素が見つかるまで親を辿り、見つかった AncestorType をバインドソースとする。
-    AncestorLevel に n (自然数)を指定した場合「 n 番目に見つかった AncestorType 」をバインドソースとする。AncestorLevel は省略可能で、既定値は 1 である。
     上記のコードでは最初に見つかった Canvas の ActualWidth 、ActualHeight を Border の Width および Height とバインドする。
     Border の下位にある InkCanvas も同様である。
 </div>
 
 <h3>TemplatedParent : テンプレートの親を参照</h3>
 <div class=pre><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\Binding_Property\02.png" alt="画像">
-        <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/DataTemplate.html">DataTemplate</a> 内部から、当該テンプレートを適用した要素のプロパティを参照する際に用いる。
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/ControlTemplate.html">ControlTemplate</a> または <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/DataTemplate.html">DataTemplate</a> 内部から、当該テンプレートを適用した要素のプロパティを参照する際に用いる。
         上記のコードではテンプレート( <code>TargetType="Button"</code> )中で TemplatedParent を用いているため、テンプレートが適用された Button の Content プロパティがバインドソースとなる。
 </div>
-
 
 <h2>UpdateSourceTrigger : バインドソースを更新する契機</h2>
 <div class=pre>バインディングターゲットの値が変更された際に、内容をソースに反映するタイミングを制御する。UpdateSourceTrigger 列挙型。

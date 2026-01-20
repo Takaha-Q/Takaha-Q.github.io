@@ -30,6 +30,7 @@
 <!-- 関連 -->
 <details><summary class=link>関連 :</summary>
 <div class=pre><a href="TIPS/03_フレームワーク/01_dotNET/01_型・クラス/コレクション.html">コレクション</a>
+    <a href="DataGrid.html">DataGrid</a>
     <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/ControlTemplate.html">ControlTemplate</a>
     <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/DataTemplate.html">DataTemplate</a>
 </div></details>
@@ -47,7 +48,7 @@
 <h3>他のコントロールとの関係</h3>
 <div class=pre>ItemsControl は DataGrid 、ListBox 、ComboBox の基底クラスであり、コレクションを取り扱う点で共通している。
     通常、ListBox や ComboBox はコレクションを一次元に、DataGrid は二次元に展開するが、ItemsControl はそのいずれもが可能で汎用性が高い。
-    ( ListBox や ComboBox でも表示形式を指定することでコレクションを二次元に展開することができる。)
+    ( ListBox も表示形式を指定することでコレクションを二次元に展開することができる。)
     また DataGrid は個々のマスをオブジェクト化するため、大量のデータを取り扱うと処理負荷が増大するが、ItemsControl は比較的軽量である。
 </div>
 
@@ -77,13 +78,13 @@
 ここでは ItemsControl.Template に土台( ContentTemplate )を、ItemsControl.ItemTemplate に各行の表示形式( DataTemplate )を指定している。
 </div>
 
-<h2>例2 : Template と ItemTemplate を指定</h2>
+<h2>例2 : ItemTemplate と ItemsPanelTemplate を指定</h2>
 
 <h6>View : ####.xaml (抜粋)</h6>
 <div class=pre><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\ItemsControl\05.png" alt="画像">
 </div>
 
-<h6>実際の表示</h6>
+<h6>表示イメージ(枠内は ItemsSource のインデクス)</h6>
 <div class=pre><img src="https://raw.githubusercontent.com/Takaha-Q/Takaha-Q.github.io/main/_Img\WPF\ItemsControl\06.png" alt="画像">
 </div>
 
