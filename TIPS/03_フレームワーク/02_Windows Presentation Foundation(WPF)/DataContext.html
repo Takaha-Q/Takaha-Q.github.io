@@ -113,6 +113,17 @@
     Window のタグ中で d:DataContext の指定を併せて行っておくと、デザイナから ViewModel を参照でき、IntelliSenseの支援が受けられる。
 注意が必要な点として、XAMLから DataContext の指定を行う場合、<b>呼び出せる ViewModel のコンストラクタはデフォルトコンストラクタ(引数の無いコンストラクタ)に限定される</b>。
 このため、デフォルトコンストラクタ以外を呼びたい場合はコードビハインドで指定を行うなどの回避策をとる必要がある。
+
+DataContext の指定を Window タグに含めることも可能である。
+</div>
+
+<div class="xaml">
+&lt;<tag>Window</tag>
+        (略)
+        <prp>DataContext</prp>=<ltr>"local:MainViewModel"</ltr>
+        (略)
+&gt;
+(略)
 </div>
 
 <h4>コードビハインドで行う場合</h4>
