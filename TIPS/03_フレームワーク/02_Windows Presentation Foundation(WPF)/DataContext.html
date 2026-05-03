@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+
+<!-- 基準URI -->
+<base href="https://takaha-q.github.io/">
+
+<!-- スタイルシート -->
+<link rel="stylesheet" href="Sytle001.css" type="text/css">
+
+<!-- スクリプト -->
+<!-- タイトル表示 -->
+<script src="MakeTitle.js" type="text/javascript"></script>
+
+<!-- 目次表示 -->
+<script src="MakeToc_L.js" type="text/javascript"></script>
+
+<!-- ページタイトル(ページ内表示) -->
+<span id="title"></span>
+
+<!-- リンク(ホームに戻る) -->
+<a href="index.html">ホームに戻る</a>
+
+<!-- 出典ページ -->
+
+<!-- 関連ページ -->
+<details><summary class=link>関連 :</summary>
+<div class=pre><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/MVVMパターン.html">MVVMパターン</a>
+    <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/MVVM Toolkit.html">MVVM Toolkit</a>
+    <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/INotifyPropertyChanged.html">変更通知プロパティ</a>
+    <a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/コマンド(ICommand).html">コマンド</a>
+</div></details>
+
+<!-- 目次 -->
+<h5>目次 :</h5>
+<div id="toc"></div>
+<hr>
+
+<!-- 本文ここから -->
+<h2>DataContext とは</h2>
+<div class="pre"><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/MVVMパターン.html">MVVMパターン</a> における ViewModel を担うクラスで、View ( Window または UserControl )のプロパティとして設定する。
+    この DataContext を介して、View と ViewModel が接続される。
+</div>
+
+<h2>DataContext ( ViewModel )の実装</h2>
+<div class=pre>DataContext における重要な要素は以下の2つ。
+</div>
+<dl>
+    <dt><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/INotifyPropertyChanged.html">変更通知プロパティ</a></dt>
+    <dd>ViewModel のプロパティ変化を View に通知</dd>
+
+    <dt><a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/コマンド(ICommand).html">コマンド</a></dt>
+    <dd>View の操作を ViewModel に通知</dd>
+</dl>
+
+<div class="pre">ユーザの操作はUI( View )に対して行われるが、UIに関する処理は ViewModel ( DataContext )で完結させるのがMVVMパターンにおける原則である。
+    (コードビハインドの記述を最小限に留める。通常、コードビハインドにはコンストラクタしか記述されない。)
+    ただし、コードビハインドでの処理が適する場合も存在する。
+        
+    Visual Studioで Window や UserControl を作成した際、View (XAMLとコードビハインドの対)は作成されるが、ViewModel はいかなる場合も自動では作成されない(MVVMに準拠した構成とならない)。
+    (このため、コードビハインドが ViewModel だと誤解されることも多いが誤りである。)
+
+変更通知プロパティやコマンドを含めた ViewModel の実装を自力で行うと記述が非常に煩雑となるが、
+<a href="TIPS/03_フレームワーク/02_Windows Presentation Foundation(WPF)/MVVM Toolkit.html">MVVM Toolkit</a>等のライブラリを活用することでコードの記述を大幅に削減できる。
+</div>
+
+<h2>View と ViewModel の結合( DataContext の指定)</h2>
+<div class=pre>任意のクラスを ViewModel として新たに作成し、View の DataContext に指定する。
+</div>
+
+<h3>ViewModel の作成</h3>
+
+<h6>ViewModel : MainViewModel.cs</h6>
+
+<div class="cs">
+<kwd>namespace</kwd> Sample
+{
+    <cmt>// ViewModel の本体</cmt>
+    <kwd>class</kwd> MainViewModel
+    {
+        <cmt>// プロパティ</cmt>
+        <kwd>public string</kwd> Message { <kwd>get</kwd>; <kwd>set</kwd>; } = <ltr>"サンプルメッセージ"</ltr>;
+    }
+}
+</div>
+
+<h3>DataContext の指定</h3>
+<h4>XAMLで行う場合</h4>
+
+<h6>View : MainWindow.xaml</h6>
+
+<div class="xaml">
+&lt;<tag>Window</tag> <prp>x:Class</prp>=<ltr>"BucketRelay.MainWindow"</ltr>
+        <prp>xmlns</prp>=<ltr>"http://schemas.microsoft.com/winfx/2006/xaml/presentation"</ltr>
+        <prp>xmlns:x</prp>=<ltr>"http://schemas.microsoft.com/winfx/2006/xaml"</ltr>
+        <prp>xmlns:d</prp>=<ltr>"http://schemas.microsoft.com/expression/blend/2008"</ltr>
+        <prp>xmlns:mc</prp>=<ltr>"http://schemas.openxmlformats.org/markup-compatibility/2006"</ltr>
+        <prp>xmlns:local</prp>=<ltr>"clr-namespace:BucketRelay"</ltr>
+        <prp>mc:Ignorable</prp>=<ltr>"d"</ltr>
+        <prp>d:DataContext</prp>=<ltr>"{d:DesignInstance Type=local:MainViewModel}"</ltr>       <cmt>&lt;!-- デザイナ上で MainViewModel を参照する際に指定 --&gt;</cmt>
+        (略)
+&gt;
+    <cmt>&lt;!-- MainViewModel を DataContext に設定 --&gt;</cmt>
+    &lt;<tag>Window.DataContext</tag>&gt;
+        &lt;<tag>local</tag>:MainViewModel /&gt;
+    &lt;/<tag>Window.DataContext</tag>&gt;
+
+    :
+
+    <cmt>&lt;!-- TextBlock.Text を DataContext ( MainViewModel )の Message とバインド --&gt;</cmt>
+    &lt;<tag>TextBlock</tag> <prp>Text</prp>=<ltr>"{Binding Message}"</ltr> /&gt;
+</div>
+
+<div class=pre>ここでは MainViewModel を Window の DataContext として設定している。
+    Window のタグ中で d:DataContext の指定を併せて行っておくと、デザイナから ViewModel を参照でき、IntelliSenseの支援が受けられる。
+注意が必要な点として、XAMLから DataContext の指定を行う場合、<b>呼び出せる ViewModel のコンストラクタはデフォルトコンストラクタ(引数の無いコンストラクタ)に限定される</b>。
+このため、デフォルトコンストラクタ以外を呼びたい場合はコードビハインドで指定を行うなどの回避策をとる必要がある。
+</div>
+
+<h4>コードビハインドで行う場合</h4>
+
+<h6>View : MainWindow.xaml.cs</h6>
+
+<div class="cs">
+<kwd>namespace</kwd> Sample
+{
+    <kwd>public partial class</kwd> MainWindow : <knw>Window</knw>
+    {
+        <cmt>// コンストラクタ</cmt>
+        <kwd>public</kwd> MainWindow()
+        {
+            InitializeComponent();
+            <kwd>this</kwd>.DataContext = <kwd>new</kwd> MainViewModel();
+        }
+    }
+}
+</div>
+
+<div class=pre>DataContext の指定はコードビハインドから行うことも可能である(通常はXAMLから行うことが推奨される)。
+その場合はコンストラクタ中で ViewModel のインスタンスを DataContext に代入する。
+前述の通り ViewModel がデフォルトコンストラクタを持たない場合はXAMLからの指定ができないため、コードビハインドで行う。
+</div>
